@@ -1,0 +1,151 @@
+name: KCN
+order: 2
+description: FDI và cầu thuê, sản xuất và thương mại, chi phí vốn và rủi ro, chi phí
+  đầu vào.
+rows:
+- code: fdi_registered_ytd
+  pillar: FDI và cầu thuê
+  method: absolute
+  cuts:
+  - -25.0
+  - -10.0
+  - 10.0
+  - 25.0
+  side: below
+  description: FDI đăng ký, tổng 12 tháng so cùng kỳ, dẫn trước cầu thuê đất 6–18
+    tháng (khoảng 80% vào chế tạo). Lịch sử đủ 12 tháng chỉ từ 12/2023 nên mốc rộng.
+  measure:
+    kind: sum12_pct
+    ytd: 1.0
+- code: pmi_vn
+  pillar: Sản xuất và thương mại
+  method: absolute
+  cuts:
+  - 47.0
+  - 49.0
+  - 50.0
+  - 52.0
+  side: below
+  description: 50 là ranh giới mở rộng. 4/2025 xuống 45,6 khi Mỹ công bố thuế.
+- code: export_yoy
+  pillar: Sản xuất và thương mại
+  method: absolute
+  cuts:
+  - 0.0
+  - 5.0
+  - 10.0
+  - 15.0
+  side: below
+  description: Xuất khẩu so cùng kỳ, trung bình 3 tháng để bỏ nhiễu Tết.
+  measure:
+    kind: mean
+    n: 3
+    unit: period
+- code: gdp_yoy_published
+  pillar: Sản xuất và thương mại
+  method: absolute
+  cuts:
+  - 5.0
+  - 6.0
+  - 7.0
+  - 8.0
+  side: below
+  description: Tăng trưởng chung; mục tiêu 2026 là 10% (năm 2025 là 8%).
+- code: deposit_12m_big4
+  pillar: Chi phí vốn và rủi ro
+  method: absolute
+  cuts:
+  - 4.75
+  - 5.5
+  - 6.25
+  - 7.0
+  side: above
+  description: Lãi huy động 12 tháng Big4, đi trước lãi vay mua nhà 1–2 quý. 10 năm
+    qua P10 ≈ 4,7%, P90 ≈ 6,8%; 11/2022 lên 7,4%.
+- code: govbond_10y
+  pillar: Chi phí vốn và rủi ro
+  method: absolute
+  cuts:
+  - -0.5
+  - 0.0
+  - 0.5
+  - 1.0
+  side: above
+  description: Thay đổi lợi suất TPCP 10 năm trong 12 tháng (điểm %). Chấm theo thay
+    đổi vì mức có xu hướng. 11/2022 tăng 2,9 điểm %.
+  measure:
+    kind: change
+    n: 1
+    unit: year
+- code: effr
+  pillar: Chi phí vốn và rủi ro
+  info: true
+  method: absolute
+  cuts:
+  - 1.0
+  - 2.5
+  - 4.0
+  - 5.0
+  side: above
+  description: Tham khảo, không tính điểm. Lãi suất Fed hiệu dụng; cột Kế hoạch /
+    Dự báo là mức kỳ vọng theo FedWatch (CME) ở kỳ họp cuối năm, tính bằng biên dưới
+    kỳ vọng + 8 bps.
+- code: dxy
+  pillar: Chi phí vốn và rủi ro
+  method: absolute
+  cuts:
+  - -5.0
+  - 0.0
+  - 5.0
+  - 10.0
+  side: above
+  description: USD mạnh (so cùng kỳ) hút vốn khỏi thị trường mới nổi, gây áp lực tỷ
+    giá.
+  measure:
+    kind: pct_change
+    n: 1
+    unit: year
+- code: vix
+  pillar: Chi phí vốn và rủi ro
+  method: absolute
+  cuts:
+  - 15.0
+  - 20.0
+  - 25.0
+  - 30.0
+  side: above
+  description: Biến động thị trường Mỹ, trung bình 21 phiên. Trên 30 là căng thẳng,
+    nhà đầu tư hoãn mở nhà máy mới.
+  measure:
+    kind: mean
+    n: 21
+    unit: period
+- code: copper
+  pillar: Chi phí đầu vào
+  method: absolute
+  cuts:
+  - -15.0
+  - -5.0
+  - 10.0
+  - 25.0
+  side: above
+  description: Giá đồng LME so cùng kỳ, đại diện chi phí vật liệu xây nhà xưởng.
+  measure:
+    kind: pct_change
+    n: 1
+    unit: year
+- code: brent
+  pillar: Chi phí đầu vào
+  method: absolute
+  cuts:
+  - -20.0
+  - -5.0
+  - 15.0
+  - 40.0
+  side: above
+  description: 'Giá dầu Brent so cùng kỳ: năng lượng và logistics. Dầu biến động mạnh
+    nên mốc rộng.'
+  measure:
+    kind: pct_change
+    n: 1
+    unit: year

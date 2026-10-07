@@ -1,0 +1,16 @@
+# Ví dụ ghi đè. Đổi đuôi thành .yaml để có hiệu lực.
+cpi_yoy:
+  method: absolute
+  cuts: [3.5, 4.0, 4.5]
+  side: above
+  description: Mục tiêu điều hành của NHNN khoảng 4,5%
+deposit_12m_big4:
+  method: percentile
+  window_years: 5
+  cuts: [25, 40]
+  side: both
+  description: Ngoài khoảng P25–P75 của 5 năm là vàng, ngoài P10–P90 là đỏ
+gdp_yoy_published:
+  method: absolute
+  cuts: [5.0, 6.0, 7.0]
+  side: below

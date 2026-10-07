@@ -1,0 +1,17 @@
+# Tham số app — chỉnh ở đây, không hardcode trong code.
+trend:
+  # Hướng của biến = giá trị mới nhất so với trung bình N kỳ trước (theo tần suất)
+  lookback_periods: {D: 63, W: 13, M: 3, Q: 2, A: 1}
+  # |thay đổi| nhỏ hơn flat_std_ratio × độ lệch chuẩn thay đổi kỳ (5 năm) → "đi ngang"
+  flat_std_ratio: 0.25
+change:
+  # Chuỗi ngày: dòng "thay đổi" so với giá trị cách đây N ngày (so kỳ trước theo ngày quá nhiễu)
+  daily_window_days: 30
+quality:
+  stale_days: {D: 7, W: 21, M: 62, Q: 184, A: 731}   # ≈ 2 lần tần suất (ngày: 7 để tránh cuối tuần/lễ)
+  gap_lookback_years: 3
+  gap_min_consecutive: 2
+  anomaly_abs_z: 4.0
+  rebase_yoy_jump_pp: 15.0      # GDP: YoY kỳ mới lệch > 15 điểm % so TB 12 quý trước → "nghi đổi năm gốc"
+history:
+  recent_change_days: 30

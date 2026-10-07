@@ -1,0 +1,90 @@
+name: Chính sách Việt Nam 2026
+description: Mốc theo mục tiêu Quốc hội và định hướng NHNN năm 2026.
+items:
+  cpi_yoy:
+    method: absolute
+    cuts:
+    - 3.5
+    - 4.0
+    - 4.5
+    side: above
+    description: Quốc hội đặt mục tiêu CPI bình quân 2026 khoảng 4,5% (NQ 244/2025/QH15).
+      Trên 4,5% là vượt mục tiêu.
+  cpi_avg_ytd:
+    method: absolute
+    cuts:
+    - 4.0
+    - 4.5
+    side: above
+    description: So với mục tiêu CPI bình quân 2026 khoảng 4,5% (NQ 244/2025/QH15).
+  gdp_yoy_published:
+    method: absolute
+    cuts:
+    - 6.0
+    - 8.0
+    - 10.0
+    side: below
+    description: Mục tiêu tăng trưởng 2026 từ 10% trở lên (NQ 244/2025/QH15). Dưới
+      6% là giảm tốc rõ.
+  credit_yoy:
+    method: absolute
+    cuts:
+    - 12.0
+    - 15.0
+    side: below
+    description: NHNN định hướng tín dụng 2026 khoảng 15% (Chỉ thị 01/CT-NHNN). Dưới
+      12% là thanh khoản cho BĐS bị thắt.
+  fx_central_ytd:
+    method: absolute
+    cuts:
+    - 2.0
+    - 3.0
+    - 4.0
+    side: above
+    description: Biên độ tỷ giá ±5% quanh tỷ giá trung tâm. VND mất giá trên 3% từ
+      đầu năm là áp lực lên lãi suất.
+  deposit_12m_big4:
+    method: percentile
+    window_years: 5
+    cuts:
+    - 50.0
+    - 75.0
+    - 90.0
+    side: above
+    description: Vị trí so với 5 năm gần nhất. Trên P75 là chi phí vốn cao so với
+      lịch sử gần.
+  interbank_on:
+    method: absolute
+    cuts:
+    - 4.5
+    - 6.0
+    side: above
+    description: So với lãi suất tái cấp vốn 4,5%. Liên ngân hàng qua đêm trên 6%
+      là thanh khoản căng.
+  real_rate:
+    method: absolute
+    cuts:
+    - 1.0
+    - 2.0
+    - 3.0
+    side: above
+    description: Lãi suất thực dương cao làm chi phí vay mua nhà đắt hơn. Trên 3%
+      là thắt chặt.
+  pmi_vn:
+    method: absolute
+    cuts:
+    - 48.0
+    - 50.0
+    - 52.0
+    side: below
+    description: 50 là ranh giới mở rộng và thu hẹp sản xuất (S&P Global). Dưới 48
+      là thu hẹp rõ.
+  govbond_10y:
+    method: percentile
+    window_years: 5
+    cuts:
+    - 50.0
+    - 75.0
+    - 90.0
+    side: above
+    description: Vị trí so với 5 năm gần nhất. Lợi suất cao kéo theo lãi vay dài hạn.

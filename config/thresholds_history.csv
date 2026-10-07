@@ -1,0 +1,28 @@
+at,user,code,old,new
+2026-10-06T15:23:36,local,fed_upper,"{cuts: [50.0, 75.0, 90.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất.,
+  method: percentile, side: above, window_years: 5}","{cuts: [15.0, 30.0, 45.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất.,
+  method: percentile, side: both, window_years: 5}"
+2026-10-06T15:23:45,local,fed_upper,"{cuts: [15.0, 30.0, 45.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất.,
+  method: percentile, side: both, window_years: 5}","{cuts: [15.0, 45.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., method: percentile,
+  side: both, window_years: 5}"
+2026-10-06T15:24:02,local,fed_upper,"{cuts: [15.0, 45.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., method: percentile,
+  side: both, window_years: 5}","{cuts: [15.0, 45.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: pct_change, n: 3, unit: day}, method: percentile, side: both, window_years: 5}"
+2026-10-06T15:24:05,local,fed_upper,"{cuts: [15.0, 45.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: pct_change, n: 3, unit: day}, method: percentile, side: both, window_years: 5}","{cuts: [15.0, 45.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: change, n: 3, unit: day}, method: percentile, side: both, window_years: 5}"
+2026-10-06T15:24:33,local,fed_upper,"{cuts: [15.0, 45.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: change, n: 3, unit: day}, method: percentile, side: both, window_years: 5}","{cuts: [0.0, 1.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: change, n: 3, unit: day}, method: absolute, side: above}"
+2026-10-06T15:24:56,local,fed_upper,"{cuts: [0.0, 1.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: change, n: 3, unit: day}, method: absolute, side: above, window_years: 5}","{cuts: [0.0, 1.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: change, n: 3, unit: period}, method: absolute, side: above}"
+2026-10-06T15:25:01,local,fed_upper,"{cuts: [0.0, 1.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: change, n: 3, unit: period}, method: absolute, side: above, window_years: 5}","{cuts: [0.0, 1.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: change, n: 3, unit: year}, method: absolute, side: above}"
+2026-10-06T15:25:18,local,fed_upper,"{cuts: [0.0, 1.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., measure: {
+    kind: change, n: 3, unit: year}, method: absolute, side: above, window_years: 5}","{cuts: [0.0, 1.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., method: absolute,
+  side: above}"
+2026-10-06T15:26:15,local,fed_upper,"{cuts: [0.0, 1.0], description: Vị trí lãi suất Fed so với 5 năm gần nhất., method: absolute,
+  side: above, window_years: 5}","{cuts: [4.5, 4.75, 5.25, 5.5], description: Vị trí lãi suất Fed so với 5 năm gần nhất.,
+  method: absolute, side: above}"

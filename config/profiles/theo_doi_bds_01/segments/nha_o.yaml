@@ -1,0 +1,139 @@
+name: Nhà ở
+order: 1
+description: Chi phí vốn, tín dụng và thanh khoản, cầu và thu nhập, ổn định vĩ mô,
+  hạ tầng.
+rows:
+- code: deposit_12m_big4
+  pillar: Chi phí vốn
+  method: absolute
+  cuts:
+  - 4.75
+  - 5.5
+  - 6.25
+  - 7.0
+  side: above
+  description: Lãi huy động 12 tháng Big4, đi trước lãi vay mua nhà 1–2 quý. 10 năm
+    qua P10 ≈ 4,7%, P90 ≈ 6,8%; 11/2022 lên 7,4%.
+- code: govbond_10y
+  pillar: Chi phí vốn
+  method: absolute
+  cuts:
+  - -0.5
+  - 0.0
+  - 0.5
+  - 1.0
+  side: above
+  description: Thay đổi lợi suất TPCP 10 năm trong 12 tháng (điểm %). Chấm theo thay
+    đổi vì mức có xu hướng. 11/2022 tăng 2,9 điểm %.
+  measure:
+    kind: change
+    n: 1
+    unit: year
+- code: effr
+  pillar: Chi phí vốn
+  info: true
+  method: absolute
+  cuts:
+  - 1.0
+  - 2.5
+  - 4.0
+  - 5.0
+  side: above
+  description: Tham khảo, không tính điểm. Lãi suất Fed hiệu dụng; cột Kế hoạch /
+    Dự báo là mức kỳ vọng theo FedWatch (CME) ở kỳ họp cuối năm, tính bằng biên dưới
+    kỳ vọng + 8 bps.
+- code: interbank_on
+  pillar: Tín dụng và thanh khoản
+  method: absolute
+  cuts:
+  - 2.0
+  - 3.0
+  - 4.0
+  - 5.0
+  side: above
+  description: 'Thanh khoản hệ thống: lãi qua đêm liên ngân hàng, trung bình 20 phiên
+    để bỏ gai mùa vụ (Tết 2026 có phiên 17%). 11/2022 khoảng 5,5%.'
+  measure:
+    kind: mean
+    n: 20
+    unit: period
+- code: gdp_yoy_published
+  pillar: Cầu và thu nhập
+  method: absolute
+  cuts:
+  - 5.0
+  - 6.0
+  - 7.0
+  - 8.0
+  side: below
+  description: Tăng trưởng kéo thu nhập và sức mua nhà. Mục tiêu 2026 là 10% (năm
+    2025 là 8%).
+- code: cpi_yoy
+  pillar: Ổn định vĩ mô
+  method: absolute
+  cuts:
+  - 2.5
+  - 3.5
+  - 4.5
+  - 5.5
+  side: above
+  description: Mục tiêu CPI 2026 khoảng 4,5%. Lạm phát cao làm khó hạ lãi suất.
+- code: cpi_housing_yoy
+  pillar: Ổn định vĩ mô
+  method: absolute
+  cuts:
+  - 3.0
+  - 5.0
+  - 7.0
+  - 9.0
+  side: above
+  description: 'CPI nhà ở và vật liệu xây dựng: chi phí xây và chi phí ở. 2023 dao
+    động 5–8%.'
+- code: fx_central
+  pillar: Ổn định vĩ mô
+  method: absolute
+  cuts:
+  - 1.0
+  - 2.0
+  - 3.0
+  - 5.0
+  side: above
+  description: Tỷ giá trung tâm so cùng kỳ, dương là VND mất giá. Biên độ giao dịch
+    ±5%.
+  measure:
+    kind: pct_change
+    n: 1
+    unit: year
+- code: credit_ytd
+  pillar: Tín dụng và thanh khoản
+  method: absolute
+  cuts:
+  - 1.0
+  - 4.0
+  - 10.0
+  - 14.0
+  side: below
+- code: public_investment_plan_pace
+  pillar: Hạ tầng
+  method: absolute
+  cuts:
+  - -15.0
+  - -10.0
+  - -5.0
+  - 0.0
+  side: below
+  description: '% kế hoạch năm đã thực hiện trừ % thời gian đã trôi (tháng/12). Vd
+    9 tháng đạt 64% KH → 64 − 75 = −11 điểm % (chậm). Từ 0 trở lên là đúng hoặc nhanh
+    hơn tiến độ; dưới −15 là chậm nhiều. Chỉ tính cho năm có kế hoạch trong bản đồ
+    Kế hoạch & dự báo.'
+- code: public_investment_ytd
+  pillar: Hạ tầng
+  info: true
+  show_level: false
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: below
+  description: 'Tham khảo, không tính điểm: vốn thực hiện lũy kế từ đầu năm so với
+    kế hoạch năm.'

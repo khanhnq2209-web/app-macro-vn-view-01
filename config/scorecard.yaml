@@ -1,0 +1,25 @@
+# Thiết lập chung của scorecard theo phân khúc. ĐỀ XUẤT, chờ người phụ trách QTRR duyệt (docs/spec.md).
+#
+# Phương pháp (tham chiếu OECD/JRC Handbook on Constructing Composite Indicators; ECB/ESRB RRE heatmap):
+#   1. Mỗi chỉ số → mức (Rất tốt … Rất xấu) theo ngưỡng riêng của dòng → điểm của mức.
+#   2. Trọng số: mặc định chia đều theo nhóm, rồi chia đều trong nhóm (tránh nhóm nhiều chỉ số bị nặng ký).
+#   3. Điểm scorecard = tổng (điểm × trọng số) trên các chỉ số có số; thiếu số thì chia lại trọng số.
+#   4. Phần có số dưới min_coverage tổng trọng số → "Chưa đủ dữ liệu".
+default_scores:            # điểm theo số mức, từ tốt đến xấu
+  3: [1, 0, -1]
+  4: [1, 0, -1, -2]
+  5: [2, 1, 0, -1, -2]
+rating_bands:              # xếp hạng điểm tổng, kiểm từ trên xuống
+  # Hiệu chỉnh 06/10/2026 theo phân phối toàn bộ điểm tháng (10 năm, gộp Nhà ở + KCN) của bộ
+  # "Theo dõi BĐS - 01": P90 0,83 · P70 0,48 · P30 0,11 · P10 −0,17 (trung bình +0,30),
+  # làm tròn thành 0,8 / 0,45 / 0,05 / −0,2.
+  # Kiểm: KCN Rất bất lợi 5/2020, 6–12/2021, 11/2022–3/2023; Nhà ở 12/2022, 2–4/2023.
+  - {min: 0.8, label: Rất thuận lợi}
+  - {min: 0.45, label: Thuận lợi}
+  - {min: 0.05, label: Trung tính}
+  - {min: -0.2, label: Bất lợi}
+  - {min: -99, label: Rất bất lợi}
+min_coverage: 0.6
+history:
+  years: 10                # backtest điểm theo tháng
+  max_carry_months: {D: 1, W: 1, M: 3, Q: 4, A: 13}   # số liệu cũ quá mức này thì coi như thiếu

@@ -1,0 +1,64 @@
+{
+ "status": 200,
+ "message": "Success",
+ "data": [
+  {
+   "ticker": "VIETCOMBANK",
+   "maturity1m": 4.0,
+   "maturity3m": 4.5,
+   "maturity6m": 5.0,
+   "maturity9m": 5.4,
+   "maturity12m": 6.0,
+   "maturity24m": 6.2,
+   "date": 1451779200000
+  },
+  {
+   "ticker": "VIETCOMBANK",
+   "maturity1m": 4.0,
+   "maturity3m": 4.5,
+   "maturity6m": 5.0,
+   "maturity9m": 5.4,
+   "maturity12m": 6.0,
+   "maturity24m": 6.2,
+   "date": 1452384000000
+  },
+  {
+   "ticker": "VIETCOMBANK",
+   "maturity1m": 4.0,
+   "maturity3m": 4.5,
+   "maturity6m": 5.0,
+   "maturity9m": 5.4,
+   "maturity12m": 6.0,
+   "maturity24m": 6.2,
+   "date": 1452988800000
+  },
+  {
+   "ticker": "VIETCOMBANK",
+   "date": 1457222400000
+  },
+  {
+   "ticker": "VIETCOMBANK",
+   "demand": 0.1,
+   "maturity1m": 2.1,
+   "maturity3m": 2.4,
+   "maturity6m": 3.5,
+   "maturity9m": 3.5,
+   "maturity12m": 5.9,
+   "maturity24m": 6.0,
+   "maturity36m": 5.3,
+   "date": 1791158400000
+  },
+  {
+   "ticker": "VIETCOMBANK",
+   "demand": 0.1,
+   "maturity1m": 2.1,
+   "maturity3m": 2.4,
+   "maturity6m": 3.5,
+   "maturity9m": 3.5,
+   "maturity12m": 5.9,
+   "maturity24m": 6.0,
+   "maturity36m": 5.3,
+   "date": 1791244800000
+  }
+ ]
+}

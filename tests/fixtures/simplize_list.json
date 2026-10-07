@@ -1,0 +1,49 @@
+{
+ "status": 200,
+ "message": "Success",
+ "total": 2,
+ "data": [
+  {
+   "id": 35,
+   "ticker": "VIETCOMBANK",
+   "stockCode": "VCB",
+   "priority": 1,
+   "name": "Vietcombank",
+   "fullName": "Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam",
+   "imageUrl": "https://static.simplize.vn/static/interest-rate/VIETCOMBANK.png",
+   "date": 1791244800000,
+   "issuer": "Vietcombank",
+   "instrumentType": "saving_rate",
+   "demand": 0.1,
+   "maturity1m": 2.1,
+   "maturity3m": 2.4,
+   "maturity6m": 3.5,
+   "maturity9m": 3.5,
+   "maturity12m": 5.9,
+   "maturity24m": 6.0,
+   "maturity36m": 5.3,
+   "modifiedDate": 1791259227000
+  },
+  {
+   "id": 3,
+   "ticker": "AGRIBANK",
+   "priority": 4,
+   "name": "Agribank",
+   "fullName": "Ngân hàng Nông nghiệp và Phát triển Nông thôn Việt Nam",
+   "imageUrl": "https://static.simplize.vn/static/interest-rate/AGRIBANK.png",
+   "date": 1791244800000,
+   "issuer": "Agribank",
+   "instrumentType": "saving_rate",
+   "demand": 0.2,
+   "maturity1m": 2.6,
+   "maturity3m": 2.9,
+   "maturity6m": 4.0,
+   "maturity9m": 4.0,
+   "maturity12m": 5.9,
+   "maturity13m": 5.9,
+   "maturity18m": 5.9,
+   "maturity24m": 6.0,
+   "modifiedDate": 1791259227000
+  }
+ ]
+}

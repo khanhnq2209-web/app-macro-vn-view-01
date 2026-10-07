@@ -1,0 +1,670 @@
+# Danh mục chỉ số của app. Thêm chỉ số thì thêm một mục ở đây, không cần sửa code giao diện.
+#
+# Trường:
+#   code            mã (snake_case, duy nhất)
+#   name            tên hiển thị tiếng Việt
+#   group           A1..A5 (bên ngoài), B1..B4, C1, D2, E1 (trong nước), khớp với impact_rules.yaml
+#   unit            đơn vị hiển thị của giá trị (%, điểm, USD/thùng, VND/USD, tỷ đồng, triệu USD)
+#   frequency       D (ngày) | W (tuần) | M (tháng) | Q (quý) | A (năm)
+#   source          nhãn nguồn hiển thị trên card ("kỳ · nguồn")
+#   source_url      link nguồn gốc
+#   recipe          cách tính từ chuỗi raw (xem src/macro_app/metrics/recipes.py)
+#   change_unit     cách ghi thay đổi: bps (lãi suất) | pp (điểm %) | pct (% tương đối)
+#   direction       up_bad (tăng là bất lợi BĐS) | up_good | two_way
+#   segment         housing | industrial | both: phân khúc BĐS liên quan
+#   target          mã chuỗi mục tiêu Chính phủ (tùy chọn)
+#   flags           unit_unverified | cumulative_ytd | check_rebase | ytd (số lũy kế từ đầu năm,
+#                   reset tháng 1 → thay đổi + hướng so CÙNG KỲ năm trước)
+#   representative  true = chỉ số đại diện nhóm khi tính hướng tác động (1 chỉ số/nhóm)
+#   impact_sign     1 (mặc định) = cùng chiều khái niệm của nhóm; -1 = ngược chiều (vd spread HY tăng
+#                   nghĩa là tăng trưởng toàn cầu xấu đi); 0 = không suy ra tác động BĐS
+#   decimals        số chữ số thập phân hiển thị
+#   manual          true = đọc từ data/raw/manual/manual_inputs.csv (sửa file trực tiếp, app không có form)
+
+indicators:
+  # ---------------- A1 Fed và USD ----------------
+  - code: fed_upper
+    name: Lãi suất Fed (biên trên)
+    group: A1
+    unit: "%"
+    frequency: D
+    source: FRED
+    source_url: https://fred.stlouisfed.org/series/DFEDTARU
+    recipe: {op: raw, input: fred.DFEDTARU}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    representative: true
+    decimals: 2
+  - code: fed_lower
+    name: Lãi suất Fed (biên dưới)
+    group: A1
+    unit: "%"
+    frequency: D
+    source: FRED
+    source_url: https://fred.stlouisfed.org/series/DFEDTARL
+    recipe: {op: raw, input: fred.DFEDTARL}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: effr
+    name: Lãi suất liên bang hiệu lực (EFFR)
+    group: A1
+    unit: "%"
+    frequency: D
+    source: FRED
+    source_url: https://fred.stlouisfed.org/series/DFF
+    recipe: {op: raw, input: fred.DFF}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: ust_2y
+    name: Lợi suất UST 2 năm
+    group: A1
+    unit: "%"
+    frequency: D
+    source: FRED
+    source_url: https://fred.stlouisfed.org/series/DGS2
+    recipe: {op: raw, input: fred.DGS2}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: ust_10y
+    name: Lợi suất UST 10 năm
+    group: A1
+    unit: "%"
+    frequency: D
+    source: FRED
+    source_url: https://fred.stlouisfed.org/series/DGS10
+    recipe: {op: raw, input: fred.DGS10}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: ust_10y2y
+    name: Độ dốc UST 10Y − 2Y
+    group: A1
+    unit: "điểm %"
+    frequency: D
+    source: FRED
+    source_url: https://fred.stlouisfed.org/series/T10Y2Y
+    recipe: {op: raw, input: fred.T10Y2Y}
+    change_unit: bps
+    impact_sign: 0
+    direction: two_way
+    segment: both
+    decimals: 2
+  - code: usd_broad
+    name: Chỉ số USD (broad, Fed)
+    group: A1
+    unit: điểm
+    frequency: D
+    source: FRED
+    source_url: https://fred.stlouisfed.org/series/DTWEXBGS
+    recipe: {op: raw, input: fred.DTWEXBGS}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: dxy
+    name: Chỉ số USD (DXY)
+    group: A1
+    unit: điểm
+    frequency: D
+    source: Yahoo Finance
+    source_url: https://finance.yahoo.com/quote/DX-Y.NYB
+    recipe: {op: raw, input: yahoo.DX-Y.NYB}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  # ---------------- A2 Năng lượng ----------------
+  # Không nối 2 nguồn: Dated Brent (FRED/EIA, trễ ~1 tuần) và hợp đồng tương lai BZ=F (Yahoo, mới
+  # nhất) lệch nhau 10–15 USD lúc thị trường căng → nối sẽ tạo cú giảm giá giả.
+  - code: brent
+    name: Dầu Brent giao ngay (EIA)
+    group: A2
+    unit: USD/thùng
+    frequency: D
+    source: FRED (EIA)
+    source_url: https://fred.stlouisfed.org/series/DCOILBRENTEU
+    recipe: {op: raw, input: fred.DCOILBRENTEU}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    representative: true
+    decimals: 2
+
+  - code: brent_futures
+    name: Dầu Brent kỳ hạn (ICE)
+    group: A2
+    unit: USD/thùng
+    frequency: D
+    source: Yahoo Finance (ICE BZ=F)
+    source_url: https://finance.yahoo.com/quote/BZ=F
+    recipe: {op: raw, input: yahoo.BZ=F}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  # ---------------- A3 Kim loại ----------------
+  - code: copper
+    name: Đồng LME (giá cash)
+    group: A3
+    unit: USD/tấn
+    frequency: D
+    source: LME (Westmetall)
+    source_url: https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash
+    recipe: {op: raw, input: lme.copper_cash}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    representative: true
+    decimals: 0
+  - code: copper_lme_stock
+    name: Tồn kho đồng LME
+    group: A3
+    unit: tấn
+    frequency: D
+    source: LME (Westmetall)
+    source_url: https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash
+    recipe: {op: raw, input: lme.copper_stock}
+    change_unit: pct
+    impact_sign: 0
+    direction: two_way
+    segment: both
+    decimals: 0
+  - code: copper_comex
+    name: Đồng COMEX (đối chiếu)
+    group: A3
+    unit: USD/lb
+    frequency: D
+    source: Yahoo Finance (COMEX)
+    source_url: https://finance.yahoo.com/quote/HG=F
+    recipe: {op: raw, input: yahoo.HG=F}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 3
+  - code: copper_imf
+    name: Đồng, giá thế giới IMF (tháng)
+    group: A3
+    unit: USD/tấn
+    frequency: M
+    source: FRED (IMF)
+    source_url: https://fred.stlouisfed.org/series/PCOPPUSDM
+    recipe: {op: raw, input: fred.PCOPPUSDM}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 0
+
+  # ---------------- A5 Toàn cầu ----------------
+  - code: hy_spread
+    name: Spread trái phiếu HY Mỹ
+    group: A5
+    unit: "điểm %"
+    frequency: D
+    source: FRED (ICE BofA)
+    source_url: https://fred.stlouisfed.org/series/BAMLH0A0HYM2
+    recipe: {op: raw, input: fred.BAMLH0A0HYM2}
+    change_unit: bps
+    impact_sign: -1
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: breakeven_10y
+    name: Lạm phát kỳ vọng 10 năm (breakeven)
+    group: A5
+    unit: "%"
+    frequency: D
+    source: FRED
+    source_url: https://fred.stlouisfed.org/series/T10YIE
+    recipe: {op: raw, input: fred.T10YIE}
+    change_unit: bps
+    impact_sign: 0
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: vix
+    name: Chỉ số biến động VIX
+    group: A5
+    unit: điểm
+    frequency: D
+    source: FRED (CBOE)
+    source_url: https://fred.stlouisfed.org/series/VIXCLS
+    recipe: {op: raw, input: fred.VIXCLS}
+    change_unit: pct
+    impact_sign: -1
+    direction: up_bad
+    segment: both
+    decimals: 1
+  - code: us_mortgage_30y
+    name: Lãi vay mua nhà Mỹ 30 năm
+    group: A5
+    unit: "%"
+    frequency: W
+    source: FRED (Freddie Mac)
+    source_url: https://fred.stlouisfed.org/series/MORTGAGE30US
+    recipe: {op: raw, input: fred.MORTGAGE30US}
+    change_unit: bps
+    impact_sign: 0
+    direction: up_bad
+    segment: housing
+    decimals: 2
+
+  # ---------------- B1 Tăng trưởng ----------------
+  # Chỉ số đại diện = tăng trưởng GDP CÔNG BỐ (GSO qua VBMA). Chuỗi tự tính từ mức GDP trong
+  # GDP-So-Sanh.xlsx có điểm gãy năm gốc (Q1/2021, Q1/2026) → giữ để đối chiếu, gắn cờ.
+  - code: gdp_yoy_published
+    name: Tăng trưởng GDP (số công bố)
+    group: B1
+    unit: "%"
+    frequency: Q
+    source: GSO · VBMA
+    source_url: https://vbma.org.vn/vi/market-data/macro-economic-heatmap
+    recipe: {op: quarter_last, input: vbma.gdp_yoy}
+    change_unit: pp
+    flags: [no_repeat_check]  # số công bố làm tròn 1 chữ số, trùng kỳ là bình thường
+    direction: up_good
+    segment: both
+    target: vn.target_gdp_growth
+    representative: true
+    decimals: 1
+  - code: gdp_yoy
+    name: Tăng trưởng GDP (tự tính)
+    group: B1
+    unit: "%"
+    frequency: Q
+    source: GSO · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: yoy, input: vn.gdp_real}
+    change_unit: pp
+    impact_sign: 0
+    direction: up_good
+    segment: both
+    target: vn.target_gdp_growth
+    flags: [check_rebase]
+    decimals: 2
+  - code: gdp_realestate_yoy
+    name: GDP ngành kinh doanh BĐS, so cùng kỳ
+    group: B1
+    unit: "%"
+    frequency: Q
+    source: GSO · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: yoy, input: vn.gdp_real_realestate}
+    change_unit: pp
+    impact_sign: 0
+    direction: up_good
+    segment: housing
+    flags: [check_rebase]
+    decimals: 2
+  - code: gdp_construction_yoy
+    name: GDP ngành xây dựng, so cùng kỳ
+    group: B1
+    unit: "%"
+    frequency: Q
+    source: GSO · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: yoy, input: vn.gdp_real_construction}
+    change_unit: pp
+    impact_sign: 0
+    direction: up_good
+    segment: both
+    flags: [check_rebase]
+    decimals: 2
+
+  - code: export_yoy
+    name: Xuất khẩu so cùng kỳ
+    group: B1
+    unit: "%"
+    frequency: M
+    source: Hải quan · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: yoy, input: vn.export_total}
+    change_unit: pp
+    direction: up_good
+    segment: industrial
+    decimals: 1
+
+  # ---------------- B2 Lạm phát, tỷ giá ----------------
+  - code: cpi_yoy
+    name: CPI so cùng kỳ
+    group: B2
+    unit: "%"
+    frequency: M
+    source: GSO · VBMA
+    source_url: https://vbma.org.vn/vi/market-data/macro-economic-heatmap
+    recipe: {op: published_or_mom_yoy, published: vbma.cpi_yoy, input: vn.cpi_mom}
+    change_unit: pp
+    flags: [no_repeat_check]  # số công bố làm tròn 1 chữ số, trùng kỳ là bình thường
+    direction: up_bad
+    segment: both
+    representative: true
+    decimals: 2
+  - code: cpi_avg_ytd
+    name: CPI bình quân từ đầu năm (so mục tiêu)
+    group: B2
+    unit: "%"
+    frequency: M
+    source: GSO · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: mom_to_avg_ytd, input: vn.cpi_mom}
+    change_unit: pp
+    direction: up_bad
+    segment: both
+    target: vn.target_cpi_avg
+    decimals: 2
+  - code: cpi_housing_yoy
+    name: CPI nhà ở và VLXD, so cùng kỳ
+    group: B2
+    unit: "%"
+    frequency: M
+    source: GSO · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: published_or_mom_yoy, published: vbma.cpi_housing_yoy, input: vn.cpi_housing_mom}
+    change_unit: pp
+    flags: [no_repeat_check]  # số công bố làm tròn 1 chữ số, trùng kỳ là bình thường
+    direction: up_bad
+    segment: housing
+    decimals: 2
+  - code: fx_central
+    name: Tỷ giá trung tâm USD/VND
+    group: B2
+    unit: VND/USD
+    frequency: D
+    source: NHNN · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.fx_central}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 0
+  - code: fx_central_ytd
+    name: Tỷ giá trung tâm, thay đổi từ đầu năm
+    group: B2
+    unit: "%"
+    frequency: D
+    source: NHNN · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: ytd_change_pct, input: vn.fx_central}
+    change_unit: pp
+    flags: [ytd]
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  # ---------------- B3 Lãi suất ----------------
+  - code: deposit_12m_big4
+    name: LS huy động 12 tháng (Big4)
+    group: B3
+    unit: "%"
+    frequency: D
+    source: Simplize
+    source_url: https://simplize.vn/lai-suat-ngan-hang
+    recipe: {op: deposit_avg, input: vn.deposit_panel, tenor_m: 12, bank_group: big4}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    representative: true
+    decimals: 2
+  - code: deposit_12m_all
+    name: LS huy động 12 tháng (20 NH)
+    group: B3
+    unit: "%"
+    frequency: D
+    source: Simplize
+    source_url: https://simplize.vn/lai-suat-ngan-hang
+    recipe: {op: deposit_avg, input: vn.deposit_panel, tenor_m: 12, bank_group: all}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: interbank_on
+    name: LS liên ngân hàng qua đêm
+    group: B3
+    unit: "%"
+    frequency: D
+    source: NHNN · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.ib_on}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: refi_rate
+    name: Lãi suất tái cấp vốn
+    group: B3
+    unit: "%"
+    frequency: D
+    source: NHNN · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.refi}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: govbond_10y
+    name: Lợi suất TPCP 10 năm
+    group: B3
+    unit: "%"
+    frequency: D
+    source: HNX · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.govbond_10y}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 2
+  - code: real_rate
+    name: Lãi suất thực (huy động 12T Big4 − CPI)
+    group: B3
+    unit: "điểm %"
+    frequency: M
+    source: Tính toán (Simplize, GSO)
+    source_url: ""
+    recipe: {op: diff, inputs: [deposit_12m_big4, cpi_yoy]}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    derived: true
+    decimals: 2
+
+  # ---------------- B4 Tín dụng ----------------
+  - code: credit_ytd
+    name: Tăng trưởng tín dụng từ đầu năm
+    group: B4
+    unit: "%"
+    frequency: M
+    source: NHNN · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.credit_ytd}
+    change_unit: pp
+    flags: [ytd]
+    direction: two_way
+    segment: both
+    representative: true
+    decimals: 2
+  - code: credit_yoy
+    name: Tăng trưởng tín dụng so cùng kỳ
+    group: B4
+    unit: "%"
+    frequency: M
+    source: NHNN · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    # Tính từ cột % từ đầu năm (khớp số công bố); chuỗi dư nợ trong file raw lệch với cột này
+    recipe: {op: ytd_to_yoy, input: vn.credit_ytd}
+    change_unit: pp
+    target: vn.target_credit_growth
+    direction: two_way
+    segment: both
+    decimals: 2
+  - code: credit_construction_ytd
+    name: Tín dụng ngành xây dựng, từ đầu năm
+    group: B4
+    unit: "%"
+    frequency: M
+    source: NHNN · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.credit_construction_ytd}
+    change_unit: pp
+    flags: [ytd]
+    direction: up_good
+    segment: both
+    decimals: 2
+  - code: m2_ytd
+    name: Tăng trưởng M2 từ đầu năm
+    group: B4
+    unit: "%"
+    frequency: M
+    source: NHNN · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.m2_ytd}
+    change_unit: pp
+    flags: [ytd]
+    direction: up_good
+    segment: both
+    decimals: 2
+  - code: credit_minus_m2
+    name: Tín dụng trừ M2 (từ đầu năm)
+    group: B4
+    unit: "điểm %"
+    frequency: M
+    source: Tính toán (NHNN)
+    source_url: ""
+    recipe: {op: diff, inputs: [credit_ytd, m2_ytd]}
+    change_unit: pp
+    flags: [ytd]
+    impact_sign: 0
+    direction: up_bad
+    segment: both
+    derived: true
+    decimals: 2
+
+  # ---------------- C1 Giá đất, tiền sử dụng đất ----------------
+  - code: land_use_revenue
+    name: Thu tiền sử dụng đất (NSNN)
+    group: C1
+    unit: tỷ đồng
+    frequency: A
+    source: Bộ Tài chính · VBMA
+    source_url: https://vbma.org.vn/vi/market-data/macro-economic-heatmap
+    recipe: {op: raw, input: vbma.land_use_revenue}
+    change_unit: pct
+    direction: up_bad
+    segment: housing
+    representative: true
+    decimals: 0
+
+  # ---------------- D2 Đầu tư công ----------------
+  - code: public_investment
+    name: Vốn đầu tư NSNN thực hiện (tháng)
+    group: D2
+    unit: tỷ đồng
+    frequency: M
+    source: GSO · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.public_investment}
+    change_unit: pct
+    direction: up_good
+    segment: both
+    representative: true
+    decimals: 0
+  - code: public_investment_ytd_yoy
+    name: Vốn đầu tư NSNN thực hiện lũy kế từ đầu năm, so cùng kỳ
+    group: D2
+    unit: "%"
+    frequency: M
+    source: GSO · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: ytd_sum_yoy, input: vn.public_investment}
+    change_unit: pp
+    direction: up_good
+    segment: both
+    decimals: 1
+
+  # ---------------- E1 FDI ----------------
+  - code: public_investment_ytd
+    name: Vốn đầu tư NSNN thực hiện lũy kế từ đầu năm
+    group: D2
+    unit: tỷ đồng
+    frequency: M
+    source: GSO · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    # Cộng dồn số từng tháng trong năm; so với kế hoạch năm ở trang Kế hoạch & dự báo
+    recipe: {op: ytd_sum, input: vn.public_investment}
+    change_unit: pct
+    flags: [ytd]
+    direction: up_good
+    segment: both
+    derived: true
+    decimals: 0
+  - code: public_investment_plan_pace
+    name: Tiến độ đầu tư công so kế hoạch năm
+    group: D2
+    unit: "điểm %"
+    frequency: M
+    source: Tính toán (GSO, KH TTg giao)
+    source_url: ""
+    # % kế hoạch đã đạt (lũy kế / KH năm) − % thời gian đã trôi (tháng/12); KH năm lấy từ
+    # config/forecast_map.yaml (dòng nhập tay của public_investment_ytd, kỳ = năm)
+    recipe: {op: plan_pace, input: vn.public_investment, plans_from: public_investment_ytd}
+    change_unit: pp
+    direction: up_good
+    segment: both
+    derived: true
+    decimals: 1
+  - code: fdi_registered_ytd
+    name: FDI đăng ký mới (lũy kế năm)
+    group: E1
+    unit: triệu USD
+    frequency: M
+    source: Bộ KH&ĐT · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.fdi_registered_ytd}
+    change_unit: pct
+    direction: up_good
+    segment: industrial
+    flags: [cumulative_ytd, ytd]
+    representative: true
+    decimals: 0
+  - code: fdi_registered_ytd_yoy
+    name: FDI đăng ký mới, lũy kế so cùng kỳ
+    group: E1
+    unit: "%"
+    frequency: M
+    source: Bộ KH&ĐT · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: yoy, input: vn.fdi_registered_ytd}
+    change_unit: pp
+    direction: up_good
+    segment: industrial
+    flags: [cumulative_ytd]
+    decimals: 1
+
+  # ---------------- Bổ sung (dữ liệu cho phép) ----------------
+  - code: pmi_vn
+    name: PMI sản xuất Việt Nam
+    group: B1
+    unit: điểm
+    frequency: M
+    source: S&P Global · VBMA
+    source_url: https://vbma.org.vn/vi/market-data/macro-economic-heatmap
+    recipe: {op: raw, input: vbma.pmi}
+    change_unit: pct
+    flags: [no_repeat_check]  # số công bố làm tròn 1 chữ số, trùng kỳ là bình thường
+    direction: up_good
+    segment: industrial
+    decimals: 1
+
+# Chuỗi mục tiêu Chính phủ (file 28.1), dùng để so với mục tiêu
+targets:
+  vn.target_gdp_growth: {name: Mục tiêu tăng trưởng GDP, unit: "%"}
+  vn.target_cpi_avg: {name: Mục tiêu CPI bình quân, unit: "%"}
+  vn.target_credit_growth: {name: Chỉ tiêu tăng trưởng tín dụng (NHNN), unit: "%"}

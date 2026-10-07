@@ -1,0 +1,48 @@
+code,name_vi,name_en,group,unit,frequency,source,source_url,raw_input,note
+fed_upper,Lãi suất Fed (biên trên),,A1,%,D,FRED,https://fred.stlouisfed.org/series/DFEDTARU,fred.DFEDTARU,
+fed_lower,Lãi suất Fed (biên dưới),,A1,%,D,FRED,https://fred.stlouisfed.org/series/DFEDTARL,fred.DFEDTARL,
+effr,Lãi suất liên bang hiệu lực (EFFR),,A1,%,D,FRED,https://fred.stlouisfed.org/series/DFF,fred.DFF,
+ust_2y,Lợi suất UST 2 năm,,A1,%,D,FRED,https://fred.stlouisfed.org/series/DGS2,fred.DGS2,
+ust_10y,Lợi suất UST 10 năm,,A1,%,D,FRED,https://fred.stlouisfed.org/series/DGS10,fred.DGS10,
+ust_10y2y,Độ dốc UST 10Y − 2Y,,A1,điểm %,D,FRED,https://fred.stlouisfed.org/series/T10Y2Y,fred.T10Y2Y,
+usd_broad,"Chỉ số USD (broad, Fed)",,A1,điểm,D,FRED,https://fred.stlouisfed.org/series/DTWEXBGS,fred.DTWEXBGS,
+dxy,Chỉ số USD (DXY),,A1,điểm,D,Yahoo Finance,https://finance.yahoo.com/quote/DX-Y.NYB,yahoo.DX-Y.NYB,
+brent,Dầu Brent giao ngay (EIA),,A2,USD/thùng,D,FRED (EIA),https://fred.stlouisfed.org/series/DCOILBRENTEU,fred.DCOILBRENTEU,
+brent_futures,Dầu Brent kỳ hạn (ICE),,A2,USD/thùng,D,Yahoo Finance (ICE BZ=F),https://finance.yahoo.com/quote/BZ=F,yahoo.BZ=F,
+copper,Đồng LME (giá cash),,A3,USD/tấn,D,LME (Westmetall),https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash,lme.copper_cash,
+copper_lme_stock,Tồn kho đồng LME,,A3,tấn,D,LME (Westmetall),https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash,lme.copper_stock,
+copper_comex,Đồng COMEX (đối chiếu),,A3,USD/lb,D,Yahoo Finance (COMEX),https://finance.yahoo.com/quote/HG=F,yahoo.HG=F,
+copper_imf,"Đồng, giá thế giới IMF (tháng)",,A3,USD/tấn,M,FRED (IMF),https://fred.stlouisfed.org/series/PCOPPUSDM,fred.PCOPPUSDM,
+hy_spread,Spread trái phiếu HY Mỹ,,A5,điểm %,D,FRED (ICE BofA),https://fred.stlouisfed.org/series/BAMLH0A0HYM2,fred.BAMLH0A0HYM2,
+breakeven_10y,Lạm phát kỳ vọng 10 năm (breakeven),,A5,%,D,FRED,https://fred.stlouisfed.org/series/T10YIE,fred.T10YIE,
+vix,Chỉ số biến động VIX,,A5,điểm,D,FRED (CBOE),https://fred.stlouisfed.org/series/VIXCLS,fred.VIXCLS,
+us_mortgage_30y,Lãi vay mua nhà Mỹ 30 năm,,A5,%,W,FRED (Freddie Mac),https://fred.stlouisfed.org/series/MORTGAGE30US,fred.MORTGAGE30US,
+gdp_yoy_published,Tăng trưởng GDP (số công bố),,B1,%,Q,GSO · VBMA,https://vbma.org.vn/vi/market-data/macro-economic-heatmap,vbma.gdp_yoy,no_repeat_check
+gdp_yoy,Tăng trưởng GDP (tự tính),,B1,%,Q,GSO · dulieukinhte,https://dulieukinhte.com/,vn.gdp_real,check_rebase
+gdp_realestate_yoy,"GDP ngành kinh doanh BĐS, so cùng kỳ",,B1,%,Q,GSO · dulieukinhte,https://dulieukinhte.com/,vn.gdp_real_realestate,check_rebase
+gdp_construction_yoy,"GDP ngành xây dựng, so cùng kỳ",,B1,%,Q,GSO · dulieukinhte,https://dulieukinhte.com/,vn.gdp_real_construction,check_rebase
+export_yoy,Xuất khẩu so cùng kỳ,,B1,%,M,Hải quan · dulieukinhte,https://dulieukinhte.com/,vn.export_total,
+cpi_yoy,CPI so cùng kỳ,,B2,%,M,GSO · VBMA,https://vbma.org.vn/vi/market-data/macro-economic-heatmap,vn.cpi_mom,no_repeat_check
+cpi_avg_ytd,CPI bình quân từ đầu năm (so mục tiêu),,B2,%,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.cpi_mom,
+cpi_housing_yoy,"CPI nhà ở và VLXD, so cùng kỳ",,B2,%,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.cpi_housing_mom,no_repeat_check
+fx_central,Tỷ giá trung tâm USD/VND,,B2,VND/USD,D,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.fx_central,
+fx_central_ytd,"Tỷ giá trung tâm, thay đổi từ đầu năm",,B2,%,D,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.fx_central,ytd
+deposit_12m_big4,LS huy động 12 tháng (Big4),,B3,%,D,Simplize,https://simplize.vn/lai-suat-ngan-hang,vn.deposit_panel,
+deposit_12m_all,LS huy động 12 tháng (20 NH),,B3,%,D,Simplize,https://simplize.vn/lai-suat-ngan-hang,vn.deposit_panel,
+interbank_on,LS liên ngân hàng qua đêm,,B3,%,D,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.ib_on,
+refi_rate,Lãi suất tái cấp vốn,,B3,%,D,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.refi,
+govbond_10y,Lợi suất TPCP 10 năm,,B3,%,D,HNX · dulieukinhte,https://dulieukinhte.com/,vn.govbond_10y,
+real_rate,Lãi suất thực (huy động 12T Big4 − CPI),,B3,điểm %,M,"Tính toán (Simplize, GSO)",,"['deposit_12m_big4', 'cpi_yoy']",
+credit_ytd,Tăng trưởng tín dụng từ đầu năm,,B4,%,M,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.credit_ytd,ytd
+credit_yoy,Tăng trưởng tín dụng so cùng kỳ,,B4,%,M,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.credit_ytd,
+credit_construction_ytd,"Tín dụng ngành xây dựng, từ đầu năm",,B4,%,M,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.credit_construction_ytd,ytd
+m2_ytd,Tăng trưởng M2 từ đầu năm,,B4,%,M,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.m2_ytd,ytd
+credit_minus_m2,Tín dụng trừ M2 (từ đầu năm),,B4,điểm %,M,Tính toán (NHNN),,"['credit_ytd', 'm2_ytd']",ytd
+land_use_revenue,Thu tiền sử dụng đất (NSNN),,C1,tỷ đồng,A,Bộ Tài chính · VBMA,https://vbma.org.vn/vi/market-data/macro-economic-heatmap,vbma.land_use_revenue,
+public_investment,Vốn đầu tư NSNN thực hiện (tháng),,D2,tỷ đồng,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.public_investment,
+public_investment_ytd_yoy,"Vốn đầu tư NSNN thực hiện lũy kế từ đầu năm, so cùng kỳ",,D2,%,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.public_investment,
+public_investment_ytd,Vốn đầu tư NSNN thực hiện lũy kế từ đầu năm,,D2,tỷ đồng,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.public_investment,ytd
+public_investment_plan_pace,Tiến độ đầu tư công so kế hoạch năm,,D2,điểm %,M,"Tính toán (GSO, KH TTg giao)",,vn.public_investment,
+fdi_registered_ytd,FDI đăng ký mới (lũy kế năm),,E1,triệu USD,M,Bộ KH&ĐT · dulieukinhte,https://dulieukinhte.com/,vn.fdi_registered_ytd,cumulative_ytd; ytd
+fdi_registered_ytd_yoy,"FDI đăng ký mới, lũy kế so cùng kỳ",,E1,%,M,Bộ KH&ĐT · dulieukinhte,https://dulieukinhte.com/,vn.fdi_registered_ytd,cumulative_ytd
+pmi_vn,PMI sản xuất Việt Nam,,B1,điểm,M,S&P Global · VBMA,https://vbma.org.vn/vi/market-data/macro-economic-heatmap,vbma.pmi,no_repeat_check

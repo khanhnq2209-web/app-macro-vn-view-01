@@ -1,0 +1,23 @@
+code,group,status,label,score,stale,measured,measure_text,detail,pillar,weight,info,show_level,contribution,profile,segment
+deposit_12m_big4,B3,yellow,Trung tính,0.0,False,5.9,,,Chi phí vốn,0.1,False,True,0.0,theo_doi_bds_01,nha_o
+govbond_10y,B3,red,Rất xấu,,True,1.2231580000000002,thay đổi so cùng kỳ năm trước,,Chi phí vốn,0.1,False,True,,theo_doi_bds_01,nha_o
+effr,A1,yellow,Trung tính,0.0,False,3.88,,,Chi phí vốn,0.0,True,True,,theo_doi_bds_01,nha_o
+interbank_on,B3,yellow,Trung tính,,True,3.7444999999999995,trung bình 20 ngày,,Tín dụng và thanh khoản,0.1,False,True,,theo_doi_bds_01,nha_o
+gdp_yoy_published,B1,green_strong,Rất tốt,2.0,False,8.39,,,Cầu và thu nhập,0.2,False,True,0.4,theo_doi_bds_01,nha_o
+cpi_yoy,B2,orange,Xấu,-1.0,False,4.89,,,Ổn định vĩ mô,0.06666666666666667,False,True,-0.06666666666666667,theo_doi_bds_01,nha_o
+cpi_housing_yoy,B2,yellow,Trung tính,0.0,False,6.6,,,Ổn định vĩ mô,0.06666666666666667,False,True,0.0,theo_doi_bds_01,nha_o
+fx_central,B2,green,Tốt,,True,1.0424924686855963,% thay đổi so cùng kỳ năm trước,,Ổn định vĩ mô,0.06666666666666667,False,True,,theo_doi_bds_01,nha_o
+credit_ytd,B4,green,Tốt,1.0,False,10.19,,,Tín dụng và thanh khoản,0.1,False,True,0.1,theo_doi_bds_01,nha_o
+public_investment_plan_pace,D2,orange,Xấu,-1.0,False,-10.773029541162927,,,Hạ tầng,0.2,False,True,-0.2,theo_doi_bds_01,nha_o
+public_investment_ytd,D2,green,Tốt,1.0,False,656789.4958,,,Hạ tầng,0.0,True,False,,theo_doi_bds_01,nha_o
+fdi_registered_ytd,E1,green_strong,Rất tốt,2.0,False,49.10095487818729,"tổng 12 tháng, % so cùng kỳ",,FDI và cầu thuê,0.25,False,True,0.5,theo_doi_bds_01,kcn
+pmi_vn,B1,green_strong,Rất tốt,2.0,False,53.3,,,Sản xuất và thương mại,0.08333333333333333,False,True,0.16666666666666666,theo_doi_bds_01,kcn
+export_yoy,B1,green_strong,Rất tốt,2.0,False,24.241028589820814,trung bình 3 tháng,,Sản xuất và thương mại,0.08333333333333333,False,True,0.16666666666666666,theo_doi_bds_01,kcn
+gdp_yoy_published,B1,green_strong,Rất tốt,2.0,False,8.39,,,Sản xuất và thương mại,0.08333333333333333,False,True,0.16666666666666666,theo_doi_bds_01,kcn
+deposit_12m_big4,B3,yellow,Trung tính,0.0,False,5.9,,,Chi phí vốn và rủi ro,0.0625,False,True,0.0,theo_doi_bds_01,kcn
+govbond_10y,B3,red,Rất xấu,,True,1.2231580000000002,thay đổi so cùng kỳ năm trước,,Chi phí vốn và rủi ro,0.0625,False,True,,theo_doi_bds_01,kcn
+effr,A1,yellow,Trung tính,0.0,False,3.88,,,Chi phí vốn và rủi ro,0.0,True,True,,theo_doi_bds_01,kcn
+dxy,A1,yellow,Trung tính,0.0,False,,% thay đổi so cùng kỳ năm trước,,Chi phí vốn và rủi ro,0.0625,False,True,0.0,theo_doi_bds_01,kcn
+vix,A5,green,Tốt,1.0,False,15.852380952380951,trung bình 21 ngày,,Chi phí vốn và rủi ro,0.0625,False,True,0.0625,theo_doi_bds_01,kcn
+copper,A3,red,Rất xấu,-2.0,False,,% thay đổi so cùng kỳ năm trước,,Chi phí đầu vào,0.125,False,True,-0.25,theo_doi_bds_01,kcn
+brent,A2,red,Rất xấu,-2.0,False,65.15942028985506,% thay đổi so cùng kỳ năm trước,,Chi phí đầu vào,0.125,False,True,-0.25,theo_doi_bds_01,kcn

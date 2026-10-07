@@ -1,0 +1,16 @@
+[theme]
+base = "light"
+primaryColor = "#1B2A6B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#EDF1F3"
+textColor = "#13222B"
+baseFontSize = 14
+baseRadius = "8px"
+headingFontWeights = [600, 600, 600, 600, 500, 500]
+
+[client]
+toolbarMode = "viewer"
+showErrorDetails = "type"
+
+[server]
+enableXsrfProtection = true

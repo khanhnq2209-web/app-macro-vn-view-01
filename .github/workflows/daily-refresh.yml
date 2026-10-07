@@ -1,0 +1,35 @@
+# Hằng ngày: kéo FRED + LS huy động Simplize, build, commit nếu có thay đổi (build lỗi → không commit).
+# FedWatch (dữ liệu CME/Yahoo) refresh tay ở máy local.
+# Dữ liệu VN từ dulieukinhte chạy tay (xuất Excel → data/inbox → merge-inbox). Yahoo không chạy ở đây (giấy phép).
+name: daily-refresh
+on:
+  schedule:
+    - cron: "0 1 * * 1-5"   # 08:00 giờ VN, thứ 2–6
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh + build
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          PYTHONPATH: src
+        run: python -m macro_app.cli refresh --sources fred,simplize,lme
+      - name: Commit nếu có thay đổi
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ config/thresholds_history.csv || true
+          git diff --cached --quiet || git commit -m "data: refresh $(date -u +%F)"
+          git push

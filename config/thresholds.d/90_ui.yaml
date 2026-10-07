@@ -1,0 +1,10 @@
+# Ghi bởi trang Ngưỡng (chế độ quản trị). Sửa tay được.
+fed_upper:
+  cuts:
+  - 4.5
+  - 4.75
+  - 5.25
+  - 5.5
+  description: Vị trí lãi suất Fed so với 5 năm gần nhất.
+  method: absolute
+  side: above

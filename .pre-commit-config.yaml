@@ -1,0 +1,43 @@
+# Guard (hub-build-flow). Data files ARE committed in this repo (decision D2 in docs/spec.md),
+# so the hub "block-real-data" hook is intentionally replaced by a size limit + secret scan.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=20000"]
+      - id: detect-private-key
+      - id: check-merge-conflict
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+        exclude: '^data/'
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.9
+    hooks:
+      - id: ruff-check
+        args: ["--fix"]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: no-row-loops-in-data
+        name: No iterrows/itertuples in data layer
+        language: pygrep
+        entry: '\.(iterrows|itertuples)\('
+        files: '^src/macro_app/(io|metrics)/'
+      - id: block-env-files
+        name: Block .env and secrets.toml
+        language: fail
+        entry: "Secret file staged:"
+        files: '(^|/)(\.env(\..+)?|secrets\.toml)$'
+        exclude: '\.env\.example$'
+      - id: block-inbox-and-backup
+        name: Block inbox drops and raw backups
+        language: fail
+        entry: "Scratch data staged (data/inbox or data/raw/_backup):"
+        files: '^data/(inbox/(?!\.gitkeep)|raw/_backup/)'

@@ -1,0 +1,84 @@
+name: Rủi ro thị trường toàn cầu
+description: Mốc thị trường quốc tế thường dùng để đọc mức căng thẳng.
+items:
+  vix:
+    method: absolute
+    cuts:
+    - 15.0
+    - 20.0
+    - 30.0
+    side: above
+    description: Dưới 15 yên ả, 15–20 bình thường, 20–30 căng thẳng, trên 30 khủng
+      hoảng.
+  hy_spread:
+    method: absolute
+    cuts:
+    - 3.5
+    - 4.5
+    - 5.0
+    - 8.0
+    side: above
+    description: Spread HY 3,5–4,5 điểm % là vùng ổn định; trên 5 là vạch đỏ; trên
+      8 thường đi cùng suy thoái.
+  ust_10y2y:
+    method: absolute
+    cuts:
+    - 0.0
+    - 0.5
+    side: below
+    description: Đường cong lợi suất đảo ngược (dưới 0) là tín hiệu suy thoái; 0–0,5
+      là phẳng.
+  ust_10y:
+    method: percentile
+    window_years: 5
+    cuts:
+    - 50.0
+    - 75.0
+    - 90.0
+    side: above
+    description: Vị trí so với 5 năm gần nhất. Lợi suất Mỹ cao gây áp lực tỷ giá và
+      lãi suất trong nước.
+  fed_upper:
+    method: percentile
+    window_years: 5
+    cuts:
+    - 50.0
+    - 75.0
+    - 90.0
+    side: above
+    description: Vị trí lãi suất Fed so với 5 năm gần nhất.
+  dxy:
+    method: zscore
+    window_years: 5
+    cuts:
+    - 1.0
+    - 2.0
+    side: above
+    description: USD mạnh lên bất thường (z trên 1) gây áp lực lên VND.
+  brent:
+    method: absolute
+    cuts:
+    - 80.0
+    - 100.0
+    - 120.0
+    side: above
+    description: Trên 100 USD/thùng làm tăng lạm phát nhập khẩu và chi phí xây dựng.
+  copper:
+    method: percentile
+    window_years: 5
+    cuts:
+    - 50.0
+    - 75.0
+    - 90.0
+    side: above
+    description: Giá đồng cao so với 5 năm gần nhất làm tăng chi phí vật liệu xây
+      dựng.
+  breakeven_10y:
+    method: absolute
+    cuts:
+    - 2.0
+    - 2.5
+    - 3.0
+    side: above
+    description: Fed nhắm lạm phát 2%. Lạm phát kỳ vọng trên 2,5% làm khó cắt giảm
+      lãi suất.

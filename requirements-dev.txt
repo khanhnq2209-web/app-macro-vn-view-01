@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=8
+playwright>=1.45
+ruff>=0.6
+pre-commit>=3.7
+detect-secrets>=1.5

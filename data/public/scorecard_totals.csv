@@ -1,0 +1,3 @@
+profile,segment,profile_name,name,score,coverage,rating,prev_score,last_score,last_date,last_rating,n_stale,stale_bad
+theo_doi_bds_01,nha_o,Theo dõi BĐS - 01,Nhà ở,0.318182,0.7333333333333334,Trung tính,0.375,0.318182,2026-10-31,Trung tính,3,govbond_10y
+theo_doi_bds_01,kcn,Theo dõi BĐS - 01,KCN,0.6,0.9375,Thuận lợi,0.6,0.6,2026-10-31,Thuận lợi,1,govbond_10y

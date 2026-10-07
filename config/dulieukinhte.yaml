@@ -1,0 +1,20 @@
+# Gắn chuỗi của repo (vn.*) với mã chuỗi (series id) trên API dulieukinhte.com.
+# Dòng chưa có id thì bỏ qua lúc kéo (vẫn dùng file Excel trong data/raw).
+# Tìm mã: python -m macro_app.io.dulieukinhte_api find "tăng trưởng tín dụng"
+# Gói miễn phí 100 lượt/tháng: mỗi chuỗi tốn khoảng 1 lượt mỗi lần Refresh.
+min_days: 7  # đã kéo trong 7 ngày gần nhất thì nút Refresh bỏ qua (không tốn lượt)
+series:
+  vn.credit_ytd:
+    id: 29926
+    note: Tăng trưởng tín dụng so đầu năm (bộ 353, NHNN), % so cuối năm trước
+  vn.credit_construction_ytd:
+    id: 29921
+    note: Tăng trưởng tín dụng xây dựng so đầu năm (bộ 353)
+  vn.public_investment:
+    id: 24585
+    note: Tổng vốn đầu tư từ ngân sách nhà nước (bộ 317), tỷ đồng, số từng tháng
+  vn.m2_ytd:
+    id:
+    note: >-
+      Chưa gắn. API chỉ có M2 dạng số tuyệt đối (id 33445 "Tổng phương tiện thanh toán M2"),
+      không có % so đầu năm như chuỗi này; file Excel đang lỗi từ 10/2025.

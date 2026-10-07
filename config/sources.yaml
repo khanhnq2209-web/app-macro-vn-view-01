@@ -1,0 +1,76 @@
+# Danh sách series kéo từ nguồn quốc tế. Lấy dư hơn catalog để có dự phòng (D8).
+# Thêm series = thêm dòng; catalog.yaml mới quyết định chuỗi nào hiển thị.
+fetch_start: "2010-01-01"
+cache_max_age_hours: 24     # cache cũ hơn → app hiện "Dữ liệu từ cache ngày …"
+
+fred:
+  # A1 Fed và USD
+  - DFEDTARU
+  - DFEDTARL
+  - DFF
+  - EFFR
+  - SOFR
+  - IORB
+  - DGS3MO
+  - DGS2
+  - DGS5
+  - DGS10
+  - DGS30
+  - T10Y2Y
+  - T10Y3M
+  - DTWEXBGS
+  # A2/A3 hàng hóa
+  - DCOILBRENTEU
+  - DCOILWTICO
+  - PCOPPUSDM
+  # A5 toàn cầu, rủi ro
+  - BAMLH0A0HYM2
+  - T10YIE
+  - VIXCLS
+  - NFCI
+  - WALCL
+  # Nhà ở Mỹ (tham chiếu chu kỳ BĐS)
+  - MORTGAGE30US
+  - MORTGAGE15US
+  - CSUSHPINSA
+  - HOUST
+  - PERMIT
+  # Vĩ mô Mỹ
+  - CPIAUCSL
+  - CPILFESL
+  - UNRATE
+  - PAYEMS
+  # Tỷ giá
+  - DEXCHUS
+  - DEXKOUS
+  - DEXJPUS
+
+yahoo:
+  - DX-Y.NYB   # DXY
+  - BZ=F       # Brent futures
+  - CL=F       # WTI futures
+  - HG=F       # Đồng COMEX
+  - GC=F       # Vàng
+  - ^VIX
+  - ^GSPC
+  - ^TNX
+  - ^HSI
+  - 000001.SS  # Shanghai Composite
+  - USDVND=X
+  - USDCNY=X
+  - VHM.VN
+  - VIC.VN
+  - NVL.VN
+  - KDH.VN
+  - DXG.VN
+  - PDR.VN
+  - NLG.VN
+  - KBC.VN     # BĐS KCN
+
+simplize:
+  base_url: https://api2.simplize.vn
+  sleep_seconds: 1.5
+  tenors_m: [1, 3, 6, 9, 12, 24]
+
+vbma:
+  base_url: https://vbma.org.vn

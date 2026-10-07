@@ -1,0 +1,21 @@
+# Quy tắc tác động tới thị trường BĐS, lấy nguyên từ báo cáo (bảng "Tác động: Cầu · Cung").
+# `when`: hướng của biến mà quy tắc mô tả. Khi biến đi ngược hướng `when` → đảo up↔down, giữ both/none.
+# Ký hiệu: up ↑ · down ↓ · both ⇅ (hai chiều) · none ● (không đáng kể)
+# Nhóm không có quy tắc trong báo cáo → để `rule: null`, app hiện "Chưa có quy tắc" (không tự suy).
+note: "Mũi tên là hướng của biến, không phải đánh giá tốt hay xấu."
+symbols: {up: "↑", down: "↓", both: "⇅", none: "●"}
+groups:
+  A1: {name: "Fed và USD", when: up, rule: {housing_demand: down, housing_supply: down, industrial_demand: none, industrial_supply: down}}
+  A2: {name: "Năng lượng, địa chính trị", when: up, rule: {housing_demand: down, housing_supply: down, industrial_demand: down, industrial_supply: down}}
+  A3: {name: "Kim loại, vật liệu", when: up, rule: {housing_demand: none, housing_supply: down, industrial_demand: none, industrial_supply: down}}
+  A4: {name: "Thuế quan Mỹ", when: down, rule: {housing_demand: none, housing_supply: none, industrial_demand: up, industrial_supply: none}}
+  A5: {name: "Tăng trưởng toàn cầu", when: up, rule: {housing_demand: up, housing_supply: none, industrial_demand: up, industrial_supply: up}}
+  B1: {name: "Tăng trưởng, thu nhập", when: up, rule: {housing_demand: up, housing_supply: none, industrial_demand: up, industrial_supply: none}}
+  B2: {name: "Lạm phát, tỷ giá", when: up, rule: {housing_demand: down, housing_supply: down, industrial_demand: none, industrial_supply: down}}
+  B3: {name: "Lãi suất, thanh khoản", when: up, rule: {housing_demand: down, housing_supply: down, industrial_demand: none, industrial_supply: down}}
+  B4: {name: "Tín dụng định hướng", when: up, rule: {housing_demand: both, housing_supply: both, industrial_demand: none, industrial_supply: up}}
+  C1: {name: "Giá đất, tiền sử dụng đất", when: up, rule: {housing_demand: down, housing_supply: down, industrial_demand: down, industrial_supply: down}}
+  # D2, E1: bổ sung 06/10/2026 theo ý kiến người dùng + tài liệu (hạ tầng kéo cầu và mở quỹ đất KCN;
+  # đẩy giá đất nên cung nhà ở hai chiều. FDI kéo cầu thuê đất KCN; cung KCN phản ứng trễ).
+  D2: {name: "Đầu tư công", when: up, rule: {housing_demand: up, housing_supply: both, industrial_demand: up, industrial_supply: up}}
+  E1: {name: "FDI", when: up, rule: {housing_demand: none, housing_supply: none, industrial_demand: up, industrial_supply: none}}

@@ -1,0 +1,46 @@
+﻿Chỉ số,Tần suất,Nguồn số liệu,Áp dụng,Mã,Nhóm,Đơn vị,Trong scorecard,Dữ liệu từ,Kỳ mới nhất,Link nguồn
+Chỉ số USD (DXY),Ngày,Yahoo Finance,KCN,dxy,A1 · Fed và USD,điểm,Có,01/2010,06/10/2026,https://finance.yahoo.com/quote/DX-Y.NYB
+Dầu Brent giao ngay (EIA),Ngày,FRED (EIA),KCN,brent,"A2 · Năng lượng, địa chính trị",USD/thùng,Có,01/2010,29/09/2026,https://fred.stlouisfed.org/series/DCOILBRENTEU
+Đồng LME (giá cash),Ngày,LME (Westmetall),KCN,copper,"A3 · Kim loại, vật liệu",USD/tấn,Có,01/2010,05/10/2026,https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash
+Chỉ số biến động VIX,Ngày,FRED (CBOE),KCN,vix,A5 · Tăng trưởng toàn cầu,điểm,Có,01/2010,02/10/2026,https://fred.stlouisfed.org/series/VIXCLS
+Tăng trưởng GDP (số công bố),Quý,"GSO, VBMA",Nhà ở & KCN,gdp_yoy_published,"B1 · Tăng trưởng, thu nhập",%,Có,03/2017,30/06/2026,https://vbma.org.vn/vi/market-data/macro-economic-heatmap
+Xuất khẩu so cùng kỳ,Tháng,"Hải quan, dulieukinhte",KCN,export_yoy,"B1 · Tăng trưởng, thu nhập",%,Có,01/2010,31/07/2026,https://dulieukinhte.com/
+PMI sản xuất Việt Nam,Tháng,"S&P Global, VBMA",KCN,pmi_vn,"B1 · Tăng trưởng, thu nhập",điểm,Có,01/2016,31/08/2026,https://vbma.org.vn/vi/market-data/macro-economic-heatmap
+CPI so cùng kỳ,Tháng,"GSO, VBMA",Nhà ở,cpi_yoy,"B2 · Lạm phát, tỷ giá",%,Có,01/2003,31/08/2026,https://vbma.org.vn/vi/market-data/macro-economic-heatmap
+"CPI nhà ở và VLXD, so cùng kỳ",Tháng,"GSO, dulieukinhte",Nhà ở,cpi_housing_yoy,"B2 · Lạm phát, tỷ giá",%,Có,01/2003,31/08/2026,https://dulieukinhte.com/
+Tỷ giá trung tâm USD/VND,Ngày,"NHNN, dulieukinhte",Nhà ở,fx_central,"B2 · Lạm phát, tỷ giá",VND/USD,Có,01/2009,10/08/2026,https://dulieukinhte.com/
+LS huy động 12 tháng (Big4),Ngày,Simplize,Nhà ở & KCN,deposit_12m_big4,"B3 · Lãi suất, thanh khoản",%,Có,01/2016,06/10/2026,https://simplize.vn/lai-suat-ngan-hang
+LS liên ngân hàng qua đêm,Ngày,"NHNN, dulieukinhte",Nhà ở,interbank_on,"B3 · Lãi suất, thanh khoản",%,Có,01/2016,31/07/2026,https://dulieukinhte.com/
+Lợi suất TPCP 10 năm,Ngày,"HNX, dulieukinhte",Nhà ở & KCN,govbond_10y,"B3 · Lãi suất, thanh khoản",%,Có,03/2013,31/07/2026,https://dulieukinhte.com/
+Tăng trưởng tín dụng so cùng kỳ,Tháng,"NHNN, dulieukinhte",Nhà ở,credit_yoy,B4 · Tín dụng định hướng,%,Có,03/2010,31/05/2026,https://dulieukinhte.com/
+Giải ngân đầu tư công (tháng),Tháng,"Bộ Tài chính, dulieukinhte",Nhà ở,public_investment,D2 · Đầu tư công,tỷ đồng,Có,01/2010,30/06/2026,https://dulieukinhte.com/
+FDI đăng ký mới (lũy kế năm),Tháng,"Bộ KH&ĐT, dulieukinhte",KCN,fdi_registered_ytd,E1 · FDI,triệu USD,Có,06/2019,31/07/2026,https://dulieukinhte.com/
+Lãi suất Fed (biên trên),Ngày,FRED,Nhà ở & KCN,fed_upper,A1 · Fed và USD,%,,01/2010,05/10/2026,https://fred.stlouisfed.org/series/DFEDTARU
+Lãi suất Fed (biên dưới),Ngày,FRED,Nhà ở & KCN,fed_lower,A1 · Fed và USD,%,,01/2010,05/10/2026,https://fred.stlouisfed.org/series/DFEDTARL
+Lãi suất liên bang hiệu lực (EFFR),Ngày,FRED,Nhà ở & KCN,effr,A1 · Fed và USD,%,,01/2010,02/10/2026,https://fred.stlouisfed.org/series/DFF
+Lợi suất UST 2 năm,Ngày,FRED,Nhà ở & KCN,ust_2y,A1 · Fed và USD,%,,01/2010,02/10/2026,https://fred.stlouisfed.org/series/DGS2
+Lợi suất UST 10 năm,Ngày,FRED,Nhà ở & KCN,ust_10y,A1 · Fed và USD,%,,01/2010,02/10/2026,https://fred.stlouisfed.org/series/DGS10
+Độ dốc UST 10Y − 2Y,Ngày,FRED,Nhà ở & KCN,ust_10y2y,A1 · Fed và USD,điểm %,,01/2010,05/10/2026,https://fred.stlouisfed.org/series/T10Y2Y
+"Chỉ số USD (broad, Fed)",Ngày,FRED,Nhà ở & KCN,usd_broad,A1 · Fed và USD,điểm,,01/2010,02/10/2026,https://fred.stlouisfed.org/series/DTWEXBGS
+Dầu Brent kỳ hạn (ICE),Ngày,Yahoo Finance (ICE BZ=F),Nhà ở & KCN,brent_futures,"A2 · Năng lượng, địa chính trị",USD/thùng,,01/2010,06/10/2026,https://finance.yahoo.com/quote/BZ=F
+Tồn kho đồng LME,Ngày,LME (Westmetall),Nhà ở & KCN,copper_lme_stock,"A3 · Kim loại, vật liệu",tấn,,01/2010,05/10/2026,https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash
+Đồng COMEX (đối chiếu),Ngày,Yahoo Finance (COMEX),Nhà ở & KCN,copper_comex,"A3 · Kim loại, vật liệu",USD/lb,,01/2010,06/10/2026,https://finance.yahoo.com/quote/HG=F
+"Đồng, giá thế giới IMF (tháng)",Tháng,FRED (IMF),Nhà ở & KCN,copper_imf,"A3 · Kim loại, vật liệu",USD/tấn,,01/2010,31/07/2026,https://fred.stlouisfed.org/series/PCOPPUSDM
+Spread trái phiếu HY Mỹ,Ngày,FRED (ICE BofA),Nhà ở & KCN,hy_spread,A5 · Tăng trưởng toàn cầu,điểm %,,10/2023,02/10/2026,https://fred.stlouisfed.org/series/BAMLH0A0HYM2
+Lạm phát kỳ vọng 10 năm (breakeven),Ngày,FRED,Nhà ở & KCN,breakeven_10y,A5 · Tăng trưởng toàn cầu,%,,01/2010,05/10/2026,https://fred.stlouisfed.org/series/T10YIE
+Lãi vay mua nhà Mỹ 30 năm,Tuần,FRED (Freddie Mac),Nhà ở,us_mortgage_30y,A5 · Tăng trưởng toàn cầu,%,,01/2010,01/10/2026,https://fred.stlouisfed.org/series/MORTGAGE30US
+Tăng trưởng GDP (tự tính),Quý,"GSO, dulieukinhte",Nhà ở & KCN,gdp_yoy,"B1 · Tăng trưởng, thu nhập",%,,03/2011,30/06/2026,https://dulieukinhte.com/
+"GDP ngành kinh doanh BĐS, so cùng kỳ",Quý,"GSO, dulieukinhte",Nhà ở,gdp_realestate_yoy,"B1 · Tăng trưởng, thu nhập",%,,03/2011,30/06/2026,https://dulieukinhte.com/
+"GDP ngành xây dựng, so cùng kỳ",Quý,"GSO, dulieukinhte",Nhà ở & KCN,gdp_construction_yoy,"B1 · Tăng trưởng, thu nhập",%,,03/2011,30/06/2026,https://dulieukinhte.com/
+CPI bình quân từ đầu năm (so mục tiêu),Tháng,"GSO, dulieukinhte",Nhà ở & KCN,cpi_avg_ytd,"B2 · Lạm phát, tỷ giá",%,,01/2003,31/07/2026,https://dulieukinhte.com/
+"Tỷ giá trung tâm, thay đổi từ đầu năm",Ngày,"NHNN, dulieukinhte",Nhà ở & KCN,fx_central_ytd,"B2 · Lạm phát, tỷ giá",%,,01/2010,10/08/2026,https://dulieukinhte.com/
+LS huy động 12 tháng (20 NH),Ngày,Simplize,Nhà ở & KCN,deposit_12m_all,"B3 · Lãi suất, thanh khoản",%,,01/2016,06/10/2026,https://simplize.vn/lai-suat-ngan-hang
+Lãi suất tái cấp vốn,Ngày,"NHNN, dulieukinhte",Nhà ở & KCN,refi_rate,"B3 · Lãi suất, thanh khoản",%,,01/2016,03/08/2026,https://dulieukinhte.com/
+Lãi suất thực (huy động 12T Big4 − CPI),Tháng,"Tính toán (Simplize, GSO)",Nhà ở & KCN,real_rate,"B3 · Lãi suất, thanh khoản",điểm %,,01/2016,31/08/2026,
+Tăng trưởng tín dụng từ đầu năm,Tháng,"NHNN, dulieukinhte",Nhà ở & KCN,credit_ytd,B4 · Tín dụng định hướng,%,,03/2009,31/05/2026,https://dulieukinhte.com/
+"Tín dụng ngành xây dựng, từ đầu năm",Tháng,"NHNN, dulieukinhte",Nhà ở & KCN,credit_construction_ytd,B4 · Tín dụng định hướng,%,,01/2018,31/05/2026,https://dulieukinhte.com/
+Tăng trưởng M2 từ đầu năm,Tháng,"NHNN, dulieukinhte",Nhà ở & KCN,m2_ytd,B4 · Tín dụng định hướng,%,,03/2009,31/05/2026,https://dulieukinhte.com/
+Tín dụng trừ M2 (từ đầu năm),Tháng,Tính toán (NHNN),Nhà ở & KCN,credit_minus_m2,B4 · Tín dụng định hướng,điểm %,,03/2009,31/05/2026,
+Thu tiền sử dụng đất (NSNN),Năm,"Bộ Tài chính, VBMA",Nhà ở,land_use_revenue,"C1 · Giá đất, tiền sử dụng đất",tỷ đồng,,12/2018,31/12/2024,https://vbma.org.vn/vi/market-data/macro-economic-heatmap
+"Giải ngân đầu tư công lũy kế, so cùng kỳ",Tháng,"Bộ Tài chính, dulieukinhte",Nhà ở & KCN,public_investment_ytd_yoy,D2 · Đầu tư công,%,,01/2011,30/06/2026,https://dulieukinhte.com/
+"FDI đăng ký mới, lũy kế so cùng kỳ",Tháng,"Bộ KH&ĐT, dulieukinhte",KCN,fdi_registered_ytd_yoy,E1 · FDI,%,,06/2020,31/07/2026,https://dulieukinhte.com/

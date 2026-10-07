@@ -1,0 +1,20 @@
+# Ngưỡng MẶC ĐỊNH (thống kê) cho mọi chỉ số chưa có ngưỡng riêng. Không phải ngưỡng nghiệp vụ:
+# app ghi rõ "ngưỡng thống kê mặc định" cho các chỉ số này.
+#
+# Ghi đè: sửa ở trang Ngưỡng / tab Tác động BĐS (ghi vào config/thresholds.d/90_ui.yaml),
+# hoặc thêm file config/thresholds.d/*.yaml (nạp theo tên file, file sau đè file trước).
+#
+# method        zscore | percentile | median_dev | absolute | target_band
+# window_years  N năm (zscore, percentile, median_dev)
+# cuts          k mốc tăng dần → k + 1 mức; 3 mức: xanh·vàng·đỏ, 4: xanh·vàng·cam·đỏ,
+#               5: xanh đậm·xanh·vàng·cam·đỏ
+# side          below (tăng là tốt) | above (tăng là không tốt) | both (ở giữa là tốt)
+#               | middle (ở giữa là không tốt, hai đầu là tốt)
+# description   ghi chú hiện khi rê chuột vào chấm màu
+default:
+  method: zscore
+  window_years: 5
+  cuts: [1.0, 2.0]
+  side: both
+  description: Ngưỡng thống kê mặc định, |z| trên 1 là vàng, trên 2 là đỏ (5 năm)
+  min_points: {D: 250, W: 104, M: 24, Q: 8, A: 5}

@@ -1,0 +1,51 @@
+# Copy to project root as ruff.toml (hub-code-style). Verified with ruff 0.16.9.
+# Run: ruff check --fix . && ruff format .   (pre-commit runs both)
+line-length = 100
+target-version = "py311"
+
+[lint]
+select = [
+  "E", "W", "F",      # pycodestyle, pyflakes
+  "I",                # import order
+  "N",                # naming
+  "B",                # bugbear: likely bugs
+  "UP",               # modern syntax
+  "SIM",              # simplify
+  "RUF",
+  "PD",               # pandas-vet (inplace, ...)
+  "C90",              # cyclomatic complexity
+  "PLR091",           # too many args/branches/statements/returns
+  "TID251",           # banned imports: data layer must not import UI frameworks
+  "PLR5501",          # else: if -> elif
+  "RET505",           # no else after return
+  "ERA",              # commented-out code
+  "T20",              # print -> logging
+  "PERF",             # loops that should be comprehensions
+  "FBT",              # boolean positional args (flag parameters)
+]
+ignore = ["RUF001", "RUF002", "RUF003"]   # Vietnamese text in strings/comments
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.pylint]
+max-args = 5
+max-branches = 10
+max-statements = 40
+max-returns = 4
+
+# Data/app separation: only the app layer may import UI frameworks.
+[lint.flake8-tidy-imports.banned-api]
+"streamlit".msg = "Data layer must not import streamlit - move UI code to the app layer (hub-code-style)"
+"dash".msg = "Data layer must not import dash - move UI code to the app layer (hub-code-style)"
+
+[lint.per-file-ignores]
+"app.py" = ["TID251"]
+"app_pages/**" = ["TID251", "E501"]
+"src/*/app/**" = ["TID251"]
+"src/*/ui/**" = ["TID251", "E501", "FBT001"]
+"src/macro_app/cli.py" = ["T20"]
+"tests/**" = ["PLR091", "FBT", "T20"]
+"tests/test_app.py" = ["PLR091", "FBT", "T20", "TID251"]  # AppTest cần streamlit
+"scripts/**" = ["T20", "E501"]
+"analysis/**" = ["E501", "T20"]   # notebooks (hub-notebook-analysis): markdown prose lines, display output
