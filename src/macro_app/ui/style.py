@@ -55,11 +55,6 @@ table.mv tr.mv-group td {{ font-size: .68rem; letter-spacing: .06em; text-transf
 .mv-empty {{ font-size: .75rem; color: {t.MUTED}; }}
 .mv-chg {{ text-align: right; font-size: .78rem; white-space: nowrap; }}
 .mv-basis {{ display: block; font-size: .64rem; color: {t.MUTED}; }}
-.mv-fav {{ font-size: .9rem; text-align: center; cursor: help; }}
-.mv-imps {{ text-align: center; white-space: nowrap; }}
-.mv-imp {{ display: inline-block; width: 30px; text-align: center; letter-spacing: 1px;
-  font-size: .9rem; cursor: help; }}
-.mv-imp + .mv-imp {{ border-left: 1px solid {RULE}; }}
 .mv-muted {{ color: {t.MUTED}; }}
 
 table.mi tr.mi-group td {{ background: #F4F6F8; padding: 9px 6px; border-bottom: 1px solid {t.BORDER};

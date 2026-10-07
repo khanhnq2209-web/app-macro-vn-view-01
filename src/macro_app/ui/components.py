@@ -12,9 +12,8 @@ from macro_app.metrics.quality import FLAG_LABEL
 from macro_app.metrics.status import STATUS_LABEL, resolve_threshold
 from macro_app.ui import data
 
-FOOTER = (
-    "Dữ liệu từ nguồn công khai. Bản công khai không hiển thị số liệu có bản quyền (Yahoo, LME)."
-)
+FOOTER_HIDDEN = "Bản công khai không hiển thị số liệu có bản quyền (Yahoo, LME)."
+FOOTER_SHOWN = "Có số liệu Yahoo Finance và LME (Westmetall): chỉ dùng nội bộ, không phát hành lại."
 
 
 def threshold_bands(code: str) -> dict:
@@ -157,4 +156,5 @@ def download_series_button(codes: list[str], key: str) -> None:
 def footer() -> None:
     meta = data.build_meta()
     built = meta.get("built_at", "")[:16].replace("T", " ")
-    st.html(f'<div class="mc-footer">{FOOTER} Cập nhật {built}.</div>')
+    note = FOOTER_HIDDEN if data.hide_vendor() else FOOTER_SHOWN
+    st.html(f'<div class="mc-footer">{note} Cập nhật {built}.</div>')

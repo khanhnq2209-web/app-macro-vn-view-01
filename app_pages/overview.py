@@ -91,7 +91,6 @@ for col, block in zip(cols, blocks, strict=False):
     ctx = monitor.BlockContext(
         sparks={c: monitor.spark_points(data.series(c), catalog[c].frequency) for c in codes},
         decimals={c: catalog[c].decimals for c in codes},
-        symbols=rules["symbols"],
         group_names=group_names,
     )
     with col:

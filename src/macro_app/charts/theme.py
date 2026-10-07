@@ -25,13 +25,6 @@ STATUS_COLORS = {
     "insufficient": ("#ECEEF0", "#5F6B73"),
     "no_data": ("#ECEEF0", "#5F6B73"),
 }
-# --- Ô tác động (ma trận BĐS): ↓ đỏ nhạt, ↑ xanh dương nhạt, ⇅ vàng nhạt, ● xám ---
-IMPACT_COLORS = {
-    "down": ("#FBE3E1", "#B3261E"),
-    "up": ("#E2F1E4", "#1E7B34"),  # tăng cầu/cung: xanh lá; giảm: đỏ
-    "both": ("#FBEFD3", "#9A6700"),
-    "none": ("#ECEEF0", "#5F6B73"),
-}
 
 # --- Series: gán theo thứ tự cố định trong 1 chart (≤3 series để giữ all-pairs CVD pass) ---
 CATEGORICAL = ["#2a78d6", "#eb6834", "#1baf7a", "#4a3aa7", "#e34948"]

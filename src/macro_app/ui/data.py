@@ -50,13 +50,25 @@ def _fedwatch(stamp: float) -> dict[str, pd.DataFrame]:
     return out
 
 
-def hide_vendor() -> bool:
-    """APP_MODE khác 'admin' (bản deploy công khai) → ẩn số Yahoo (giấy phép), đúng câu chân trang."""
+def _setting(name: str) -> str:
+    """Đọc từ st.secrets (Streamlit Cloud) rồi tới biến môi trường."""
     try:
-        mode = str(st.secrets.get("APP_MODE", "")) if "APP_MODE" in st.secrets else ""
+        if name in st.secrets:
+            return str(st.secrets.get(name, ""))
     except FileNotFoundError:
-        mode = ""
-    return (mode or os.getenv("APP_MODE", "")).lower() != "admin"
+        pass
+    return os.getenv(name, "")
+
+
+def hide_vendor() -> bool:
+    """Ẩn số Yahoo, LME (giấy phép) ở bản deploy, trừ khi bật SHOW_VENDOR_DATA=1.
+
+    Chạy local quản trị (APP_MODE=admin) luôn hiện. Bản deploy chia sẻ nội bộ (mời email) có thể
+    bật SHOW_VENDOR_DATA=1 trong Secrets; người bật chịu trách nhiệm về điều khoản dữ liệu.
+    """
+    if _setting("APP_MODE").lower() == "admin":
+        return False
+    return _setting("SHOW_VENDOR_DATA").strip().lower() not in ("1", "true", "yes")
 
 
 VENDOR_SOURCES = ("Yahoo", "LME (Westmetall)")

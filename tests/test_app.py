@@ -198,3 +198,21 @@ def test_forecast_page_admin_save(monkeypatch):
     assert saved and len(saved[0]) == len(
         __import__("macro_app.metrics.forward", fromlist=["x"]).load_forecast_map()
     )
+
+
+def test_vendor_switch(monkeypatch):
+    """Bản deploy ẩn số Yahoo/LME; bật SHOW_VENDOR_DATA=1 thì hiện; local quản trị luôn hiện."""
+    from macro_app.ui import data
+
+    monkeypatch.setattr(
+        data, "_setting", lambda name: {"APP_MODE": "", "SHOW_VENDOR_DATA": ""}[name]
+    )
+    assert data.hide_vendor()
+    monkeypatch.setattr(
+        data, "_setting", lambda name: {"APP_MODE": "", "SHOW_VENDOR_DATA": "1"}[name]
+    )
+    assert not data.hide_vendor()
+    monkeypatch.setattr(
+        data, "_setting", lambda name: {"APP_MODE": "admin", "SHOW_VENDOR_DATA": ""}[name]
+    )
+    assert not data.hide_vendor()

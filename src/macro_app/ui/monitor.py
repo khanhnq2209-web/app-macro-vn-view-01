@@ -14,7 +14,6 @@ import pandas as pd
 
 from macro_app import fmt
 from macro_app.charts import theme as t
-from macro_app.metrics.impact import TAG_LABEL
 from macro_app.metrics.quality import FLAG_ICON, FLAG_LABEL
 from macro_app.metrics.status import STATUS_LABEL
 
@@ -22,16 +21,9 @@ SPARK_W, SPARK_H = 84, 24
 # Cờ có ở mọi dòng thì không cần lặp lại icon
 HIDDEN_FLAGS = {"default_threshold"}
 BASIS = {"yoy": "so cùng kỳ", "30d": "so 30 ngày", "prev": "so kỳ trước"}
-FAV_GLYPH = {"favorable": "▲", "unfavorable": "▼", "two_way": "◆", "neutral": "●"}
-FAV_COLOR = {
-    "favorable": "#1F5FAE",
-    "unfavorable": "#B3261E",
-    "two_way": "#9A6700",
-    "neutral": t.MUTED,
-}
 COLS = (
     '<colgroup><col style="width:16px"><col><col style="width:90px"><col style="width:108px">'
-    '<col style="width:80px"><col style="width:34px"><col style="width:66px"></colgroup>'
+    '<col style="width:96px"></colgroup>'
 )
 
 
@@ -39,7 +31,6 @@ COLS = (
 class BlockContext:
     sparks: dict[str, pd.Series]  # mã → chuỗi vẽ sparkline
     decimals: dict[str, int]
-    symbols: dict[str, str]  # up/down/both/none → ↑ ↓ ⇅ ●
     group_names: dict[str, str]
 
 
@@ -95,19 +86,6 @@ def _change(row: pd.Series) -> str:
     return f'{fmt.change(row["change"], row["change_unit"])}<span class="mv-basis">{basis}</span>'
 
 
-def _impacts(row: pd.Series, symbols: dict) -> str:
-    def pair(prefix: str, label: str) -> str:
-        d, s = row.get(f"impact_{prefix}_demand"), row.get(f"impact_{prefix}_supply")
-        if not d:
-            return '<span class="mv-imp mv-muted">–</span>'
-        marks = "".join(
-            f'<b style="color:{t.IMPACT_COLORS[v][1]}">{symbols[v]}</b>' for v in (d, s)
-        )
-        return f'<span class="mv-imp" title="{label}: cầu, cung">{marks}</span>'
-
-    return pair("housing", "Nhà ở") + pair("industrial", "KCN")
-
-
 def _flags(flags: str) -> str:
     items = [f for f in str(flags or "").split(";") if f in FLAG_ICON and f not in HIDDEN_FLAGS]
     return "".join(
@@ -115,11 +93,9 @@ def _flags(flags: str) -> str:
     )
 
 
-def row_html(row: pd.Series, spark: pd.Series, symbols: dict, decimals: int) -> str:
+def row_html(row: pd.Series, spark: pd.Series, decimals: int) -> str:
     status = row["status"]
     dot = t.STATUS_COLORS.get(status, t.STATUS_COLORS["none"])[1]
-    has_value = pd.notna(row["value"])
-    fav = row["favorability"] if has_value else "neutral"
     name = html.escape(row["name"])
     meta = f"{fmt.period(row['period'], row['frequency'])} · {html.escape(row['source'])}"
     return (
@@ -131,9 +107,6 @@ def row_html(row: pd.Series, spark: pd.Series, symbols: dict, decimals: int) -> 
         f'<td class="mv-spark">{sparkline(spark, status)}</td>'
         f'<td class="mv-val">{_value(row["value"], row["unit"], decimals)}</td>'
         f'<td class="mv-chg">{_change(row)}</td>'
-        f'<td class="mv-fav" style="color:{FAV_COLOR[fav]}" title="{TAG_LABEL[fav][2:]} với BĐS">'
-        f"{FAV_GLYPH[fav] if has_value else ''}</td>"
-        f'<td class="mv-imps">{_impacts(row, symbols) if has_value else ""}</td>'
         "</tr>"
     )
 
@@ -141,15 +114,14 @@ def row_html(row: pd.Series, spark: pd.Series, symbols: dict, decimals: int) -> 
 def block_html(title: str, rows: pd.DataFrame, ctx: BlockContext) -> str:
     head = (
         '<tr><th></th><th></th><th>Xu hướng</th><th class="r">Giá trị</th>'
-        '<th class="r">Thay đổi</th><th class="c">BĐS</th><th class="c">Nhà ở · KCN</th></tr>'
+        '<th class="r">Thay đổi</th></tr>'
     )
     body = []
     for group, part in rows.groupby("group", sort=False):
         label = html.escape(ctx.group_names.get(group, group))
-        body.append(f'<tr class="mv-group"><td colspan="7">{label}</td></tr>')
+        body.append(f'<tr class="mv-group"><td colspan="5">{label}</td></tr>')
         body += [
-            row_html(r, ctx.sparks[r["code"]], ctx.symbols, ctx.decimals[r["code"]])
-            for _, r in part.iterrows()
+            row_html(r, ctx.sparks[r["code"]], ctx.decimals[r["code"]]) for _, r in part.iterrows()
         ]
     return (
         f'<div class="mv-title">{html.escape(title)}</div>'
