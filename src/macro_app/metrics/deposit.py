@@ -1,8 +1,7 @@
-"""Lãi suất huy động bình quân nhóm NH (quyết định D4).
+"""Lãi suất huy động bình quân nhóm NH.
 
-Số NH có quan sát mỗi ngày dao động 6–20 → bình quân thẳng các ngày quan sát tạo bước nhảy giả.
-Cách tính: lịch ngày từ quan sát đầu → cuối, mỗi NH giữ báo giá gần nhất tối đa
-`ffill_limit_days` ngày, rồi bình quân các NH đang có báo giá.
+Số NH có quan sát mỗi ngày dao động 6 đến 20 nên bình quân thẳng tạo bước nhảy giả. Vì vậy
+mỗi NH giữ báo giá gần nhất tối đa `ffill_limit_days` ngày lịch rồi mới bình quân.
 """
 
 from __future__ import annotations
@@ -23,7 +22,7 @@ def select_banks(banks: pd.DataFrame, bank_group: str) -> pd.Index | None:
 
 
 def bank_calendar(panel: pd.DataFrame, ffill_limit_days: int) -> pd.DataFrame:
-    """Bảng ngày × NH: báo giá mỗi NH điền xuôi tối đa `ffill_limit_days` ngày lịch."""
+    """Bảng ngày x NH, báo giá mỗi NH điền xuôi tối đa `ffill_limit_days` ngày lịch."""
     wide = panel.pivot_table(index="date", columns="bank_code", values="rate_pct", aggfunc="last")
     days = pd.date_range(wide.index.min(), wide.index.max(), freq="D", name="date")
     return wide.reindex(days).ffill(limit=ffill_limit_days)

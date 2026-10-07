@@ -6,7 +6,7 @@ import streamlit as st
 
 from macro_app.charts import theme as t
 
-RULE = "#E3E8EB"  # kẻ mảnh giữa các dòng
+RULE = "#E3E8EB"
 
 BASE_CSS = f"""
 <style>
@@ -14,7 +14,7 @@ BASE_CSS = f"""
 h1, h2, h3 {{ color: {t.HEADING}; }}
 h1 {{ font-size: 1.45rem !important; }}
 
-.ms {{ display: flex; align-items: baseline; gap: 34px; padding: 4px 0 10px 0;
+.ms {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 34px; padding: 4px 0 10px 0;
   border-bottom: 1px solid {RULE}; margin-bottom: 6px; }}
 .ms-item {{ display: flex; align-items: baseline; gap: 8px; }}
 .ms-dot {{ width: 10px; height: 10px; border-radius: 50%; display: inline-block;
@@ -55,15 +55,12 @@ table.mv tr.mv-group td {{ font-size: .68rem; letter-spacing: .06em; text-transf
 .mv-empty {{ font-size: .75rem; color: {t.MUTED}; }}
 .mv-chg {{ text-align: right; font-size: .78rem; white-space: nowrap; }}
 .mv-basis {{ display: block; font-size: .64rem; color: {t.MUTED}; }}
-.mv-muted {{ color: {t.MUTED}; }}
 
 table.mi tr.mi-group td {{ background: #F4F6F8; padding: 9px 6px; border-bottom: 1px solid {t.BORDER};
   font-size: .82rem; color: {t.TEXT}; }}
 table.mi tr.mi-total td {{ background: #FFFFFF; padding: 10px 6px; border-top: 2px solid {t.HEADING};
   border-bottom: 2px solid {t.HEADING}; font-size: .86rem; }}
-.mi-count {{ font-size: .64rem; color: {t.MUTED}; margin-top: 2px; white-space: nowrap; }}
 .mi-gnote {{ margin-left: 10px; font-size: .74rem; color: {t.MUTED}; }}
-.mi-trend {{ font-size: .74rem; color: {t.MUTED}; white-space: nowrap; }}
 .mi-cell {{ text-align: center; }}
 .mi-cell span {{ display: inline-block; min-width: 30px; padding: 2px 0; border-radius: 6px;
   font-weight: 700; font-size: .95rem; }}
@@ -78,12 +75,9 @@ table.mi tr.mi-total td {{ background: #FFFFFF; padding: 10px 6px; border-top: 2
 .sc-chip {{ display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: .78rem; font-weight: 600; }}
 .sc-delta {{ display: block; font-size: .75rem; color: {t.MUTED}; margin-top: 2px; }}
 .sc-cov {{ font-size: .68rem; color: {t.MUTED}; }}
-.sc-level {{ font-size: .8rem; }}
 .sc-trend {{ font-size: .8rem; font-weight: 600; white-space: nowrap; }}
 .sc-arrow {{ font-size: 1.15rem; margin-right: 4px; vertical-align: -2px; }}
 .sc-flag {{ color: #9A6700; }}
-.sc-fwd {{ font-size: .7rem; color: {t.MUTED}; margin-top: 2px; }}
-.sc-fwd-chip {{ border-radius: 999px; padding: 0 6px; font-weight: 600; }}
 table.sc-fed {{ max-width: 640px; }}
 .sc-warn {{ font-size: .78rem; color: #B3261E; margin: 4px 0 6px 0; }}
 .sc-wrap {{ overflow-x: auto; }}
@@ -100,23 +94,20 @@ table.sc-fed {{ max-width: 640px; }}
 @media (max-width: 640px) {{
   .sc-head {{ flex-direction: column; align-items: flex-start; gap: 6px; }}
   .sc-score {{ text-align: left; }}
+  table.mv {{ table-layout: auto; }}
+  table.mv col {{ width: auto !important; }}
+  .sc-wrap table.mv {{ min-width: 0; }}
+  .m-hide {{ display: none !important; }}
+  .mv-name {{ overflow: visible; }}
+  .mv-name a {{ white-space: normal; overflow: visible; line-height: 1.25; }}
+  .mv-meta {{ white-space: normal; }}
+  .mv-num {{ font-size: .95rem; }}
+  table.mv td {{ padding: 6px 4px; }}
+  [data-testid="stMetricValue"] {{ font-size: 1.35rem; }}
+  [data-testid="stMetric"] {{ padding: 0; }}
 }}
 table.mv td.r, table.mv th.r {{ text-align: right; }}
-.sc-strip {{ display: flex; align-items: center; gap: 22px; padding: 6px 0 10px 0;
-  border-bottom: 1px solid {RULE}; margin-bottom: 4px; flex-wrap: wrap; }}
-.sc-strip-label {{ font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: {t.MUTED};
-  font-weight: 700; }}
-.sc-strip-item {{ display: flex; align-items: baseline; gap: 8px; text-decoration: none !important; }}
-.sc-strip-name {{ font-size: .85rem; color: {t.TEXT}; font-weight: 600; }}
-.sc-strip-num {{ font-family: {t.FONT}; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 1.25rem; color: {t.HIGHLIGHT}; }}
 
-.mc-matrix {{ width: 100%; border-collapse: collapse; font-size: 0.85rem; color: {t.TEXT}; }}
-.mc-matrix th {{ color: {t.MUTED}; font-weight: 600; text-align: center; font-size: 0.7rem;
-  text-transform: uppercase; letter-spacing: .04em; padding: 6px; border: 0;
-  border-bottom: 2px solid {t.HEADING}; }}
-.mc-matrix td {{ padding: 9px 8px; border: 0; border-bottom: 1px solid {RULE};
-  vertical-align: middle; }}
-.mc-matrix td.cell {{ text-align: center; font-size: 1.35rem; font-weight: 700; width: 12%; }}
 .mc-note {{ font-size: 0.78rem; color: {t.MUTED}; }}
 .mc-footer {{ font-size: 0.72rem; color: {t.MUTED}; border-top: 1px solid {RULE};
   margin-top: 1.5rem; padding-top: .5rem; }}

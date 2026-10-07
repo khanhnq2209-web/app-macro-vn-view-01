@@ -1,13 +1,7 @@
-"""Simplize (đã có giấy phép, quyết định D6): LS huy động 20 NH → upsert `01_deposit rate.xlsx`.
+"""Simplize (đã có giấy phép, quyết định D6): LS huy động 20 NH, upsert vào `01_deposit rate.xlsx`.
 
-API JSON công khai:
-- `GET {base}/api/company/interest-rate/list?page=0&size=50` → danh sách NH
-  (ticker, stockCode, name)
-- `GET {base}/api/historical/interest-rate/{TICKER}` → lịch sử: maturity{N}m (%),
-  date (epoch ms, 00:00 UTC)
-
-File `01` giữ nguyên cột: ngay_du_lieu, ma_ngan_hang (= ticker), ten_ngan_hang, ma_ck, ky_han
-("{N}_thang"), lai_suat_pct. Khóa upsert (ngay_du_lieu, ma_ngan_hang, ky_han), bản mới thắng.
+API lịch sử trả `date` dạng epoch ms lúc 00:00 UTC.
+Khóa upsert (ngay_du_lieu, ma_ngan_hang, ky_han), bản mới thắng.
 """
 
 from __future__ import annotations
@@ -53,7 +47,7 @@ def _get_json(session: requests.Session, url: str) -> dict:
 
 
 def fetch_bank_list(session: requests.Session, base_url: str) -> pd.DataFrame:
-    """[bank_code, bank_name, stock_code] — bank_code = ticker Simplize."""
+    """[bank_code, bank_name, stock_code]; bank_code là ticker Simplize."""
     body = _get_json(session, f"{base_url}/api/company/interest-rate/list?page=0&size=50")
     items = pd.DataFrame(body.get("data", []))
     return pd.DataFrame(
@@ -66,7 +60,7 @@ def fetch_bank_list(session: requests.Session, base_url: str) -> pd.DataFrame:
 
 
 def history_to_panel(records: list[dict], tenors_m: list[int]) -> pd.DataFrame:
-    """Bản ghi lịch sử 1 NH → [date, bank_code, tenor_m, rate_pct] (bỏ ô trống)."""
+    """Bản ghi lịch sử 1 NH thành [date, bank_code, tenor_m, rate_pct] (bỏ ô trống)."""
     frame = pd.DataFrame(records)
     if frame.empty or "date" not in frame.columns:
         return pd.DataFrame(columns=["date", "bank_code", "tenor_m", "rate_pct"])
@@ -106,7 +100,7 @@ def fetch_simplize_panel(
 
 
 def panel_to_file_rows(panel: pd.DataFrame) -> pd.DataFrame:
-    """Panel → đúng cột của sheet `LS Lãi tiền gửi`."""
+    """Panel theo đúng cột của sheet `LS Lãi tiền gửi`."""
     return pd.DataFrame(
         {
             "ngay_du_lieu": pd.to_datetime(panel["date"]).dt.normalize(),

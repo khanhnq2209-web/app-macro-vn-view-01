@@ -1,7 +1,6 @@
 """View hiển thị: mẫu mặc định (config/views.yaml) + view dùng chung (config/views.d/*.yaml).
 
-View chỉ đổi cách hiển thị (chọn chỉ số, thứ tự, khối, cấu hình chart) —
-không chạm công thức/ngưỡng.
+View chỉ đổi cách hiển thị (chỉ số, thứ tự, khối, chart), không chạm công thức/ngưỡng.
 """
 
 from __future__ import annotations

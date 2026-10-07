@@ -1,8 +1,7 @@
 """Bộ cấu hình scorecard: mỗi bộ có tên, gồm nhiều phân khúc, mỗi phân khúc có chỉ số và ngưỡng.
 
-Lưu ở config/profiles/<bộ>/profile.yaml + segments/<phân khúc>.yaml; bộ mặc định ghi ở
-config/profiles/_default.yaml. Trang Scorecard sửa trên bản nháp (dict trong bộ nhớ) bằng các
-hàm thuần ở cuối file, bấm Lưu mới gọi `write_profile`.
+Lưu ở config/profiles/<bộ>/. Trang Scorecard sửa bản nháp (dict trong bộ nhớ) bằng các hàm
+thuần ở cuối file, bấm Lưu mới gọi `write_profile`.
 """
 
 from __future__ import annotations
@@ -70,7 +69,6 @@ def clean_profile(profile: dict) -> dict:
     }
 
 
-# ---------------- Đọc ----------------
 def read_profile(slug: str, folder: Path | None = None) -> dict:
     base = (folder or PROFILES_DIR) / slug
     meta = _read(base / "profile.yaml")
@@ -108,7 +106,6 @@ def default_profile(folder: Path | None = None) -> str | None:
     return wanted if wanted in names else (names[0] if names else None)
 
 
-# ---------------- Ghi ----------------
 def write_profile(slug: str, profile: dict, folder: Path | None = None) -> Path:
     """Ghi cả bộ: profile.yaml + mỗi phân khúc một file; phân khúc đã bỏ thì xóa file."""
     base = (folder or PROFILES_DIR) / slug
@@ -169,7 +166,6 @@ def set_default_profile(slug: str, folder: Path | None = None) -> None:
     _dump((folder or PROFILES_DIR) / DEFAULT_FILE, {"default": slug})
 
 
-# ---------------- Sửa bản nháp (hàm thuần, trả bản mới) ----------------
 def starter_row(code: str, direction: str | None) -> dict:
     """Dòng mới: phân vị 5 năm theo chiều của catalog (đổi sang ngưỡng cứng ở form)."""
     base = {"code": code, "method": "percentile", "window_years": 5}

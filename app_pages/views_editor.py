@@ -1,7 +1,6 @@
-"""Tùy chỉnh hiển thị (đợt 2): chọn chỉ số, thứ tự, khối, cấu hình chart; lưu view; xuất/nhập YAML.
+"""Tùy chỉnh hiển thị: khối, chart, lưu view, xuất/nhập YAML.
 
-Công khai: view lưu trong phiên + xuất/nhập YAML (không ghi lên server).
-Quản trị: lưu view dùng chung vào config/views.d/. "Mặc định" không ghi đè được.
+Bản công khai chỉ giữ view trong phiên. Quản trị lưu view dùng chung vào config/views.d/.
 """
 
 import copy
@@ -15,7 +14,7 @@ from macro_app.ui import components as ui
 from macro_app.ui import data, sidebar
 
 st.title("Tùy chỉnh hiển thị")
-st.caption("Chỉ thay đổi cách hiển thị. Công thức, ngưỡng và quy tắc tác động giữ nguyên.")
+st.caption("Chỉ đổi cách hiển thị, không đổi công thức, ngưỡng hay quy tắc tác động.")
 catalog = data.catalog_map()
 names = {c: f"{i.group} · {i.name}" for c, i in catalog.items()}
 known = set(catalog)
@@ -173,9 +172,7 @@ with tab_io:
                 views.delete_shared(gone)
                 st.rerun()
     else:
-        c2.caption(
-            "Bản công khai chỉ giữ view trong phiên. Tải YAML về để lưu hoặc gửi người khác."
-        )
+        c2.caption("View chỉ giữ trong phiên. Tải YAML để lưu lại.")
     st.download_button(
         "Xuất YAML",
         views.to_yaml(view).encode("utf-8"),

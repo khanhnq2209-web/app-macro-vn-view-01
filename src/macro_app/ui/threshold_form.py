@@ -1,8 +1,4 @@
-"""Ngưỡng chung của một chỉ số (trang Ngưỡng, Chi tiết, Tác động): bộ sửa + tự lưu.
-
-Phần ô nhập và xem trước nằm ở `rule_editor`; file này chỉ lo so với cấu hình đang lưu,
-tự lưu khi có thay đổi hợp lệ và nút về ngưỡng mặc định.
-"""
+"""Form ngưỡng của một chỉ số: tự lưu khi thay đổi hợp lệ, nút về ngưỡng mặc định."""
 
 from __future__ import annotations
 
@@ -18,7 +14,7 @@ from macro_app.ui import data, rule_editor
 from macro_app.ui.threshold_editor import current_cfg
 
 
-def render(  # noqa: PLR0913 — keyword-only
+def render(  # noqa: PLR0913
     code: str,
     *,
     key: str,
@@ -28,9 +24,9 @@ def render(  # noqa: PLR0913 — keyword-only
     with_scores: bool = False,
     recompute: bool = True,
 ) -> None:
-    """Bộ sửa ngưỡng. Mặc định lưu vào ngưỡng chung; `on_save` để lưu nơi khác.
+    """Mặc định lưu vào ngưỡng chung; `on_save` để lưu nơi khác.
 
-    `recompute=False`: chỉ gọi `on_save` rồi vẽ lại, không tính lại dữ liệu.
+    `recompute=False`: gọi `on_save` rồi vẽ lại, không tính lại dữ liệu.
     """
     if data.series(code).dropna().empty:
         st.info("Chỉ số chưa có dữ liệu.")
@@ -42,9 +38,9 @@ def render(  # noqa: PLR0913 — keyword-only
     shown = _shown_cfg(cfg_now)
     new = rule_editor.edit(code, shown, key=prefix, with_scores=with_scores, disabled=not editable)
     if not editable:
-        st.caption("Đang ở chế độ xem. Chạy app trên máy (APP_MODE=admin) để sửa.")
+        st.caption("Chế độ xem. Sửa khi chạy với APP_MODE=admin.")
         return
-    if new is not None and changed(new, cfg_now):  # tự lưu khi có thay đổi hợp lệ
+    if new is not None and changed(new, cfg_now):
         if on_save:
             on_save(new)
         else:
@@ -57,22 +53,19 @@ def render(  # noqa: PLR0913 — keyword-only
     if global_mode and st.button("Về ngưỡng mặc định", key=f"{prefix}_reset"):
         admin.reset_threshold(code, cfg_now, st.session_state.get("admin_name", ""))
         for k in [k for k in st.session_state if str(k).startswith(prefix)]:
-            del st.session_state[k]  # xóa trạng thái các ô để không tự lưu đè lại
+            del st.session_state[k]  # tránh ô cũ tự lưu đè lại
         _rebuild("Đã về ngưỡng mặc định")
 
 
 def _shown_cfg(cfg: dict) -> dict:
-    """Mô tả mặc định của file ngưỡng không hiện trong ô mô tả (coi như trống)."""
+    """Ẩn mô tả mặc định của file ngưỡng khỏi ô mô tả."""
     default_desc = load_thresholds()[0].get("description")
     desc = cfg.get("description", "")
     return {**cfg, "description": "" if desc == default_desc else desc}
 
 
 def _sync_with_disk(prefix: str, cfg_now: dict) -> None:
-    """Cấu hình bị đổi ở nơi khác (bộ ngưỡng, sửa file, bản nháp) → nạp lại ô nhập.
-
-    Không làm vậy thì các ô còn giữ giá trị cũ và lần chạy sau sẽ tự lưu đè lên thay đổi đó.
-    """
+    """Cấu hình đổi ở nơi khác thì nạp lại ô nhập, tránh ô cũ tự lưu đè lên."""
     base_key = f"{prefix}__base"
     on_disk = repr(sorted(admin._clean_cfg(cfg_now).items())) + repr(cfg_now.get("scores"))
     if st.session_state.get(base_key) not in (None, on_disk):
@@ -82,11 +75,7 @@ def _sync_with_disk(prefix: str, cfg_now: dict) -> None:
 
 
 def changed(new: dict, old: dict) -> bool:
-    """Cấu hình trên form có khác cấu hình đang lưu không (để tự lưu).
-
-    Bỏ qua khác biệt chỉ do mặc định: mô tả mặc định, N năm ở kiểu không dùng cửa sổ,
-    tên mức mặc định, cách đo 'giá trị gốc', điểm theo thang mặc định.
-    """
+    """So cấu hình form với bản đang lưu, bỏ qua khác biệt chỉ do giá trị mặc định."""
     from macro_app.metrics.scorecard import load_settings
 
     default_desc = load_thresholds()[0].get("description")

@@ -1,4 +1,4 @@
-"""Bộ ngưỡng có tên: bật/tắt, xem nội dung, lưu ngưỡng hiện tại thành bộ mới."""
+"""Bộ ngưỡng có tên: bật/tắt, xem, lưu ngưỡng hiện tại thành bộ mới."""
 
 from __future__ import annotations
 
@@ -36,14 +36,14 @@ def render(*, editable: bool) -> None:
     if not sets:
         st.caption("Chưa có bộ ngưỡng nào.")
     chosen = st.multiselect(
-        "Bộ đang bật (bộ chọn sau đè bộ chọn trước nếu trùng chỉ số)",
+        "Bộ đang bật (trùng chỉ số thì bộ chọn sau đè bộ trước)",
         list(sets),
         default=active,
         format_func=lambda s: sets[s]["name"],
         disabled=not editable,
         key="thr_sets_active",
     )
-    if editable and chosen != active:  # tự áp dụng khi đổi lựa chọn
+    if editable and chosen != active:
         admin.set_active_threshold_sets(chosen)
         with st.spinner("Đang tính lại…"):
             rescore()
@@ -60,7 +60,7 @@ def render(*, editable: bool) -> None:
         with st.expander("Lưu ngưỡng hiện tại thành bộ mới"):
             current = admin.current_overrides()
             st.caption(
-                f"Sẽ lưu {len(current)} ngưỡng riêng đang có hiệu lực (từ các bộ đang bật và các lần sửa tay)."
+                f"Lưu {len(current)} ngưỡng riêng đang hiệu lực (từ bộ đang bật và sửa tay)."
             )
             name = st.text_input("Tên bộ", key="thr_sets_name")
             desc = st.text_input("Mô tả bộ", key="thr_sets_desc")

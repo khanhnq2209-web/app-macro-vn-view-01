@@ -14,7 +14,7 @@ def latest_asof(df: pd.DataFrame) -> pd.Timestamp | None:
 
 
 def matrix(df: pd.DataFrame, asof: pd.Timestamp | None = None) -> pd.DataFrame:
-    """Hàng = kỳ họp, cột = khoảng lãi suất (thấp → cao), giá trị = xác suất (0–1)."""
+    """Hàng = kỳ họp, cột = khoảng lãi suất từ thấp tới cao, giá trị = xác suất (0 đến 1)."""
     if df.empty:
         return pd.DataFrame()
     d = df.copy()
@@ -40,7 +40,7 @@ def summary(df: pd.DataFrame, ranges: pd.DataFrame) -> pd.DataFrame:
     d = df.copy()
     d["asof"] = pd.to_datetime(d["asof"])
     d["meeting_date"] = pd.to_datetime(d["meeting_date"])
-    # ranges [date, low_bp, high_bp] = khoảng mục tiêu hiệu lực → lấy khoảng tại ngày asof
+    # ranges [date, low_bp, high_bp]: khoảng mục tiêu hiệu lực từ ngày `date`
     r = ranges.sort_values("date").rename(
         columns={"date": "asof", "low_bp": "cur_low", "high_bp": "cur_high"}
     )

@@ -15,9 +15,7 @@ SOURCE_LABEL = {
     "computed": "Tính từ giá hợp đồng ZQ (cách tính của CME)",
     "quikstrike": "CME FedWatch (QuikStrike)",
 }
-NOTE = (
-    "Xác suất suy ra từ giá hợp đồng tương lai Fed Funds 30 ngày, thể hiện kỳ vọng của thị trường."
-)
+NOTE = "Xác suất suy ra từ giá hợp đồng tương lai Fed Funds 30 ngày."
 
 
 def _ranges() -> pd.DataFrame:
@@ -56,9 +54,8 @@ def render_fedwatch() -> None:
     tables = data.fedwatch()
     available = [k for k in ("computed", "quikstrike") if k in tables and not tables[k].empty]
     if sidebar.is_admin() is False:
-        available = [
-            k for k in available if k == "computed"
-        ]  # [giả định] bản công khai chỉ số tự tính
+        # Bản công khai chỉ hiện số tự tính.
+        available = [k for k in available if k == "computed"]
     if not available:
         st.info("Chưa có dữ liệu FedWatch.")
         return

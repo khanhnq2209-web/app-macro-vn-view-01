@@ -1,7 +1,6 @@
-"""Cấu hình scorecard: bộ → phân khúc → chỉ số → ngưỡng từng chỉ số.
+"""Cấu hình scorecard: bộ, phân khúc, chỉ số, ngưỡng.
 
-Mọi thay đổi vào bản nháp (giữ trong phiên), điểm nháp tính lại ngay; bấm Lưu mới ghi vào
-config/profiles/. Trang Scorecard chỉ hiện bản đã lưu.
+Sửa vào bản nháp trong phiên; chỉ bấm Lưu mới ghi config/profiles/.
 """
 
 import json
@@ -34,13 +33,12 @@ NEW_PILLAR = "＋ Trụ cột mới…"
 
 
 def put(slug: str, new_profile: dict) -> None:
-    """Ghi vào bản nháp rồi vẽ lại."""
     drafts[slug] = new_profile
     st.rerun()
 
 
 def reload_widgets() -> None:
-    ss["sc_ver"] += 1  # đổi khóa ô nhập → nạp lại từ bản nháp/bản đã lưu
+    ss["sc_ver"] += 1  # đổi khóa để ô nhập nạp lại giá trị
 
 
 def refresh(message: str) -> None:
@@ -61,7 +59,6 @@ def evaluate(card: dict):
     return data.scorecard_eval(payload, data.build_stamp())
 
 
-# ---------------- Chọn bộ, phân khúc ----------------
 options = list(saved_all)
 if "cfg_pending_profile" in ss:
     ss["cfg_profile"] = ss.pop("cfg_pending_profile")
@@ -133,7 +130,6 @@ with top[2].popover("Phân khúc", width="stretch"):
         if st.button(f"Xóa phân khúc {card['name']}", key=f"cfg_seg_del_{profile}_{segment}"):
             put(profile, pf.remove_segment(current, segment))
 
-# ---------------- Thanh lưu ----------------
 dirty = is_dirty(profile)
 bar = st.columns([4, 1, 1, 1.2])
 if segment:
@@ -175,7 +171,7 @@ with bar[3].popover("Quản lý bộ", width="stretch"):
         st.toast(f"{saved['name']} là bộ mặc định")
         st.rerun()
     st.divider()
-    st.markdown("**Lưu thành bộ mới** (sao chép bộ đang mở, kể cả thay đổi chưa lưu)")
+    st.markdown("**Lưu thành bộ mới** (gồm cả thay đổi chưa lưu)")
     copy_name = st.text_input("Tên bộ mới", key="cfg_copy_name")
     b1, b2 = st.columns(2)
     if b1.button("Lưu thành bộ mới", disabled=not copy_name.strip(), key="cfg_copy"):
@@ -184,7 +180,7 @@ with bar[3].popover("Quản lý bộ", width="stretch"):
         except ValueError as exc:
             st.error(str(exc))
         else:
-            drafts.pop(profile, None)  # bộ gốc giữ như lần lưu trước
+            drafts.pop(profile, None)
             ss["cfg_pending_profile"] = slug
             refresh(f"Đã tạo bộ {copy_name.strip()}")
     if b2.button("Tạo bộ trống", disabled=not copy_name.strip(), key="cfg_blank"):
@@ -207,7 +203,6 @@ if not segment:
     st.info("Bộ này chưa có phân khúc. Thêm ở nút Phân khúc.")
     st.stop()
 
-# ---------------- Bảng chỉ số (trái) + bộ sửa (phải) ----------------
 card = current["segments"][segment]
 table, _, _ = evaluate(card)
 info = table.set_index("code") if not table.empty else pd.DataFrame()
@@ -268,9 +263,7 @@ with left:
     codes = frame["_code"].tolist() if not frame.empty else []
     if ss.get(pick_key) not in codes:
         ss[pick_key] = codes[0] if codes else None
-    st.caption(
-        "Bấm một dòng để sửa ngưỡng. Trọng số chia đều theo trụ cột, rồi chia đều trong trụ cột."
-    )
+    st.caption("Chọn một dòng để sửa ngưỡng. Trọng số chia đều theo trụ cột.")
     with st.popover("＋ Thêm chỉ số"):
         used = {r["code"] for r in card["rows"]}
         choices = sorted((c for c in catalog if c not in used), key=lambda c: catalog[c].name)
@@ -295,7 +288,7 @@ with left:
 with right:
     code = ss.get(pick_key)
     if not code:
-        st.info("Phân khúc chưa có chỉ số. Bấm ＋ Thêm chỉ số.")
+        st.info("Phân khúc chưa có chỉ số.")
     else:
         row = next(r for r in card["rows"] if r["code"] == code)
         ind = catalog[code]

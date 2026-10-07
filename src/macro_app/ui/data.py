@@ -1,4 +1,4 @@
-"""Nạp dữ liệu cho app (đọc data/app/ do bước build sinh ra). Cache theo mtime file → build mới tự vô hiệu."""
+"""Đọc data/app/ cho app. Cache theo mtime file build nên build mới tự làm mới cache."""
 
 from __future__ import annotations
 
@@ -51,7 +51,6 @@ def _fedwatch(stamp: float) -> dict[str, pd.DataFrame]:
 
 
 def _setting(name: str) -> str:
-    """Đọc từ st.secrets (Streamlit Cloud) rồi tới biến môi trường."""
     try:
         if name in st.secrets:
             return str(st.secrets.get(name, ""))
@@ -61,10 +60,9 @@ def _setting(name: str) -> str:
 
 
 def hide_vendor() -> bool:
-    """Ẩn số Yahoo, LME (giấy phép) ở bản deploy, trừ khi bật SHOW_VENDOR_DATA=1.
+    """Ẩn số Yahoo, LME (giấy phép) ở bản deploy.
 
-    Chạy local quản trị (APP_MODE=admin) luôn hiện. Bản deploy chia sẻ nội bộ (mời email) có thể
-    bật SHOW_VENDOR_DATA=1 trong Secrets; người bật chịu trách nhiệm về điều khoản dữ liệu.
+    APP_MODE=admin luôn hiện. Bản nội bộ bật SHOW_VENDOR_DATA=1; người bật chịu trách nhiệm điều khoản.
     """
     if _setting("APP_MODE").lower() == "admin":
         return False
@@ -130,12 +128,12 @@ def _impact_rules(stamp: float) -> dict:
 
 
 def impact_rules() -> dict:
-    return _impact_rules(build_stamp())  # build mới thì đọc lại quy tắc
+    return _impact_rules(build_stamp())
 
 
 @st.cache_data(show_spinner=False)
 def target_series(target_id: str, stamp: float) -> pd.Series:
-    """Chuỗi mục tiêu Chính phủ (năm) — lưu trong series.parquet dưới mã target."""
+    """Chuỗi mục tiêu Chính phủ theo năm, lưu trong series.parquet dưới mã target."""
     df = _series(stamp)
     part = df[df["code"] == target_id]
     return pd.Series(part["value"].to_numpy(), index=pd.DatetimeIndex(part["date"]))
@@ -164,7 +162,6 @@ def scorecard_history() -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def _scorecard_inputs(stamp: float) -> tuple[dict, dict]:
-    """Chuỗi theo mã (khung value) + chuỗi mục tiêu Chính phủ, để chấm bản nháp trên trang."""
     long = _series(stamp)
     frames = {c: g.set_index("date")[["value"]].sort_index() for c, g in long.groupby("code")}
     targets = {c: f["value"] for c, f in frames.items() if c.startswith("vn.target_")}
@@ -172,14 +169,14 @@ def _scorecard_inputs(stamp: float) -> tuple[dict, dict]:
 
 
 def _config_stamp() -> tuple:
-    """Ngày chấm + giờ sửa các file cấu hình ảnh hưởng điểm (đưa vào khóa cache)."""
+    """Khóa cache: ngày chấm và mtime các file cấu hình ảnh hưởng điểm."""
     names = ("scorecard.yaml", "thresholds.default.yaml", "catalog.yaml", "forecast_map.yaml")
     mtimes = tuple((CONFIG_DIR / n).stat().st_mtime for n in names)
     return (str(pd.Timestamp.now().normalize().date()), *mtimes)
 
 
 def scorecard_eval(card_json: str, stamp: float) -> tuple[pd.DataFrame, dict, pd.DataFrame]:
-    """Chấm một phân khúc từ cấu hình; bản công khai che số đã đo của dòng vendor."""
+    """Chấm một phân khúc. Bản công khai che số đo của dòng vendor."""
     table, total, hist = _scorecard_eval(card_json, stamp, _config_stamp())
     if hide_vendor() and not table.empty:
         vendor = latest().set_index("code")["row_source"].isin(VENDOR_SOURCES)
@@ -207,7 +204,7 @@ def _scorecard_eval(
         min_points=cfgmod.load_thresholds()[0]["min_points"],
     )
     table, total, hist = sc.evaluate_card(card, frames, catalog, ctx)
-    # dự báo / mục tiêu ghép vào từng dòng + điểm nếu theo dự báo (thô, không vào điểm chính)
+    # Điểm theo dự báo chỉ để tham khảo, không vào điểm chính.
     path = fw.fed_path(fw.pick_fedwatch({k: v.copy() for k, v in _fedwatch(stamp).items()}))
     table, fwd_score = fw.annotate(
         table,
@@ -225,12 +222,11 @@ def _scorecard_eval(
 
 
 def fed_path() -> pd.DataFrame:
-    """Đường lãi Fed kỳ vọng theo kỳ họp (FedWatch mới nhất)."""
     return fw.fed_path(fw.pick_fedwatch({k: v.copy() for k, v in fedwatch().items()}))
 
 
 def forecast_overview(mappings: list[dict]) -> pd.DataFrame:
-    """Mỗi dòng bản đồ: thực tế (kỳ mới nhất) → kế hoạch / dự báo chính, chênh, các điểm khác."""
+    """Mỗi dòng: số thực tế mới nhất, kế hoạch / dự báo chính, chênh lệch, các điểm khác."""
     stamp = build_stamp()
     frames, targets = _scorecard_inputs(stamp)
     catalog = catalog_map()

@@ -1,7 +1,4 @@
-"""Bảng theo dõi ở trang Tổng quan: mỗi chỉ số một dòng, gom theo nhóm.
-
-Bấm tên chỉ số để mở trang chi tiết (?code=...).
-"""
+"""Bảng theo dõi trang Tổng quan: mỗi chỉ số một dòng, gom theo nhóm."""
 
 from __future__ import annotations
 
@@ -18,7 +15,7 @@ from macro_app.metrics.quality import FLAG_ICON, FLAG_LABEL
 from macro_app.metrics.status import STATUS_LABEL
 
 SPARK_W, SPARK_H = 84, 24
-# Cờ có ở mọi dòng thì không cần lặp lại icon
+# Cờ có ở mọi dòng, không cần icon.
 HIDDEN_FLAGS = {"default_threshold"}
 BASIS = {"yoy": "so cùng kỳ", "30d": "so 30 ngày", "prev": "so kỳ trước"}
 COLS = (
@@ -29,13 +26,13 @@ COLS = (
 
 @dataclass(frozen=True)
 class BlockContext:
-    sparks: dict[str, pd.Series]  # mã → chuỗi vẽ sparkline
+    sparks: dict[str, pd.Series]
     decimals: dict[str, int]
     group_names: dict[str, str]
 
 
 def spark_points(s: pd.Series, frequency: str) -> pd.Series:
-    """Một năm gần nhất với chuỗi ngày/tuần (ngày gộp theo tuần); 24 tháng, 12 quý, 10 năm."""
+    """Ngày/tuần: 1 năm (ngày gộp theo tuần). Tháng 24, quý 12, năm 10 điểm."""
     s = s.dropna()
     if s.empty:
         return s
@@ -46,7 +43,7 @@ def spark_points(s: pd.Series, frequency: str) -> pd.Series:
 
 
 def sparkline(s: pd.Series, status: str) -> str:
-    """Ảnh SVG nhúng dạng data URI (st.html không giữ thẻ <svg> trực tiếp)."""
+    """SVG nhúng dạng data URI vì st.html bỏ thẻ <svg>."""
     if len(s) < 2:
         return ""
     y = s.to_numpy(dtype=float)
@@ -104,7 +101,7 @@ def row_html(row: pd.Series, spark: pd.Series, decimals: int) -> str:
         f'title="{dot_title(row)}"></span></td>'
         f'<td class="mv-name"><a href="detail?code={row["code"]}" target="_self" title="{name}">'
         f'{name}</a><div class="mv-meta">{meta} {_flags(row["flags"])}</div></td>'
-        f'<td class="mv-spark">{sparkline(spark, status)}</td>'
+        f'<td class="mv-spark m-hide">{sparkline(spark, status)}</td>'
         f'<td class="mv-val">{_value(row["value"], row["unit"], decimals)}</td>'
         f'<td class="mv-chg">{_change(row)}</td>'
         "</tr>"
@@ -113,13 +110,15 @@ def row_html(row: pd.Series, spark: pd.Series, decimals: int) -> str:
 
 def block_html(title: str, rows: pd.DataFrame, ctx: BlockContext) -> str:
     head = (
-        '<tr><th></th><th></th><th>Xu hướng</th><th class="r">Giá trị</th>'
+        '<tr><th></th><th></th><th class="m-hide">Xu hướng</th><th class="r">Giá trị</th>'
         '<th class="r">Thay đổi</th></tr>'
     )
     body = []
     for group, part in rows.groupby("group", sort=False):
         label = html.escape(ctx.group_names.get(group, group))
-        body.append(f'<tr class="mv-group"><td colspan="5">{label}</td></tr>')
+        body.append(
+            f'<tr class="mv-group"><td colspan="4">{label}</td><td class="m-hide"></td></tr>'
+        )
         body += [
             row_html(r, ctx.sparks[r["code"]], ctx.decimals[r["code"]]) for _, r in part.iterrows()
         ]
@@ -130,7 +129,6 @@ def block_html(title: str, rows: pd.DataFrame, ctx: BlockContext) -> str:
 
 
 def dot_title(row: pd.Series) -> str:
-    """Tooltip của chấm trạng thái: mức, diễn giải điểm, mô tả ngưỡng."""
     parts = [f"{STATUS_LABEL.get(row['status'], row['status'])} so với ngưỡng"]
     parts += [
         row[k]

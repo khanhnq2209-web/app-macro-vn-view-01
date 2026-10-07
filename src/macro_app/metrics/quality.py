@@ -40,7 +40,7 @@ FLAG_ICON = {
 def is_stale(series: pd.Series, frequency: str, today: pd.Timestamp, stale_days: dict) -> bool:
     s = clean(series)
     if s.empty:
-        return False  # chưa có dữ liệu ≠ cũ (card đã hiện 'Chưa có dữ liệu')
+        return False  # card đã hiện 'Chưa có dữ liệu', không gắn thêm cờ cũ
     return bool((today - s.index[-1]).days > stale_days[frequency])
 
 
@@ -79,7 +79,7 @@ def is_rebase_suspect(level_series: pd.Series, frequency: str, jump_pp: float) -
     return bool(abs(yoy.iloc[-1] - yoy.iloc[-13:-1].mean()) > jump_pp)
 
 
-def quality_flags(  # noqa: PLR0913 — keyword-only, mỗi cờ cần 1 đầu vào
+def quality_flags(  # noqa: PLR0913
     *,
     series: pd.Series,
     frequency: str,

@@ -1,4 +1,4 @@
-"""Thành phần dùng chung giữa các trang: chart theo view, bảng số liệu, nút tải, chân trang."""
+"""Thành phần dùng chung: chart theo view, bảng số liệu, nút tải, chân trang."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from macro_app.metrics.status import STATUS_LABEL, resolve_threshold
 from macro_app.ui import data
 
 FOOTER_HIDDEN = "Bản công khai không hiển thị số liệu có bản quyền (Yahoo, LME)."
-FOOTER_SHOWN = "Có số liệu Yahoo Finance và LME (Westmetall): chỉ dùng nội bộ, không phát hành lại."
+FOOTER_SHOWN = "Số liệu Yahoo Finance và LME (Westmetall) chỉ dùng nội bộ, không phát hành lại."
 
 
 def threshold_bands(code: str) -> dict:
@@ -38,7 +38,7 @@ def target_step(target_id: str | None) -> pd.Series | None:
 
 
 def _add_forward(fig, history: pd.Series, forward: pd.Series, name: str) -> None:
-    """Nối đường kỳ vọng (nét đứt) từ điểm cuối của chuỗi thật."""
+    """Nối đường kỳ vọng từ điểm cuối của chuỗi thật."""
     import plotly.graph_objects as go
 
     from macro_app.charts import theme
@@ -61,7 +61,6 @@ def _add_forward(fig, history: pd.Series, forward: pd.Series, name: str) -> None
 
 
 def chart_from_view(chart: dict, *, key: str, overrides: dict | None = None) -> None:
-    """Vẽ 1 chart theo cấu hình view (codes, kind, range, transform, …)."""
     cfg = {**chart, **(overrides or {})}
     catalog = data.catalog_map()
     codes = [c for c in cfg.get("codes", []) if c in catalog]
@@ -100,7 +99,6 @@ def chart_from_view(chart: dict, *, key: str, overrides: dict | None = None) -> 
 
 
 def stats_table(codes: list[str]) -> None:
-    """Bảng dưới chart: giá trị, kỳ, YoY, YTD, z-score, trạng thái, cờ, nguồn."""
     latest = data.latest()
     catalog = data.catalog_map()
     part = (

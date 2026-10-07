@@ -1,11 +1,7 @@
-"""Số dự báo / kỳ vọng ghép vào scorecard — để người xem tự suy luận thô, không vào điểm chính.
+"""Số dự báo/kế hoạch ghép vào scorecard để tham khảo, không vào điểm chính.
 
-Hai loại:
-- thị trường: FedWatch (xác suất khoảng lãi suất Fed theo kỳ họp) → lãi suất Fed kỳ vọng;
-- mục tiêu Chính phủ năm hiện tại (CPI, GDP, tín dụng) theo `target` trong catalog.
-
-Mỗi điểm dự báo đem so với đúng ngưỡng của dòng scorecard (chỉ khi dòng đo giá trị gốc),
-rồi tính "điểm nếu theo dự báo": thay điểm các dòng có dự báo, giữ nguyên dòng khác.
+Mỗi điểm dự báo được so với ngưỡng của dòng (chỉ khi dòng đo giá trị gốc) để ra
+"điểm nếu theo dự báo": thay điểm các dòng có dự báo, giữ nguyên dòng khác.
 """
 
 from __future__ import annotations
@@ -19,7 +15,7 @@ from macro_app.metrics import threshold_preview as tp
 from macro_app.metrics.status import LEVELS, cuts_of
 
 FED_CODES = {"fed_upper": "range_high_bp", "fed_lower": "range_low_bp", "effr": "effective"}
-EFFR_OVER_LOWER = 0.08  # EFFR thường cao hơn biên dưới khoảng 8 bps (vd 5,33 khi khoảng 5,25–5,50)
+EFFR_OVER_LOWER = 0.08  # EFFR thường cao hơn biên dưới khoảng 8 bps
 
 
 @dataclass(frozen=True)
@@ -31,7 +27,6 @@ class ForwardPoint:
     kind: str  # "market" | "target"
 
 
-# ---------------- FedWatch ----------------
 def pick_fedwatch(fedwatch: dict[str, pd.DataFrame], max_gap_days: int = 7) -> pd.DataFrame:
     """Bản xác suất mới nhất: ưu tiên CME QuikStrike nếu không cũ hơn bản tự tính quá N ngày."""
     cme, own = fedwatch.get("quikstrike"), fedwatch.get("computed")
@@ -70,7 +65,7 @@ def fed_path(probs: pd.DataFrame) -> pd.DataFrame:
 
 
 def _horizon_meetings(path: pd.DataFrame) -> pd.DataFrame:
-    """Kỳ họp kế tiếp và các kỳ gần mốc +6, +12 tháng nhất (không trùng)."""
+    """Kỳ họp kế tiếp và các kỳ gần cuối năm nay, gần mốc +12 tháng nhất (không trùng)."""
     if path.empty:
         return path
     asof = path["asof"].max()
@@ -101,7 +96,6 @@ def fed_points(code: str, path: pd.DataFrame) -> list[ForwardPoint]:
     return out
 
 
-# ---------------- Mục tiêu Chính phủ ----------------
 def target_point(target: pd.Series | None, asof: pd.Timestamp) -> list[ForwardPoint]:
     if target is None or target.empty:
         return []
@@ -119,7 +113,6 @@ def target_point(target: pd.Series | None, asof: pd.Timestamp) -> list[ForwardPo
     ]
 
 
-# ---------------- Bản đồ chỉ số → kế hoạch / dự báo (config/forecast_map.yaml) ----------------
 KINDS = ("target", "fedwatch", "indicator", "manual")
 KIND_LABEL = {
     "target": "Mục tiêu Chính phủ",
@@ -163,7 +156,7 @@ def validate_mapping(m: dict, catalog: dict, target_ids: set[str]) -> list[str]:
 
 
 def _period_end(period) -> pd.Timestamp:
-    """'2026' → 31/12/2026; '6/2026' hoặc '2026-06' → cuối tháng 6/2026."""
+    """'2026' là 31/12/2026; '6/2026' hoặc '2026-06' là cuối tháng 6/2026."""
     text = str(period).strip()
     if text.isdigit() and len(text) == 4:
         return pd.Timestamp(year=int(text), month=12, day=31)
@@ -173,7 +166,7 @@ def _period_end(period) -> pd.Timestamp:
     return pd.Timestamp(text) + pd.offsets.MonthEnd(0)
 
 
-def points_for(  # noqa: PLR0911 — rẽ theo loại nguồn
+def points_for(  # noqa: PLR0911
     m: dict | None,
     *,
     path: pd.DataFrame,
@@ -215,7 +208,6 @@ def points_for(  # noqa: PLR0911 — rẽ theo loại nguồn
     return []
 
 
-# ---------------- So với ngưỡng của dòng ----------------
 def level_of(value: float, measured: pd.Series, cfg: dict, target: float = np.nan) -> str | None:
     """Mức mà giá trị dự báo rơi vào theo ngưỡng của dòng (chỉ khi dòng đo giá trị gốc)."""
     kind = (cfg.get("measure") or {}).get("kind", "level")
@@ -251,7 +243,7 @@ def _fmt(x: float) -> str:
     return f"{x:.2f}".rstrip("0").rstrip(".").replace(".", ",")
 
 
-def annotate(  # noqa: PLR0913, PLR0915 — gom ngữ cảnh chấm, một vòng tuần tự
+def annotate(  # noqa: PLR0913, PLR0915
     table: pd.DataFrame,
     card: dict,
     *,
@@ -311,6 +303,6 @@ def annotate(  # noqa: PLR0913, PLR0915 — gom ngữ cảnh chấm, một vòng
         out.loc[i, "fwd_label"] = labels_of(cfg, n)[idx]
         out.loc[i, "fwd_score"] = row_scores(rows[code], n, ctx["settings"])[idx]
         now_idx = LEVELS[n].index(rec["status"]) if rec["status"] in LEVELS[n] else None
-        if now_idx is not None:  # 1: dự báo ở mức tốt hơn hiện tại, −1: xấu hơn, 0: như nhau
+        if now_idx is not None:  # 1: dự báo tốt hơn hiện tại, -1: xấu hơn, 0: như nhau
             out.loc[i, "fwd_better"] = float(np.sign(now_idx - idx))
     return out, forward_total(out, ctx["settings"]["min_coverage"])

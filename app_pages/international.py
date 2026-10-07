@@ -1,4 +1,4 @@
-"""Trang 2: Quốc tế (nhóm A) và FedWatch."""
+"""Quốc tế (nhóm A) và FedWatch."""
 
 import streamlit as st
 

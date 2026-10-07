@@ -1,8 +1,4 @@
-"""Kế hoạch & dự báo: bản đồ chỉ số thực tế → mục tiêu Chính phủ / FedWatch / chỉ số khác / nhập tay.
-
-Chỉ để tham khảo (cột Kế hoạch / Dự báo ở trang Scorecard), không vào điểm.
-Quản trị sửa bảng rồi bấm Lưu (ghi config/forecast_map.yaml).
-"""
+"""Kế hoạch & dự báo gắn với từng chỉ số. Không vào điểm; lưu ở config/forecast_map.yaml."""
 
 import pandas as pd
 import streamlit as st
@@ -15,8 +11,7 @@ from macro_app.ui import data, scorecard_view, sidebar
 
 st.title("Kế hoạch & dự báo")
 st.caption(
-    "Mỗi dòng gắn một chỉ số thực tế với kế hoạch hoặc dự báo của nó. Trang Scorecard hiện số này "
-    "ở cột Kế hoạch / Dự báo để tham khảo, không tính vào điểm."
+    "Kế hoạch, dự báo của từng chỉ số. Hiện ở cột Kế hoạch / Dự báo trang Scorecard, không tính điểm."
 )
 mappings = fw.load_forecast_map()
 catalog = data.catalog_map()
@@ -31,13 +26,9 @@ if not sidebar.is_admin():
     ui.footer()
     st.stop()
 
-# ---------------- Sửa bản đồ (quản trị) ----------------
 st.divider()
 st.markdown("#### Sửa bản đồ")
-st.caption(
-    "Chọn chỉ số thực tế và nguồn kế hoạch / dự báo. Chọn 'Nhập tay' để tự gõ số (vd mục tiêu "
-    "nội bộ, dự báo IMF): điền Giá trị và Kỳ (2026 hoặc 12/2026). Bấm Lưu để áp dụng."
-)
+st.caption("Nguồn 'Nhập tay': điền Giá trị và Kỳ (2026 hoặc 12/2026).")
 targets = load_targets()
 source_opts: dict[str, tuple[str, str]] = {}
 for tid, t in targets.items():
@@ -88,7 +79,7 @@ edited = st.data_editor(
         ),
         "Giá trị (nhập tay)": st.column_config.NumberColumn(help="Chỉ dùng khi nguồn là Nhập tay"),
         "Kỳ (nhập tay)": st.column_config.TextColumn(help="2026 (cả năm) hoặc 12/2026 (tháng)"),
-        "Nhãn": st.column_config.TextColumn(help="Tên ngắn hiện trên bảng, vd Mục tiêu CP, IMF"),
+        "Nhãn": st.column_config.TextColumn(help="Tên ngắn trên bảng, vd Mục tiêu CP, IMF"),
         "Ghi chú": st.column_config.TextColumn(width="large"),
     },
 )

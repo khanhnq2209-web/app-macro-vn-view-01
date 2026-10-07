@@ -33,10 +33,10 @@ METHOD_OF = {v: k for k, v in METHOD_LABEL.items()}
 SIDE_OF = {v: k for k, v in SIDE_LABEL.items()}
 EDIT_COLS = ["Kiểu ngưỡng", "N năm", "Số mức", "Các mốc", "Chiều", "Mô tả"]
 HELP_CUTS = (
-    "Các mốc tăng dần, cách nhau bằng dấu chấm phẩy. Số mốc = số mức − 1. "
-    "Z-score, lệch median, lệch mục tiêu: nhập độ lệch dương (vd 1; 2). "
-    "Phân vị: nhập phân vị (vd 50; 75; 90); chiều 'ở giữa' thì nhập khoảng cách tới P50 (vd 25; 40). "
-    "Ngưỡng cứng: nhập giá trị (vd 3,5; 4; 4,5)."
+    "Mốc tăng dần, cách nhau bằng ;. Số mốc = số mức − 1. "
+    "Z-score, lệch median, lệch mục tiêu: độ lệch dương (vd 1; 2). "
+    "Phân vị: vd 50; 75; 90, chiều 'ở giữa' nhập khoảng cách tới P50 (vd 25; 40). "
+    "Ngưỡng cứng: giá trị (vd 3,5; 4; 4,5)."
 )
 
 
@@ -108,7 +108,6 @@ def column_config(names: list[str]) -> dict:
 
 
 def cfg_from_row(rec: dict) -> tuple[dict, list[str]]:
-    """Dòng bảng → cấu hình ngưỡng + lỗi."""
     name = rec.get("Chỉ số", "")
     try:
         cuts = parse_cuts(rec.get("Các mốc"))
@@ -133,7 +132,7 @@ def cfg_from_row(rec: dict) -> tuple[dict, list[str]]:
 
 
 def changes(edited: pd.DataFrame, code_of: dict) -> tuple[list[tuple[str, dict, dict]], list[str]]:
-    """So bảng đã sửa với cấu hình hiện tại → [(mã, cấu hình mới, cấu hình cũ)], lỗi."""
+    """Trả [(mã, cấu hình mới, cấu hình cũ)] cho các dòng đã sửa, và danh sách lỗi."""
     out, errors = [], []
     for rec in edited.dropna(subset=["Chỉ số"]).to_dict("records"):
         code = code_of.get(rec["Chỉ số"])
@@ -142,13 +141,13 @@ def changes(edited: pd.DataFrame, code_of: dict) -> tuple[list[tuple[str, dict, 
         before = row_for(code)
         blank = all(_same(rec.get(k), None) for k in EDIT_COLS)
         if blank or all(_same(rec.get(k), before.get(k)) for k in EDIT_COLS):
-            continue  # dòng mới để trống ngưỡng, hoặc không sửa → giữ ngưỡng hiện có
+            continue
         cfg, errs = cfg_from_row(rec)
         if errs:
             errors += errs
             continue
         if cfg.get("description") == load_thresholds()[0].get("description"):
-            cfg["description"] = ""  # mô tả của ngưỡng mặc định không áp cho ngưỡng riêng
+            cfg["description"] = ""  # không chép mô tả của ngưỡng mặc định
         out.append((code, cfg, current_cfg(code)))
     return out, errors
 

@@ -1,4 +1,4 @@
-"""Bố cục chung của trang Quốc tế và Việt Nam: chọn nhóm, lưới chart 2 cột, bảng số liệu, tải CSV."""
+"""Bố cục chung trang Quốc tế và Việt Nam."""
 
 from __future__ import annotations
 

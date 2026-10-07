@@ -1,4 +1,4 @@
-"""Hiển thị scorecard: đầu trang (điểm, xếp hạng), bảng theo nhóm, biểu đồ điểm theo tháng."""
+"""Hiển thị scorecard: đầu trang, bảng theo trụ cột, biểu đồ điểm theo tháng."""
 
 from __future__ import annotations
 
@@ -11,7 +11,6 @@ from macro_app import fmt
 from macro_app.charts import theme as t
 from macro_app.ui import monitor
 
-# Màu dải xếp hạng (từ tốt đến xấu), dùng lại bảng màu trạng thái
 RATING_COLOR = {
     "Rất thuận lợi": "green_strong",
     "Thuận lợi": "green",
@@ -40,7 +39,7 @@ def header_html(total: pd.Series, description: str, names: dict | None = None) -
     if bad:
         bad_names = ", ".join((names or {}).get(c, c) for c in bad)
         warn = (
-            '<div class="sc-warn">Điểm có thể lạc quan: đang bỏ '
+            '<div class="sc-warn">Điểm có thể lạc quan: chưa tính '
             f"{html.escape(bad_names)} (số cũ, lần cuối ở mức xấu).</div>"
         )
     if pd.isna(score) and pd.notna(total.get("last_score")):
@@ -64,14 +63,13 @@ SCORE_STATUS = {2: "green_strong", 1: "green", 0: "yellow", -1: "orange", -2: "r
 
 
 def _bucket(score: float) -> int | None:
-    """Điểm (−2…+2, có thể lẻ) → bậc gần nhất để chọn ký hiệu và màu."""
+    """Làm tròn điểm về bậc gần nhất trong −2..+2."""
     if score is None or pd.isna(score):
         return None
     return int(max(-2, min(2, round(float(score)))))
 
 
 def _box(score: float, title: str = "", status: str | None = None, *, muted: bool = False) -> str:
-    """Ô màu kiểu bảng Tác động: ký hiệu theo điểm, màu theo mức."""
     b = _bucket(score)
     if b is None:
         return (
@@ -94,7 +92,7 @@ def _counts(scores: pd.Series) -> str:
 
 def _value_cell(rec: pd.Series, lat: pd.Series, decimals: int) -> str:
     what = rec.get("measure_text") or ""
-    if what:  # chấm trên số đã biến đổi → hiện số đó
+    if what:
         short = what.removeprefix("% thay đổi ").removesuffix(" năm trước")
         return (
             f"{monitor._value(rec.get('measured'), '%', 1)}"
@@ -107,14 +105,14 @@ GOOD, BAD, FLAT = "#1E7B34", "#B3261E", "#5F6B73"
 
 
 def _plan_cells(rec: pd.Series, unit: str, decimals: int = 2) -> str:
-    """Hai ô tham khảo: Kế hoạch / Dự báo (giá trị + nguồn, kỳ) và Xu hướng (mũi tên + chênh)."""
+    """Hai ô Kế hoạch / Dự báo và Xu hướng."""
     value = rec.get("fwd_value")
     if value is None or pd.isna(value):
-        return '<td class="mv-val"><span class="mi-none">–</span></td><td class="sc-trend"></td>'
+        return '<td class="mv-val"><span class="mi-none">–</span></td><td class="sc-trend m-hide"></td>'
     src = str(rec.get("fwd_source") or "")
-    src = "FedWatch" if src.startswith("FedWatch") else src  # CME hay tự tính: xem tooltip
+    src = "FedWatch" if src.startswith("FedWatch") else src
     when = str(rec.get("fwd_when") or "").replace("mục tiêu ", "").replace("kỳ ", "")
-    if when.startswith("họp "):  # "họp 09/12/2026" → "họp 12/2026" cho gọn; ngày đủ trong tooltip
+    if when.startswith("họp "):  # chỉ giữ tháng/năm, ngày đủ nằm trong tooltip
         when = when[-7:]
     tip = html.escape(f"{rec.get('fwd_source', '')}: {rec.get('fwd_text', '')}")
     target = rec.get("fwd_kind") == "target"
@@ -124,27 +122,27 @@ def _plan_cells(rec: pd.Series, unit: str, decimals: int = 2) -> str:
     plan = f'<td class="mv-val" title="{tip}">{shown}<div class="mv-meta">{html.escape(src)} · {html.escape(when)}</div></td>'
     change = rec.get("fwd_change")
     if change is None or pd.isna(change):
-        return plan + '<td class="sc-trend"></td>'
+        return plan + '<td class="sc-trend m-hide"></td>'
     better = rec.get("fwd_better")
     color = GOOD if better == 1 else BAD if better == -1 else FLAT
     arrow = "▲" if change > 0 else "▼" if change < 0 else "▶"
     actual = rec.get("fwd_actual")
     if rec.get("fwd_kind") == "target" and unit not in ("%", "điểm %") and actual and value:
-        pct = actual / value * 100  # số tuyệt đối so với kế hoạch: đã đạt bao nhiêu % kế hoạch
+        pct = actual / value * 100  # số tuyệt đối: tính % hoàn thành kế hoạch
         return plan + (
-            f'<td class="sc-trend" style="color:{FLAT}" title="Thực tế / kế hoạch">'
+            f'<td class="sc-trend m-hide" style="color:{FLAT}" title="Thực tế / kế hoạch">'
             f"đạt {fmt.number(pct, 1)}% KH</td>"
         )
-    if unit == "%":  # lãi suất, tăng trưởng: chênh theo điểm %
+    if unit == "%":
         txt = f"{fmt.signed(change, 2)} điểm %"
     else:
         actual = rec.get("fwd_actual")
         txt = f"{fmt.signed(change / actual * 100, 1)}%" if actual else ""
-    meaning = {1: "dự báo ở mức tốt hơn hiện tại", -1: "dự báo ở mức xấu hơn hiện tại"}.get(
+    meaning = {1: "dự báo tốt hơn hiện tại", -1: "dự báo xấu hơn hiện tại"}.get(
         better, "cùng mức với hiện tại"
     )
     return (
-        plan + f'<td class="sc-trend" style="color:{color}" title="{meaning}">'
+        plan + f'<td class="sc-trend m-hide" style="color:{color}" title="{meaning}">'
         f'<span class="sc-arrow">{arrow}</span>{txt}</td>'
     )
 
@@ -160,11 +158,11 @@ def _indicator_row(rec: pd.Series, lat: pd.Series, decimals: int, spark: str) ->
     ]
     status = rec["status"] if rec["status"] in SCORE_STATUS.values() else None
     raw_score = rec["score"]
-    if pd.isna(raw_score) and status:  # số cũ: vẫn hiện mức cuối, mờ đi
+    if pd.isna(raw_score) and status:  # số cũ: hiện mức cuối, làm mờ
         raw_score = {v: k for k, v in SCORE_STATUS.items()}.get(status)
     detail = ". ".join(x for x in (level, rec.get("detail") or "", *flags) if x)
     now = _box(raw_score, detail, status, muted=stale or info)
-    if rec.get("show_level") is False:  # vd số lũy kế: chỉ xem so với kế hoạch, không xếp mức
+    if rec.get("show_level") is False:  # số lũy kế chỉ so với kế hoạch
         now = '<td class="mi-cell"><span class="mi-none">–</span></td>'
     weight = "tham khảo" if info else f"{fmt.number(rec['weight'] * 100, 0)}%"
     note = f'<div class="mv-meta sc-flag">{" · ".join(flags)}</div>' if flags else ""
@@ -172,16 +170,16 @@ def _indicator_row(rec: pd.Series, lat: pd.Series, decimals: int, spark: str) ->
         "<tr>"
         f'<td class="mv-name"><a href="detail?code={rec["code"]}" target="_self" title="{name}">{name}</a>'
         f'<div class="mv-meta">{meta}</div>{note}</td>'
-        f'<td class="mv-spark">{spark}</td>'
+        f'<td class="mv-spark m-hide">{spark}</td>'
         f'<td class="mv-val">{_value_cell(rec, lat, decimals)}</td>'
         f"{_plan_cells(rec, lat['unit'], decimals)}"
         f"{now}"
-        f'<td class="r mv-meta">{weight}</td>'
+        f'<td class="r mv-meta m-hide">{weight}</td>'
         "</tr>"
     )
 
 
-def table_html(  # noqa: PLR0913 — dữ liệu vẽ
+def table_html(  # noqa: PLR0913
     rows: pd.DataFrame,
     latest: pd.DataFrame,
     catalog: dict,
@@ -190,8 +188,7 @@ def table_html(  # noqa: PLR0913 — dữ liệu vẽ
     total: dict | None = None,
     sparks: dict | None = None,
 ) -> str:
-    """Bảng scorecard: Tổng hợp, trụ cột, từng chỉ số. Thực tế · Kế hoạch/Dự báo · Xu hướng
-    (tham khảo) · Hiện tại (ô màu ⇈ ↑ ● ↓ ⇊ theo ngưỡng) · Trọng số."""
+    """Bảng scorecard: dòng tổng hợp, trụ cột, từng chỉ số."""
     lat = latest.set_index("code")
     sparks = sparks or {}
     cols = (
@@ -199,14 +196,14 @@ def table_html(  # noqa: PLR0913 — dữ liệu vẽ
         '<col style="width:112px"><col style="width:62px"><col style="width:64px"></colgroup>'
     )
     head = (
-        '<tr><th></th><th>Diễn biến</th><th class="r">Thực tế</th>'
-        '<th class="r">Kế hoạch / Dự báo</th><th>Xu hướng</th>'
-        '<th class="c">Mức</th><th class="r">Trọng số</th></tr>'
+        '<tr><th></th><th class="m-hide">Diễn biến</th><th class="r">Thực tế</th>'
+        '<th class="r">Kế hoạch / Dự báo</th><th class="m-hide">Xu hướng</th>'
+        '<th class="c">Mức</th><th class="r m-hide">Trọng số</th></tr>'
     )
     key = "pillar" if "pillar" in rows else "group"
     scored = rows[~rows["info"].astype(bool)] if "info" in rows else rows
     body = []
-    for group in dict.fromkeys(rows[key]):  # giữ thứ tự trụ cột như trong cấu hình
+    for group in dict.fromkeys(rows[key]):
         part = rows[rows[key] == group]
         sp = scored[scored[key] == group]
         have = sp["score"].notna()
@@ -221,10 +218,10 @@ def table_html(  # noqa: PLR0913 — dữ liệu vẽ
         name = html.escape(group_names.get(group, group))
         avg_tip = "" if pd.isna(avg) else f"Điểm trung bình trụ cột {fmt.signed(avg, 2)}"
         body.append(
-            f'<tr class="mi-group"><td colspan="5"><b>{name}</b>'
-            f'<span class="mi-gnote">{len(sp)} chỉ số · {contrib_txt}</span></td>'
+            f'<tr class="mi-group"><td colspan="3"><b>{name}</b>'
+            f'<span class="mi-gnote">{len(sp)} chỉ số · {contrib_txt}</span></td><td class="m-hide"></td><td class="m-hide"></td>'
             f"{_box(avg, avg_tip)}"
-            f'<td class="r mv-meta">{fmt.number(sp["weight"].sum() * 100, 0)}%</td></tr>'
+            f'<td class="r mv-meta m-hide">{fmt.number(sp["weight"].sum() * 100, 0)}%</td></tr>'
         )
         for _, rec in part.iterrows():
             if rec["code"] in lat.index:
@@ -242,10 +239,11 @@ def table_html(  # noqa: PLR0913 — dữ liệu vẽ
         when = "" if pd.notna(score) else f" (tháng {pd.Timestamp(total['last_date']):%m/%Y})"
         score_txt = "—" if pd.isna(shown) else f"{fmt.signed(shown, 2)}{when}"
         total_row = (
-            f'<tr class="mi-total"><td colspan="5"><b>Tổng hợp</b>'
+            f'<tr class="mi-total"><td colspan="3"><b>Tổng hợp</b>'
             f"<span class='mi-gnote'>{html.escape(str(rating))} · điểm {score_txt} · "
             f"{_counts(scored['score'])}</span></td>"
-            f"{_box(shown, str(rating), RATING_COLOR.get(rating))}<td></td></tr>"
+            '<td class="m-hide"></td><td class="m-hide"></td>'
+            f'{_box(shown, str(rating), RATING_COLOR.get(rating))}<td class="m-hide"></td></tr>'
         )
     return f'<div class="sc-wrap"><table class="mv mi">{cols}{head}{total_row}{"".join(body)}</table></div>'
 
@@ -253,18 +251,18 @@ def table_html(  # noqa: PLR0913 — dữ liệu vẽ
 def history_chart(hist: pd.DataFrame, bands: list[dict], title: str) -> go.Figure:
     fig = go.Figure()
     scores = hist["score"].dropna()
-    # trục y theo khoảng điểm thực tế (không kéo hết −2…+2) để các dải hẹp vẫn đọc được
+    # Trục y theo khoảng điểm thực tế để dải hẹp vẫn đọc được.
     lo = max(-2.2, min(float(scores.min()) if len(scores) else -1.0, -0.6) - 0.2)
     hi = min(2.2, max(float(scores.max()) if len(scores) else 1.0, 1.1) + 0.2)
-    edges = [b["min"] for b in bands]  # giảm dần, dải cuối có min rất âm
+    edges = [b["min"] for b in bands]  # giảm dần
     tops = [hi, *edges[:-1]]
     for top, band in zip(tops, bands, strict=True):
         y0, y1 = max(band["min"], lo), min(top, hi)
         if y1 <= y0:
             continue
         bg = t.STATUS_COLORS.get(RATING_COLOR.get(band["label"], "none"))[0]
-        tall = (y1 - y0) >= 0.09 * (hi - lo)  # dải quá thấp thì bỏ nhãn để khỏi chồng chữ
-        label = (  # dải hẹp không gắn nhãn (truyền None thì Plotly tự ghi "new text")
+        tall = (y1 - y0) >= 0.09 * (hi - lo)
+        label = (  # không truyền None: Plotly sẽ ghi "new text"
             {
                 "annotation_text": band["label"],
                 "annotation_position": "top right",
@@ -301,7 +299,7 @@ def history_chart(hist: pd.DataFrame, bands: list[dict], title: str) -> go.Figur
 
 
 def fed_path_html(path: pd.DataFrame, current_upper: float, n: int = 8) -> str:
-    """Bảng kỳ họp FOMC: biên trên kỳ vọng, chênh so với hiện tại, khoảng khả năng cao nhất."""
+    """Bảng kỳ họp FOMC: biên trên kỳ vọng, chênh so với hiện tại, khoảng xác suất cao nhất."""
     if path.empty:
         return ""
     ahead = path[path["meeting_date"] > path["asof"].max()].head(n)
@@ -320,18 +318,18 @@ def fed_path_html(path: pd.DataFrame, current_upper: float, n: int = 8) -> str:
         '<table class="mv mi sc-fed"><tr><th>Kỳ họp</th><th class="r">Biên trên kỳ vọng</th>'
         '<th class="r">So hiện tại</th><th>Khả năng cao nhất</th></tr>'
         f"{''.join(rows)}</table>"
-        f"<p class='mc-note'>{src}, xác suất ngày {asof:%d/%m/%Y}. Biên trên kỳ vọng = bình quân "
-        "theo xác suất các khoảng lãi suất. Đây là giá thị trường, không phải dự báo của Fed.</p>"
+        f"<p class='mc-note'>{src}, ngày {asof:%d/%m/%Y}. Biên trên kỳ vọng = bình quân "
+        "theo xác suất. Là kỳ vọng thị trường, không phải dự báo của Fed.</p>"
     )
 
 
 def forecast_map_html(df: pd.DataFrame) -> str:
-    """Bảng bản đồ: chỉ số thực tế → kế hoạch / dự báo, chênh lệch (màu theo chiều tốt của chỉ số)."""
+    """Bảng thực tế so với kế hoạch / dự báo. Màu chênh lệch theo chiều tốt của chỉ số."""
     head = (
         '<colgroup><col><col style="width:110px"><col style="width:150px"><col style="width:130px">'
         '<col style="width:34%"></colgroup>'
         '<tr><th>Chỉ số thực tế</th><th class="r">Thực tế</th><th class="r">Kế hoạch / Dự báo</th>'
-        "<th>Chênh</th><th>Ghi chú</th></tr>"
+        '<th>Chênh</th><th class="m-hide">Ghi chú</th></tr>'
     )
     body = []
     for _, r in df.iterrows():
@@ -357,16 +355,16 @@ def forecast_map_html(df: pd.DataFrame) -> str:
         tip = html.escape(f"{r['plan_source']}: {r['others']}") if r["others"] else ""
         body.append(
             f'<tr><td class="mv-name"><a href="detail?code={r["code"]}" target="_self">'
-            f'{html.escape(r["name"])}</a><div class="mv-meta">{html.escape(str(r["code"]))}</div></td>'
+            f'{html.escape(r["name"])}</a><div class="mv-meta m-hide">{html.escape(str(r["code"]))}</div></td>'
             f'<td class="mv-val">{actual}<div class="mv-meta">{when_actual}</div></td>'
             f'<td class="mv-val" title="{tip}">{plan}</td>'
             f'<td class="sc-trend">{change}</td>'
-            f'<td class="mv-meta">{html.escape(r["note"])}</td></tr>'
+            f'<td class="mv-meta m-hide">{html.escape(r["note"])}</td></tr>'
         )
     return f'<div class="sc-wrap"><table class="mv mi">{head}{"".join(body)}</table></div>'
 
 
-def _change_html(  # noqa: PLR0913 — số của một dòng bản đồ
+def _change_html(  # noqa: PLR0913
     change: float, unit: str, direction: str, actual: float, *, plan: float, kind: str
 ) -> str:
     if change is None or pd.isna(change):

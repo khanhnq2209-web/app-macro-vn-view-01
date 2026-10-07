@@ -1,15 +1,8 @@
-"""Scorecard theo phân khúc: mỗi dòng là một chỉ số có ngưỡng riêng → mức → điểm; cộng có trọng số.
+"""Scorecard theo phân khúc (kiểu OECD/JRC composite indicator, ECB/ESRB heatmap).
 
-Phương pháp (tham chiếu OECD/JRC Handbook on Constructing Composite Indicators; ECB/ESRB heatmap):
-    điểm dòng   = điểm của mức hiện tại (mặc định +2 … −2 với 5 mức; sửa được từng dòng)
-    trọng số    = chia đều theo trụ cột (`pillar` của dòng, không có thì nhóm catalog),
-                  rồi chia đều trong trụ cột; dòng ghi `weight` thì dùng số đó (tương đối)
-    điểm tổng   = Σ điểm × trọng số / Σ trọng số của các dòng có số;
-                  độ phủ < `min_coverage` → không chấm
-    số liệu cũ  = quá `max_carry_months` (theo tần suất) so với tháng chấm thì coi như thiếu,
-                  áp như nhau cho điểm hiện tại và lịch sử
-Lịch sử: lưới cuối tháng chung tới tháng chấm; mỗi tháng chỉ dùng dữ liệu tới tháng đó
-(chưa trừ độ trễ công bố — ghi rõ trên trang).
+Điểm dòng = điểm của mức hiện tại; trọng số chia đều theo trụ cột rồi trong trụ cột.
+Điểm tổng = tổng(điểm * trọng số) / tổng trọng số dòng có số; độ phủ < `min_coverage` thì bỏ.
+Số cũ hơn `max_carry_months` coi như thiếu. Lịch sử chưa trừ độ trễ công bố.
 """
 
 from __future__ import annotations
@@ -32,7 +25,7 @@ def load_settings(config_dir: Path = CONFIG_DIR) -> dict:
     return read_yaml(config_dir / "scorecard.yaml")
 
 
-def make_context(  # noqa: PLR0913 — gom ngữ cảnh chấm
+def make_context(  # noqa: PLR0913
     frames: dict[str, pd.DataFrame],
     catalog: dict[str, Indicator],
     target_series: dict[str, pd.Series],
@@ -100,9 +93,9 @@ def pillar_of(row: dict, catalog: dict[str, Indicator]) -> str:
 
 
 def weights(rows: list[dict], catalog: dict[str, Indicator]) -> dict[str, float]:
-    """Trọng số chuẩn hóa tổng 1: chia đều trụ cột rồi trong trụ cột; dòng có `weight` thì dùng.
+    """Trọng số chuẩn hóa tổng 1: chia đều trụ cột rồi trong trụ cột.
 
-    Có dòng ghi `weight` mà dòng khác để trống → dòng trống nhận trung bình các `weight` đã ghi.
+    Có dòng ghi `weight` thì dùng số đó; dòng để trống nhận trung bình các `weight` đã ghi.
     """
     rows = [r for r in rows if r["code"] in catalog and not r.get("info")]
     explicit = [float(r["weight"]) for r in rows if r.get("weight") is not None]
@@ -138,7 +131,7 @@ def _is_stale(series: pd.Series, ind: Indicator, asof: pd.Timestamp, settings: d
 
 
 def evaluate_row(row: dict, series: pd.Series, ind: Indicator, ctx: dict) -> dict:
-    """Mức và điểm hiện tại của một dòng (số quá cũ → coi như thiếu)."""
+    """Mức và điểm hiện tại của một dòng (số quá cũ coi như thiếu)."""
     cfg = row_cfg(row, ctx["min_points"])
     res = evaluate(series, ind.frequency, cfg, "scorecard", ctx["targets"].get(row["code"], np.nan))
     n = len(cuts_of(cfg) or []) + 1
@@ -174,9 +167,7 @@ def current(
         rec["pillar"] = pillar_of(row, catalog)
         rec["weight"] = w.get(row["code"], 0.0)
         rec["info"] = bool(row.get("info"))  # chỉ tham khảo: không vào điểm
-        rec["show_level"] = (
-            row.get("show_level", True) is not False
-        )  # dòng tham khảo có thể ẩn ô mức
+        rec["show_level"] = row.get("show_level", True) is not False
         rec["contribution"] = np.nan if rec["info"] else rec["score"] * rec["weight"]
         out.append(rec)
     table = pd.DataFrame(out)
@@ -219,7 +210,7 @@ def _values(frames: dict[str, pd.DataFrame], code: str) -> pd.Series:
 
 def history(card: dict, frames: dict[str, pd.DataFrame], catalog: dict, ctx: dict) -> pd.DataFrame:
     """Điểm scorecard theo tháng: [date, score, coverage, rating], tới tháng chấm."""
-    rows = [r for r in card["rows"] if r["code"] in catalog and not r.get("info")]  # như current()
+    rows = [r for r in card["rows"] if r["code"] in catalog and not r.get("info")]
     if not rows:
         return pd.DataFrame(columns=["date", "score", "coverage", "rating"])
     w = weights(rows, catalog)

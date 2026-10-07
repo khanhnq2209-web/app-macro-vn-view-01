@@ -22,7 +22,7 @@ def _window(s: pd.Series, years: int) -> pd.Series:
 
 
 def score_fn(s: pd.Series, cfg: dict, target: float):  # noqa: PLR0911
-    """Hàm giá trị → điểm, dùng phân phối của cửa sổ N năm gần nhất (giống lúc chấm màu)."""
+    """Hàm quy giá trị ra điểm theo phân phối cửa sổ N năm gần nhất (giống lúc chấm màu)."""
     method, side = cfg["method"], cfg.get("side", "both")
     w = _window(s, int(cfg.get("window_years", 5)))
     if method == "zscore":

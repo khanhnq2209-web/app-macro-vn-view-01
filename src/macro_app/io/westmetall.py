@@ -1,9 +1,6 @@
 """Giá đồng LME (official cash-settlement, 3 tháng, tồn kho) từ bảng công khai của Westmetall.
 
-Trang: https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Cu_cash[&year=YYYY]
-Mỗi năm 1 trang HTML; dòng: "05. October 2026 | 14,430.00 | 14,366.00 | 244,900".
-Cache: data/cache/lme.xlsx (sheet/series + _meta). series_id: lme.copper_cash, lme.copper_3m,
-lme.copper_stock. source = "LME (Westmetall)".
+Mỗi năm 1 trang HTML; dòng dạng "05. October 2026 | 14,430.00 | 14,366.00 | 244,900".
 """
 
 from __future__ import annotations
@@ -33,7 +30,7 @@ DEFAULT_CACHE = CACHE_DIR / "lme.xlsx"
 
 
 def parse_table(html: str) -> pd.DataFrame:
-    """HTML 1 năm → DataFrame[date, lme.copper_cash, lme.copper_3m, lme.copper_stock]."""
+    """HTML 1 năm thành DataFrame[date, lme.copper_cash, lme.copper_3m, lme.copper_stock]."""
     rows = ROW.findall(html)
     if not rows:
         return pd.DataFrame(columns=["date", *COLUMNS])

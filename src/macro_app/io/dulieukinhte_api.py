@@ -1,12 +1,7 @@
-"""Kéo số liệu Việt Nam qua API chính thức của dulieukinhte.com (thay cho xuất Excel tay, D7).
+"""Kéo số liệu Việt Nam qua API chính thức của dulieukinhte.com (`api.dulieukinhte.com/v1`).
 
-- Key: biến môi trường `DLKT_API_KEY` (đăng ký miễn phí ở console.dulieukinhte.com/dang-ky).
-  Gói miễn phí: 100 lượt/tháng, 10 lượt/phút, 5 năm lịch sử gần nhất.
-- Gắn chuỗi của repo (`vn.*`) với mã chuỗi trên dulieukinhte: `config/dulieukinhte.yaml`.
-  Tìm mã: `python -m macro_app.io.dulieukinhte_api find "tăng trưởng tín dụng"`.
-- Kết quả lưu `data/cache/dulieukinhte.csv`; lúc build số API **đè** số trong file Excel cùng
-  chuỗi, cùng kỳ (nguồn có sửa lùi số → bản mới thắng), và nối thêm kỳ mới.
-Chỉ dùng API chính thức (`api.dulieukinhte.com/v1`); không gọi API nội bộ của web (robots.txt cấm).
+Key từ biến môi trường `DLKT_API_KEY`; gói miễn phí: 100 lượt/tháng, 10 lượt/phút, 5 năm lịch sử.
+Mã chuỗi gắn ở `config/dulieukinhte.yaml`. Không gọi API nội bộ của web (robots.txt cấm).
 """
 
 from __future__ import annotations
@@ -75,7 +70,7 @@ def load_map(path: Path = MAP_FILE) -> dict[str, dict]:
 
 
 def period_end(period: str) -> pd.Timestamp:
-    """'2026-06' → 30/06/2026, '2026-Q2' → 30/06/2026, '2026' → 31/12/2026 (khớp lịch file raw)."""
+    """Kỳ API ('2026-06', '2026-Q2', '2026') thành ngày cuối kỳ, khớp lịch file raw."""
     p = str(period)
     if "-Q" in p:
         year, q = p.split("-Q")
@@ -116,8 +111,9 @@ def refresh_cache(
     meta_file: Path = META_FILE,
     only: list[str] | None = None,
 ) -> dict:
-    """Kéo mọi chuỗi đã gắn mã (1 lượt/chuỗi). Lần kéo trước chưa quá `min_days` ngày → bỏ qua,
-    không tốn lượt (trừ khi force). Lỗi chuỗi nào ghi lại chuỗi đó. Trả meta cho nút Refresh.
+    """Kéo mọi chuỗi đã gắn mã (1 lượt/chuỗi); trả meta cho nút Refresh.
+
+    Lần kéo trước chưa quá `min_days` ngày thì bỏ qua để tiết kiệm lượt (trừ khi force).
     """
     prev = last_fetch(meta_file)
     if not force and not only and prev.get("fetched_at") and cache.exists():
@@ -130,7 +126,7 @@ def refresh_cache(
             "Chưa có DLKT_API_KEY trong .env (đăng ký key miễn phí ở console.dulieukinhte.com)"
         )
     mapping = {k: v for k, v in load_map().items() if v and v.get("id")}
-    if only:  # chỉ kéo vài chuỗi (vd chuỗi mới gắn), giữ nguyên các chuỗi khác trong cache
+    if only:
         mapping = {k: v for k, v in mapping.items() if k in only}
     if not mapping:
         raise RuntimeError("config/dulieukinhte.yaml chưa gắn mã chuỗi nào")
@@ -143,7 +139,7 @@ def refresh_cache(
         try:
             df = fetch_series(session, int(spec["id"]), start)
             parts.append(df.assign(series_id=series_id, source=SOURCE))
-        except Exception as exc:  # ghi lỗi gọn, không in key
+        except Exception as exc:  # không in key
             errors[series_id] = str(exc)[:200]
             log.warning("dulieukinhte %s lỗi: %s", series_id, errors[series_id])
     new = pd.concat(parts, ignore_index=True) if parts else pd.DataFrame(columns=STORE_COLUMNS)

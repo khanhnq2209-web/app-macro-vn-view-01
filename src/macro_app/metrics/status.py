@@ -1,20 +1,10 @@
 """Trạng thái theo ngưỡng cấu hình (config/thresholds*.yaml).
 
-Một ngưỡng gồm:
-    method        zscore | percentile | median_dev | absolute | target_band
-    window_years  cửa sổ N năm (zscore, percentile, median_dev)
-    cuts          k mốc tăng dần → k + 1 mức (3 đến 5 mức)
-    side          above (tăng là không tốt) | below (tăng là tốt) | both (ở giữa là tốt)
-                  | middle (ở giữa là không tốt, hai đầu là tốt)
-    description   ghi chú tự do của người đặt ngưỡng
-
-Điểm so với mốc:
-    zscore        z của giá trị mới nhất trong N năm
-    percentile    phân vị của giá trị mới nhất trong N năm (0–100); both/middle: khoảng cách tới P50
-    median_dev    giá trị mới nhất trừ median N năm (đơn vị của chỉ số)
-    absolute      giá trị mới nhất
-    target_band   giá trị mới nhất trừ mục tiêu Chính phủ
-Cấu hình cũ (yellow/red, hoặc absolute với khoảng green/yellow) vẫn đọc được.
+cuts: k mốc tăng dần cho k + 1 mức (3 đến 5). side: above (tăng là xấu), below (tăng là tốt),
+both (ở giữa là tốt), middle (ở giữa là xấu). Điểm so với mốc theo method: zscore = z trong N năm;
+percentile = phân vị 0 đến 100 (both/middle: lệch so với P50); median_dev = lệch median N năm;
+absolute = giá trị mới nhất; target_band = lệch mục tiêu Chính phủ.
+Cấu hình dạng yellow/red (và absolute với khoảng green/yellow) vẫn được đọc.
 """
 
 from __future__ import annotations
@@ -39,13 +29,11 @@ STATUS_LABEL = {
     INSUFFICIENT: "Chưa đủ dữ liệu",
     NO_DATA: "Chưa có dữ liệu",
 }
-# Số mức → màu từ tốt đến xấu
 LEVELS = {
     3: (GREEN, YELLOW, RED),
     4: (GREEN, YELLOW, ORANGE, RED),
     5: (GREEN_STRONG, GREEN, YELLOW, ORANGE, RED),
 }
-# Tên mức mặc định, từ tốt đến xấu (người dùng đặt lại được qua cfg["labels"])
 DEFAULT_LABELS = {
     3: ("Tốt", "Trung tính", "Xấu"),
     4: ("Tốt", "Trung tính", "Xấu", "Rất xấu"),
@@ -60,10 +48,10 @@ class StatusResult:
     status: str
     method: str
     threshold_source: str  # "default" | tên file ghi đè | ""
-    score: float  # điểm đem so với mốc (xem docstring module)
-    distance_to_next: float  # khoảng cách tới mốc xấu hơn kế tiếp (cùng đơn vị với score)
+    score: float
+    distance_to_next: float  # tới mốc xấu hơn kế tiếp, cùng đơn vị với score
     detail: str
-    label: str = ""  # tên mức: Tốt, Trung tính, Xấu…
+    label: str = ""
 
 
 def resolve_threshold(code: str, default: dict, overrides: dict) -> tuple[dict, str]:
@@ -71,13 +59,13 @@ def resolve_threshold(code: str, default: dict, overrides: dict) -> tuple[dict, 
         override = overrides[code]
         inherited = {k: default[k] for k in ("window_years", "min_points", "side") if k in default}
         if override.get("method", default["method"]) == default["method"]:
-            inherited = dict(default)  # cùng kiểu → kế thừa mốc còn thiếu
+            inherited = dict(default)  # cùng kiểu thì kế thừa cả mốc còn thiếu
         return {**inherited, **override}, override.get("_file", "override")
     return dict(default), "default"
 
 
 def cuts_of(cfg: dict) -> list[float] | None:
-    """Mốc của ngưỡng; cấu hình cũ yellow/red → [yellow, red]."""
+    """Mốc của ngưỡng; cấu hình dạng yellow/red đọc thành [yellow, red]."""
     cuts = cfg.get("cuts")
     legacy = cfg.get("yellow") is not None and cfg.get("red") is not None
     if cuts is None and legacy and not isinstance(cfg["yellow"], list):
@@ -138,10 +126,9 @@ def _cut_errors(cfg: dict, method: str, side: str, cuts: list[float] | None) -> 
 
 
 def _level_two_sided(score: float, cuts: list[float], side: str) -> tuple[int, float]:
-    """Ngưỡng cứng hai phía: k mốc (k chẵn), vùng giữa [mốc k/2, mốc k/2+1] là trung tâm.
+    """Ngưỡng cứng hai phía: k mốc chẵn, vùng giữa hai mốc giữa là trung tâm.
 
-    Mỗi lần vượt một mốc ra ngoài là xa trung tâm thêm một bậc; bậc d ứng với mức 2d
-    (5 mức: trung tâm Rất tốt, bậc 1 Trung tính, bậc 2 Rất xấu). 'middle' thì đảo lại.
+    Mỗi mốc vượt ra ngoài thêm một bậc, bậc d ứng với mức 2d; 'middle' thì đảo lại.
     """
     cuts = sorted(cuts)
     half = len(cuts) // 2
@@ -160,8 +147,7 @@ def _level_two_sided(score: float, cuts: list[float], side: str) -> tuple[int, f
 def _level(score: float, cuts: list[float], side: str, *, deviation: bool) -> tuple[int, float]:
     """Mức (0 = tốt nhất) và khoảng cách tới mốc xấu hơn kế tiếp.
 
-    deviation=True (z, lệch median, lệch mục tiêu, phân vị hai phía): mốc là độ lệch dương,
-    "thấp là xấu" thì đảo dấu, "hai phía" lấy trị tuyệt đối.
+    deviation=True: mốc là độ lệch dương; side below đảo dấu, both lấy trị tuyệt đối.
     deviation=False (ngưỡng cứng, phân vị một phía): mốc nằm trên thang giá trị.
     """
     if not deviation and side in ("both", "middle"):
@@ -188,7 +174,7 @@ def _window(s: pd.Series, years: int) -> pd.Series:
     return s[s.index > s.index[-1] - pd.DateOffset(years=years)]
 
 
-def score_of(  # noqa: PLR0911 — rẽ theo kiểu ngưỡng
+def score_of(  # noqa: PLR0911
     s: pd.Series, cfg: dict, frequency: str, target: float
 ) -> tuple[float, str]:
     """Điểm đem so với mốc + diễn giải ngắn. NaN khi chưa đủ dữ liệu."""
@@ -228,7 +214,7 @@ def _legacy_absolute(value: float, cfg: dict) -> str:
     return YELLOW if inside(cfg.get("yellow")) else RED
 
 
-def evaluate(  # noqa: PLR0911 — rẽ theo kiểu ngưỡng
+def evaluate(  # noqa: PLR0911
     series: pd.Series, frequency: str, cfg: dict, source: str, target_value: float = np.nan
 ) -> StatusResult:
     s = measure(series, frequency, cfg.get("measure"))
@@ -242,7 +228,7 @@ def evaluate(  # noqa: PLR0911 — rẽ theo kiểu ngưỡng
     if method not in METHODS or not cuts or len(cuts) + 1 not in LEVELS:
         return StatusResult(NO_THRESHOLD, method, source, np.nan, np.nan, "")
     two_sided = cfg.get("side", "both") in ("both", "middle")
-    if method == "absolute" and two_sided and len(cuts) % 2:  # hai phía cần số mốc chẵn
+    if method == "absolute" and two_sided and len(cuts) % 2:
         return StatusResult(NO_THRESHOLD, method, source, np.nan, np.nan, "")
     score, detail = score_of(s, cfg, frequency, target_value)
     if np.isnan(score):

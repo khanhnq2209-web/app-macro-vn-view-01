@@ -1,14 +1,7 @@
 """Gộp file Excel người dùng xuất từ dulieukinhte.com (`data/inbox/`) vào file raw (D7).
 
-Ghép sheet:
-- Sheet wide (cột nhãn + cột kỳ) → sheet raw **cùng tên** (tên sheet xuất = "{bảng} ({đơn vị})",
-  cắt 31 ký tự). Gộp theo (dòng chỉ tiêu × kỳ): hợp các kỳ, ô trùng → bản mới thắng
-  (nguồn sửa lùi số), sắp cột kỳ theo thời gian. Vượt 16.384 cột Excel → báo lỗi, không ghi.
-- Sheet long (cột đầu là ngày) → sheet raw có **cùng tập tiêu đề**; upsert theo ngày.
-
-Sao lưu file raw vào `_backup/<timestamp>/` trước khi ghi; ghi bằng openpyxl giữ các sheet khác.
-Sheet không khớp → báo, file ở lại inbox. File gộp hết → chuyển vào `inbox/_merged/<timestamp>/`.
-Log mỗi sheet: `data/raw/_merge_log.csv`.
+Sheet wide gộp vào sheet raw cùng tên theo (dòng chỉ tiêu, kỳ); sheet long gộp vào sheet raw có
+cùng tập tiêu đề, theo ngày. Ô trùng thì bản mới thắng vì nguồn có sửa lùi số.
 """
 
 from __future__ import annotations
@@ -115,7 +108,7 @@ def build_raw_index(raw_dir: Path) -> list[SheetInfo]:
 
 
 def find_target(info: SheetInfo, raw_index: list[SheetInfo]) -> list[SheetInfo]:
-    """Sheet raw khớp: wide → cùng tên sheet; long → cùng tập tiêu đề."""
+    """Sheet raw khớp: wide theo cùng tên sheet, long theo cùng tập tiêu đề."""
     if info.kind == "wide":
         return [r for r in raw_index if r.kind == "wide" and r.sheet == info.sheet]
     if info.kind == "long":
@@ -141,7 +134,7 @@ def _differs(old: pd.DataFrame, new: pd.DataFrame) -> pd.DataFrame:
 def combine_cells(old: pd.DataFrame, new: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     """Hợp 2 bảng (index = khóa dòng, cột = kỳ/chỉ tiêu); ô mới khác NaN thắng.
 
-    Thứ tự: dòng/cột cũ trước, dòng/cột mới thêm sau (người gọi tự sắp lại cột nếu cần).
+    Thứ tự: dòng/cột cũ trước, dòng/cột mới thêm sau.
     """
     rows = old.index.append(new.index.difference(old.index, sort=False))
     cols = old.columns.append(new.columns.difference(old.columns, sort=False))
@@ -167,7 +160,7 @@ def combine_cells(old: pd.DataFrame, new: pd.DataFrame) -> tuple[pd.DataFrame, d
 class WideFrame:
     labels: pd.DataFrame  # cột nhãn, giữ nguyên chữ (cả thụt lề); index = khóa dòng
     values: pd.DataFrame  # index = khóa dòng, cột = ngày cuối kỳ
-    headers: dict[pd.Timestamp, str]  # ngày → chữ tiêu đề kỳ
+    headers: dict[pd.Timestamp, str]  # ngày: chữ tiêu đề kỳ
 
 
 def _row_keys(labels: pd.DataFrame) -> pd.Index:
@@ -191,7 +184,7 @@ def split_wide(frame: pd.DataFrame) -> WideFrame:
 
 
 def merge_wide_frames(old: pd.DataFrame, new: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """Gộp 2 sheet wide → (sheet gộp để ghi, thống kê)."""
+    """Gộp 2 sheet wide; trả (sheet gộp để ghi, thống kê)."""
     o, n = split_wide(old), split_wide(new)
     if [header_text(c) for c in o.labels.columns] != [header_text(c) for c in n.labels.columns]:
         raise ValueError("Cột nhãn khác nhau giữa file mới và file raw")
@@ -253,7 +246,7 @@ def write_sheet(path: Path, sheet: str, frame: pd.DataFrame) -> None:
 
 
 def merge_sheet(info: SheetInfo, ctx: MergeContext) -> dict:
-    """Gộp 1 sheet inbox vào sheet raw tương ứng → dòng báo cáo."""
+    """Gộp 1 sheet inbox vào sheet raw tương ứng; trả dòng báo cáo."""
     result = {"sheet": info.sheet, "kind": info.kind, "raw_file": None}
     targets = find_target(info, ctx.raw_index)
     if len(targets) != 1:

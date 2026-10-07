@@ -1,4 +1,4 @@
-"""Biến đổi chuỗi thời gian thuần (pd.Series có DatetimeIndex) — không I/O, không streamlit.
+"""Biến đổi chuỗi thời gian thuần (pd.Series có DatetimeIndex), không I/O.
 
 Quy ước kỳ: tháng = cuối tháng, quý = cuối quý, năm = 31/12.
 """
@@ -19,7 +19,7 @@ def clean(series: pd.Series) -> pd.Series:
 
 
 def to_period(series: pd.Series, freq: str, how: str = "last") -> pd.Series:
-    """Đưa về lưới kỳ đều (M/Q/A); kỳ thiếu → NaN (không bịa). D/W giữ nguyên."""
+    """Đưa về lưới kỳ đều (M/Q/A), kỳ thiếu để NaN; D/W giữ nguyên."""
     s = clean(series)
     if freq not in PERIOD_RULE or s.empty:
         return s
@@ -28,9 +28,9 @@ def to_period(series: pd.Series, freq: str, how: str = "last") -> pd.Series:
 
 
 def quarter_end_values(monthly: pd.Series) -> pd.Series:
-    """Chuỗi tháng lặp lại số quý (vd heatmap VBMA) → chỉ giữ tháng cuối quý.
+    """Chuỗi tháng lặp lại số quý (vd heatmap VBMA): chỉ giữ tháng cuối quý.
 
-    Quý chưa có tháng cuối (vd T7, T8 lặp số Q2) bị bỏ — không tạo quý chưa công bố.
+    Quý chưa có tháng cuối (vd T7, T8 lặp số Q2) bị bỏ để không tạo quý chưa công bố.
     """
     s = clean(monthly)
     s = s[s.index.month.isin([3, 6, 9, 12])]
@@ -41,7 +41,9 @@ def quarter_end_values(monthly: pd.Series) -> pd.Series:
 def value_year_ago(series: pd.Series) -> pd.Series:
     """Giá trị gần nhất trước hoặc đúng 1 năm trước mỗi ngày (cho chuỗi D/W)."""
     s = clean(series)
-    lagged = s.index - pd.DateOffset(years=1)  # 29/02 và 28/02 cùng rơi vào 28/02 → tra theo vị trí
+    lagged = s.index - pd.DateOffset(
+        years=1
+    )  # 29/02 và 28/02 cùng rơi vào 28/02 nên tra theo vị trí
     pos = s.index.searchsorted(lagged, side="right") - 1
     values = np.where(pos >= 0, s.to_numpy()[np.clip(pos, 0, None)], np.nan)
     return pd.Series(values, index=s.index)
@@ -68,7 +70,7 @@ def mom_to_yoy(mom_pct: pd.Series) -> pd.Series:
 
 
 def mom_to_avg_ytd(mom_pct: pd.Series) -> pd.Series:
-    """CPI bình quân từ đầu năm: TB chỉ số T1..t năm nay / TB T1..t năm trước − 1."""
+    """CPI bình quân từ đầu năm: TB chỉ số T1..t năm nay / TB T1..t năm trước - 1."""
     idx = mom_to_index(mom_pct)
     avg_ytd = idx.groupby(idx.index.year).expanding().mean().droplevel(0)
     prev = avg_ytd.shift(12)
@@ -78,7 +80,7 @@ def mom_to_avg_ytd(mom_pct: pd.Series) -> pd.Series:
 def ytd_to_yoy(ytd_pct: pd.Series) -> pd.Series:
     """% so cùng kỳ từ chuỗi % tăng trưởng từ đầu năm (vd tín dụng), không cần số dư.
 
-    yoy(t) = (1 + ytd(t)) × (1 + ytd(tháng 12 năm trước)) / (1 + ytd(cùng tháng năm trước)) − 1
+    yoy(t) = (1 + ytd(t)) * (1 + ytd(tháng 12 năm trước)) / (1 + ytd(cùng tháng năm trước)) - 1
     """
     m = to_period(ytd_pct, "M") / 100.0
     dec = m[m.index.month == 12]
@@ -140,14 +142,14 @@ def rolling_mean(s: pd.Series, n: int, unit: str) -> pd.Series:
 def sum12_pct(series: pd.Series, *, from_ytd: bool = False) -> pd.Series:
     """Tổng 12 tháng trượt của chuỗi dòng tháng, % so cùng kỳ năm trước.
 
-    from_ytd=True: chuỗi gốc là lũy kế từ đầu năm → tách ra số từng tháng trước khi cộng.
+    from_ytd=True: chuỗi gốc là lũy kế từ đầu năm, tách ra số từng tháng trước khi cộng.
     Thiếu tháng nào trong cửa sổ thì không tính (không nội suy).
     """
     m = to_period(clean(series), "M")
     if from_ytd:
         prev = m.groupby(m.index.year).shift(1)
         prev = prev.where(m.index.month != 1, 0.0)  # tháng 1: số lũy kế chính là số tháng
-        m = m - prev  # tháng thiếu hoặc chuỗi bắt đầu giữa năm → NaN, cửa sổ chứa nó bị loại
+        m = m - prev  # tháng thiếu hoặc chuỗi bắt đầu giữa năm ra NaN, cửa sổ chứa nó bị loại
     total = m.rolling(12, min_periods=12).sum()
     return ((total / total.shift(12) - 1.0) * 100.0).dropna()
 
@@ -167,9 +169,9 @@ def ytd_sum(monthly_flow: pd.Series) -> pd.Series:
 
 
 def plan_pace(monthly_flow: pd.Series, plans: dict[int, float]) -> pd.Series:
-    """Tiến độ so kế hoạch năm (điểm %): % kế hoạch đã đạt − % thời gian đã trôi (tháng/12).
+    """Tiến độ so kế hoạch năm (điểm %): % kế hoạch đã đạt - % thời gian đã trôi (tháng/12).
 
-    Chỉ tính cho năm có kế hoạch. Vd 9 tháng đạt 64,2% kế hoạch → 64,2 − 75 = −10,8.
+    Chỉ tính cho năm có kế hoạch. Vd 9 tháng đạt 64,2% kế hoạch: 64,2 - 75 = -10,8.
     """
     cum = ytd_sum(monthly_flow)
     plan = pd.Series(cum.index.year, index=cum.index).map(plans)
@@ -194,13 +196,13 @@ def extend(primary: pd.Series, secondary: pd.Series) -> pd.Series:
 
 
 def align_diff(a: pd.Series, b: pd.Series, freq: str) -> pd.Series:
-    """a − b trên lưới kỳ `freq` (giá trị cuối kỳ), chỉ kỳ có đủ cả hai."""
+    """a - b trên lưới kỳ `freq` (giá trị cuối kỳ), chỉ kỳ có đủ cả hai."""
     left, right = to_period(a, freq), to_period(b, freq)
     return (left - right).dropna()
 
 
 def change(value: float, previous: float, change_unit: str) -> float:
-    """Thay đổi theo kiểu catalog: bps / pp → hiệu số; pct → % tương đối."""
+    """Thay đổi theo kiểu catalog: bps/pp là hiệu số, pct là % tương đối."""
     if previous is None or value is None or np.isnan(previous) or np.isnan(value):
         return np.nan
     if change_unit == "pct":
@@ -210,7 +212,7 @@ def change(value: float, previous: float, change_unit: str) -> float:
 
 
 def previous_value(series: pd.Series, freq: str, daily_window_days: int) -> tuple:
-    """(ngày, giá trị) của kỳ so sánh: kỳ liền trước; chuỗi ngày → giá trị cách N ngày."""
+    """(ngày, giá trị) của kỳ so sánh: kỳ liền trước; chuỗi ngày lấy giá trị cách N ngày."""
     s = clean(series)
     if len(s) < 2:
         return None, np.nan

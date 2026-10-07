@@ -1,4 +1,4 @@
-"""Trang 1: Tổng quan (trang chụp vào slide)."""
+"""Tổng quan, dùng để chụp vào slide."""
 
 import html
 
@@ -25,7 +25,6 @@ built = meta.get("built_at", "")[:16].replace("T", " ")
 st.html(monitor.summary_strip(latest, fmt.date(built[:10]) + built[10:]))
 
 
-# Cảnh báo: một dòng chữ, danh sách chi tiết để trong tooltip
 def names_with(flag: str) -> list[str]:
     return latest.loc[latest["flags"].fillna("").str.contains(flag), "name"].tolist()
 
@@ -39,7 +38,7 @@ if stale:
 rebased = names_with("rebase_suspect")
 if rebased:
     alerts.append(
-        f'<span title="{html.escape(", ".join(rebased))}">{len(rebased)} chuỗi GDP tự tính bị gãy năm gốc, tạm không xếp màu</span>'
+        f'<span title="{html.escape(", ".join(rebased))}">{len(rebased)} chuỗi GDP gãy năm gốc, chưa xếp màu</span>'
     )
 unverified = names_with("unit_unverified")
 if unverified:
@@ -54,7 +53,7 @@ if failed or meta.get("source_errors"):
 if alerts:
     st.html(f'<div class="ma">⚠ {" · ".join(alerts)}</div>')
 
-# Đổi màu trong 30 ngày (chỉ tính thay đổi do số liệu, bỏ qua thay đổi do sửa ngưỡng)
+# Chỉ tính đổi màu do số liệu, bỏ qua đổi do sửa ngưỡng.
 hist = data.history()
 changes = []
 if not hist.empty:
@@ -72,13 +71,16 @@ if not hist.empty:
         f"<b>{html.escape(names.get(r['code'], r['code']))}</b> "
         f"{STATUS_LABEL.get(r['prev_status'], r['prev_status'])} → {STATUS_LABEL.get(r['status'], r['status'])}"
         f" ({r['run_at']:%d/%m})"
-        for r in recent.sort_values("run_at", ascending=False).to_dict("records")
+        for r in recent.sort_values("run_at", ascending=False)
+        .drop_duplicates("code")
+        .to_dict("records")
     ]
+    if len(changes) > 6:
+        changes = [*changes[:6], f"và {len(changes) - 6} chỉ số khác"]
 st.html(
     f'<div class="mr">Đổi màu trong 30 ngày: {" · ".join(changes) if changes else "không có"}</div>'
 )
 
-# Hai khối: bên ngoài | trong nước
 catalog = data.catalog_map()
 rules = data.impact_rules()
 group_names = {g: f"{g} · {r['name']}" for g, r in rules["groups"].items()}
@@ -96,12 +98,7 @@ for col, block in zip(cols, blocks, strict=False):
     with col:
         st.html(monitor.block_html(block.get("title", ""), rows, ctx))
 
-st.html(
-    '<div class="mc-note" style="margin-top:10px">Chấm màu: vị trí so với ngưỡng. '
-    "▲ ▼ ◆: thuận lợi, bất lợi, hai chiều với thị trường BĐS. "
-    "Cột Nhà ở · KCN: hướng tác động lên cầu và cung. "
-    "Mũi tên là hướng của biến, không phải đánh giá tốt hay xấu.</div>"
-)
+st.caption("Chấm màu: vị trí so với ngưỡng của chỉ số.")
 
 if present:
     with st.container(key="present_exit"):

@@ -1,10 +1,6 @@
-"""Cache Excel: 1 file/nguồn, 1 sheet/series (cột date, value, ...) + sheet `_meta`.
+"""Cache Excel dùng chung cho mọi fetcher: 1 file/nguồn, 1 sheet/series + sheet `_meta`.
 
-Hợp đồng dùng chung cho mọi fetcher (FRED, Yahoo, VBMA, FedWatch):
-- `write_cache(path, frames, meta)`: ghi đè toàn bộ file; `frames` = {sheet_name: DataFrame}.
-- `read_cache(path)`: trả ({sheet_name: DataFrame}, meta DataFrame); file không có → ({}, rỗng).
-- Sheet `_meta` một dòng/series: series_id, sheet, fetched_at (ISO, UTC), n_obs, last_date,
-  status, error.
+`_meta` 1 dòng/series: series_id, sheet, fetched_at (ISO, UTC), n_obs, last_date, status, error.
 """
 
 from __future__ import annotations
@@ -35,7 +31,7 @@ def write_cache(path: Path, frames: dict[str, pd.DataFrame], meta: pd.DataFrame)
         meta.to_excel(writer, sheet_name=META_SHEET, index=False)
         for name, df in frames.items():
             df.to_excel(writer, sheet_name=sheet_name_for(name), index=False)
-    tmp.replace(path)  # ghi xong mới thay file cũ → lỗi giữa chừng không làm hỏng cache
+    tmp.replace(path)  # ghi xong mới thay file cũ để lỗi giữa chừng không làm hỏng cache
 
 
 def read_cache(path: Path) -> tuple[dict[str, pd.DataFrame], pd.DataFrame]:

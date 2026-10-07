@@ -1,15 +1,9 @@
-"""Xác suất FedWatch tự tính từ giá hợp đồng 30-Day Fed Funds futures (ZQ) — hàm thuần, không I/O.
+"""Xác suất FedWatch tự tính từ giá 30-Day Fed Funds futures (ZQ), theo phương pháp CME.
 
-Phương pháp (theo CME FedWatch):
-- Lãi suất bình quân tháng ngầm định r_m = 100 − P_m.
-- Tháng có họp (họp ngày d, tháng N ngày; lãi suất mới áp dụng từ ngày d+1):
-  r_m = (d/N)·r_start + ((N−d)/N)·r_end.
-- Neo: r_start = r của tháng trước nếu tháng trước không có họp; nếu không, nối tiếp r_end của kỳ
-  họp trước (kỳ họp đầu tiên: EFFR hiện hành = điểm giữa biên + chênh lệch EFFR−điểm giữa).
-  Họp trong 7 ngày cuối tháng và tháng sau không có họp → r_end = r của tháng sau.
-- Δ = r_end − r_start; k = floor(|Δ|/0.25), p = phần lẻ → bước k (1−p) và k+1 (p) theo dấu Δ.
-- Xác suất các kỳ họp nối nhau (tích chập) thành phân phối theo khoảng mục tiêu 25bp.
-Output dài: asof, meeting_date, range_low_bp, range_high_bp, prob, source.
+r_m = 100 - P_m. Tháng có họp ngày d (tháng N ngày): r_m = (d/N)*r_start + ((N-d)/N)*r_end.
+r_start lấy r tháng trước nếu tháng đó không họp, không thì r_end kỳ trước (kỳ đầu: EFFR hiện hành).
+Họp trong 7 ngày cuối tháng và tháng sau không họp thì r_end = r tháng sau.
+Delta = r_end - r_start, k = floor(|Delta|/0.25), p = phần lẻ: bước k (1-p), bước k+1 (p).
 """
 
 from __future__ import annotations
@@ -28,14 +22,13 @@ LONG_COLUMNS = ["asof", "meeting_date", "range_low_bp", "range_high_bp", "prob",
 _EPS = 1e-9
 
 
-# ---------------- tickers ----------------
 def zq_ticker(period: pd.Period) -> str:
-    """Tháng hợp đồng → ticker Yahoo, vd 2026-10 → 'ZQV26.CBT'."""
+    """Ticker Yahoo của tháng hợp đồng, vd 2026-10 là 'ZQV26.CBT'."""
     return f"ZQ{MONTH_CODES[period.month - 1]}{period.year % 100:02d}.CBT"
 
 
 def zq_period(ticker: str) -> pd.Period:
-    """'ZQV26.CBT' → Period('2026-10', 'M')."""
+    """Tháng hợp đồng của ticker, vd 'ZQV26.CBT' là Period('2026-10', 'M')."""
     code, yy = ticker[2], int(ticker[3:5])
     return pd.Period(year=2000 + yy, month=MONTH_CODES.index(code) + 1, freq="M")
 
@@ -44,7 +37,6 @@ def zq_tickers_between(first: pd.Period, last: pd.Period) -> list[str]:
     return [zq_ticker(p) for p in pd.period_range(first, last, freq="M")]
 
 
-# ---------------- một ngày giá ----------------
 def _month_rate(rates: dict[pd.Period, float], period: pd.Period) -> float | None:
     value = rates.get(period)
     return None if value is None or pd.isna(value) else float(value)
@@ -90,7 +82,7 @@ def meeting_rate_path(
 
 
 def move_distribution(delta_pct: float) -> dict[int, float]:
-    """Δ (điểm %) → {số bước 25bp: xác suất}; vd Δ=−0.125 → {0: 0.5, −1: 0.5}."""
+    """{số bước 25bp: xác suất} từ Delta (điểm %), vd Delta=-0.125 cho {0: 0.5, -1: 0.5}."""
     steps = abs(delta_pct) / STEP_PCT
     k = math.floor(steps + _EPS)
     frac = max(steps - k, 0.0)
@@ -112,7 +104,7 @@ def _convolve(base: dict[int, float], move: dict[int, float]) -> dict[int, float
 def chain_probabilities(
     path: pd.DataFrame, current_low_bp: int, asof: pd.Timestamp
 ) -> pd.DataFrame:
-    """Nối xác suất các kỳ họp → bảng dài theo khoảng mục tiêu."""
+    """Tích chập xác suất các kỳ họp thành bảng dài theo khoảng mục tiêu 25bp."""
     rows, dist = [], {0: 1.0}
     deltas = (path["r_end"] - path["r_start"]).to_numpy()
     for meeting, delta in zip(path["meeting_date"], deltas, strict=True):
@@ -147,15 +139,14 @@ def compute_fedwatch(
     return chain_probabilities(path, int(current_low_bp), asof)
 
 
-# ---------------- lịch sử ----------------
 def asof_series(series: pd.DataFrame, series_id: str, asof: pd.Timestamp) -> float | None:
-    """Giá trị gần nhất ≤ asof của 1 series trong store dài (series_id, date, value)."""
+    """Giá trị gần nhất tới asof của 1 series trong store dài (series_id, date, value)."""
     sub = series[(series["series_id"] == series_id) & (series["date"] <= asof)]
     return None if sub.empty else float(sub.sort_values("date")["value"].iloc[-1])
 
 
 def effr_spread(fred: pd.DataFrame, asof: pd.Timestamp, window: int = 5) -> float:
-    """Trung vị (EFFR − điểm giữa biên) trên `window` quan sát gần nhất ≤ asof."""
+    """Trung vị (EFFR - điểm giữa biên) trên `window` quan sát gần nhất tới asof."""
     wide = (
         fred[fred["series_id"].isin(["fred.EFFR", "fred.DFEDTARU", "fred.DFEDTARL"])]
         .pivot_table(index="date", columns="series_id", values="value")
@@ -177,14 +168,14 @@ def current_target_low_bp(fred: pd.DataFrame, asof: pd.Timestamp | None = None) 
 
 
 def prices_wide(zq_prices: pd.DataFrame, ffill_limit: int = 3) -> pd.DataFrame:
-    """zq_prices dài (date, ticker, close) → bảng rộng index=date, cột=Period tháng hợp đồng.
+    """Bảng rộng index=date, cột=Period tháng hợp đồng, từ zq_prices dài (date, ticker, close).
 
-    Ngày có < 1/2 số hợp đồng có giá bị bỏ; ô thiếu lấp từ phiên trước (tối đa `ffill_limit`).
+    Ngày có dưới 1/2 số hợp đồng có giá bị bỏ; ô thiếu lấp từ phiên trước (tối đa `ffill_limit`).
     """
     wide = zq_prices.pivot_table(index="date", columns="ticker", values="close").sort_index()
     wide.columns = [zq_period(t) for t in wide.columns]
     counts = wide.notna().sum(axis=1)
-    wide = wide[counts >= counts.max() / 2]  # bỏ ngày chỉ vài hợp đồng có giá (phiên đang chạy)
+    wide = wide[counts >= counts.max() / 2]  # phiên đang chạy chỉ vài hợp đồng có giá
     return wide.ffill(limit=ffill_limit)
 
 
@@ -213,7 +204,6 @@ def compute_fedwatch_history(
     return pd.concat(parts, ignore_index=True)
 
 
-# ---------------- trình bày ----------------
 def range_label(low_bp: int, high_bp: int) -> str:
     return f"{int(low_bp)}–{int(high_bp)}"
 

@@ -23,8 +23,8 @@ rows:
   - 0.5
   - 1.0
   side: above
-  description: Thay đổi lợi suất TPCP 10 năm trong 12 tháng (điểm %). Chấm theo thay
-    đổi vì mức có xu hướng. 11/2022 tăng 2,9 điểm %.
+  description: Thay đổi lợi suất TPCP 10 năm trong 12 tháng (điểm %), vì mức có xu
+    hướng. 11/2022 tăng 2,9 điểm %.
   measure:
     kind: change
     n: 1
@@ -39,9 +39,8 @@ rows:
   - 4.0
   - 5.0
   side: above
-  description: Tham khảo, không tính điểm. Lãi suất Fed hiệu dụng; cột Kế hoạch /
-    Dự báo là mức kỳ vọng theo FedWatch (CME) ở kỳ họp cuối năm, tính bằng biên dưới
-    kỳ vọng + 8 bps.
+  description: Tham khảo, không tính điểm. Lãi suất Fed hiệu dụng. Kỳ vọng cuối năm
+    theo FedWatch = biên dưới kỳ vọng + 8 bps.
 - code: interbank_on
   pillar: Tín dụng và thanh khoản
   method: absolute
@@ -66,8 +65,8 @@ rows:
   - 7.0
   - 8.0
   side: below
-  description: Tăng trưởng kéo thu nhập và sức mua nhà. Mục tiêu 2026 là 10% (năm
-    2025 là 8%).
+  description: Tăng trưởng kéo thu nhập và sức mua nhà. Mục tiêu 2026 là 10% (2025
+    là 8%).
 - code: cpi_yoy
   pillar: Ổn định vĩ mô
   method: absolute
@@ -122,10 +121,9 @@ rows:
   - -5.0
   - 0.0
   side: below
-  description: '% kế hoạch năm đã thực hiện trừ % thời gian đã trôi (tháng/12). Vd
-    9 tháng đạt 64% KH → 64 − 75 = −11 điểm % (chậm). Từ 0 trở lên là đúng hoặc nhanh
-    hơn tiến độ; dưới −15 là chậm nhiều. Chỉ tính cho năm có kế hoạch trong bản đồ
-    Kế hoạch & dự báo.'
+  description: '% kế hoạch năm đã thực hiện trừ % thời gian đã qua (tháng/12). Vd
+    9 tháng đạt 64% KH: 64 − 75 = −11 điểm %. Từ 0 trở lên là đúng tiến độ. Chỉ tính
+    năm có kế hoạch ở trang Kế hoạch & dự báo.'
 - code: public_investment_ytd
   pillar: Hạ tầng
   info: true

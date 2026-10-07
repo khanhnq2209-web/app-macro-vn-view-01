@@ -1,9 +1,6 @@
-"""Yahoo Finance (yfinance) → Excel cache `data/cache/yahoo.xlsx` (1 sheet/ticker + `_meta`).
+"""Yahoo Finance (yfinance) vào cache `data/cache/yahoo.xlsx` (1 sheet/ticker + `_meta`).
 
-Contract (long store): series_id = "yahoo.<TICKER>", value = Close (auto_adjust=False),
-source="Yahoo".
-Sheet columns: date, open, high, low, close, adj_close, volume, value.
-Nghỉ `YF_SLEEP_SECONDS` (env, mặc định 1.0) giữa các ticker để tránh HTTP 429.
+value = Close (auto_adjust=False). Nghỉ `YF_SLEEP_SECONDS` giữa các ticker để tránh HTTP 429.
 """
 
 from __future__ import annotations
@@ -45,7 +42,7 @@ def sleep_seconds() -> float:
 
 
 def history_to_frame(history: pd.DataFrame) -> pd.DataFrame:
-    """yfinance history (index ngày, có thể có tz) → DataFrame chuẩn của cache."""
+    """yfinance history (index ngày, có thể có tz) thành DataFrame chuẩn của cache."""
     if history is None or history.empty or "Close" not in history.columns:
         return pd.DataFrame(columns=["date", *_COLUMNS.values(), "value"])
     out = history.rename(columns=_COLUMNS).reindex(columns=list(_COLUMNS.values()))
@@ -78,7 +75,7 @@ def _meta_row(ticker: str, frame: pd.DataFrame | None, error: str = "") -> dict:
 def fetch_yahoo(
     tickers: list[str], start: str, pause: float | None = None
 ) -> tuple[dict[str, pd.DataFrame], pd.DataFrame]:
-    """Tải từng ticker; ticker lỗi/không có dữ liệu → status=error, không dừng cả lượt."""
+    """Tải từng ticker; ticker lỗi hoặc không có dữ liệu ghi status=error, không dừng cả lượt."""
     pause = sleep_seconds() if pause is None else pause
     frames: dict[str, pd.DataFrame] = {}
     rows = []

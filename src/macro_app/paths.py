@@ -1,4 +1,4 @@
-"""Đường dẫn dùng chung — mọi module import từ đây, không tự ghép đường dẫn."""
+"""Đường dẫn dùng chung; mọi module import từ đây, không tự ghép đường dẫn."""
 
 from __future__ import annotations
 

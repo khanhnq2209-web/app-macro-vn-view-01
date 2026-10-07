@@ -1,7 +1,6 @@
-"""FRED (St. Louis Fed) → Excel cache `data/cache/fred.xlsx` (1 sheet/series + `_meta`).
+"""FRED (St. Louis Fed) to Excel cache `data/cache/fred.xlsx` (1 sheet/series + `_meta`).
 
-Contract (long store): series_id = "fred.<ID>", date (tz-naive, normalized), value, source="FRED".
-Monthly/quarterly/annual series: FRED dates are period start → stored as period end.
+FRED dates monthly/quarterly/annual series at period start; stored as period end.
 API key only from env `FRED_API_KEY`; never logged, stripped from every error message.
 """
 
@@ -66,7 +65,7 @@ def _get_json(session: requests.Session, endpoint: str, params: dict) -> dict:
 
 
 def observations_to_frame(observations: list[dict], frequency_short: str = "") -> pd.DataFrame:
-    """JSON observations → DataFrame[date, value]; '.' = thiếu (bỏ dòng)."""
+    """JSON observations thành DataFrame[date, value]; FRED ghi '.' cho kỳ thiếu (bỏ dòng)."""
     raw = pd.DataFrame(observations, columns=["date", "value"])
     out = pd.DataFrame(
         {
@@ -171,7 +170,7 @@ def _sheet_to_series_id(meta: pd.DataFrame) -> dict[str, str]:
 def frames_to_long(
     frames: dict[str, pd.DataFrame], meta: pd.DataFrame, prefix: str, source: str
 ) -> pd.DataFrame:
-    """Sheet cache → store dài theo hợp đồng chung (series_id, date, value, source)."""
+    """Sheet cache thành store dài theo hợp đồng chung (series_id, date, value, source)."""
     mapping = _sheet_to_series_id(meta)
     parts = [
         pd.DataFrame(

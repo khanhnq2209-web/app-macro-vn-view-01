@@ -13,7 +13,7 @@ rows:
   - 25.0
   side: below
   description: FDI đăng ký, tổng 12 tháng so cùng kỳ, dẫn trước cầu thuê đất 6–18
-    tháng (khoảng 80% vào chế tạo). Lịch sử đủ 12 tháng chỉ từ 12/2023 nên mốc rộng.
+    tháng. Lịch sử đủ 12 tháng chỉ từ 12/2023 nên mốc rộng.
   measure:
     kind: sum12_pct
     ytd: 1.0
@@ -71,8 +71,8 @@ rows:
   - 0.5
   - 1.0
   side: above
-  description: Thay đổi lợi suất TPCP 10 năm trong 12 tháng (điểm %). Chấm theo thay
-    đổi vì mức có xu hướng. 11/2022 tăng 2,9 điểm %.
+  description: Thay đổi lợi suất TPCP 10 năm trong 12 tháng (điểm %), vì mức có xu
+    hướng. 11/2022 tăng 2,9 điểm %.
   measure:
     kind: change
     n: 1
@@ -87,9 +87,8 @@ rows:
   - 4.0
   - 5.0
   side: above
-  description: Tham khảo, không tính điểm. Lãi suất Fed hiệu dụng; cột Kế hoạch /
-    Dự báo là mức kỳ vọng theo FedWatch (CME) ở kỳ họp cuối năm, tính bằng biên dưới
-    kỳ vọng + 8 bps.
+  description: Tham khảo, không tính điểm. Lãi suất Fed hiệu dụng. Kỳ vọng cuối năm
+    theo FedWatch = biên dưới kỳ vọng + 8 bps.
 - code: dxy
   pillar: Chi phí vốn và rủi ro
   method: absolute
@@ -99,8 +98,8 @@ rows:
   - 5.0
   - 10.0
   side: above
-  description: USD mạnh (so cùng kỳ) hút vốn khỏi thị trường mới nổi, gây áp lực tỷ
-    giá.
+  description: DXY so cùng kỳ. USD mạnh hút vốn khỏi thị trường mới nổi, gây áp lực
+    tỷ giá.
   measure:
     kind: pct_change
     n: 1
@@ -114,8 +113,7 @@ rows:
   - 25.0
   - 30.0
   side: above
-  description: Biến động thị trường Mỹ, trung bình 21 phiên. Trên 30 là căng thẳng,
-    nhà đầu tư hoãn mở nhà máy mới.
+  description: Biến động thị trường Mỹ, trung bình 21 phiên. Trên 30 là căng thẳng.
   measure:
     kind: mean
     n: 21

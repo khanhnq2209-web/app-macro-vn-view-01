@@ -61,7 +61,7 @@ def trend_vs_last_year(series: pd.Series, frequency: str, params: dict) -> tuple
 
 
 def favorability(direction: str, trend_dir: str) -> str:
-    """Tag ▲/▼/◆ cho chỉ số: suy từ `direction` trong catalog + hướng hiện tại."""
+    """Tag thuận lợi/bất lợi/hai chiều, suy từ `direction` trong catalog và hướng hiện tại."""
     if direction == "two_way":
         return TWO_WAY
     if trend_dir not in (UP, DOWN):
@@ -71,17 +71,14 @@ def favorability(direction: str, trend_dir: str) -> str:
 
 
 def apply_sign(trend_dir: str, sign: int) -> str:
-    """Chỉ số ngược chiều khái niệm của nhóm (sign = -1) → đảo hướng trước khi tra quy tắc."""
+    """Chỉ số ngược chiều khái niệm của nhóm (sign = -1) thì đảo hướng trước khi tra quy tắc."""
     if sign >= 0 or trend_dir not in (UP, DOWN):
         return trend_dir
     return DOWN if trend_dir == UP else UP
 
 
 def group_cells(group_rule: dict | None, trend_dir: str) -> dict[str, str] | None:
-    """Ô tác động của nhóm theo hướng hiện tại.
-
-    Đi ngang/chưa rõ → mọi ô '●'. Không có quy tắc → None.
-    """
+    """Ô tác động của nhóm theo hướng hiện tại; đi ngang/chưa rõ thì mọi ô 'none'."""
     if not group_rule or not group_rule.get("rule"):
         return None
     if trend_dir not in (UP, DOWN):

@@ -1,6 +1,6 @@
-"""Định dạng số/kỳ kiểu Việt Nam — MỌI con số hiển thị đi qua đây.
+"""Định dạng số/kỳ kiểu Việt Nam; mọi con số hiển thị đi qua đây.
 
-4,52% · 25.643 · +25 bps · 15/08/2026 · T8/2026 · Q2/2026
+Ví dụ: 4,52%, 25.643, +25 bps, 15/08/2026, T8/2026, Q2/2026.
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ def value(x, unit: str, decimals: int = 2) -> str:
 
 
 def change(x, change_unit: str) -> str:
-    """bps → '+25 bps'; pp → '+0,25 điểm %'; pct → '+1,2%'."""
+    """bps: '+25 bps'; pp: '+0,25 điểm %'; pct: '+1,2%'."""
     if _is_missing(x):
         return MISSING
     if change_unit == "bps":
@@ -56,7 +56,7 @@ def date(d) -> str:
     return pd.Timestamp(d).strftime("%d/%m/%Y")
 
 
-def period(d, frequency: str) -> str:  # noqa: PLR0911 — rẽ theo tần suất
+def period(d, frequency: str) -> str:  # noqa: PLR0911
     """Kỳ theo tần suất: ngày/tuần dd/mm/yyyy, tháng T8/2026, quý Q2/2026, năm 2026."""
     if _is_missing(d):
         return MISSING

@@ -1,9 +1,7 @@
-"""Chuỗi Việt Nam từ `data/raw/` → long store [series_id, date, value, source].
+"""Chuỗi Việt Nam từ `data/raw/` thành long store [series_id, date, value, source].
 
-- File có sheet wide (xuất từ dulieukinhte) → đọc sheet wide (inbox merge cập nhật sheet này).
-- File chỉ có `Sheet1` dạng long (04, 05, 06) → đọc `Sheet1`.
-- `06_LS sbv.xlsx` lưu lãi suất dạng **tỷ lệ thập phân** (0.045) → nhân 100 ra %.
-- `01_deposit rate.xlsx` (Simplize) và `03_tctd.xlsx` đọc riêng: `load_deposit_panel`, `load_banks`.
+File có sheet wide (xuất từ dulieukinhte) đọc sheet wide vì inbox merge cập nhật sheet này;
+file chỉ có `Sheet1` dạng long (04, 05, 06) đọc `Sheet1`.
 """
 
 from __future__ import annotations
@@ -24,7 +22,7 @@ GOVBOND_SECONDARY = "Đường cong lợi suất TPCP (thị trường thứ c�
 
 @dataclass(frozen=True)
 class WideSource:
-    """File có sheet wide: series_id → (nhãn dòng, nhãn dòng cha hoặc None)."""
+    """File có sheet wide: {series_id: (nhãn dòng, nhãn dòng cha hoặc None)}."""
 
     file: str
     rows: dict[str, tuple[str, str | None]]
@@ -32,7 +30,7 @@ class WideSource:
 
 @dataclass(frozen=True)
 class LongSource:
-    """File chỉ có `Sheet1` long: series_id → tên cột (đã strip)."""
+    """File chỉ có `Sheet1` long: {series_id: tên cột đã strip}."""
 
     file: str
     columns: dict[str, str]
@@ -199,10 +197,9 @@ def finalize_store(frame: pd.DataFrame, source: str) -> pd.DataFrame:
 
 
 def load_vn_series(raw_dir: Path = RAW_DIR, errors: dict | None = None) -> pd.DataFrame:
-    """Toàn bộ chuỗi `vn.*` từ file raw (hợp đồng long store).
+    """Toàn bộ chuỗi `vn.*` từ file raw.
 
-    Mỗi file đọc riêng: 1 file lỗi (vd đổi tên dòng sau khi gộp inbox) chỉ mất chuỗi của file
-    đó, lỗi ghi vào `errors["vn:<file>"]`.
+    Mỗi file đọc riêng: 1 file lỗi (vd đổi tên dòng sau khi gộp inbox) chỉ mất chuỗi của file đó.
     """
     jobs = [(s.file, read_wide_source, s) for s in WIDE_SOURCES]
     jobs += [(s.file, read_long_source, s) for s in LONG_SOURCES]

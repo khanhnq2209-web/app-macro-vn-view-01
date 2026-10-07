@@ -1,11 +1,7 @@
 """Đọc sheet "wide" xuất từ dulieukinhte.com (dòng = chỉ tiêu, cột = kỳ).
 
-Hình dạng sheet:
-- Cột nhãn đứng đầu: `Chỉ tiêu`, hoặc `Chỉ tiêu (gộp cấp)` + `Chỉ tiêu`, hoặc `Nhóm` + `Chỉ tiêu`.
-  Nhãn thụt đầu dòng 4 dấu cách/cấp; dòng tiêu đề nhóm không có số.
-- Cột kỳ: `dd-mm-yyyy` (ngày), `mm-yyyy` (tháng), `Qn-yyyy` (quý), `yyyy` (năm).
-
-Quy ước ngày: ngày = chính nó; tháng = cuối tháng; quý = cuối quý; năm = 31/12.
+Nhãn thụt đầu dòng 4 dấu cách/cấp. Cột kỳ `dd-mm-yyyy`, `mm-yyyy`, `Qn-yyyy`, `yyyy`;
+tháng, quý, năm quy về ngày cuối kỳ.
 """
 
 from __future__ import annotations
@@ -27,7 +23,7 @@ _YEAR_RE = r"\d{4}"
 
 
 def header_text(value: object) -> str:
-    """Tiêu đề cột → chuỗi (Excel có thể trả năm dạng số, ngày dạng datetime)."""
+    """Tiêu đề cột thành chuỗi (Excel có thể trả năm dạng số, ngày dạng datetime)."""
     if isinstance(value, dt.datetime | dt.date | pd.Timestamp):
         return pd.Timestamp(value).strftime("%d-%m-%Y")
     if isinstance(value, float) and value.is_integer():
@@ -36,7 +32,7 @@ def header_text(value: object) -> str:
 
 
 def period_to_date(labels: object) -> pd.DatetimeIndex:
-    """Nhãn kỳ → ngày cuối kỳ; nhãn không phải kỳ → NaT."""
+    """Nhãn kỳ thành ngày cuối kỳ; nhãn không phải kỳ thành NaT."""
     text = pd.Series([header_text(v) for v in labels], dtype="string")
     day = pd.to_datetime(
         text.where(text.str.fullmatch(_DAY_RE)), format="%d-%m-%Y", errors="coerce"
@@ -61,11 +57,10 @@ def _quarter_end(text: pd.Series) -> pd.Series:
 
 
 def to_number(values: pd.Series, thousands_sep: str | None = None) -> pd.Series:
-    """Ép số. Chuỗi `"5,5"` → 5.5; `"1.234,5"` → 1234.5; `"N/A"`, `"-"` → NaN.
+    """Ép số: `"5,5"` là 5.5, `"1.234,5"` là 1234.5, `"N/A"` và `"-"` là NaN.
 
-    `thousands_sep` cho trước (vd VBMA dùng `","`) → bỏ ký tự đó trước khi ép.
-    Không cho trước: có cả `,` và `.` → ký tự đứng sau cùng là dấu thập phân;
-    chỉ có `,` → dấu thập phân (kiểu Việt Nam).
+    Không cho `thousands_sep`: có cả `,` và `.` thì ký tự đứng sau cùng là dấu thập phân;
+    chỉ có `,` thì `,` là dấu thập phân (kiểu Việt Nam).
     """
     if pd.api.types.is_numeric_dtype(values):
         return values.astype(float)
@@ -108,7 +103,7 @@ def _clean_text(values: pd.Series) -> pd.Series:
 def row_labels(frame: pd.DataFrame, label_cols: list) -> pd.DataFrame:
     """Nhãn dòng (đã strip), cấp thụt lề và nhãn dòng cha cho từng dòng.
 
-    Có `Chỉ tiêu (gộp cấp)` khác rỗng → dùng nó; không thì ghép các cột nhãn bằng " - ".
+    Có `Chỉ tiêu (gộp cấp)` khác rỗng thì dùng nó; không thì ghép các cột nhãn bằng " - ".
     """
     texts = {header_text(c): _clean_text(frame[c]) for c in label_cols}
     last = texts[header_text(label_cols[-1])]
@@ -141,7 +136,7 @@ def _parents(label: pd.Series, level: pd.Series) -> pd.Series:
 
 
 def wide_to_long(frame: pd.DataFrame) -> pd.DataFrame:
-    """Sheet wide (header ở dòng đầu) → long [row_label, parent, level, row_pos, date, value]."""
+    """Sheet wide (header ở dòng đầu) sang long [row_label, parent, level, row_pos, date, value]."""
     label_cols, period_cols = split_columns(frame.columns)
     if not label_cols or not period_cols:
         raise ValueError("Sheet không có dạng wide (cột nhãn + cột kỳ)")
@@ -167,7 +162,7 @@ def first_wide_sheet(path: Path) -> str:
 
 
 def read_wide_sheet(path: Path, sheet: str | None = None) -> pd.DataFrame:
-    """Đọc 1 sheet wide → long (xem `wide_to_long`)."""
+    """Đọc 1 sheet wide thành long (xem `wide_to_long`)."""
     sheet = sheet or first_wide_sheet(path)
     frame = pd.read_excel(path, sheet_name=sheet, header=0, dtype=object, engine="openpyxl")
     return wide_to_long(frame)

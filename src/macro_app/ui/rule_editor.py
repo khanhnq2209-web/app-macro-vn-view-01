@@ -1,12 +1,7 @@
-"""Bộ sửa ngưỡng của một chỉ số: đo gì → kiểu ngưỡng → chiều → số mức và mốc → xem trước.
+"""Bộ sửa ngưỡng một chỉ số. Chỉ trả cấu hình mới, nơi gọi tự lưu.
 
-Chỉ vẽ ô nhập và trả cấu hình mới (hoặc None nếu đang lỗi); việc lưu do nơi gọi quyết định
-(trang Ngưỡng tự lưu, trang Cấu hình scorecard ghi vào bản nháp).
-
-Quy ước:
-- Không bao giờ tự thay mốc người dùng đã nhập. Đổi kiểu/số mức mà mốc không còn hợp → báo lỗi
-  và gợi ý bấm "Gợi ý mốc".
-- Mốc nhập trong một ô, kiểu Việt Nam: "4,75; 5,5; 6,25; 7".
+Không tự thay mốc người dùng đã nhập; mốc không còn hợp thì báo lỗi.
+Mốc nhập một ô, dấu phẩy thập phân: "4,75; 5,5; 6,25; 7".
 """
 
 from __future__ import annotations
@@ -68,13 +63,12 @@ LOOKBACK_YEARS = [1, 3, 5, 10]
 ORDER = ("green_strong", "green", "yellow", "orange", "red")
 
 
-# ---------------- Mốc: đọc, viết, gợi ý ----------------
 def fmt_cuts(cuts: list[float] | None) -> str:
     return "; ".join(f"{float(c):.6g}".replace(".", ",") for c in cuts or [])
 
 
 def parse_cuts(text: str) -> tuple[list[float] | None, str]:
-    """'4,75; 5,5; 7' → [4.75, 5.5, 7.0]. Trả (None, lỗi) nếu không đọc được."""
+    """Đọc '4,75; 5,5; 7'. Trả (None, lỗi) nếu không đọc được."""
     parts = [p.strip() for p in text.replace("\n", ";").split(";") if p.strip()]
     try:
         return [float(p.replace(" ", "").replace(",", ".")) for p in parts], ""
@@ -83,7 +77,7 @@ def parse_cuts(text: str) -> tuple[list[float] | None, str]:
 
 
 def _nice(x: float, span: float) -> float:
-    """Làm tròn theo độ lớn của khoảng dữ liệu (vd khoảng 3 điểm % → bước 0,25)."""
+    """Làm tròn theo độ lớn khoảng dữ liệu, vd khoảng 3 điểm % thì bước 0,25."""
     if not span or not math.isfinite(span):
         return round(x, 2)
     step = 10 ** math.floor(math.log10(span / 4))
@@ -97,7 +91,7 @@ def _nice(x: float, span: float) -> float:
 def suggest_cuts(
     measured: pd.Series, method: str, side: str, n_cuts: int, years: int
 ) -> list[float]:
-    """Mốc gợi ý từ lịch sử (ngưỡng cứng: phân vị 10 năm làm tròn)."""
+    """Mốc gợi ý từ lịch sử. Ngưỡng cứng dùng phân vị 10 năm, làm tròn."""
     if method != "absolute":
         return tp.suggest_cuts(measured, method, side, n_cuts, years)
     s = clean(measured)
@@ -108,7 +102,7 @@ def suggest_cuts(
     raw = [float(np.percentile(w, q)) for q in qs]
     span = float(np.percentile(w, 95) - np.percentile(w, 5))
     out = sorted({_nice(x, span) for x in raw})
-    while len(out) < n_cuts:  # làm tròn trùng nhau → nới đều
+    while len(out) < n_cuts:  # làm tròn bị trùng thì nới đều
         out.append(out[-1] + (span / 10 or 1.0))
     return out
 
@@ -125,7 +119,6 @@ def starter_row(code: str, ind: Indicator, series: pd.Series) -> dict:
     }
 
 
-# ---------------- Hiển thị mức ----------------
 def _range_label(lo: float, hi: float, first: bool, last: bool) -> str:
     def f(x: float) -> str:
         return fmt.number(x, 2).rstrip("0").rstrip(",")
@@ -138,7 +131,7 @@ def _range_label(lo: float, hi: float, first: bool, last: bool) -> str:
 
 
 def level_strip_html(measured: pd.Series, cfg: dict, target: float, unit: str) -> str:
-    """Thanh các mức theo thứ tự giá trị tăng dần, đánh dấu mức của số hiện tại."""
+    """Thanh các mức theo giá trị tăng dần, đánh dấu mức hiện tại."""
     bounds = tp.boundaries(measured, cfg, target)
     if not bounds:
         return ""
@@ -204,7 +197,6 @@ def _target(ind: Indicator, last_date) -> tuple[float, pd.Series | None]:
     return (float(hit.iloc[-1]) if not hit.empty else np.nan), t
 
 
-# ---------------- Bộ sửa ----------------
 def _measure_inputs(key: str, spec: dict, ind: Indicator, disabled: bool) -> dict:
     kinds = [k for k in MEASURE_LABEL if k != "sum12_pct" or ind.frequency == "M"]
     kind_now = spec.get("kind", "level")
@@ -246,7 +238,7 @@ def _measure_inputs(key: str, spec: dict, ind: Indicator, disabled: bool) -> dic
             value=bool(spec.get("ytd", "_ytd" in ind.code)),
             key=f"{key}_ytd",
             disabled=disabled,
-            help="Đúng thì tách ra số từng tháng trước khi cộng 12 tháng",
+            help="Tách ra số từng tháng trước khi cộng 12 tháng",
         )
         return {"kind": kind, **({"ytd": True} if ytd else {})}
     return {"kind": kind}
@@ -281,7 +273,6 @@ def _method_side(key: str, cfg_now: dict, ind: Indicator, disabled: bool, cols) 
 
 
 def _advanced(key: str, cfg_now: dict, n_levels: int, with_scores: bool, disabled: bool) -> tuple:
-    """Tên mức và điểm từng mức (ít khi cần sửa nên gom vào mục Nâng cao)."""
     from macro_app.metrics.scorecard import load_settings
 
     same_n = len(cuts_of(cfg_now) or []) + 1 == n_levels
@@ -319,10 +310,7 @@ def _advanced(key: str, cfg_now: dict, n_levels: int, with_scores: bool, disable
 def _errors(cfg: dict, cuts, parse_error: str, n_levels: int, ctx: dict) -> list:
     errors = [parse_error] if parse_error else []
     if cuts is not None and len(cuts) != n_levels - 1:
-        errors.append(
-            f"{n_levels} mức cần {n_levels - 1} mốc (đang có {len(cuts)}). "
-            "Sửa mốc hoặc bấm Gợi ý mốc."
-        )
+        errors.append(f"{n_levels} mức cần {n_levels - 1} mốc (đang có {len(cuts)}).")
     elif cuts is not None:
         errors += validate_cfg(cfg)
     if cfg["method"] == "target_band" and np.isnan(ctx["target"]):
@@ -360,12 +348,12 @@ def _preview(key: str, cfg: dict, ctx: dict) -> None:
     what = measure_text(cfg.get("measure"), ind.frequency) or "giá trị gốc"
     st.caption(
         f"Đo: {what}. Dữ liệu từ {fmt.period(raw.index[0], ind.frequency)}, {len(raw)} điểm. "
-        f"{lookback} năm qua theo cấu hình này: {share_text or 'chưa đủ dữ liệu'}."
+        f"{lookback} năm qua: {share_text or 'chưa đủ dữ liệu'}."
     )
 
 
 def _levels_and_cuts(key: str, cfg_now: dict, ctx: dict, disabled: bool) -> tuple:
-    """Số mức + ô mốc + nút gợi ý. Trả (số mức, mốc đã đọc hoặc None, lỗi đọc)."""
+    """Trả (số mức, mốc đã đọc hoặc None, lỗi đọc)."""
     cuts_now = cuts_of(cfg_now) or []
     n_now = len(cuts_now) + 1 if len(cuts_now) + 1 in LEVELS else 5
     c4, c5, c6 = st.columns([1, 3.2, 1])
@@ -407,7 +395,7 @@ def _levels_and_cuts(key: str, cfg_now: dict, ctx: dict, disabled: bool) -> tupl
 def edit(
     code: str, cfg_now: dict, *, key: str, with_scores: bool = False, disabled: bool = False
 ) -> dict | None:
-    """Vẽ bộ sửa, trả cấu hình mới (None nếu đang lỗi). Không lưu gì."""
+    """Trả cấu hình mới, None nếu đang lỗi. Không lưu."""
     ind = data.catalog_map()[code]
     raw = data.series(code).dropna()
     if raw.empty:
@@ -438,7 +426,7 @@ def edit(
         key=f"{key}_d",
         height=68,
         disabled=disabled,
-        placeholder="Vì sao chọn mốc này, nguồn tham chiếu…",
+        placeholder="Lý do chọn mốc, nguồn tham chiếu",
     )
     labels, scores, default_scores = _advanced(key, cfg_now, n_levels, with_scores, disabled)
 

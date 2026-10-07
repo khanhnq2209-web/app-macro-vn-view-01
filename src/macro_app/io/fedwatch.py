@@ -1,8 +1,6 @@
-"""FedWatch (D9) → Excel cache `data/cache/fedwatch.xlsx`.
+"""FedWatch (D9): xác suất lãi suất FOMC vào cache `data/cache/fedwatch.xlsx`.
 
-Sheets: `quikstrike` (CME QuikStrike, dài), `computed` (tự tính từ ZQ, dài), `fomc_calendar`,
-`zq_prices` (date, ticker, close), `_meta` (1 dòng/nguồn). Một nguồn lỗi không dừng nguồn kia;
-nguồn lỗi giữ bản cache cũ. Lịch sử xác suất được nối dần qua các lần refresh.
+Nguồn: CME QuikStrike và bản tự tính từ ZQ. Nguồn lỗi giữ bản cache cũ, không dừng nguồn kia.
 """
 
 from __future__ import annotations
@@ -57,13 +55,12 @@ def _session() -> requests.Session:
 
 
 def _quikstrike_session() -> requests.Session:
-    """QuikStrike kiểm tra referrer (iframe nhúng trong cmegroup.com); thiếu → trang lỗi."""
+    """QuikStrike kiểm tra referrer (iframe nhúng trong cmegroup.com); thiếu thì trả trang lỗi."""
     session = _session()
     session.headers["Referer"] = QS_REFERER
     return session
 
 
-# ---------------- QuikStrike ----------------
 def hidden_fields(page: str) -> dict[str, str]:
     """Các input hidden của form ASP.NET (__VIEWSTATE, __EVENTVALIDATION, ...)."""
     fields = {}
@@ -76,7 +73,7 @@ def hidden_fields(page: str) -> dict[str, str]:
 
 
 def fetch_quikstrike_csv(session: requests.Session | None = None) -> str:
-    """3 request: trang tool → POST tab Downloads → CSV AllMeetings (lịch sử ~250 phiên)."""
+    """3 request: trang tool, POST tab Downloads, rồi CSV AllMeetings (lịch sử ~250 phiên)."""
     session = session or _quikstrike_session()
     page = session.get(QS_URL, timeout=30)
     page.raise_for_status()
@@ -104,7 +101,7 @@ def _meeting_groups(header: list[str], width: int) -> list[tuple[pd.Timestamp, i
 
 
 def parse_quikstrike_csv(text: str) -> pd.DataFrame:
-    """CSV FedMeetingHistory (2 dòng tiêu đề: kỳ họp / khoảng bp) → bảng dài, bỏ xác suất 0."""
+    """CSV FedMeetingHistory (2 dòng tiêu đề: kỳ họp, khoảng bp) thành bảng dài, bỏ xác suất 0."""
     rows = list(csv.reader(io.StringIO(text)))
     header, labels, body = rows[0], rows[1], [r for r in rows[2:] if r and r[0]]
     width = len(labels)
@@ -132,7 +129,6 @@ def fetch_quikstrike(session: requests.Session | None = None) -> pd.DataFrame:
     return parse_quikstrike_csv(fetch_quikstrike_csv(session))
 
 
-# ---------------- Lịch FOMC ----------------
 def parse_fomc_calendar(page: str) -> pd.DataFrame:
     """Ngày quyết định (ngày thứ 2 của kỳ họp). Bỏ notation vote / unscheduled."""
     panels = re.split(r"<h4><a[^>]*>(\d{4}) FOMC Meetings</a></h4>", page)
@@ -149,7 +145,7 @@ def parse_fomc_calendar(page: str) -> pd.DataFrame:
 
 
 def _meeting_row(year: int, month: str, days: str) -> dict | None:
-    if "(" in days:  # "(notation vote)", "(unscheduled)" — không phải kỳ họp định kỳ
+    if "(" in days:  # "(notation vote)", "(unscheduled)": không phải kỳ họp định kỳ
         return None
     last_day = int(re.findall(r"\d+", days)[-1])
     last_month = month.split("/")[-1].strip()
@@ -164,7 +160,6 @@ def fetch_fomc_calendar(session: requests.Session | None = None) -> pd.DataFrame
     return parse_fomc_calendar(resp.text)
 
 
-# ---------------- Đầu vào tự tính ----------------
 def zq_tickers_for(meetings: pd.Series, today: pd.Timestamp) -> list[str]:
     """Hợp đồng từ tháng hiện tại tới tháng sau kỳ họp cuối (hợp đồng đã hết hạn Yahoo không có)."""
     first = today.to_period("M")
@@ -194,7 +189,6 @@ def load_fred_inputs(start: str) -> pd.DataFrame:
     return pd.concat([fresh, missing], ignore_index=True)
 
 
-# ---------------- Refresh / load ----------------
 def merge_history(new: pd.DataFrame, old: pd.DataFrame | None, keys: list[str]) -> pd.DataFrame:
     """Nối lịch sử: dòng cũ có cùng khóa (vd asof×kỳ họp) với dòng mới bị thay."""
     if old is None or old.empty:
@@ -285,7 +279,7 @@ def _merge_all(new: dict, old: dict[str, pd.DataFrame]) -> dict[str, pd.DataFram
 
 
 def load_fedwatch(cache_path: Path = DEFAULT_CACHE) -> dict[str, pd.DataFrame]:
-    """{'quikstrike', 'computed', 'fomc_calendar', 'zq_prices', '_meta'}; sheet thiếu → rỗng."""
+    """{'quikstrike', 'computed', 'fomc_calendar', 'zq_prices', '_meta'}; sheet thiếu trả rỗng."""
     frames, meta = excel_cache.read_cache(cache_path)
     out = {name: _parse_dates(frames.get(name, pd.DataFrame())) for name in SHEETS}
     for name in ("quikstrike", "computed"):

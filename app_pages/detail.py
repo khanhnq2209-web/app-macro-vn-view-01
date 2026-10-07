@@ -1,4 +1,4 @@
-"""Chi tiết một chỉ số (mở từ bảng Tổng quan)."""
+"""Chi tiết một chỉ số."""
 
 import pandas as pd
 import streamlit as st
@@ -27,7 +27,7 @@ ind, rec = catalog[code], latest.loc[code]
 
 
 def _forward_line(code: str) -> dict:
-    """Lãi Fed: thêm đường kỳ vọng FedWatch theo các kỳ họp tới (nét đứt)."""
+    """Đường kỳ vọng FedWatch cho lãi Fed theo các kỳ họp tới."""
     if code not in ("fed_upper", "fed_lower"):
         return {}
     path = data.fed_path()

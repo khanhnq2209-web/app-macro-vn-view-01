@@ -6,14 +6,12 @@ mappings:
   kind: target
   ref: vn.target_credit_growth
   label: Mục tiêu CP
-  note: Chỉ tiêu tăng trưởng tín dụng cả năm (cuối năm so với cuối năm trước), so
-    với tăng trưởng từ đầu năm.
+  note: Chỉ tiêu tín dụng cả năm (cuối năm so cuối năm trước), so với tăng từ đầu năm.
 - code: credit_yoy
   kind: target
   ref: vn.target_credit_growth
   label: Mục tiêu CP
-  note: Cùng chỉ tiêu cả năm; tháng 12 tăng so cùng kỳ bằng tăng từ đầu năm nên so
-    được với số so cùng kỳ.
+  note: Cùng chỉ tiêu cả năm. Tháng 12 số so cùng kỳ bằng số từ đầu năm nên so được.
 - code: gdp_yoy_published
   kind: target
   ref: vn.target_gdp_growth
@@ -50,6 +48,5 @@ mappings:
   period: '2026'
   label: KH TTg giao
   note: Kế hoạch vốn đầu tư công 2026 Thủ tướng giao chi tiết (Bộ Tài chính, BC 818/BC-BTC).
-    Thực tế là vốn thực hiện từ NSNN (GSO) nên chỉ so gần đúng với số giải ngân của
-    Bộ Tài chính (9 tháng giải ngân 642.962 tỷ = 62,9% KH). Năm sau thêm một dòng
-    mới với kỳ = năm đó.
+    Thực tế là vốn thực hiện từ NSNN (GSO), chỉ so gần đúng với số giải ngân của Bộ
+    Tài chính (9 tháng 642.962 tỷ = 62,9% KH). Mỗi năm thêm một dòng.

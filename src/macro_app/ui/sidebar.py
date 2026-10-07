@@ -1,4 +1,4 @@
-"""Sidebar và state chung: công khai hay quản trị, chế độ trình bày, chọn view, nút cập nhật."""
+"""Sidebar và state chung: quyền quản trị, chế độ trình bày, chọn view, cập nhật dữ liệu."""
 
 from __future__ import annotations
 
@@ -25,12 +25,12 @@ def _secret(name: str) -> str:
 
 
 def admin_allowed() -> bool:
-    """Chỉ khi APP_MODE=admin (chạy local) và có ADMIN_PASSWORD — mặc định ĐÓNG (D1)."""
+    """Cần APP_MODE=admin và ADMIN_PASSWORD. Mặc định đóng."""
     return _secret("APP_MODE").lower() == "admin" and bool(_secret("ADMIN_PASSWORD"))
 
 
 def auto_admin() -> bool:
-    """Chạy local (APP_MODE=admin) mà không đặt mật khẩu → vào thẳng chế độ quản trị."""
+    """APP_MODE=admin mà không đặt mật khẩu thì vào thẳng quản trị."""
     return _secret("APP_MODE").lower() == "admin" and not _secret("ADMIN_PASSWORD")
 
 
@@ -44,7 +44,7 @@ def init_state() -> None:
     ss.setdefault("admin_name", "local" if auto_admin() else "")
     ss.setdefault("detail_code", None)
     ss.setdefault("view_name", views.DEFAULT_NAME)
-    ss.setdefault("custom_view", None)  # view tùy chỉnh trong phiên (chưa lưu dùng chung)
+    ss.setdefault("custom_view", None)
     ss["public_mode"] = not ss["is_admin"]
 
 

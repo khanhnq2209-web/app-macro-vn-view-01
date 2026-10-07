@@ -41,11 +41,11 @@ class ChartSpec:
     target: pd.Series | None = None  # đường mục tiêu (bậc thang theo năm)
     bands: dict = field(
         default_factory=dict
-    )  # {"green": [[lo,hi]], "yellow": [[lo,hi]]} — absolute
+    )  # {"green": [[lo, hi]], "yellow": [[lo, hi]]}, ngưỡng tuyệt đối
     note: str = ""
 
 
-def transform_series(s: SeriesSpec, how: str) -> tuple[pd.Series, str]:  # noqa: PLR0911 — rẽ theo kiểu biến đổi
+def transform_series(s: SeriesSpec, how: str) -> tuple[pd.Series, str]:  # noqa: PLR0911
     """Trả (chuỗi đã biến đổi, nhãn đơn vị trục y)."""
     v = tf.clean(s.values)
     if how == "level" or v.empty:
@@ -55,7 +55,7 @@ def transform_series(s: SeriesSpec, how: str) -> tuple[pd.Series, str]:  # noqa:
     if how == "yoy":
         if s.change_unit == "pct":
             return tf.yoy_pct(v, s.frequency).dropna(), "% so cùng kỳ"
-        if s.frequency not in ("D", "W"):  # lưới kỳ đều → shift theo lịch, kỳ thiếu ra NaN
+        if s.frequency not in ("D", "W"):  # lưới kỳ đều: shift theo lịch để kỳ thiếu ra NaN
             v = tf.to_period(v, s.frequency)
         prev = (
             tf.value_year_ago(v)
@@ -79,7 +79,7 @@ def clip_range(s: pd.Series, rng: str) -> pd.Series:
     return s[s.index >= s.index.max() - pd.DateOffset(years=years)]
 
 
-def _trace(  # noqa: PLR0913, PLR0917 — map 1-1 sang tham số Plotly
+def _trace(  # noqa: PLR0913, PLR0917
     kind: str,
     x,
     y,
@@ -103,7 +103,7 @@ def _trace(  # noqa: PLR0913, PLR0917 — map 1-1 sang tham số Plotly
 
 
 def _add_bands(fig: go.Figure, bands: dict, y_min: float, y_max: float) -> None:
-    """Tô nền vùng vàng/đỏ cho ngưỡng absolute: ngoài khoảng xanh+vàng = đỏ."""
+    """Tô nền vùng vàng/đỏ cho ngưỡng absolute: ngoài khoảng xanh và vàng là đỏ."""
     yellow_bg = theme.STATUS_COLORS["yellow"][0]
     for lo, hi in bands.get("yellow") or []:
         fig.add_hrect(

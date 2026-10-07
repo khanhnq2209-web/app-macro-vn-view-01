@@ -1,10 +1,6 @@
-"""Bước build: raw + cache → data/app (store nội bộ cho app) + data/public (file công khai).
+"""Bước build: raw + cache thành data/app (store nội bộ cho app) và data/public (file công khai).
 
-- data/app/series.parquet   dài [code, date, value, source] — mọi chỉ số, gồm cả dòng Yahoo
-- data/app/latest.parquet   một dòng/chỉ số (summary.summarize)
-- data/app/build_meta.json  thời điểm build, thời điểm cache từng nguồn, lỗi nguồn
-- data/public/series/<code>.csv, latest.csv, dictionary.csv, status_history.csv
-  (KHÔNG chứa số Yahoo)
+data/public không chứa số của nguồn có giấy phép (Yahoo, LME).
 """
 
 from __future__ import annotations
@@ -32,7 +28,7 @@ RAW_STORE_FILE = "_raw_store.parquet"  # bản sao store raw cho rescore (không
 
 
 def _safe_load(name: str, loader: Callable[[], pd.DataFrame], errors: dict) -> pd.DataFrame:
-    """Một nguồn lỗi không làm hỏng cả build — ghi lỗi (đã rút gọn) vào build_meta."""
+    """Một nguồn lỗi không làm hỏng cả build: ghi lỗi (đã rút gọn) vào build_meta."""
     try:
         df = loader()
     except Exception as exc:
@@ -144,7 +140,7 @@ def write_public(indicators, frames, latest: pd.DataFrame, history: pd.DataFrame
         ind = by_code[code]
         public = frame[~frame["source"].isin(VENDOR_SOURCES)].reset_index()
         if public.empty and (series_dir / f"{code}.csv").exists():
-            continue  # nguồn lỗi lần này → giữ file công khai lần trước
+            continue  # nguồn lỗi lần này thì giữ file công khai lần trước
         public = public.assign(unit=ind.unit, frequency=ind.frequency, vintage_date=vintage)
         public["date"] = public["date"].dt.strftime("%Y-%m-%d")
         public[["date", "value", "unit", "source", "frequency", "vintage_date"]].to_csv(
@@ -224,7 +220,7 @@ def vendor_codes(frames: dict[str, pd.DataFrame]) -> set[str]:
 def build_scorecards(
     indicators, frames, ctx: RawContext, errors: dict, today: pd.Timestamp
 ) -> None:
-    """Điểm hiện tại + lịch sử của mọi phân khúc trong mọi bộ cấu hình → data/app, data/public."""
+    """Ghi điểm hiện tại + lịch sử của mọi phân khúc, mọi bộ cấu hình vào data/app, data/public."""
     from macro_app import profiles
     from macro_app.metrics import scorecard as sc
 
@@ -328,7 +324,7 @@ def export_fedwatch(errors: dict) -> None:
 def rescore(today: pd.Timestamp | None = None) -> dict:
     """Tính lại trạng thái và scorecard từ dữ liệu đã build (dùng khi chỉ đổi ngưỡng/scorecard).
 
-    Không đọc lại file raw nên nhanh (vài giây). Chưa có bản build nào thì chạy build đầy đủ.
+    Không đọc lại file raw. Chưa có bản build nào thì chạy build đầy đủ.
     """
     series_path, store_path = APP_DIR / "series.parquet", APP_DIR / RAW_STORE_FILE
     if not series_path.exists() or not store_path.exists():

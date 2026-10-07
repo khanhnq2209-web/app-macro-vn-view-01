@@ -1,4 +1,4 @@
-"""Trang 5: ngưỡng. Bảng xem nhanh; chọn một dòng để mở form đặt ngưỡng có xem trước."""
+"""Ngưỡng cảnh báo: bảng tổng hợp và form đặt ngưỡng từng chỉ số."""
 
 import pandas as pd
 import streamlit as st
@@ -17,8 +17,8 @@ editable = sidebar.is_admin()
 n_default = int((latest["threshold_source"] == "default").sum()) if not latest.empty else 0
 if n_default:
     st.warning(
-        f"{n_default}/{len(latest)} chỉ số đang dùng ngưỡng thống kê mặc định (z-score 1 và 2 trên 5 năm), "
-        "chưa có ngưỡng nghiệp vụ. Bật một bộ ngưỡng bên dưới hoặc đặt riêng từng chỉ số."
+        f"{n_default}/{len(latest)} chỉ số đang dùng ngưỡng mặc định (z-score 1 và 2 trên 5 năm), "
+        "chưa có ngưỡng nghiệp vụ."
     )
 
 threshold_sets.render(editable=editable)
@@ -44,7 +44,7 @@ for code in codes:
             "Số điểm": info["Số điểm"],
         }
     )
-st.caption("Bấm vào một dòng để đặt ngưỡng cho chỉ số đó.")
+st.caption("Chọn một dòng để đặt ngưỡng.")
 overview = pd.DataFrame(rows)
 for col in ("N năm", "Số điểm"):
     overview[col] = pd.to_numeric(overview[col], errors="coerce").astype("Int64")

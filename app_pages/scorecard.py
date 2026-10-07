@@ -1,7 +1,4 @@
-"""Scorecard theo phân khúc: chọn bộ cấu hình → phân khúc → điểm, chi tiết, lịch sử.
-
-Trang chỉ xem bản đã lưu. Sửa ở trang "Cấu hình scorecard" (chế độ quản trị).
-"""
+"""Scorecard theo phân khúc: điểm, chi tiết, lịch sử. Chỉ xem bản đã lưu."""
 
 import json
 
@@ -73,7 +70,7 @@ if table.empty:
     st.info("Phân khúc chưa có chỉ số.")
 else:
     sparks = {}
-    for r in card["rows"]:  # đường xu hướng 3 năm của đúng số đem chấm
+    for r in card["rows"]:
         if r["code"] in catalog:
             s = measure(data.series(r["code"]), catalog[r["code"]].frequency, r.get("measure"))
             s = s[s.index > s.index[-1] - pd.DateOffset(years=3)] if not s.empty else s
@@ -87,8 +84,7 @@ with st.expander("Tín hiệu dự báo: lãi suất Fed theo FedWatch", expande
     upper = lat.loc["fed_upper", "value"] if "fed_upper" in lat.index else float("nan")
     st.html(scorecard_view.fed_path_html(data.fed_path(), upper))
     st.caption(
-        "Dòng có dự báo (Fed) hoặc mục tiêu Chính phủ (CPI, GDP, tín dụng) ghi thêm 'Kỳ vọng' / "
-        "'Mục tiêu' dưới mức hiện tại, chấm theo đúng ngưỡng của dòng. Không tính vào điểm chính."
+        "Kỳ vọng (Fed) và mục tiêu Chính phủ được chấm theo ngưỡng của dòng. Không tính vào điểm."
     )
 years = (
     st.segmented_control(
@@ -109,10 +105,7 @@ if not hist.dropna(subset=["score"]).empty:
         key="sc_hist",
     )
 st.html(
-    "<p class='mc-note'>Mỗi chỉ số được xếp mức theo ngưỡng riêng của phân khúc, đổi ra điểm "
-    "(5 mức: +2 đến −2), rồi cộng có trọng số. Trọng số chia đều theo trụ cột, rồi chia đều trong "
-    "trụ cột. Chỉ số thiếu số hoặc số đã cũ thì không tính và chia lại trọng số. Lịch sử mỗi tháng "
-    "chỉ dùng dữ liệu tới tháng đó, chưa trừ độ trễ công bố. Ngưỡng và thang điểm đang là đề xuất, "
-    "chờ duyệt.</p>"
+    "<p class='mc-note'>Điểm = tổng có trọng số của mức từng chỉ số (+2 đến −2), trọng số chia đều "
+    "theo trụ cột. Chỉ số thiếu hoặc số cũ không tính. Ngưỡng và thang điểm đang chờ duyệt.</p>"
 )
 ui.footer()

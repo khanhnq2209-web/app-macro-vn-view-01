@@ -1,4 +1,4 @@
-"""Đọc toàn bộ file cấu hình trong config/. Một chỗ duy nhất — module khác không tự mở YAML."""
+"""Đọc toàn bộ file cấu hình trong config/; module khác không tự mở YAML."""
 
 from __future__ import annotations
 

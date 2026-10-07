@@ -1,6 +1,6 @@
 """Chỉ số nhập tay: đọc data/raw/manual/manual_inputs.csv.
 
-App không có form nhập — sửa file CSV trực tiếp.
+App không có form nhập, sửa file CSV trực tiếp.
 """
 
 from __future__ import annotations

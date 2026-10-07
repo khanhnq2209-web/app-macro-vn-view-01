@@ -1,7 +1,4 @@
-"""Thao tác ghi của chế độ quản trị: lưu ngưỡng, refresh nguồn, gộp inbox.
-
-Không import streamlit.
-"""
+"""Thao tác ghi ở chế độ quản trị: lưu ngưỡng, refresh nguồn, gộp inbox. Không import streamlit."""
 
 from __future__ import annotations
 
@@ -21,8 +18,8 @@ UI_THRESHOLD_FILE = CONFIG_DIR / "thresholds.d" / "90_ui.yaml"
 THRESHOLD_HISTORY_FILE = CONFIG_DIR / "thresholds_history.csv"
 
 
-def _plain(v):  # noqa: PLR0911 — rẽ theo kiểu dữ liệu
-    """np.float64/np.int64 → float; NaN/'' → None (yaml.safe_dump không ghi được kiểu numpy)."""
+def _plain(v):  # noqa: PLR0911
+    """Kiểu numpy thành float, NaN/'' thành None (yaml.safe_dump không ghi được kiểu numpy)."""
     if isinstance(v, list):
         return [_plain(x) for x in v]
     if isinstance(v, dict):
@@ -65,7 +62,7 @@ def save_threshold(
 
 
 def reset_threshold(code: str, old_cfg: dict, user: str, path: Path = UI_THRESHOLD_FILE):
-    """Bỏ ngưỡng riêng của chỉ số trong 90_ui.yaml → dùng lại ngưỡng mặc định (hoặc file khác)."""
+    """Bỏ ngưỡng riêng của chỉ số trong 90_ui.yaml, dùng lại ngưỡng mặc định (hoặc file khác)."""
     _write_ui_overrides(code, None, path)
     _append_history(code, old_cfg, {"method": "mặc định"}, user)
 
@@ -154,10 +151,7 @@ def threshold_history(n: int = 10) -> pd.DataFrame:
 
 
 def refresh_functions() -> dict[str, Callable[[], object]]:
-    """Nguồn refresh được bằng nút.
-
-    Import muộn: app công khai chỉ xem không cần thư viện mạng.
-    """
+    """Nguồn refresh được bằng nút; import muộn vì app công khai không cần thư viện mạng."""
     from macro_app.io import dulieukinhte_api, fedwatch, fred, simplize, vbma, westmetall, yahoo
 
     def run_simplize():
@@ -187,7 +181,7 @@ SOURCE_LABEL = {
 
 
 def _status_from_meta(result: object) -> str:
-    """Fetcher ghi lỗi từng series vào _meta thay vì raise → đọc lại để báo đúng."""
+    """Fetcher ghi lỗi từng series vào _meta thay vì raise nên phải đọc lại để báo đúng."""
     if isinstance(result, dict) and result.get("skipped"):  # dulieukinhte: tiết kiệm lượt gọi
         return f"bỏ qua: đã kéo lúc {result['fetched_at'][:10]}, chưa đủ ngày giãn cách"
     if isinstance(result, dict) and result.get("errors"):  # dulieukinhte: lỗi theo chuỗi
@@ -222,7 +216,6 @@ def merge_inbox() -> list[dict]:
     return inbox_merge.merge_inbox()
 
 
-# ---------------- Bản đồ kế hoạch / dự báo ----------------
 FORECAST_MAP_FILE = CONFIG_DIR / "forecast_map.yaml"
 FORECAST_HEADER = (
     "# Bản đồ chỉ số thực tế → kế hoạch / dự báo (chỉ để tham khảo, không vào điểm scorecard).\n"

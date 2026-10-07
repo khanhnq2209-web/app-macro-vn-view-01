@@ -1,16 +1,7 @@
-"""VBMA — file CSV tĩnh công khai → cache `data/cache/vbma.xlsx` (nguồn tùy chọn).
+"""VBMA: file CSV tĩnh công khai vào cache `data/cache/vbma.xlsx` (nguồn tùy chọn).
 
-Đường dẫn lấy từ `vbma.org.vn/js/markets/*.js`: `/csv/markets/{charts|tables}/vi/<file>.csv`.
-File phần lớn UTF-16LE + tab, một số UTF-8 + dấu phẩy; số có dấu phẩy ngăn nghìn; ô trống
-ghi `N/A`, `#N/A`, `-`.
-
-Series:
-- `vbma.pmi` — PMI sản xuất (tháng; `charts/vi/pmi.csv`, bổ sung tháng mới từ heatmap)
-- `vbma.cpi_housing_yoy`, `vbma.cpi_yoy`, `vbma.core_inflation_yoy` — % YoY (heatmap, tháng)
-- `vbma.gdp_real_realestate` — GDP KD BĐS giá so sánh, tỷ đồng (quý);
-  `vbma.gdp_realestate_yoy` — % so cùng quý năm trước, tính từ chuỗi trên
-- `vbma.land_use_revenue` — thu tiền sử dụng đất cả năm (12T thực hiện), tỷ đồng, ngày 31/12;
-  `vbma.land_use_revenue_ytd` — lũy kế 3T/6T/9T/12T; `vbma.land_use_revenue_plan` — dự toán năm
+Đường dẫn CSV lấy từ `vbma.org.vn/js/markets/*.js`. File phần lớn UTF-16LE + tab, một số UTF-8 +
+dấu phẩy; số có dấu phẩy ngăn nghìn; ô trống ghi `N/A`, `#N/A`, `-`.
 """
 
 from __future__ import annotations
@@ -63,7 +54,7 @@ _THOUSANDS = ","
 
 
 def decode_csv(content: bytes) -> pd.DataFrame:
-    """Byte CSV → bảng chuỗi (không header). Tự nhận UTF-16/UTF-8 và tab/phẩy."""
+    """Byte CSV thành bảng chuỗi (không header). Tự nhận UTF-16/UTF-8 và tab/phẩy."""
     if content[:2] in (b"\xff\xfe", b"\xfe\xff"):
         text = content.decode("utf-16")
     else:
@@ -76,7 +67,7 @@ def decode_csv(content: bytes) -> pd.DataFrame:
 
 
 def fetch_csv(session: requests.Session, path: str) -> pd.DataFrame | None:
-    """Tải 1 file CSV; 404 → None (vd bảng ngân sách năm chưa có)."""
+    """Tải 1 file CSV; 404 trả None (vd bảng ngân sách năm chưa có)."""
     resp = session.get(
         f"{BASE_URL}/{path}", headers={"User-Agent": USER_AGENT}, timeout=TIMEOUT_SECONDS
     )
@@ -100,7 +91,7 @@ _PERIOD_PATTERNS = [  # (regex, nhóm tháng, nhóm năm, nhân tháng)
 
 
 def vbma_period_to_date(labels: pd.Series) -> pd.Series:
-    """Nhãn kỳ VBMA → ngày cuối tháng/quý; nhãn khác → NaT."""
+    """Nhãn kỳ VBMA thành ngày cuối tháng/quý; nhãn khác thành NaT."""
     text = labels.astype("string").str.strip()
     out = pd.Series(pd.NaT, index=labels.index, dtype="datetime64[ns]")
     for pattern, m_group, y_group, factor in _PERIOD_PATTERNS:
@@ -126,7 +117,7 @@ def find_row(table: pd.DataFrame, label: str, *, prefix: bool = False) -> int:
 
 
 def row_series(table: pd.DataFrame, row: int, first_col: int, header_row: int = 0) -> pd.Series:
-    """1 dòng bảng → Series số theo ngày (bỏ ô không phải số / kỳ không đọc được)."""
+    """1 dòng bảng thành Series số theo ngày (bỏ ô không phải số, kỳ không đọc được)."""
     dates = vbma_period_to_date(table.iloc[header_row, first_col:])
     values = to_number(table.iloc[row, first_col:], thousands_sep=_THOUSANDS)
     series = pd.Series(values.to_numpy(), index=pd.DatetimeIndex(dates.to_numpy(), name="date"))
@@ -154,16 +145,16 @@ def parse_heatmap(table: pd.DataFrame) -> dict[str, pd.Series]:
 
 def parse_gdp_table(table: pd.DataFrame) -> dict[str, pd.Series]:
     level = row_series(table, find_row(table, REALESTATE_ROW, prefix=True), first_col=1)
-    previous = level.reindex(level.index - pd.DateOffset(years=1))  # cuối quý → cuối quý
+    previous = level.reindex(level.index - pd.DateOffset(years=1))  # ngày đã là cuối quý
     yoy = (level / previous.to_numpy() - 1) * 100
     return {"vbma.gdp_real_realestate": level, "vbma.gdp_realestate_yoy": yoy.dropna()}
 
 
 def budget_actual_columns(table: pd.DataFrame) -> pd.Series:
-    """Cột 'Thực hiện' → nhãn kỳ 'nT YYYY'.
+    """Cột 'Thực hiện' kèm nhãn kỳ 'nT YYYY'.
 
-    Tiêu đề kỳ là ô gộp 2 cột (Thực hiện, % thực hiện) và chữ nằm ở cột thứ hai,
-    nên cột 'Thực hiện' lấy nhãn của chính nó, hoặc của cột bên phải khi ô là '-'.
+    Tiêu đề kỳ là ô gộp 2 cột (Thực hiện, % thực hiện), chữ nằm ở cột thứ hai,
+    nên ô '-' lấy nhãn của cột bên phải.
     """
     header = table.iloc[0].where(~table.iloc[0].isin(["-", ""]))
     period = header.fillna(header.shift(-1))
@@ -287,7 +278,7 @@ def _meta_row(sid: str, series: pd.Series | None, error: str, fetched_at: str) -
 
 
 def collect_series(session: requests.Session, sleep: float, last_year: int) -> tuple[dict, dict]:
-    """Chạy mọi job → ({series_id: Series}, {series_id: lỗi})."""
+    """Chạy mọi job; trả ({series_id: Series}, {series_id: lỗi})."""
     series: dict[str, pd.Series] = {}
     errors: dict[str, str] = {}
     for job in build_jobs(last_year):
@@ -309,7 +300,7 @@ def fetch_vbma(
     sleep: float = 1.5,
     last_year: int | None = None,
 ) -> pd.DataFrame:
-    """Tải CSV VBMA → ghi cache Excel (series lỗi giữ bản cache cũ). Trả bảng `_meta`."""
+    """Tải CSV VBMA và ghi cache Excel (series lỗi giữ bản cache cũ). Trả bảng `_meta`."""
     session = session or requests.Session()
     series, errors = collect_series(session, sleep, last_year or date.today().year)
     fetched_at = excel_cache.utc_now_iso()
@@ -337,7 +328,7 @@ def _keep_old_meta(meta: pd.DataFrame, old_meta: pd.DataFrame, fresh: set[str]) 
 
 
 def load_vbma_series(cache_path: Path = DEFAULT_CACHE) -> pd.DataFrame:
-    """Cache VBMA → long store [series_id, date, value, source='VBMA']."""
+    """Cache VBMA thành long store [series_id, date, value, source='VBMA']."""
     frames, meta = excel_cache.read_cache(cache_path)
     sheet_to_id = dict(zip(meta["sheet"], meta["series_id"], strict=True)) if not meta.empty else {}
     parts = [

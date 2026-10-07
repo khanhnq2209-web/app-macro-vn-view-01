@@ -1,4 +1,4 @@
-"""Một dòng tổng hợp / chỉ số (giá trị, thay đổi, trạng thái, tác động, cờ) — nguồn latest.csv."""
+"""Một dòng tổng hợp cho mỗi chỉ số (giá trị, thay đổi, trạng thái, tác động, cờ) của latest.csv."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ UNIT_TEXT = {
 }
 
 
-def measure_text(spec: dict | None, frequency: str) -> str:  # noqa: PLR0911 — rẽ theo cách đo
+def measure_text(spec: dict | None, frequency: str) -> str:  # noqa: PLR0911
     """Mô tả ngắn cách đo, vd '% thay đổi so 3 tháng trước'."""
     spec = spec or {}
     kind = spec.get("kind", "level")
@@ -51,7 +51,7 @@ def target_for(ind: Indicator, store: pd.DataFrame, latest_date: pd.Timestamp) -
     return float(part["value"].iloc[-1]) if not part.empty else np.nan
 
 
-def summarize(  # noqa: PLR0913 — keyword-only, gom ngữ cảnh build
+def summarize(  # noqa: PLR0913
     ind: Indicator,
     frame: pd.DataFrame,
     *,
@@ -73,7 +73,7 @@ def summarize(  # noqa: PLR0913 — keyword-only, gom ngữ cảnh build
     default, overrides = thresholds
     cfg, cfg_source = resolve_threshold(ind.code, default, overrides)
     status = evaluate(s, ind.frequency, cfg, cfg_source, target)
-    is_ytd = "ytd" in ind.flags  # số lũy kế từ đầu năm: reset mỗi tháng 1 → so cùng kỳ
+    is_ytd = "ytd" in ind.flags  # lũy kế reset mỗi tháng 1 nên so cùng kỳ
     trend_fn = imp.trend_vs_last_year if is_ytd else imp.trend
     trend_dir, _ = trend_fn(s, ind.frequency, params["trend"])
     group_rule = rules["groups"].get(ind.group)
@@ -91,7 +91,7 @@ def summarize(  # noqa: PLR0913 — keyword-only, gom ngữ cảnh build
         rebase_input=rebase_series,
     )
     if "rebase_suspect" in flags:
-        status = replace(status, status=INSUFFICIENT, detail="Nghi đổi năm gốc — không xếp màu")
+        status = replace(status, status=INSUFFICIENT, detail="Nghi đổi năm gốc, chưa xếp màu")
     if cfg_source == "default":
         flags.append("default_threshold")
     if ind.manual and not frame.empty:

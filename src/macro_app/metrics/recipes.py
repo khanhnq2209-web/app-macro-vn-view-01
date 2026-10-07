@@ -1,8 +1,6 @@
-"""Tính chuỗi giá trị của từng chỉ số từ store raw theo `recipe` trong catalog.
+"""Tính chuỗi từng chỉ số từ store raw dài [series_id, date, value, source] theo `recipe`.
 
-Store raw = DataFrame dài [series_id, date, value, source] (hợp đồng chung của tầng io).
-Kết quả mỗi chỉ số = DataFrame index=date, cột value, source (nguồn theo từng dòng, để bản
-công khai lọc bỏ được dòng Yahoo).
+Giữ cột source theo từng dòng để bản công khai lọc bỏ được dòng Yahoo.
 """
 
 from __future__ import annotations
@@ -68,8 +66,7 @@ def _level_op(fn: Callable[[pd.Series], pd.Series]) -> Callable:
 def _op_published_or_mom_yoy(ind: Indicator, ctx: RawContext, _done: dict) -> pd.DataFrame:
     """YoY ưu tiên số công bố; tháng không có số công bố mới tính từ chuỗi MoM.
 
-    File 07_CPI có MoM sai ở T12/2022 và T1/2023 (nhập nhầm số so cùng kỳ), nên chuỗi tự tính
-    lệch cả năm 2023. Số công bố của VBMA khớp tuyệt đối ở các tháng còn lại.
+    File 07_CPI nhập nhầm MoM ở T12/2022 và T1/2023 nên chuỗi tự tính lệch cả năm 2023.
     """
     published = raw_frame(ctx.store, ind.recipe["published"])
     mom = raw_frame(ctx.store, ind.recipe["input"])
@@ -78,7 +75,7 @@ def _op_published_or_mom_yoy(ind: Indicator, ctx: RawContext, _done: dict) -> pd
 
 
 def _op_deposit(ind: Indicator, ctx: RawContext, _done: dict) -> pd.DataFrame:
-    from macro_app.metrics.deposit import deposit_average  # tầng VN (module riêng)
+    from macro_app.metrics.deposit import deposit_average
 
     if ctx.deposit_panel is None or ctx.banks is None:
         return _with_source(pd.Series(dtype=float), "Simplize")
@@ -116,7 +113,7 @@ def _op_manual(ind: Indicator, ctx: RawContext, _done: dict) -> pd.DataFrame:
 
 
 def plans_for(code: str) -> dict[int, float]:
-    """Kế hoạch năm của chỉ số lũy kế: dòng nhập tay theo năm trong bản đồ Kế hoạch & dự báo."""
+    """Kế hoạch năm của chỉ số lũy kế, lấy từ dòng nhập tay theo năm trong forecast_map."""
     from macro_app.metrics.forward import load_forecast_map
 
     out = {}
