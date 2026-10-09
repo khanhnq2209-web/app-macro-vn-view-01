@@ -42,6 +42,35 @@ def pick_fedwatch(fedwatch: dict[str, pd.DataFrame], max_gap_days: int = 7) -> p
     return own[own["asof"] == own["asof"].max()]
 
 
+def expected_change_history(
+    fedwatch: dict[str, pd.DataFrame], fed_upper: pd.Series, months: int = 12
+) -> pd.Series:
+    """Mỗi ngày có FedWatch: biên trên kỳ vọng ở kỳ họp cuối trong `months` tháng tới
+    trừ biên trên Fed hiện hành ngày đó (bps). Ưu tiên CME QuikStrike, ngày không có thì
+    dùng bản tự tính từ hợp đồng ZQ."""
+    parts = [f for f in (fedwatch.get("quikstrike"), fedwatch.get("computed")) if f is not None]
+    parts = [f.assign(asof=pd.to_datetime(f["asof"])) for f in parts if not f.empty]
+    upper = fed_upper.dropna().sort_index()
+    if not parts or upper.empty:
+        return pd.Series(dtype=float)
+    seen, out = set(), {}
+    for probs in parts:
+        for asof, day in probs.groupby("asof"):
+            if asof in seen:
+                continue
+            seen.add(asof)
+            path = fed_path(day)
+            ahead = path[
+                (path["meeting_date"] > asof)
+                & (path["meeting_date"] <= asof + pd.DateOffset(months=months))
+            ]
+            now = upper[upper.index <= asof]
+            if ahead.empty or now.empty:
+                continue
+            out[asof] = (float(ahead["exp_upper"].iloc[-1]) - float(now.iloc[-1])) * 100
+    return pd.Series(out, dtype=float).sort_index()
+
+
 def fed_path(probs: pd.DataFrame) -> pd.DataFrame:
     """Mỗi kỳ họp: biên trên/dưới kỳ vọng (bình quân xác suất) + khoảng khả năng cao nhất."""
     if probs.empty:

@@ -1,6 +1,7 @@
 code,name_vi,name_en,group,unit,frequency,source,source_url,raw_input,note
 fed_upper,Lãi suất Fed (biên trên),,A1,%,D,FRED,https://fred.stlouisfed.org/series/DFEDTARU,fred.DFEDTARU,
 fed_lower,Lãi suất Fed (biên dưới),,A1,%,D,FRED,https://fred.stlouisfed.org/series/DFEDTARL,fred.DFEDTARL,
+fedwatch_12m,Kỳ vọng thay đổi lãi Fed 12 tháng tới (FedWatch),,A1,bps,D,CME FedWatch (QuikStrike; tự tính từ ZQ khi thiếu),https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html,fedwatch.exp_change_12m,
 effr,Lãi suất liên bang hiệu lực (EFFR),,A1,%,D,FRED,https://fred.stlouisfed.org/series/DFF,fred.DFF,
 ust_2y,Lợi suất UST 2 năm,,A1,%,D,FRED,https://fred.stlouisfed.org/series/DGS2,fred.DGS2,
 ust_10y,Lợi suất UST 10 năm,,A1,%,D,FRED,https://fred.stlouisfed.org/series/DGS10,fred.DGS10,
@@ -56,5 +57,6 @@ public_investment_ytd_yoy,"Vốn đầu tư NSNN thực hiện lũy kế từ đ
 public_investment_ytd,Vốn đầu tư NSNN thực hiện lũy kế từ đầu năm,,D2,tỷ đồng,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.public_investment,ytd
 public_investment_plan_pace,Tiến độ đầu tư công so kế hoạch năm,,D2,điểm %,M,"Tính toán (GSO, KH TTg giao)",,vn.public_investment,
 fdi_registered_ytd,FDI đăng ký mới (lũy kế năm),,E1,triệu USD,M,Bộ KH&ĐT · dulieukinhte,https://dulieukinhte.com/,vn.fdi_registered_ytd,cumulative_ytd; ytd
+fdi_disbursed,FDI thực hiện (giải ngân) theo tháng,,E1,triệu USD,M,"Cục Thống kê, dulieukinhte (API)",https://dulieukinhte.com,vn.fdi_disbursed,
 fdi_registered_ytd_yoy,"FDI đăng ký mới, lũy kế so cùng kỳ",,E1,%,M,Bộ KH&ĐT · dulieukinhte,https://dulieukinhte.com/,vn.fdi_registered_ytd,cumulative_ytd
 pmi_vn,PMI sản xuất Việt Nam,,B1,điểm,M,S&P Global · VBMA,https://vbma.org.vn/vi/market-data/macro-economic-heatmap,vbma.pmi,no_repeat_check

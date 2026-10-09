@@ -17,7 +17,7 @@ import yaml
 from macro_app import fmt
 from macro_app.paths import CONFIG_DIR
 
-FED_CODES = ("fed_upper", "fed_lower", "effr")
+FED_CODES = ("fedwatch_12m", "fed_upper", "fed_lower", "effr")
 FED_STEP_BPS = 25.0  # một bước điều chỉnh thông thường của Fed
 COMMON = "chung"
 

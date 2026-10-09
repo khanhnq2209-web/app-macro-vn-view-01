@@ -210,7 +210,7 @@ def test_edit_cut_then_save_writes_one_version():
         for r in at.session_state["cfg_draft"]["segments"]["nha_o"]["rows"]
         if r["code"] == "cpi_yoy"
     )
-    assert row["cuts"][2] == 4.7 and row["pillar"] == "Ổn định vĩ mô"
+    assert row["cuts"][2] == 4.7 and row["pillar"] == "Lạm phát"
     assert _store_rows() == []  # chưa bấm Lưu
     at.button(key="cfg_save").click().run()
     _ok(at)
@@ -298,11 +298,15 @@ def test_group_weight_override_changes_draft_weights():
     at = _config_app()
     _open(at, "theo_doi_bds_01", "nha_o", 2)
     v = at.session_state["cfg_ver"]
-    at.number_input(key=f"cfg_gw_nha_o_2_{v}").set_value(40.0).run()  # Cầu và thu nhập
+    at.number_input(key=f"cfg_gw_nha_o_2_{v}").set_value(40.0).run()  # Thu nhập và hạ tầng 20 → 40
     _ok(at)
     pillars = at.session_state["cfg_draft"]["segments"]["nha_o"]["pillars"]
-    assert {"name": "Cầu và thu nhập", "weight": 40.0} in pillars
-    assert not at.button(key="cfg_save").disabled  # 40% + 4 nhóm tự chia 15% = 100%
+    assert {"name": "Thu nhập và hạ tầng", "weight": 40.0} in pillars
+    assert at.button(key="cfg_save").disabled  # 35 + 20 + 40 + 15 + 10 = 120% ≠ 100%
+    v = at.session_state["cfg_ver"]
+    at.number_input(key=f"cfg_gw_nha_o_0_{v}").set_value(15.0).run()  # Lãi suất 35 → 15
+    _ok(at)
+    assert not at.button(key="cfg_save").disabled  # 15 + 20 + 40 + 15 + 10 = 100%
 
 
 def test_scorecard_page_v3_blocks_and_edit_shortcut():

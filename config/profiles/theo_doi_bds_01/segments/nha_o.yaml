@@ -6,7 +6,7 @@ description: 'Điều kiện vĩ mô cho thị trường nhà ở VN 6–12 thá
 rows:
 - code: deposit_12m_big4
   pillar: Lãi suất và thanh khoản
-  weight: 50.0
+  weight: 40.0
   method: absolute
   cuts:
   - -0.5
@@ -23,7 +23,7 @@ rows:
     unit: year
 - code: interbank_on
   pillar: Lãi suất và thanh khoản
-  weight: 25.0
+  weight: 20.0
   method: absolute
   cuts:
   - 2.0
@@ -39,7 +39,7 @@ rows:
     unit: period
 - code: refi_rate
   pillar: Lãi suất và thanh khoản
-  weight: 25.0
+  weight: 20.0
   method: absolute
   cuts:
   - -1.0
@@ -54,6 +54,20 @@ rows:
     kind: change
     n: 1
     unit: year
+- code: fedwatch_12m
+  pillar: Lãi suất và thanh khoản
+  weight: 20.0
+  method: absolute
+  cuts:
+  - -50.0
+  - -12.5
+  - 12.5
+  - 50.0
+  side: above
+  description: 'Kỳ vọng thị trường (CME FedWatch) cho lãi Fed 12 tháng tới so với
+    hiện tại, bps: dự báo tăng ≥ 2 bước 25 bps là rất xấu, tăng 1 bước là xấu, giảm
+    là tốt. Fed tăng → lãi USD cao hơn → áp lực tỷ giá → NHNN khó hạ lãi (IMF 2024–25).
+    [giả định] Chờ QTRR duyệt.'
 - code: credit_yoy
   pillar: Tín dụng
   method: absolute
@@ -108,6 +122,17 @@ rows:
     kind: pct_change
     n: 91
     unit: day
+- code: cpi_yoy
+  pillar: Lạm phát
+  method: absolute
+  cuts:
+  - 2.5
+  - 3.5
+  - 4.5
+  - 5.5
+  side: above
+  description: 'Lạm phát VN so cùng kỳ: cao → NHNN khó hạ lãi → lãi vay mua nhà khó
+    giảm. Mục tiêu 4,5% là trần (IMF 2025). [giả định] Chờ QTRR duyệt.'
 - code: effr
   pillar: Lãi suất và thanh khoản
   info: true
@@ -127,16 +152,6 @@ rows:
   side: above
   description: 'Tham khảo, không tính điểm: trùng nhiều với lãi liên ngân hàng (r
     = 0,68).'
-- code: cpi_yoy
-  pillar: Thu nhập và hạ tầng
-  info: true
-  method: absolute
-  cuts:
-  - 0.0
-  - 1.0
-  side: above
-  description: 'Tham khảo, không tính điểm: tác động qua lãi suất, đã đo ở nhóm lãi
-    suất.'
 - code: cpi_housing_yoy
   pillar: Thu nhập và hạ tầng
   info: true
@@ -149,10 +164,12 @@ rows:
     rổ gồm cả điện nước.'
 pillars:
 - name: Lãi suất và thanh khoản
-  weight: 40.0
+  weight: 35.0
 - name: Tín dụng
   weight: 20.0
 - name: Thu nhập và hạ tầng
-  weight: 25.0
+  weight: 20.0
 - name: Tỷ giá
   weight: 15.0
+- name: Lạm phát
+  weight: 10.0

@@ -37,8 +37,22 @@ rows:
     kind: pct_change
     n: 91
     unit: day
+- code: fedwatch_12m
+  pillar: USD và Fed
+  method: absolute
+  cuts:
+  - -50.0
+  - -12.5
+  - 12.5
+  - 50.0
+  side: above
+  description: 'Kỳ vọng thị trường (CME FedWatch) cho lãi Fed 12 tháng tới so với
+    hiện tại, bps: dự báo tăng ≥ 2 bước 25 bps là rất xấu, tăng 1 bước là xấu, giảm
+    là tốt. Fed tăng → lãi USD cao hơn → áp lực tỷ giá → NHNN khó hạ lãi (IMF 2024–25).
+    [giả định] Chờ QTRR duyệt.'
 - code: ust_2y
   pillar: USD và Fed
+  info: true
   method: absolute
   cuts:
   - -0.5
@@ -46,8 +60,7 @@ rows:
   - 0.29
   - 0.66
   side: above
-  description: 'Thay đổi lợi suất Mỹ 2 năm trong 3 tháng: kỳ vọng Fed → chênh lệch
-    lãi sắp xấu đi. [giả định] Chờ QTRR duyệt.'
+  description: 'Tham khảo, không tính điểm: đã có kỳ vọng Fed trực tiếp từ FedWatch.'
   measure:
     kind: change
     n: 91
@@ -79,15 +92,17 @@ rows:
   description: 'Tham khảo, không tính điểm: VND gần như không nhạy với DXY (beta 0,02,
     MUFG).'
 - code: cpi_yoy
-  pillar: Biến động tỷ giá
-  info: true
+  pillar: Lạm phát
   method: absolute
   cuts:
-  - 0.0
-  - 1.0
+  - 2.5
+  - 3.5
+  - 4.5
+  - 5.5
   side: above
-  description: 'Tham khảo, không tính điểm: ngắn hạn không có ý nghĩa với tỷ giá (VECM
-    2005–2017).'
+  description: 'Lạm phát VN so cùng kỳ: cao → VND mất sức mua thực → áp lực mất giá
+    VND (ngang giá sức mua). Trọng số thấp vì tác động ngắn hạn yếu (VECM 2005–2017).
+    [giả định] Chờ QTRR duyệt.'
 - code: export_yoy
   pillar: Biến động tỷ giá
   info: true
@@ -110,8 +125,10 @@ rows:
     giải ngân.'
 pillars:
 - name: Chênh lệch lãi suất
-  weight: 40.0
+  weight: 35.0
 - name: USD và Fed
   weight: 30.0
 - name: Biến động tỷ giá
-  weight: 30.0
+  weight: 25.0
+- name: Lạm phát
+  weight: 10.0

@@ -61,8 +61,22 @@ rows:
     kind: mean
     n: 20
     unit: period
+- code: fedwatch_12m
+  pillar: Ràng buộc bên ngoài
+  method: absolute
+  cuts:
+  - -50.0
+  - -12.5
+  - 12.5
+  - 50.0
+  side: above
+  description: 'Kỳ vọng thị trường (CME FedWatch) cho lãi Fed 12 tháng tới so với
+    hiện tại, bps: dự báo tăng ≥ 2 bước 25 bps là rất xấu, tăng 1 bước là xấu, giảm
+    là tốt. Fed tăng → lãi USD cao hơn → áp lực tỷ giá → NHNN khó hạ lãi (IMF 2024–25).
+    [giả định] Chờ QTRR duyệt.'
 - code: ust_2y
   pillar: Ràng buộc bên ngoài
+  info: true
   method: absolute
   cuts:
   - -0.74
@@ -70,8 +84,7 @@ rows:
   - 0.47
   - 1.2
   side: above
-  description: 'Thay đổi lợi suất Mỹ 2 năm trong 6 tháng: Fed thắt chặt → NHNN mất
-    dư địa nới. [giả định] Chờ QTRR duyệt.'
+  description: 'Tham khảo, không tính điểm: đã có kỳ vọng Fed trực tiếp từ FedWatch.'
   measure:
     kind: change
     n: 182

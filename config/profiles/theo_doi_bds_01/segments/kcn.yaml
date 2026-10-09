@@ -5,6 +5,7 @@ description: 'Cầu thuê đất KCN, nhà xưởng VN. FDI đăng ký là chỉ
 rows:
 - code: fdi_registered_ytd
   pillar: FDI và cầu thuê
+  weight: 60.0
   method: absolute
   cuts:
   - -25.0
@@ -18,6 +19,22 @@ rows:
   measure:
     kind: sum12_pct
     ytd: 1.0
+- code: fdi_disbursed
+  pillar: FDI và cầu thuê
+  weight: 40.0
+  method: absolute
+  cuts:
+  - -10.0
+  - 0.0
+  - 8.0
+  - 15.0
+  side: below
+  description: 'FDI thực hiện (giải ngân), tổng 12 tháng so cùng kỳ: dự án đang triển
+    khai → xây nhà xưởng, thuê đất KCN (KBSV: giải ngân ổn định +7–9%/năm). Nguồn
+    API ngừng ở 3/2025: số cũ thì tự loại khỏi điểm; cần nhập tay theo báo cáo tháng
+    của Cục Thống kê. [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: sum12_pct
 - code: export_yoy
   pillar: Sản xuất và thương mại
   method: absolute

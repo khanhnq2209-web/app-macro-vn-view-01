@@ -25,6 +25,9 @@ nha_o:  # Theo dõi BĐS / Nhà ở: thuận lợi cho thị trường nhà ở 
   gdp_yoy_published:
     bad: GDP tăng chậm → thu nhập người VN tăng chậm → cầu mua nhà yếu.
     good: GDP tăng nhanh → thu nhập người VN tăng → hỗ trợ cầu mua nhà.
+  cpi_yoy:
+    bad: Lạm phát VN cao → NHNN khó hạ lãi suất → lãi vay mua nhà khó giảm.
+    good: Lạm phát VN thấp → NHNN có dư địa giữ / hạ lãi suất → hỗ trợ lãi vay mua nhà.
   public_investment_ytd_yoy:  # lũy kế so cùng kỳ
     bad: Giải ngân đầu tư công thấp hơn cùng kỳ → hạ tầng kết nối VN chậm → kém hỗ trợ nhà ở vùng ven.
     good: Giải ngân đầu tư công cao hơn cùng kỳ → hạ tầng kết nối VN nhanh → hỗ trợ nhà ở vùng ven.
@@ -36,6 +39,9 @@ kcn:  # Theo dõi BĐS / KCN: thuận lợi cho cầu thuê đất KCN, nhà xư
   fdi_registered_ytd:  # tổng 12 tháng so cùng kỳ
     bad: FDI đăng ký 12 tháng giảm → ít dự án mới vào VN → cầu thuê đất KCN chậm lại về sau.
     good: FDI đăng ký 12 tháng tăng → nhiều dự án mới vào VN → cầu thuê đất KCN tăng về sau.
+  fdi_disbursed:  # tổng 12 tháng so cùng kỳ
+    bad: FDI giải ngân 12 tháng giảm → dự án đang xây ở VN chậm lại → cầu thuê đất, nhà xưởng KCN yếu.
+    good: FDI giải ngân 12 tháng tăng → dự án đang xây ở VN đẩy nhanh → cầu thuê đất, nhà xưởng KCN tăng.
   export_yoy:  # trung bình 3 tháng
     bad: Xuất khẩu tăng chậm → đơn hàng sản xuất ít → cầu thuê KCN VN giảm.
     good: Xuất khẩu tăng nhanh → đơn hàng sản xuất nhiều → cầu thuê KCN VN tăng.
@@ -59,6 +65,9 @@ ty_gia:  # Tỷ giá: điểm thấp = áp lực mất giá VND
   ust_2y:  # thay đổi 3 tháng
     bad: Lợi suất Mỹ 2 năm tăng trong 3 tháng → lãi USD sắp cao hơn lãi VND thêm → áp lực mất giá VND.
     good: Lợi suất Mỹ 2 năm giảm trong 3 tháng → lãi USD sắp thấp đi → áp lực mất giá VND giảm.
+  cpi_yoy:
+    bad: Lạm phát VN cao → VND mất sức mua thực → áp lực mất giá VND.
+    good: Lạm phát VN thấp → VND giữ sức mua thực → đỡ cho VND.
   fx_central:  # % thay đổi 3 tháng
     bad: Tỷ giá trung tâm tăng nhanh trong 3 tháng → kỳ vọng VND mất giá tiếp → cầu giữ USD tăng.
     good: Tỷ giá trung tâm ổn định trong 3 tháng → kỳ vọng mất giá thấp → cầu giữ USD giảm.

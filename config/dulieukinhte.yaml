@@ -27,3 +27,6 @@ series:
   vn.fx_central:
     id: 33444
     note: Tỷ giá trung tâm USD/VND của NHNN (ngày). Gắn 09/10/2026
+  vn.fdi_disbursed:
+    id: 18833
+    note: Vốn thực hiện đầu tư trực tiếp từ nước ngoài (FDI giải ngân), triệu USD, tháng. Gắn 10/10/2026

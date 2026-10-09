@@ -51,6 +51,9 @@ def load_raw_context(errors: dict) -> RawContext:
     ]
     store = pd.concat([p for p in parts if not p.empty], ignore_index=True)
     store["date"] = pd.to_datetime(store["date"]).dt.normalize()
+    fed = _safe_load("fedwatch", lambda: _fedwatch_expected(store), errors)
+    if not fed.empty:
+        store = pd.concat([store, fed], ignore_index=True)
     # số kéo qua API dulieukinhte đè số trong file Excel cùng chuỗi, cùng kỳ (bản mới thắng)
     api = _safe_load("dulieukinhte", dulieukinhte_api.load_series, errors)
     if not api.empty:
@@ -63,6 +66,24 @@ def load_raw_context(errors: dict) -> RawContext:
     except Exception as exc:
         errors["deposit"] = f"{type(exc).__name__}: {str(exc)[:200]}"
     return RawContext(store=store, deposit_panel=panel, banks=banks, manual=manual_io.read_manual())
+
+
+def _fedwatch_expected(store: pd.DataFrame) -> pd.DataFrame:
+    """Chuỗi kỳ vọng thay đổi lãi Fed 12 tháng tới (bps) từ FedWatch, dạng dòng của store."""
+    from macro_app.io.fedwatch import load_fedwatch
+    from macro_app.metrics.forward import expected_change_history
+
+    upper = store[store["series_id"] == "fred.DFEDTARU"].set_index("date")["value"]
+    upper.index = pd.to_datetime(upper.index)
+    s = expected_change_history(load_fedwatch(CACHE_DIR / "fedwatch.xlsx"), upper)
+    return pd.DataFrame(
+        {
+            "series_id": "fedwatch.exp_change_12m",
+            "date": s.index,
+            "value": s.to_numpy(),
+            "source": "CME FedWatch",
+        }
+    )
 
 
 def cache_times() -> dict[str, str | None]:

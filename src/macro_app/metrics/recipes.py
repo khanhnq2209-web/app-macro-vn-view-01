@@ -124,6 +124,15 @@ def _op_manual(ind: Indicator, ctx: RawContext, _done: dict) -> pd.DataFrame:
     return frame.dropna(subset=["value"])
 
 
+def _op_raw_manual(ind: Indicator, ctx: RawContext, done: dict) -> pd.DataFrame:
+    """Chuỗi từ nguồn tự động, bổ sung / sửa bằng dòng nhập tay cùng mã (nhập tay thắng cùng kỳ)."""
+    auto = raw_frame(ctx.store, ind.recipe["input"])
+    manual = _op_manual(ind, ctx, done)
+    if manual.empty:
+        return auto
+    return pd.concat([auto[~auto.index.isin(manual.index)], manual]).sort_index()
+
+
 def plans_for(code: str) -> dict[int, float]:
     """Kế hoạch năm của chỉ số lũy kế, lấy từ dòng nhập tay theo năm trong forecast_map."""
     from macro_app.metrics.forward import load_forecast_map
@@ -161,6 +170,7 @@ OPS: dict[str, Callable] = {
     "diff": _op_diff,
     "product": _op_product,
     "manual": _op_manual,
+    "raw_manual": _op_raw_manual,
 }
 
 

@@ -48,6 +48,18 @@ indicators:
     direction: up_bad
     segment: both
     decimals: 2
+  - code: fedwatch_12m
+    name: Kỳ vọng thay đổi lãi Fed 12 tháng tới (FedWatch)
+    group: A1
+    unit: bps
+    frequency: D
+    source: CME FedWatch (QuikStrike; tự tính từ ZQ khi thiếu)
+    source_url: https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html
+    recipe: {op: raw, input: fedwatch.exp_change_12m}
+    change_unit: bps
+    direction: up_bad
+    segment: both
+    decimals: 0
   - code: effr
     name: Lãi suất liên bang hiệu lực (EFFR)
     group: A1
@@ -788,6 +800,18 @@ indicators:
     segment: industrial
     flags: [cumulative_ytd, ytd]
     representative: true
+    decimals: 0
+  - code: fdi_disbursed
+    name: FDI thực hiện (giải ngân) theo tháng
+    group: E1
+    unit: triệu USD
+    frequency: M
+    source: Cục Thống kê, dulieukinhte (API)
+    source_url: https://dulieukinhte.com
+    recipe: {op: raw_manual, input: vn.fdi_disbursed}  # API ngừng 3/2025: số sau đó nhập tay (manual_inputs.csv)
+    change_unit: pct
+    direction: up_good
+    segment: industrial
     decimals: 0
   - code: fdi_registered_ytd_yoy
     name: FDI đăng ký mới, lũy kế so cùng kỳ
