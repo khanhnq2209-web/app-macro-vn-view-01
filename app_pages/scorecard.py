@@ -184,6 +184,7 @@ with c1.container(border=True, height="stretch"):
         key="sc_gauge",
     )
     st.html(scorecard_view.score_html(total, cmp, CMP_LABEL[k]))
+    st.html(scorecard_view.meaning_html(card.get("meaning", "")))
 with c2.container(border=True, height="stretch"):  # vì sao + độ tin cậy chung một box
     st.html(scorecard_view.why_html(total["pillars"], cmp, CMP_LABEL[k], total["score"]))
     st.html('<hr class="sc3-sep">' + scorecard_view.trust_html(total, table, names, latest, bands))

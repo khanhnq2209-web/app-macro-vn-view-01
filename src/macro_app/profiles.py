@@ -79,6 +79,7 @@ def clean_card(card: dict) -> dict:
         "name": card.get("name", ""),
         "order": int(card.get("order", 99)),
         "description": card.get("description", ""),
+        "meaning": card.get("meaning", ""),  # "bất lợi" nghĩa là gì, tăng hay giảm, trong bao lâu
         "rows": [clean_row(r) for r in card.get("rows", [])],
     }
     pillars = clean_pillars(card)
@@ -106,6 +107,7 @@ def read_profile(slug: str, folder: Path | None = None) -> dict:
             "name": data.get("name") or path.stem,
             "order": data.get("order", 99),
             "description": data.get("description", ""),
+            "meaning": data.get("meaning", ""),
             "rows": list(data.get("rows") or []),
             "pillars": list(data.get("pillars") or []),
         }

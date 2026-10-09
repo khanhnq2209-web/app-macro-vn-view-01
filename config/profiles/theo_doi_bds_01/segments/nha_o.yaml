@@ -3,6 +3,8 @@ order: 1
 description: 'Điều kiện vĩ mô cho thị trường nhà ở VN 6–12 tháng tới. Cú sốc chính
   2022–23 là lãi suất và kênh vốn (IMF 2023, 2025). Thiếu tín dụng BĐS, trái phiếu
   doanh nghiệp BĐS: cần nguồn mới.'
+meaning: Bất lợi = 6–12 tháng tới lãi vay mua nhà có xu hướng TĂNG, giao dịch nhà
+  ở có xu hướng GIẢM. Thuận lợi = ngược lại.
 rows:
 - code: deposit_12m_big4
   pillar: Lãi suất và thanh khoản
@@ -110,14 +112,16 @@ rows:
   pillar: Tỷ giá
   method: absolute
   cuts:
-  - -0.24
-  - 0.02
-  - 0.57
-  - 1.12
+  - -0.25
+  - 0.25
+  - 1.0
+  - 2.0
   side: above
   description: '% thay đổi tỷ giá trung tâm 3 tháng: VND mất giá nhanh → NHNN hút
-    thanh khoản, lãi tăng (2024: VND −5%, NHNN rút thanh khoản; VnEconomy). [giả định]
-    Chờ QTRR duyệt.'
+    thanh khoản, lãi tăng (2024: VND −5%, NHNN rút thanh khoản; VnEconomy). Mốc theo
+    chuẩn chuyên gia: VND mất giá 2–4%/năm là bình thường (UOB, VnEconomy 2026) →
+    0,25–1%/3 tháng trung tính, 1–2% xấu, trên 2% rất xấu (~8%/năm). [giả định] Chờ
+    QTRR duyệt.'
   measure:
     kind: pct_change
     n: 91

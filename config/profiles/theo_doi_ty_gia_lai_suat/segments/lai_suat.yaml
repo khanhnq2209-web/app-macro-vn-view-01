@@ -3,6 +3,8 @@ order: 2
 description: 'Thuận lợi cho bên đi vay tại VN 6–12 tháng tới. Chia nhóm theo mô hình
   QPM của IMF cho VN (lãi suất, tín dụng, tỷ giá). Thiếu lãi cho vay bình quân: cần
   nguồn mới.'
+meaning: Bất lợi = 6–12 tháng tới lãi suất cho vay tại VN có xu hướng TĂNG. Thuận
+  lợi = lãi suất cho vay có xu hướng GIẢM.
 rows:
 - code: deposit_12m_all
   pillar: Giá vốn

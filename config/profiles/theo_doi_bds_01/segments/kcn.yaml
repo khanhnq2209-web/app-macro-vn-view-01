@@ -2,6 +2,8 @@ name: KCN
 order: 2
 description: 'Cầu thuê đất KCN, nhà xưởng VN. FDI đăng ký là chỉ báo dẫn dắt chính
   (KBSV 2026). Thiếu FDI giải ngân, tỷ lệ lấp đầy, giá thuê: cần nguồn mới.'
+meaning: Bất lợi = 6–12 tháng tới cầu thuê đất KCN, nhà xưởng có xu hướng GIẢM. Thuận
+  lợi = cầu thuê có xu hướng TĂNG.
 rows:
 - code: fdi_registered_ytd
   pillar: FDI và cầu thuê
@@ -86,18 +88,18 @@ rows:
   - 0.75
   side: above
   description: 'Thay đổi lãi huy động 12 tháng: chi phí vốn của chủ đầu tư KCN (đền
-    bù, hạ tầng). Trọng số thấp vì khách thuê FDI ít vay VND. [giả định] Chờ QTRR
-    duyệt.'
+    bù, hạ tầng). Nâng lên 25% (10/10/2026) vì lãi vay đang cao nhất từ 2023, chuyên
+    gia coi là rủi ro chính với chủ đầu tư KCN. [giả định] Chờ QTRR duyệt.'
   measure:
     kind: change
     n: 1
     unit: year
 pillars:
 - name: FDI và cầu thuê
-  weight: 35.0
+  weight: 30.0
 - name: Sản xuất và thương mại
-  weight: 35.0
+  weight: 30.0
 - name: Hạ tầng
   weight: 15.0
 - name: Chi phí vốn
-  weight: 15.0
+  weight: 25.0

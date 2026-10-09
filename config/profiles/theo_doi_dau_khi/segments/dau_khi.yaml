@@ -4,6 +4,8 @@ description: 'Áp lực tăng giá năng lượng VN phải trả 3–6 tháng t
   lực cao). Giá xăng dầu VN điều hành hằng tuần theo giá thế giới (NĐ 80/2023); giao
   thông 9,98% rổ CPI. Thiếu tồn kho dầu, độ dốc đường giá kỳ hạn, công suất dư OPEC
   (EIA): cần API EIA.'
+meaning: Bất lợi = 3–6 tháng tới giá xăng dầu, khí VN phải trả có xu hướng TĂNG (đẩy
+  CPI). Thuận lợi = có xu hướng GIẢM.
 rows:
 - code: brent_vnd
   pillar: Giá dầu

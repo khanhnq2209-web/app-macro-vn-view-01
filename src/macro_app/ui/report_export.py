@@ -67,9 +67,9 @@ class ReportData:
     groups: list[Group]
     bands: list[dict]
     footnote: str
-    implications: list[tuple[str, str, str]] = field(
-        default_factory=list
-    )  # (bad|good|"", tên, câu)
+    # mỗi mục: tông (bad, good hoặc rỗng), tên chỉ số, câu hàm ý
+    implications: list[tuple[str, str, str]] = field(default_factory=list)
+    meaning: str = ""  # bất lợi / thuận lợi nghĩa là tăng hay giảm, trong bao lâu
 
 
 def _esc(text: str) -> str:
@@ -213,6 +213,7 @@ def to_pdf(d: ReportData) -> bytes:
     story = [
         p(f"Scorecard · {d.profile} · {d.segment}", size=15, fnt=bold, color=t.HEADING),
         p(f"Ngày {d.asof} · so với {d.compare_label} · {d.saved_note}", size=8, color=t.MUTED),
+        p(_esc(d.meaning), size=8.5) if d.meaning else Spacer(1, 1),
         Spacer(1, 4 * mm),
     ]
     _, fg = t.STATUS_COLORS[RATING_STATUS.get(d.rating, "none")]
@@ -411,6 +412,8 @@ def to_docx(d: ReportData) -> bytes:
         color=t.MUTED,
     )
 
+    if d.meaning:
+        _run(doc.add_paragraph(), d.meaning, size=9)
     _docx_hero(doc, d)
     if d.implications:
         _run(
@@ -660,6 +663,7 @@ def build_report(  # noqa: PLR0913
     return ReportData(
         profile=profile,
         implications=list(implications),
+        meaning=card.get("meaning", ""),
         segment=card["name"],
         asof=pd.Timestamp.now().strftime("%d/%m/%Y"),
         compare_label=compare_label,

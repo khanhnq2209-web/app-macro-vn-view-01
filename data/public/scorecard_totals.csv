@@ -1,6 +1,6 @@
 profile,segment,profile_name,name,score,coverage,rating,prev_score,last_score,last_date,last_rating,n_stale,stale_bad
-theo_doi_bds_01,nha_o,Theo dõi BĐS,Nhà ở,-0.55914,0.9299999999999999,Rất bất lợi,-0.52,-0.55914,2026-10-31,Rất bất lợi,1,
-theo_doi_bds_01,kcn,Theo dõi BĐS,KCN,1.127907,0.8600000000000001,Rất thuận lợi,1.127907,1.127907,2026-10-31,Rất thuận lợi,1,
-theo_doi_ty_gia_lai_suat,ty_gia,Tỷ giá và Lãi suất,Tỷ giá,-1.25,1.0,Rất bất lợi,-1.25,-1.25,2026-10-31,Rất bất lợi,0,
+theo_doi_bds_01,nha_o,Theo dõi BĐS,Nhà ở,-0.37,1.0,Rất bất lợi,-0.37,-0.37,2026-10-31,Rất bất lợi,0,
+theo_doi_bds_01,kcn,Theo dõi BĐS,KCN,0.73,1.0,Thuận lợi,0.73,0.73,2026-10-31,Thuận lợi,0,
+theo_doi_ty_gia_lai_suat,ty_gia,Tỷ giá và Lãi suất,Tỷ giá,-1.0,1.0,Rất bất lợi,-1.0,-1.0,2026-10-31,Rất bất lợi,0,
 theo_doi_ty_gia_lai_suat,lai_suat,Tỷ giá và Lãi suất,Lãi suất,-0.8,0.9999999999999999,Rất bất lợi,-0.8,-0.8,2026-10-31,Rất bất lợi,0,
 theo_doi_dau_khi,dau_khi,Giá năng lượng,"Dầu, khí đốt",-1.0,1.0,Rất bất lợi,-1.0,-1.0,2026-10-31,Rất bất lợi,0,

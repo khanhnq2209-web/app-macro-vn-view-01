@@ -182,6 +182,9 @@ def rating(score: float, bands: list[dict]) -> str:
 
 
 def _carry(ind: Indicator, settings: dict) -> int:
+    by_code = settings["history"].get("max_carry_by_code") or {}
+    if ind.code in by_code:
+        return int(by_code[ind.code])
     return int(settings["history"]["max_carry_months"].get(ind.frequency, 3))
 
 

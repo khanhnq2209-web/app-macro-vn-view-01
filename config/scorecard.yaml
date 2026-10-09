@@ -23,3 +23,5 @@ min_coverage: 0.6
 history:
   years: 10                # backtest điểm theo tháng
   max_carry_months: {D: 1, W: 1, M: 3, Q: 4, A: 13}   # số liệu cũ quá mức này thì coi như thiếu
+  # Chuỗi chỉ ghi khi có thay đổi (lãi điều hành): giữ số tới 36 tháng, không coi là số cũ
+  max_carry_by_code: {refi_rate: 36}

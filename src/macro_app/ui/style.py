@@ -111,6 +111,8 @@ table.mv td.r, table.mv th.r {{ text-align: right; }}
 .sc3-title {{ font-size: 1rem; font-weight: 700; color: {t.HEADING}; }}
 .sc3-title + .sc3-sub {{ text-align: left; margin-top: 0; }}
 .sc3-small {{ font-size: .8rem; color: {t.TEXT}; margin-top: 8px; }}
+.sc3-meaning {{ font-size: .8rem; color: {t.TEXT}; background: #F4F6F8; border-radius: 6px;
+  padding: 6px 10px; margin-top: 8px; line-height: 1.4; }}
 .sc3-sep {{ border: 0; border-top: 1px solid {t.BORDER}; margin: 10px 0 8px 0; }}
 .sc3-imp {{ position: relative; border-radius: 10px; padding: 14px 16px; margin: 0; min-height: 100%;
   background: linear-gradient(#fff, #fff) padding-box,

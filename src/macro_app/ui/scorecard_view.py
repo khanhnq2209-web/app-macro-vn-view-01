@@ -174,6 +174,11 @@ def score_html(total: dict, cmp: dict, cmp_label: str) -> str:
     )
 
 
+def meaning_html(meaning: str) -> str:
+    """Một dòng dưới điểm: bất lợi / thuận lợi nghĩa là chỉ tiêu sẽ tăng hay giảm, trong bao lâu."""
+    return f'<div class="sc3-meaning">{E(meaning)}</div>' if meaning else ""
+
+
 def card_head_html(name: str, saved: dict | None) -> str:
     if saved:
         at = str(saved.get("saved_at", ""))[:10]
