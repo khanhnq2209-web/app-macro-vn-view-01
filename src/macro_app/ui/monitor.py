@@ -11,15 +11,11 @@ import pandas as pd
 
 from macro_app import fmt
 from macro_app.charts import theme as t
-from macro_app.metrics.quality import FLAG_ICON, FLAG_LABEL
-from macro_app.metrics.status import STATUS_LABEL
 
 SPARK_W, SPARK_H = 84, 24
-# Cờ có ở mọi dòng, không cần icon.
-HIDDEN_FLAGS = {"default_threshold"}
 BASIS = {"yoy": "so cùng kỳ", "30d": "so 30 ngày", "prev": "so kỳ trước"}
 COLS = (
-    '<colgroup><col style="width:16px"><col><col style="width:90px"><col style="width:108px">'
+    '<colgroup><col><col style="width:90px"><col style="width:108px">'
     '<col style="width:96px"></colgroup>'
 )
 
@@ -42,8 +38,8 @@ def spark_points(s: pd.Series, frequency: str) -> pd.Series:
     return s.tail({"M": 24, "Q": 12, "A": 10}.get(frequency, 24))
 
 
-def sparkline(s: pd.Series, status: str) -> str:
-    """SVG nhúng dạng data URI vì st.html bỏ thẻ <svg>."""
+def sparkline(s: pd.Series, status: str | None = None) -> str:
+    """SVG nhúng dạng data URI vì st.html bỏ thẻ <svg>. Có status (Scorecard) thì chấm cuối tô màu mức."""
     if len(s) < 2:
         return ""
     y = s.to_numpy(dtype=float)
@@ -52,7 +48,7 @@ def sparkline(s: pd.Series, status: str) -> str:
     xs = np.linspace(2, SPARK_W - 4, len(y))
     ys = SPARK_H - 3 - (y - lo) / span * (SPARK_H - 6)
     pts = " ".join(f"{a:.1f},{b:.1f}" for a, b in zip(xs, ys, strict=True))
-    dot = t.STATUS_COLORS.get(status, t.STATUS_COLORS["none"])[1]
+    dot = t.STATUS_COLORS.get(status, t.STATUS_COLORS["none"])[1] if status else t.MUTED
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{SPARK_W}" height="{SPARK_H}">'
         f'<polyline points="{pts}" fill="none" stroke="{t.MUTED}" stroke-width="1.4" '
@@ -83,25 +79,14 @@ def _change(row: pd.Series) -> str:
     return f'{fmt.change(row["change"], row["change_unit"])}<span class="mv-basis">{basis}</span>'
 
 
-def _flags(flags: str) -> str:
-    items = [f for f in str(flags or "").split(";") if f in FLAG_ICON and f not in HIDDEN_FLAGS]
-    return "".join(
-        f'<span title="{html.escape(FLAG_LABEL[f])}">{FLAG_ICON[f]}</span>' for f in items
-    )
-
-
 def row_html(row: pd.Series, spark: pd.Series, decimals: int) -> str:
-    status = row["status"]
-    dot = t.STATUS_COLORS.get(status, t.STATUS_COLORS["none"])[1]
     name = html.escape(row["name"])
     meta = f"{fmt.period(row['period'], row['frequency'])} · {html.escape(row['source'])}"
     return (
         "<tr>"
-        f'<td class="mv-dot"><span style="background:{dot}" '
-        f'title="{dot_title(row)}"></span></td>'
         f'<td class="mv-name"><a href="detail?code={row["code"]}" target="_self" title="{name}">'
-        f'{name}</a><div class="mv-meta">{meta} {_flags(row["flags"])}</div></td>'
-        f'<td class="mv-spark m-hide">{sparkline(spark, status)}</td>'
+        f'{name}</a><div class="mv-meta">{meta}</div></td>'
+        f'<td class="mv-spark m-hide">{sparkline(spark)}</td>'
         f'<td class="mv-val">{_value(row["value"], row["unit"], decimals)}</td>'
         f'<td class="mv-chg">{_change(row)}</td>'
         "</tr>"
@@ -110,14 +95,14 @@ def row_html(row: pd.Series, spark: pd.Series, decimals: int) -> str:
 
 def block_html(title: str, rows: pd.DataFrame, ctx: BlockContext) -> str:
     head = (
-        '<tr><th></th><th></th><th class="m-hide">Xu hướng</th><th class="r">Giá trị</th>'
+        '<tr><th></th><th class="m-hide">Xu hướng</th><th class="r">Giá trị</th>'
         '<th class="r">Thay đổi</th></tr>'
     )
     body = []
     for group, part in rows.groupby("group", sort=False):
         label = html.escape(ctx.group_names.get(group, group))
         body.append(
-            f'<tr class="mv-group"><td colspan="4">{label}</td><td class="m-hide"></td></tr>'
+            f'<tr class="mv-group"><td colspan="3">{label}</td><td class="m-hide"></td></tr>'
         )
         body += [
             row_html(r, ctx.sparks[r["code"]], ctx.decimals[r["code"]]) for _, r in part.iterrows()
@@ -126,35 +111,3 @@ def block_html(title: str, rows: pd.DataFrame, ctx: BlockContext) -> str:
         f'<div class="mv-title">{html.escape(title)}</div>'
         f'<table class="mv">{COLS}{head}{"".join(body)}</table>'
     )
-
-
-def dot_title(row: pd.Series) -> str:
-    parts = [f"{STATUS_LABEL.get(row['status'], row['status'])} so với ngưỡng"]
-    parts += [
-        row[k]
-        for k in ("threshold_detail", "threshold_note")
-        if isinstance(row.get(k), str) and row[k]
-    ]
-    return html.escape(". ".join(parts))
-
-
-def summary_strip(latest: pd.DataFrame, built: str) -> str:
-    counts = latest["status"].value_counts()
-    items = [
-        ("red", "Đỏ"),
-        ("orange", "Cam"),
-        ("yellow", "Vàng"),
-        ("green", "Xanh"),
-        ("green_strong", "Xanh đậm"),
-    ]
-    items = [(k, lbl) for k, lbl in items if k in ("red", "yellow", "green") or counts.get(k, 0)]
-    other = int((~latest["status"].isin([k for k, _ in items] + ["orange", "green_strong"])).sum())
-    cells = [(t.STATUS_COLORS[k][1], int(counts.get(k, 0)), lbl) for k, lbl in items]
-    cells.append((t.STATUS_COLORS["none"][1], other, "Chưa xếp màu"))
-    html_cells = "".join(
-        f'<div class="ms-item"><span class="ms-dot" style="background:{color}"></span>'
-        f'<span class="ms-num">{n}</span><span class="ms-lbl">{lbl}</span></div>'
-        for color, n, lbl in cells
-    )
-    note = f"{len(latest)} chỉ số · cập nhật {html.escape(built)}"
-    return f'<div class="ms">{html_cells}<div class="ms-note">{note}</div></div>'

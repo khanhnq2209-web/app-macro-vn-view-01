@@ -22,7 +22,16 @@ fred:
   # A2/A3 hàng hóa
   - DCOILBRENTEU
   - DCOILWTICO
+  - DHHNGSP       # khí Henry Hub (Mỹ), ngày
+  - PNGASEUUSDM   # khí châu Âu (TTF, IMF), tháng
+  - PNGASJPUSDM   # LNG châu Á (Nhật, IMF), tháng
   - PCOPPUSDM
+  # Dẫn dắt giá dầu/khí: cung, tồn kho, biến động, cầu, bất định chính sách
+  - GASREGW       # giá xăng bán lẻ Mỹ, tuần
+  - OVXCLS        # biến động giá dầu (CBOE OVX), ngày
+  - GEPUCURRENT   # bất định chính sách kinh tế toàn cầu (Baker-Bloom-Davis), tháng
+  - A191RL1Q225SBEA  # tăng trưởng GDP thực Mỹ, quý (% năm hóa)
+  - INDPRO        # sản xuất công nghiệp Mỹ, tháng
   # A5 toàn cầu, rủi ro
   - BAMLH0A0HYM2
   - T10YIE

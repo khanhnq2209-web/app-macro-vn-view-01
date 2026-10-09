@@ -152,7 +152,16 @@ def threshold_history(n: int = 10) -> pd.DataFrame:
 
 def refresh_functions() -> dict[str, Callable[[], object]]:
     """Nguồn refresh được bằng nút; import muộn vì app công khai không cần thư viện mạng."""
-    from macro_app.io import dulieukinhte_api, fedwatch, fred, simplize, vbma, westmetall, yahoo
+    from macro_app.io import (
+        dulieukinhte_api,
+        fedwatch,
+        fred,
+        gpr,
+        simplize,
+        vbma,
+        westmetall,
+        yahoo,
+    )
 
     def run_simplize():
         panel = simplize.fetch_simplize_panel()
@@ -165,6 +174,7 @@ def refresh_functions() -> dict[str, Callable[[], object]]:
         "simplize": run_simplize,
         "vbma": lambda: vbma.fetch_vbma(CACHE_DIR / "vbma.xlsx"),
         "lme": lambda: westmetall.refresh_lme_cache(CACHE_DIR / "lme.xlsx"),
+        "gpr": lambda: gpr.refresh_gpr_cache(CACHE_DIR / "gpr.xlsx"),
         "dulieukinhte": dulieukinhte_api.refresh_cache,
     }
 
@@ -176,6 +186,7 @@ SOURCE_LABEL = {
     "simplize": "Lãi suất huy động (Simplize)",
     "vbma": "VBMA",
     "lme": "Đồng LME (Westmetall)",
+    "gpr": "Rủi ro địa chính trị (GPR)",
     "dulieukinhte": "Số liệu VN (dulieukinhte API)",
 }
 

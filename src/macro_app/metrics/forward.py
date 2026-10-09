@@ -81,7 +81,7 @@ def _horizon_meetings(path: pd.DataFrame) -> pd.DataFrame:
 
 def fed_points(code: str, path: pd.DataFrame) -> list[ForwardPoint]:
     out = []
-    for _, r in _horizon_meetings(path).iterrows():
+    for r in _horizon_meetings(path).to_dict("records"):
         value = {
             "range_high_bp": r["exp_upper"],
             "range_low_bp": r["exp_lower"],
@@ -265,7 +265,7 @@ def annotate(  # noqa: PLR0913, PLR0915
         return out, np.nan
     rows = {r["code"]: r for r in card["rows"]}
     mapping = {m.get("code"): m for m in ctx.get("forecast_map", [])}
-    for i, rec in out.iterrows():
+    for i, rec in zip(out.index, out.to_dict("records"), strict=True):
         code = rec["code"]
         ind = catalog[code]
         pts = points_for(

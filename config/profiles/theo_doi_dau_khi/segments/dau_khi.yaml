@@ -1,0 +1,108 @@
+name: Dầu, khí đốt
+order: 1
+description: 'Áp lực tăng giá năng lượng VN phải trả 3–6 tháng tới (điểm thấp = áp
+  lực cao). Giá xăng dầu VN điều hành hằng tuần theo giá thế giới (NĐ 80/2023); giao
+  thông 9,98% rổ CPI. Thiếu tồn kho dầu, độ dốc đường giá kỳ hạn, công suất dư OPEC
+  (EIA): cần API EIA.'
+rows:
+- code: brent_vnd
+  pillar: Giá dầu
+  method: absolute
+  cuts:
+  - -30.0
+  - -10.0
+  - 15.0
+  - 40.0
+  side: above
+  description: 'Brent quy ra VND, % lệch so trung bình 5 năm: mức đắt / rẻ của dầu
+    VN phải trả (gồm cả tỷ giá). Một biến giá duy nhất để không đếm trùng (Brent ~
+    WTI r = 0,96). [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: pct_vs_mean
+    n: 5
+- code: lng_asia
+  pillar: Khí LNG
+  method: absolute
+  cuts:
+  - -30.0
+  - -10.0
+  - 15.0
+  - 40.0
+  side: above
+  description: 'Giá LNG châu Á, % lệch so trung bình 5 năm: chi phí điện từ LNG nhập
+    (Nhơn Trạch 3–4). ~2/3 LNG châu Á định giá theo dầu (CSIS). [giả định] Chờ QTRR
+    duyệt.'
+  measure:
+    kind: pct_vs_mean
+    n: 5
+- code: copper_imf
+  pillar: Cầu toàn cầu
+  method: absolute
+  cuts:
+  - -7.84
+  - -1.54
+  - 6.07
+  - 17.04
+  side: above
+  description: '% thay đổi giá đồng 3 tháng: đà tăng kim loại công nghiệp báo trước
+    cầu dầu toàn cầu tới ~3 tháng (Baumeister, Bank of Canada 2014). [giả định] Chờ
+    QTRR duyệt.'
+  measure:
+    kind: pct_change
+    n: 3
+    unit: period
+- code: gpr
+  pillar: Cầu toàn cầu
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: đỉnh GPR không đi kèm giá dầu cao hơn
+    có hệ thống (ECB 2023).'
+- code: oil_vol
+  pillar: Cầu toàn cầu
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: đo độ biến động, không cho biết giá lên
+    hay xuống.'
+- code: us_indpro
+  pillar: Cầu toàn cầu
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: cầu dầu chủ yếu từ châu Á; IP Mỹ gồm cả
+    khai thác dầu.'
+- code: brent
+  pillar: Giá dầu
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: giá USD, đã tính trong Brent quy ra VND.'
+- code: gas_eu
+  pillar: Khí LNG
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: trùng với LNG châu Á (r = 0,89).'
+pillars:
+- name: Giá dầu
+  weight: 50.0
+- name: Khí LNG
+  weight: 25.0
+- name: Cầu toàn cầu
+  weight: 25.0

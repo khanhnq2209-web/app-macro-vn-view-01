@@ -7,21 +7,10 @@ import streamlit as st
 
 from macro_app import fmt
 from macro_app.charts.series import ChartSpec, SeriesSpec, build_chart
-from macro_app.config import load_thresholds
-from macro_app.metrics.quality import FLAG_LABEL
-from macro_app.metrics.status import STATUS_LABEL, resolve_threshold
 from macro_app.ui import data
 
 FOOTER_HIDDEN = "Bản công khai không hiển thị số liệu có bản quyền (Yahoo, LME)."
 FOOTER_SHOWN = "Số liệu Yahoo Finance và LME (Westmetall) chỉ dùng nội bộ, không phát hành lại."
-
-
-def threshold_bands(code: str) -> dict:
-    default, overrides = load_thresholds()
-    cfg, _ = resolve_threshold(code, default, overrides)
-    if cfg.get("method") != "absolute":
-        return {}
-    return {"green": cfg.get("green"), "yellow": cfg.get("yellow")}
 
 
 def target_step(target_id: str | None) -> pd.Series | None:
@@ -85,7 +74,6 @@ def chart_from_view(chart: dict, *, key: str, overrides: dict | None = None) -> 
         range=cfg.get("range", "5Y"),
         transform=cfg.get("transform", "level"),
         target=target_step(first.target) if first and cfg.get("show_target") else None,
-        bands=threshold_bands(codes[0]) if codes and cfg.get("show_bands") else {},
     )
     fig = build_chart(spec)
     forward = cfg.get("forward")
@@ -99,6 +87,7 @@ def chart_from_view(chart: dict, *, key: str, overrides: dict | None = None) -> 
 
 
 def stats_table(codes: list[str]) -> None:
+    """Bảng số mới nhất, chỉ số liệu (không chấm điểm; chấm điểm nằm ở Scorecard)."""
     latest = data.latest()
     catalog = data.catalog_map()
     part = (
@@ -121,18 +110,12 @@ def stats_table(codes: list[str]) -> None:
                 "Kỳ": fmt.period(rec["period"], rec["frequency"]),
                 "So cùng kỳ": fmt.change(rec["yoy_change"], rec["change_unit"]),
                 "Từ đầu năm": fmt.change(rec["ytd_change"], rec["change_unit"]),
-                "So mục tiêu": fmt.signed(rec["vs_target"])
-                if pd.notna(rec["vs_target"])
-                else fmt.MISSING,
-                "Z-score 5 năm": fmt.number(rec["zscore_5y"], 2),
-                "Trạng thái": STATUS_LABEL.get(rec["status"], rec["status"]),
-                "Cờ": ", ".join(
-                    FLAG_LABEL[f] for f in str(rec["flags"]).split(";") if f in FLAG_LABEL
-                ),
+                "So mục tiêu": fmt.signed(rec["vs_target"]) if pd.notna(rec["vs_target"]) else None,
                 "Nguồn": rec["source"],
             }
         )
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    table = pd.DataFrame(rows).dropna(axis=1, how="all")  # bỏ cột "So mục tiêu" khi không có
+    st.dataframe(table.fillna(fmt.MISSING), hide_index=True, width="stretch")
 
 
 def download_series_button(codes: list[str], key: str) -> None:

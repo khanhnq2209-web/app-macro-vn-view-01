@@ -96,13 +96,10 @@ def chart_editor(page: str, section: str) -> None:
                 format_func=TRANSFORM_LABEL.get,
                 key=f"{k}_x",
             )
-            c4, c5 = st.columns(2)
-            chart["show_target"] = c4.checkbox(
+            chart["show_target"] = st.checkbox(
                 "Đường mục tiêu", chart.get("show_target", False), key=f"{k}_st"
             )
-            chart["show_bands"] = c5.checkbox(
-                "Vùng ngưỡng (absolute)", chart.get("show_bands", False), key=f"{k}_sb"
-            )
+            chart.pop("show_bands", None)
             chart["secondary"] = st.multiselect(
                 "Vẽ trục phụ (bên phải)",
                 chart["codes"],

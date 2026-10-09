@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bản mẫu Scorecard v3</title>
+<style>
+:root{
+  --bg:#fff;--surf:#f6f8fa;--ink:#1a2128;--ink2:#4a5660;--mut:#6b7780;--line:#e1e6ea;--accent:#2a78d6;--warn-bg:#fdf3dc;--warn:#8a5a00;
+  --sg-bg:#d3ebdc;--sg:#1b5e20;--g-bg:#e3f1e8;--g:#2e7d32;--y-bg:#fbefd3;--y:#9a6700;--o-bg:#fde8d7;--o:#c25e00;--r-bg:#fbe3e1;--r:#b3261e;--n-bg:#eceef0;--n:#5f6b73;
+  --band-sg:#e1f1e7;--band-g:#eef7f1;--band-y:#fcf5e3;--band-o:#fdeedf;--band-r:#fbe9e7;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#12161a;--surf:#1a2026;--ink:#e8edf1;--ink2:#b4bec6;--mut:#8a97a1;--line:#2c353d;--accent:#6aa7ee;--warn-bg:#3a2e12;--warn:#e8c26a;
+  --sg-bg:#1d3a27;--sg:#7fd69a;--g-bg:#1e3326;--g:#8bd49c;--y-bg:#3a3014;--y:#e3b955;--o-bg:#3b2615;--o:#f3a15b;--r-bg:#3d1f1d;--r:#f58a82;--n-bg:#262e35;--n:#9aa7b1;
+  --band-sg:#1b2e22;--band-g:#1a2a20;--band-y:#2a2616;--band-o:#2c2117;--band-r:#2e1c1b;}}
+:root[data-theme=dark]{
+  --bg:#12161a;--surf:#1a2026;--ink:#e8edf1;--ink2:#b4bec6;--mut:#8a97a1;--line:#2c353d;--accent:#6aa7ee;--warn-bg:#3a2e12;--warn:#e8c26a;
+  --sg-bg:#1d3a27;--sg:#7fd69a;--g-bg:#1e3326;--g:#8bd49c;--y-bg:#3a3014;--y:#e3b955;--o-bg:#3b2615;--o:#f3a15b;--r-bg:#3d1f1d;--r:#f58a82;--n-bg:#262e35;--n:#9aa7b1;
+  --band-sg:#1b2e22;--band-g:#1a2a20;--band-y:#2a2616;--band-o:#2c2117;--band-r:#2e1c1b;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "Source Sans 3","Segoe UI",system-ui,sans-serif}
+button,select,input,textarea{font:inherit;color:inherit}
+.proto{background:var(--warn-bg);color:var(--warn);padding:6px 24px;font-size:12.5px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.proto label{margin-left:auto;display:flex;gap:6px;align-items:center;cursor:pointer}
+.proto label+label{margin-left:0}
+nav.top{display:flex;gap:4px;padding:10px 24px 0;border-bottom:1px solid var(--line)}
+nav.top button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px;cursor:pointer;color:var(--ink2);font-weight:600}
+nav.top button[aria-selected=true]{color:var(--ink);border-color:var(--accent)}
+nav.top .sp{margin-left:auto;color:var(--mut);font-size:12.5px;align-self:center}
+main{max-width:1280px;margin:0 auto;padding:12px 24px 130px}
+h1{font-size:20px;margin:0 0 8px}
+h2{font-size:15px;margin:0}
+.row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.fld{display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--ink2)}
+select,input[type=number],input[type=text],textarea{background:var(--surf);border:1px solid var(--line);border-radius:8px;padding:7px 10px;min-width:0}
+input[type=number]{width:84px}
+input.w{width:78px;text-align:right;padding:5px 8px}
+input.bad{border-color:var(--r);outline:1px solid var(--r)}
+input:disabled,select:disabled{background:var(--surf);color:var(--mut);opacity:1}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{background:var(--bg);border:0;padding:7px 14px;cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:var(--surf);font-weight:700;box-shadow:inset 0 -2px 0 var(--accent)}
+.seg button:disabled{color:var(--mut);cursor:not-allowed}
+.btn{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 14px;cursor:pointer}
+.btn.sm{padding:3px 10px;font-size:12.5px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.danger{color:var(--r);border-color:var(--r)}
+.link{color:var(--accent);cursor:pointer;background:none;border:0;padding:0;text-decoration:underline}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 10px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.lv-sg{background:var(--sg-bg);color:var(--sg)}.lv-g{background:var(--g-bg);color:var(--g)}.lv-y{background:var(--y-bg);color:var(--y)}
+.lv-o{background:var(--o-bg);color:var(--o)}.lv-r{background:var(--r-bg);color:var(--r)}.lv-n{background:var(--n-bg);color:var(--n)}
+.chip.dash{background:none;border:1px dashed var(--mut);color:var(--mut)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.badge-warn{background:var(--warn-bg);color:var(--warn);border-radius:6px;padding:2px 8px;font-size:11.5px;font-weight:700;letter-spacing:.02em}
+.badge-ok{background:var(--g-bg);color:var(--g);border-radius:6px;padding:2px 8px;font-size:11.5px;font-weight:700}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:10px 14px;position:relative}
+.hero{display:grid;grid-template-columns:1.25fr 1.15fr 1.1fr;gap:10px;margin:10px 0 6px}
+.score{font-size:34px;font-weight:800;line-height:1;letter-spacing:-.02em}
+.muted{color:var(--mut)}.small{font-size:12.5px}
+.gauge{margin-top:14px}
+.gauge .bar{display:flex;height:10px;border-radius:5px;overflow:hidden;position:relative}
+.gauge .bar i{flex:var(--f)}
+.gauge .mark{position:absolute;top:-4px;width:4px;height:18px;border-radius:2px;background:var(--ink);transform:translateX(-2px);box-shadow:0 0 0 2px var(--surf)}
+.gauge .ticks{position:relative;height:30px;font-size:11px;color:var(--mut)}
+.gauge .ticks span{position:absolute;transform:translateX(-50%);top:4px;white-space:nowrap}
+.drv{display:grid;grid-template-columns:150px 1fr 48px;gap:4px 8px;align-items:center;font-size:12.5px;margin-top:6px}
+.drv .track{height:10px;position:relative}
+.drv .track::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--line)}
+.drv .fill{position:absolute;top:0;height:10px;border-radius:3px}
+.drv b{text-align:right;font-variant-numeric:tabular-nums}
+.cov{height:8px;border-radius:4px;background:var(--n-bg);overflow:hidden;margin:6px 0}
+.cov i{display:block;height:100%;background:var(--accent)}
+.alert{border-left:3px solid var(--warn);background:var(--warn-bg);color:var(--ink);border-radius:6px;padding:8px 10px;margin-top:8px;font-size:12.5px}
+.tbl-head{display:flex;align-items:center;gap:12px;margin:12px 0 6px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);text-align:left;padding:6px 8px;border-bottom:2px solid var(--ink);font-weight:600}
+td{padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.r,th.r{text-align:right}
+tr.pillar td{background:var(--surf);font-weight:700;cursor:pointer}
+tr.pillar td small{font-weight:400;color:var(--mut);margin-left:8px}
+tr.ex td{color:var(--mut)}
+td .sub{font-size:11.5px;color:var(--mut);margin-top:1px}
+td .nm{font-weight:600}
+td .val{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+tr.total td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
+table.hidew .cw{display:none}
+.edit{opacity:0;border:0;background:none;cursor:pointer;color:var(--accent);padding:2px 6px}
+tr:hover .edit,.edit:focus{opacity:1}
+.ok{color:var(--g)}.badv{color:var(--r)}
+.note{position:absolute;top:-9px;left:-9px;background:var(--accent);color:#fff;border-radius:50%;width:20px;height:20px;font:700 11px/20px sans-serif;text-align:center;z-index:2;cursor:help}
+body.nonotes .note{display:none}
+.rel{position:relative}
+.chart{margin-top:6px;width:100%;height:auto}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 9px;border-radius:6px;font-size:12px;display:none;z-index:50}
+/* cấu hình */
+.ctx{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.stepper{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.stepper button{display:flex;gap:10px;align-items:center;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer;position:relative}
+.stepper button[aria-current=true]{border-color:var(--accent);background:var(--surf);box-shadow:inset 0 -3px 0 var(--accent)}
+.stepper em{font-style:normal;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--n-bg);font-weight:700;font-size:12px;flex:none}
+.stepper button[aria-current=true] em{background:var(--accent);color:#fff}
+.stepper em.done{background:var(--g-bg);color:var(--g)}
+.stepper em.bad{background:var(--r-bg);color:var(--r)}
+.stepper b{display:block;font-size:13px}.stepper small{color:var(--mut);font-size:11.5px}
+.cfg{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+.outline{border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative}
+.outline .ph{background:var(--surf);padding:8px 12px;font-weight:700;font-size:13px;display:flex;justify-content:space-between;border-top:1px solid var(--line)}
+.outline .ph:first-child{border-top:0}.outline .ph span{font-weight:400;color:var(--mut)}
+.item{display:grid;grid-template-columns:1fr auto;gap:2px 8px;padding:8px 12px;border-top:1px solid var(--line);cursor:pointer;border-left:4px solid transparent}
+.item:hover{background:var(--surf)}
+.item[aria-current=true]{background:var(--surf);border-left-color:var(--accent)}
+.item .n{font-weight:600}.item .s{font-size:12px;color:var(--mut)}
+.step{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;position:relative}
+.step h2{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.step h2 em{font-style:normal;background:var(--accent);color:#fff;border-radius:50%;width:22px;height:22px;display:inline-grid;place-items:center;font-size:12px}
+.cuts{display:grid;grid-template-columns:repeat(9,auto);gap:6px;align-items:center;justify-content:start}
+.cuts .lvl{text-align:center}.cuts .lvl small{display:block;font-size:11px;color:var(--mut);margin-top:2px}
+.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:12px 0 4px}
+.strip div{border-radius:8px;padding:8px 10px;font-size:12.5px;border:2px solid transparent}
+.strip div.cur{border-color:var(--ink)}.strip b{display:block}
+.errmsg{color:var(--r);font-size:12.5px;margin-top:6px}
+.gcard{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.gcard .gh{display:flex;gap:10px;align-items:center;background:var(--surf);padding:8px 12px;flex-wrap:wrap}
+.gcard .gh input[type=text]{font-weight:700;width:230px}
+.gcard .gr{display:grid;grid-template-columns:1fr 190px 120px 40px;gap:8px;align-items:center;padding:6px 12px;border-top:1px solid var(--line)}
+.gcard .ga{display:flex;gap:8px;padding:8px 12px;border-top:1px solid var(--line);align-items:center;flex-wrap:wrap}
+.tag{font-size:11px;border-radius:5px;padding:1px 6px;background:var(--n-bg);color:var(--n)}
+.tag.set{background:var(--y-bg);color:var(--y)}
+.meter{display:flex;gap:2px;height:10px;border-radius:5px;overflow:hidden;margin:6px 0;background:var(--n-bg)}
+.meter i{display:block;height:100%}
+.chk{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
+.chk:first-child{border-top:0}
+.bar-fix{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;z-index:20;box-shadow:0 -4px 14px rgba(0,0,0,.08)}
+.bar-fix .sum{flex:1;min-width:280px}.bar-fix .chg{font-size:12.5px;color:var(--ink2)}
+.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:8px;display:none;z-index:60}
+.legend{max-width:1280px;margin:0 auto;padding:0 24px 140px;font-size:12.5px}
+body.nonotes .legend{display:none}
+.legend details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surf)}
+.legend summary{cursor:pointer;font-weight:700}
+.legend ol{margin:8px 0 0;padding-left:0;list-style:none;columns:2;column-gap:28px}
+.legend li{margin:6px 0;display:flex;gap:8px;break-inside:avoid}
+.legend li b{background:var(--accent);color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:10.5px;display:grid;place-items:center}
+@media (max-width:980px){.hero,.cfg,.stepper{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="proto">
+  <b>BẢN MẪU — không phải app thật.</b>
+  <span>Số minh họa gần ảnh chụp 09/10/2026 (chỉ Nhà ở, không có số Yahoo/LME). Mốc, lịch sử và kỳ so sánh là giả định.</span>
+  <label><input type="checkbox" id="tglNotes" checked> Hiện chú thích đề xuất</label>
+  <label><select id="theme" aria-label="Giao diện"><option value="auto">Giao diện: theo máy</option><option value="light">Sáng</option><option value="dark">Tối</option></select></label>
+</div>
+<nav class="top" role="tablist">
+  <button role="tab" id="t-sc" aria-selected="true">Scorecard</button>
+  <button role="tab" id="t-cfg" aria-selected="false">Cấu hình scorecard</button>
+  <span class="sp">Chế độ quản trị (mô phỏng)</span>
+</nav>
+<main id="v-sc"></main>
+<main id="v-cfg" hidden></main>
+<div class="legend" id="legend"></div>
+<div class="tip" id="tip"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ============ danh mục chỉ số (minh họa, Nhà ở + 3 chỉ số để thêm thử) ============ */
+const LV = [{s: 2, n: "Rất tốt", c: "sg", a: "⇈"}, {s: 1, n: "Tốt", c: "g", a: "↑"}, {s: 0, n: "Trung tính", c: "y", a: "●"}, {s: -1, n: "Xấu", c: "o", a: "↓"}, {s: -2, n: "Rất xấu", c: "r", a: "⇊"}];
+const lvOf = s => LV.find(l => l.s === s);
+const BANDS = [{min: .8, n: "Rất thuận lợi", c: "sg"}, {min: .45, n: "Thuận lợi", c: "g"}, {min: .05, n: "Trung tính", c: "y"}, {min: -.2, n: "Bất lợi", c: "o"}, {min: -99, n: "Rất bất lợi", c: "r"}];
+const rating = s => BANDS.find(b => s >= b.min - 1e-9);
+const CAT = [
+  {id: "deposit", name: "LS huy động 12 tháng (Big4)", upd: "06/10/2026", val: 5.90, unit: "%", how: "giá trị gốc", dir: "bad", cuts: [4.75, 5.5, 6.25, 7], pv: {1: 0, 3: 1, 12: 2}, seed: 3, desc: "Lãi huy động 12 tháng Big4, đi trước lãi vay mua nhà 1–2 quý."},
+  {id: "govbond", name: "Lợi suất TPCP 10 năm", upd: "31/07/2026", val: 1.2, unit: "điểm %", how: "thay đổi 12 tháng", dir: "bad", cuts: [-.5, 0, .5, 1], stale: true, pv: {1: -2, 3: -2, 12: -1}, seed: 5, desc: "Chấm theo thay đổi 12 tháng vì chuỗi có xu hướng."},
+  {id: "effr", name: "Lãi suất liên bang hiệu lực (EFFR)", upd: "02/10/2026", val: 3.88, unit: "%", how: "giá trị gốc", info: true, seed: 8, cmp: {kind: "Kỳ vọng thị trường", when: "12/2026", v: "4,09%", gap: "+0,21 điểm % so hiện tại"}},
+  {id: "onight", name: "LS liên ngân hàng qua đêm", upd: "31/07/2026", val: 3.74, unit: "%", how: "trung bình 20 ngày", dir: "bad", cuts: [2, 3, 4, 5], stale: true, pv: {1: 0, 3: 0, 12: 1}, seed: 11, desc: "Trung bình 20 ngày để tránh gai Tết."},
+  {id: "credit", name: "Tăng trưởng tín dụng từ đầu năm", upd: "T8/2026", val: 10.19, unit: "%", how: "% so cùng kỳ", two: true, fixed: 1, pv: {1: 0, 3: 0, 12: -1}, seed: 13, cmp: {kind: "Mục tiêu Chính phủ", when: "cả năm 2026", v: "15,0%", gap: "còn cách mục tiêu 4,81 điểm %"}, desc: "Hai phía: quá nóng cũng bị trừ điểm (sửa ở bản thật)."},
+  {id: "gdp", name: "Tăng trưởng GDP (số công bố)", upd: "Q2/2026", val: 8.39, unit: "%", how: "% so cùng kỳ", dir: "good", cuts: [5, 6, 7, 8], pv: {1: 2, 3: 1, 12: 0}, seed: 17, cmp: {kind: "Mục tiêu Chính phủ", when: "cả năm 2026", v: "10,0%", gap: "mốc cả năm, không phải dự báo quý"}, desc: "Mục tiêu 2026 là 10%."},
+  {id: "cpi", name: "CPI so cùng kỳ", upd: "T8/2026", val: 4.89, unit: "%", how: "% so cùng kỳ", dir: "bad", cuts: [2.5, 3.5, 4.5, 5.5], pv: {1: 0, 3: 1, 12: 1}, seed: 19, desc: "Mục tiêu CPI bình quân khoảng 4,5%."},
+  {id: "cpih", name: "CPI nhà ở và VLXD", upd: "T8/2026", val: 6.60, unit: "%", how: "% so cùng kỳ", dir: "bad", cuts: [3, 5, 7, 9], pv: {1: 0, 3: 0, 12: 1}, seed: 23, desc: "Mốc là nhận định, chưa có nguồn trực tiếp."},
+  {id: "fx", name: "Tỷ giá trung tâm USD/VND", upd: "10/08/2026", val: 1.04, unit: "%", how: "% so cùng kỳ", dir: "bad", cuts: [1, 2, 3, 5], stale: true, pv: {1: 1, 3: 1, 12: 0}, seed: 29, desc: "Biên độ ±5%."},
+  {id: "infra", name: "Tiến độ đầu tư công so kế hoạch năm", upd: "T9/2026", val: -10.77, unit: "điểm %", how: "chênh so tiến độ kế hoạch", dir: "good", cuts: [-15, -5, 5, 15], pv: {1: -1, 3: 0, 12: 0}, seed: 31, desc: "Thay số lũy kế từ đầu năm (nhiễu tháng 1–2)."},
+  {id: "ncs", name: "Vốn đầu tư NSNN thực hiện lũy kế", upd: "T9/2026", val: 656789, unit: "tỷ đồng", how: "giá trị gốc", info: true, seed: 37, cmp: {kind: "Kế hoạch năm", when: "2026", v: "1.022.607 tỷ", gap: "đạt 64,2% kế hoạch"}},
+  {id: "pmi", name: "PMI sản xuất Việt Nam", upd: "T8/2026", val: 53.3, unit: "điểm", how: "giá trị gốc", dir: "good", cuts: [47, 49, 50, 52], pv: {1: 2, 3: 2, 12: 1}, seed: 41, desc: "50 là ranh giới mở rộng/thu hẹp."},
+  {id: "export", name: "Xuất khẩu so cùng kỳ", upd: "T7/2026", val: 24.2, unit: "%", how: "trung bình 3 tháng", dir: "good", cuts: [0, 5, 10, 15], pv: {1: 2, 3: 1, 12: 1}, seed: 43, desc: "Mốc là nhận định."},
+  {id: "fdi", name: "FDI đăng ký mới", upd: "T7/2026", val: 49.1, unit: "%", how: "tổng 12 tháng, % so cùng kỳ", dir: "good", cuts: [-20, -5, 5, 20], pv: {1: 2, 3: 2, 12: 2}, seed: 47, desc: "Dẫn trước nhu cầu thuê KCN 6–18 tháng."}];
+const C = Object.fromEntries(CAT.map(c => [c.id, c]));
+const clone = o => JSON.parse(JSON.stringify(o));
+const freshCfg = () => Object.fromEntries(CAT.map(c => [c.id, {cuts: c.cuts ? [...c.cuts] : null, dir: c.dir || null}]));
+const G = (id, name, ids) => ({id, name, w: null, rows: ids.map(i => ({id: i, w: null}))});
+const BO0 = {id: "bds01", name: "Theo dõi BĐS · 01", desc: "Điều kiện vĩ mô cho BĐS nhà ở. Ngưỡng cứng, trụ cột chia đều.", approved: false, updated: "06/10/2026", seg: "Nhà ở",
+  struct: {groups: [G("g1", "Chi phí vốn", ["deposit", "govbond", "effr"]), G("g2", "Tín dụng và thanh khoản", ["onight", "credit"]), G("g3", "Cầu và thu nhập", ["gdp"]),
+    G("g4", "Ổn định vĩ mô", ["cpi", "cpih", "fx"]), G("g5", "Hạ tầng", ["infra", "ncs"])]}, cfg: freshCfg(), conf: Object.fromEntries(CAT.map(c => [c.id, true]))};
+const CMP = {1: {lab: "tháng trước", per: "T9/2026", btn: "Tháng trước"}, 3: {lab: "3 tháng trước", per: "T7/2026", btn: "3 tháng trước"}, 12: {lab: "cùng kỳ năm ngoái", per: "T10/2025", btn: "Cùng kỳ năm ngoái"}};
+const st = {tab: "sc", bos: [clone(BO0)], active: "bds01", cmp: 1, hideW: true, look: 5, collapsed: {},
+  w: {view: "list", step: 1, draft: null, isNew: false, editId: null, sel: null}};
+let gseq = 10;
+
+/* ============ tính điểm ============ */
+const levelScore = (v, cuts, dir) => { const i = cuts.filter(c => v >= c).length; return dir === "bad" ? 2 - i : -2 + i; };
+const fmt = (n, d = 2) => n.toLocaleString("vi-VN", {minimumFractionDigits: d, maximumFractionDigits: d});
+const sg = (n, d = 2) => (n > 1e-9 ? "+" : n < -1e-9 ? "−" : "±") + fmt(Math.abs(n), d);
+/* chia tỷ trọng: ô để trống = chia đều phần còn lại; ô đã nhập = giữ nguyên */
+function dist(items) {
+  const n = items.length; if (!n) return {fr: [], ok: true, msg: ""};
+  const L = items.filter(i => i.w != null), sumL = L.reduce((a, i) => a + i.w, 0), nf = n - L.length;
+  let ok = true, msg = "";
+  if (sumL > 100 + 1e-9) { ok = false; msg = `Đã nhập ${fmt(sumL, 1)}%, vượt 100%`; }
+  else if (nf === 0 && Math.abs(sumL - 100) > 1e-9) { ok = false; msg = `Cộng được ${fmt(sumL, 1)}%, cần đủ 100%`; }
+  const free = ok && nf ? (100 - sumL) / nf : 0;
+  return {fr: ok ? items.map(i => (i.w != null ? i.w : free) / 100) : items.map(() => 1 / n), ok, msg};
+}
+function calcBo(bo) {
+  const gd = dist(bo.struct.groups), rows = [], gm = [];
+  bo.struct.groups.forEach((g, gi) => {
+    const real = g.rows.filter(r => !C[r.id].info), rd = dist(real);
+    g.rows.forEach(ref => { const c = C[ref.id], cf = bo.cfg[ref.id];
+      const r = {...c, prev: c.pv ? c.pv[st.cmp] : undefined, cuts: cf.cuts, dir: cf.dir, g: gi, gname: g.name};
+      r.score = c.two ? c.fixed : c.info ? null : levelScore(c.val, cf.cuts, cf.dir);
+      r.w = c.info ? 0 : gd.fr[gi] * rd.fr[real.indexOf(ref)]; r.counted = !c.info && !c.stale; rows.push(r); });
+    gm.push({name: g.name, gi, gw: gd.fr[gi], gd, rd, nReal: real.length});
+  });
+  const cov = rows.filter(r => r.counted).reduce((a, r) => a + r.w, 0);
+  rows.forEach(r => { r.we = r.counted && cov ? r.w / cov : 0; r.contrib = r.counted ? r.score * r.we : null; r.prevContrib = r.counted ? r.prev * r.we : null; });
+  const total = cov ? rows.reduce((a, r) => a + (r.contrib || 0), 0) : NaN, prevTotal = cov ? rows.reduce((a, r) => a + (r.prevContrib || 0), 0) : NaN;
+  const pil = gm.map(g => { const rs = rows.filter(r => r.g === g.gi), cs = rs.filter(r => r.counted), w = cs.reduce((a, r) => a + r.w, 0);
+    return {...g, rows: rs, n: cs.length, nAll: rs.filter(r => !r.info).length, contrib: cs.reduce((a, r) => a + r.contrib, 0), prevContrib: cs.reduce((a, r) => a + r.prevContrib, 0),
+      lvl: cs.length ? Math.max(-2, Math.min(2, Math.round(cs.reduce((a, r) => a + r.score * r.w, 0) / w))) : null}; });
+  const stale = rows.filter(r => r.stale && !r.info), ws = stale.reduce((a, r) => a + r.w, 0);
+  const scen = f => (total * cov + stale.reduce((a, r) => a + r.w * f(r), 0)) / (cov + ws);
+  return {rows, cov, total, prevTotal, pil, stale, ws, gd, keep: scen(r => r.score), worst: scen(() => -2), best: scen(() => 2)};
+}
+const $ = (s, el = document) => el.querySelector(s);
+const chip = (s, txt) => { const l = lvOf(s); return `<span class="chip lv-${l.c}"><span aria-hidden="true">${l.a}</span>${txt || l.n}</span>`; };
+const rchip = sc => { if (!isFinite(sc)) return '<span class="chip dash">Chưa có số</span>'; const b = rating(sc); return `<span class="chip lv-${b.c}">${b.n}</span>`; };
+const NOTES = [
+  "Hero gom một chỗ: tên, điểm, mức bằng chữ, so kỳ chọn, thang xếp hạng có mốc số.",
+  "“Vì sao”: đóng góp đã chuẩn hóa theo độ phủ, cộng đúng ra điểm tổng (hiện nay cộng ra +0,23 ≠ +0,32).",
+  "Độ tin cậy: độ phủ, số cũ, biên độ điểm nếu số cũ quay lại. LOGIC MỚI — cần chốt công thức.",
+  "Trạng thái ngưỡng (nháp / đã duyệt) ngay cạnh kết luận, không nằm ở chú thích cuối trang.",
+  "“Giá trị dùng chấm”: đơn vị đúng theo cách đo; rê chuột xem cách đo. Sửa lỗi hiện “15,9%” cho VIX.",
+  "Mức bằng chữ + icon; rê chuột xem khoảng cách tới mức xấu hơn (chỉ báo sớm).",
+  "Chọn kỳ so sánh: tháng trước / 3 tháng trước / cùng kỳ năm ngoái. Cột hiển thị đổi mức (bậc), tách khỏi “Thông tin tham khảo”.",
+  "Thông tin tham khảo: mục tiêu, kỳ vọng thị trường, kế hoạch; không trộn đơn vị với giá trị dùng chấm.",
+  "Trọng số thực dùng (sau chuẩn hóa theo độ phủ), mặc định ẩn; rê chuột xem trọng số cấu hình.",
+  "Tổng đóng góp = điểm tổng, có dòng đối chiếu.",
+  "Lịch sử: ghi “tính lại theo cấu hình hiện tại, chưa trừ độ trễ công bố”; đủ 5 dải kèm mốc.",
+  "⚙ mở bước 2 (nhóm, tỷ trọng) của đúng bộ đang xem; ✎ mở thẳng bước 3 đúng chỉ số.",
+  "Danh sách bộ: tạo mới (trống) hoặc nhân bản; mỗi bộ có trạng thái nháp / đã duyệt.",
+  "4 bước, bấm tự do; mỗi bước có dấu ✓ khi hợp lệ, ! khi còn lỗi.",
+  "Tỷ trọng: mặc định chia đều. Ô trống = tự chia phần còn lại; nhập số = giữ nguyên. Kiểm tra tổng 100% từng cấp.",
+  "Danh sách chỉ số theo nhóm; chỉ số mới thêm mang mốc gợi ý và phải “Xác nhận mốc”.",
+  "Mốc nhập từng ô, kiểm tra tăng dần; điểm từng mức hiện ngay dưới tên mức.",
+  "Xem trước: dải mức, vị trí hiện tại, phân bố 10 năm, lịch sử có dải.",
+  "Checklist trước khi lưu: không lưu khi còn lỗi; bấm dòng lỗi để nhảy tới bước sửa.",
+  "Thanh dưới: điểm trước → sau, dòng đổi mức, Quay lại / Tiếp / Lưu / Duyệt.",
+  "Xóa chỉ số khỏi scorecard nằm cuối form, tách khỏi ô nhập."];
+const note = n => `<span class="note" title="${NOTES[n - 1].replace(/"/g, "&quot;")}">${n}</span>`;
+const rng = seed => { let x = seed * 9301 + 49297; return () => (x = (x * 9301 + 49297) % 233280) / 233280; };
+function series(r, n = 60) { const R = rng(r.seed), s = new Array(n), v = r.val, vol = Math.max(Math.abs(v) * .07, .12);
+  s[n - 1] = v; for (let i = n - 1; i > 0; i--) s[i - 1] = s[i] + (R() - .5) * vol * 2 + (R() - .5) * vol * .4; return s; }
+const activeBo = () => st.bos.find(b => b.id === st.active) || st.bos[0];
+const realIds = d => d.struct.groups.flatMap(g => g.rows.map(r => r.id));
+const sig = d => JSON.stringify({n: d.name, d: d.desc, s: d.struct, c: realIds(d).map(id => d.cfg[id])});
+const EMPTY = () => ({name: "", desc: "", struct: {groups: []}, cfg: freshCfg(), conf: {}});
+const baseline = () => st.w.isNew ? EMPTY() : st.bos.find(b => b.id === st.w.editId);
+const isDirty = () => st.w.draft && sig(st.w.draft) !== sig(baseline());
+function cutsErr(cu) { if (!cu || cu.some(v => v == null || Number.isNaN(v))) return "Có ô mốc trống hoặc không phải số."; for (let i = 1; i < cu.length; i++) if (!(cu[i] > cu[i - 1])) return `Mốc phải tăng dần: ô ${i + 1} phải lớn hơn ô ${i}.`; return ""; }
+function validate(d) {
+  const c = calcBo(d), real = realIds(d).filter(id => !C[id].info && !C[id].two), unconf = real.filter(id => !d.conf[id]);
+  const wErr = [c.gd.ok ? "" : "Nhóm: " + c.gd.msg, ...c.pil.map(p => p.rd.ok ? "" : `${p.name}: ${p.rd.msg}`)].filter(Boolean);
+  return [
+    {ok: !!d.name.trim(), t: "Scorecard có tên", step: 1},
+    {ok: d.struct.groups.length > 0 && c.pil.every(p => p.nReal > 0), t: d.struct.groups.length ? "Mỗi nhóm có ít nhất 1 chỉ số tính điểm" : "Có ít nhất 1 nhóm", step: 2},
+    {ok: !wErr.length, t: wErr.length ? "Tỷ trọng chưa đủ 100%: " + wErr[0] : "Tỷ trọng mỗi cấp cộng đủ 100%", step: 2},
+    {ok: real.every(id => !cutsErr(d.cfg[id].cuts)), t: "Mốc mỗi chỉ số hợp lệ (tăng dần)", step: 3},
+    {ok: !unconf.length, t: unconf.length ? `Còn ${unconf.length} chỉ số chưa xác nhận mốc` : "Đã xác nhận mốc mọi chỉ số", step: 3}];
+}
+function toast(t) { const e = $("#toast"); e.textContent = t; e.style.display = "block"; setTimeout(() => e.style.display = "none", 2400); }
+
+/* ============ SCORECARD ============ */
+function spark(r, w = 84, h = 24) {
+  const s = series(r, 36), mn = Math.min(...s), mx = Math.max(...s), sp = mx - mn || 1;
+  const xy = (v, i) => [(i / (s.length - 1)) * (w - 8) + 2, h - 5 - ((v - mn) / sp) * (h - 10)];
+  const pts = s.map((v, i) => xy(v, i).join(",")).join(" "), [ex, ey] = xy(s[s.length - 1], s.length - 1);
+  const col = r.counted && r.score != null ? `var(--${lvOf(r.score).c})` : "var(--n)";
+  let bands = ""; if (r.cuts) r.cuts.forEach(c => { if (c > mn && c < mx) { const y = h - 5 - ((c - mn) / sp) * (h - 10); bands += `<line x1="0" x2="${w}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-dasharray="2 2"/>`; } });
+  return `<svg width="${w}" height="${h}" role="img" aria-label="Diễn biến 3 năm">${bands}<polyline fill="none" stroke="var(--mut)" stroke-width="1.5" points="${pts}"/><circle cx="${ex}" cy="${ey}" r="4" fill="${col}" stroke="var(--bg)" stroke-width="2"/></svg>`;
+}
+function nextWorse(r) {
+  if (!r.cuts || r.two || r.score == null || r.score === -2) return "";
+  const i = r.cuts.filter(c => r.val >= c).length, edge = r.dir === "bad" ? r.cuts[i] : r.cuts[i - 1];
+  return `cách mức ${lvOf(r.score - 1).n}: ${fmt(Math.abs(r.val - edge), 2)} ${r.unit === "%" ? "điểm %" : r.unit}`;
+}
+const valText = r => r.unit === "tỷ đồng" ? `${r.val.toLocaleString("vi-VN")} <small class="muted">tỷ đồng</small>` : `${fmt(r.val, 2)}<small class="muted"> ${r.unit}</small>`;
+function gaugeSvg(v) {
+  const cx = 150, cy = 148, r = 100, sw = 22, lo = -1, hi = 1.2;
+  const ang = x => Math.PI * (1 - (Math.max(lo, Math.min(hi, x)) - lo) / (hi - lo));
+  const P = (x, rad) => [cx + rad * Math.cos(ang(x)), cy - rad * Math.sin(ang(x))];
+  const segs = [[-1, -.2, "r"], [-.2, .05, "o"], [.05, .45, "y"], [.45, .8, "g"], [.8, 1.2, "sg"]];
+  const arcs = segs.map(([a, b, k]) => { const [x1, y1] = P(a, r), [x2, y2] = P(b, r); return `<path d="M${x1},${y1} A${r},${r} 0 0 1 ${x2},${y2}" fill="none" stroke="var(--${k})" stroke-width="${sw}"/>`; }).join("");
+  const cuts = [-.2, .05, .45, .8].map(b => { const [x1, y1] = P(b, r - sw / 2 - 1), [x2, y2] = P(b, r + sw / 2 + 1), [tx, ty] = P(b, r + 22);
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--surf)" stroke-width="2"/><text x="${tx}" y="${ty + 4}" font-size="11" text-anchor="middle" fill="var(--mut)">${fmt(b)}</text>`; }).join("");
+  const [nx, ny] = P(v, r - sw / 2 - 8);
+  return `<svg viewBox="0 0 300 172" style="width:100%;max-width:340px;display:block;margin:2px auto 0" role="img" aria-label="Điểm ${sg(v)} trên thang −1 đến 1,2">${arcs}${cuts}
+    <text x="${cx - r}" y="${cy + 18}" font-size="11" text-anchor="middle" fill="var(--mut)">−1</text><text x="${cx + r}" y="${cy + 18}" font-size="11" text-anchor="middle" fill="var(--mut)">1,2</text>
+    <line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="7" fill="var(--ink)" stroke="var(--surf)" stroke-width="2"/></svg>`;
+}
+function renderSc() {
+  const bo = activeBo(), c = calcBo(bo), el = $("#v-sc");
+  const head = `<h1>Scorecard theo phân khúc</h1>
+  <div class="row"><label class="fld">Bộ cấu hình<select id="bosel">${st.bos.map(b => `<option value="${b.id}" ${b.id === bo.id ? "selected" : ""}>${b.name}</option>`).join("")}</select></label>
+    <div class="fld">Phân khúc<div class="seg"><button aria-pressed="true">${bo.seg || "Nhà ở"}</button><button disabled title="Bản mẫu chỉ dựng một phân khúc">KCN</button></div></div>
+    <div class="fld" style="margin-left:auto">So sánh với<div class="seg" id="cmp">${[1, 3, 12].map(k => `<button data-c="${k}" aria-pressed="${st.cmp === k}">${CMP[k].btn}</button>`).join("")}</div></div>
+    <button class="btn rel" data-act="gear" aria-label="Sửa cấu hình">⚙ Sửa cấu hình ${note(12)}</button></div>`;
+  if (!c.rows.length || !(c.cov > 0)) { el.innerHTML = head + `<div class="card" style="margin-top:12px">Bộ này chưa có chỉ số tính điểm. <button class="link" data-act="gear">Thêm chỉ số</button></div>`; return; }
+  const delta = c.total - c.prevTotal;
+  const ps = [...c.pil].sort((a, b) => a.contrib - b.contrib), mx = Math.max(...c.pil.map(p => Math.abs(p.contrib)), .01);
+  const drv = ps.map(p => { const wd = Math.abs(p.contrib) / mx * 50, pos = p.contrib >= 0;
+    return `<span>${p.name}</span><span class="track"><i class="fill" style="${pos ? `left:50%;width:${wd}%;background:var(--g)` : `right:50%;width:${wd}%;background:var(--o)`}"></i></span><b>${sg(p.contrib, 2)}</b>`; }).join("");
+  const dp = c.pil.map(p => ({n: p.name, v: p.contrib - p.prevContrib})).filter(x => Math.abs(x.v) > 1e-9);
+  const chg = dp.length ? dp.map(x => `${x.n} ${sg(x.v, 2)}`).join(" · ") : "không có thay đổi mức";
+  const staleList = c.stale.map(r => `<span class="chip lv-n" title="Số cũ từ ${r.upd}; mức cuối đã biết: ${lvOf(r.score).n}">${r.name.replace(/ \(.*\)/, "")} · ${lvOf(r.score).n}</span>`).join(" ");
+  const flip = c.stale.length && rating(c.worst).n !== rating(c.best).n;
+  const badge = bo.approved ? `<span class="badge-ok">NGƯỠNG ĐÃ DUYỆT</span>` : `<span class="badge-warn" title="Ngưỡng và thang điểm đang chờ người phụ trách QTRR duyệt">NGƯỠNG CHƯA DUYỆT</span>`;
+  const draftBar = st.w.draft && !st.w.isNew && st.w.editId === bo.id && isDirty() ? `<div class="alert" style="margin:0 0 10px">Bạn có <b>bản nháp chưa lưu</b> ở Cấu hình (điểm nháp <b>${sg(calcBo(st.w.draft).total)}</b>). Trang này đang hiển thị <b>bản đã lưu</b>. <button class="link" data-act="resume">Mở bản nháp</button></div>` : "";
+  let body = "";
+  c.pil.forEach(p => {
+    const col = st.collapsed[p.gi];
+    body += `<tr class="pillar" data-p="${p.gi}"><td colspan="3">${col ? "▸" : "▾"} ${p.name}<small>${p.n}/${p.nAll} chỉ số tính điểm</small></td>
+      <td>${p.lvl == null ? '<span class="chip dash">Không có số</span>' : chip(p.lvl)}</td>
+      <td class="small">${Math.abs(p.contrib - p.prevContrib) < 1e-9 ? '<span class="muted">= giữ mức</span>' : (p.contrib > p.prevContrib ? '<span class="ok">▲ ' : '<span class="badv">▼ ') + sg(p.contrib - p.prevContrib, 3) + " điểm</span>"}</td><td></td>
+      <td class="r small cw" title="Trọng số cấu hình của nhóm">${fmt(p.gw * 100, 0)}%</td><td class="r cw"><b>${sg(p.contrib, 3)}</b></td><td></td></tr>`;
+    if (col) return;
+    p.rows.forEach(r => {
+      const lvl = r.info ? `<span class="chip lv-n" title="Không vào điểm">Tham khảo</span>` : !r.counted ? `<span class="chip dash" title="Số cũ từ ${r.upd} · mức cuối đã biết: ${lvOf(r.score).n}">Không tính · số cũ</span>` : `<span title="${nextWorse(r)}">${chip(r.score)}</span>`;
+      const dl = !r.counted ? "" : r.score === r.prev ? `<span class="muted">=</span>` : r.score > r.prev ? `<span class="ok" title="từ ${lvOf(r.prev).n}">▲ ${sg(r.score - r.prev, 0)} bậc</span>` : `<span class="badv" title="từ ${lvOf(r.prev).n}">▼ ${sg(r.score - r.prev, 0)} bậc</span>`;
+      const cm = r.cmp ? `<span title="${r.cmp.kind}, ${r.cmp.when} · ${r.cmp.gap}">${r.cmp.v} <span class="muted small">· ${r.cmp.kind.startsWith("Kỳ") ? "Kỳ vọng" : r.cmp.kind.startsWith("Mục") ? "Mục tiêu" : "Kế hoạch"}</span></span>` : `<span class="muted">—</span>`;
+      const wt = r.info ? `<span class="muted">—</span>` : r.counted ? `<span title="cấu hình ${fmt(r.w * 100, 1)}%">${fmt(r.we * 100, 1)}%</span>` : `<span class="muted" title="cấu hình ${fmt(r.w * 100, 1)}%">0%</span>`;
+      body += `<tr class="${r.counted ? "" : "ex"}"><td><div class="nm">${r.name}</div><div class="sub">Cập nhật ${r.upd}</div></td><td>${spark(r)}</td>
+        <td class="r" title="Cách đo: ${r.how}"><div class="val">${valText(r)}</div></td><td>${lvl}</td><td>${dl}</td><td>${cm}</td>
+        <td class="r cw">${wt}</td><td class="r cw">${r.counted ? `<b>${sg(r.contrib, 3)}</b>` : `<span class="muted">—</span>`}</td>
+        <td><button class="edit" data-act="editrow|${r.id}" title="Sửa mốc của chỉ số này" aria-label="Sửa mốc ${r.name}">✎</button></td></tr>`;
+    });
+  });
+  el.innerHTML = head + `<div style="margin-top:12px">${draftBar}</div>
+  <section class="hero">
+    <div class="card">${note(1)}<div class="row" style="align-items:center;justify-content:space-between"><h2>${bo.seg || "Nhà ở"}</h2><span class="rel">${badge}${note(4)}</span></div>
+      ${gaugeSvg(c.total)}
+      <div style="text-align:center;margin-top:-2px"><span class="score" id="score">${sg(c.total)}</span> ${rchip(c.total)}</div>
+      <div class="small muted" style="margin-top:6px;text-align:center">${sg(delta)} so với ${CMP[st.cmp].lab} (${CMP[st.cmp].per}: ${sg(c.prevTotal)}) · thang −2 … +2</div></div>
+    <div class="card">${note(2)}<h2>Vì sao điểm thế này</h2><div class="small muted">Đóng góp từng nhóm, cộng lại = ${sg(c.total)}</div><div class="drv">${drv}</div>
+      <div class="small" style="margin-top:10px"><b>Đổi so ${CMP[st.cmp].lab}:</b> ${chg}</div></div>
+    <div class="card">${note(3)}<h2>Độ tin cậy</h2>
+      <div class="small" style="margin-top:6px">Độ phủ trọng số <b>${fmt(c.cov * 100, 0)}%</b>${c.stale.length ? ` · ${c.stale.length} chỉ số số cũ không tính (${fmt(c.ws * 100, 1)}%)` : " · mọi chỉ số đều có số mới"}</div>
+      <div class="cov"><i style="width:${c.cov * 100}%"></i></div><div style="display:flex;gap:4px;flex-wrap:wrap">${staleList}</div>
+      ${c.stale.length ? `<div class="alert"><b>Nếu số cũ quay lại:</b> giữ mức cuối đã biết → <b>${sg(c.keep)}</b> (${rating(c.keep).n}). Biên độ <b>${sg(c.worst)}</b> … <b>${sg(c.best)}</b> ${flip ? "· <b>có thể đổi xếp hạng</b>" : ""}</div>` : ""}</div>
+  </section>
+  <div class="tbl-head"><h2>Chi tiết chỉ số</h2><button class="btn" id="tglW" style="margin-left:auto;padding:4px 12px">${st.hideW ? "Hiện" : "Ẩn"} trọng số và đóng góp</button></div>
+  <table class="${st.hideW ? "hidew" : ""}"><thead><tr><th>Chỉ số</th><th>Diễn biến 3 năm</th><th class="r rel">Giá trị dùng chấm ${note(5)}</th><th class="rel">Mức ${note(6)}</th>
+    <th class="rel">So ${CMP[st.cmp].lab} ${note(7)}</th><th class="rel">Thông tin tham khảo ${note(8)}</th><th class="r rel cw">Trọng số thực dùng ${note(9)}</th><th class="r cw">Đóng góp</th><th></th></tr></thead>
+    <tbody>${body}<tr class="total"><td colspan="7" class="rel">Tổng đóng góp = điểm tổng ${sg(c.total, 3)} <span class="muted small" style="font-weight:400">· trọng số thực dùng = cấu hình ÷ độ phủ ${fmt(c.cov * 100, 1)}%</span> ${note(10)}</td><td class="r cw" id="sumc">${sg(c.rows.reduce((a, r) => a + (r.contrib || 0), 0), 3)}</td><td></td></tr></tbody></table>
+  <div class="tbl-head rel"><h2>Điểm theo tháng</h2>${note(11)}<div class="seg" id="look">${[1, 3, 5, 10].map(y => `<button data-y="${y}" aria-pressed="${st.look === y}">${y} năm</button>`).join("")}</div></div>
+  <div id="hist"></div>
+  <p class="small muted">Điểm tháng tính lại theo <b>cấu hình hiện tại</b>, chưa trừ độ trễ công bố của số liệu — không phải tín hiệu đã biết tại thời điểm đó. Hover để xem độ phủ từng tháng.</p>`;
+  drawHist(c);
+}
+function drawHist(c) {
+  const n = 120, R = rng(77), sc = new Array(n), cov = new Array(n);
+  sc[n - 1] = c.total; sc[n - 2] = c.prevTotal; for (let i = n - 2; i > 0; i--) sc[i - 1] = Math.max(-1.4, Math.min(1.15, sc[i] + (R() - .5) * .34 - sc[i] * .03));
+  for (let i = 0; i < n; i++) cov[i] = i >= n - 1 ? c.cov : .7 + R() * .3;
+  const m = Math.min(st.look * 12, n), s0 = n - m, W = 900, H = 200, L = 40, Rr = 150, T = 10, B = 24;
+  const y = v => T + (1.2 - v) / 2.7 * (H - T - B), x = i => L + (i - s0) / (m - 1) * (W - L - Rr);
+  const bands = [[1.2, .8, "sg", "Rất thuận lợi", "≥ 0,8"], [.8, .45, "g", "Thuận lợi", "0,45 – 0,8"], [.45, .05, "y", "Trung tính", "0,05 – 0,45"], [.05, -.2, "o", "Bất lợi", "−0,2 – 0,05"], [-.2, -1.5, "r", "Rất bất lợi", "< −0,2"]];
+  let svg = bands.map(([a, b, k, nm, rg]) => `<rect x="${L}" y="${y(a)}" width="${W - L - Rr}" height="${y(b) - y(a)}" fill="var(--band-${k})"/><text x="${W - Rr + 8}" y="${(y(a) + y(b)) / 2 + 4}" font-size="11.5" fill="var(--ink2)">${nm} <tspan fill="var(--mut)">${rg}</tspan></text>`).join("");
+  [1, .5, 0, -.5, -1].forEach(v => svg += `<line x1="${L}" x2="${W - Rr}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 6}" y="${y(v) + 4}" font-size="11" text-anchor="end" fill="var(--mut)">${fmt(v, 1)}</text>`);
+  const dt0 = i => new Date(2026, 8 - (n - 1 - i), 1);
+  for (let i = s0; i < n; i++) { const d = dt0(i); if (d.getMonth() === 0) svg += `<text x="${x(i)}" y="${H - 6}" font-size="11" text-anchor="middle" fill="var(--mut)">${d.getFullYear()}</text>`; }
+  const pts = []; for (let i = s0; i < n; i++) pts.push(`${x(i)},${y(sc[i])}`);
+  svg += `<polyline fill="none" stroke="var(--ink)" stroke-width="2" points="${pts.join(" ")}"/><circle cx="${x(n - 1)}" cy="${y(sc[n - 1])}" r="5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/>`;
+  const el = $("#hist"); el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Điểm theo tháng">${svg}<line id="xh" y1="${T}" y2="${H - B}" stroke="var(--mut)" style="display:none"/></svg>`;
+  const sv = $("svg", el), tip = $("#tip");
+  const label = i => { const d = dt0(i); return `${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`; };
+  sv.onmousemove = e => { const b = sv.getBoundingClientRect(), px = (e.clientX - b.left) / b.width * W; const i = Math.max(s0, Math.min(n - 1, Math.round((px - L) / (W - L - Rr) * (m - 1)) + s0));
+    const xl = $("#xh"); xl.setAttribute("x1", x(i)); xl.setAttribute("x2", x(i)); xl.style.display = "";
+    tip.style.display = "block"; tip.style.left = e.clientX + 12 + "px"; tip.style.top = e.clientY + 12 + "px";
+    tip.innerHTML = `<b>${label(i)}</b><br>Điểm ${sg(sc[i])} · ${rating(sc[i]).n}<br>Độ phủ ${fmt(cov[i] * 100, 0)}%`; };
+  sv.onmouseleave = () => { tip.style.display = "none"; $("#xh").style.display = "none"; };
+}
+
+/* ============ CẤU HÌNH: danh sách bộ → 4 bước ============ */
+const STEPS = [["Thông tin", "tên, mô tả"], ["Nhóm, chỉ số, tỷ trọng", "mặc định chia đều"], ["Mốc từng chỉ số", "xác nhận từng chỉ số"], ["Xem lại và lưu", "kiểm tra, lưu, duyệt"]];
+const activeOrEdit = () => st.bos.find(b => b.id === st.w.editId) || {};
+function renderCfg() {
+  const w = st.w, el = $("#v-cfg");
+  if (w.view === "list") {
+    el.innerHTML = `<h1>Cấu hình scorecard</h1>
+    <div class="row rel" style="align-items:center;margin-bottom:12px">${note(13)}<button class="btn primary" data-act="new">＋ Tạo scorecard mới</button><span class="muted small">Tạo trống, hoặc “Nhân bản” một bộ có sẵn để sửa nhanh.</span></div>
+    <table><thead><tr><th>Scorecard (bộ)</th><th>Phân khúc</th><th>Nhóm · chỉ số</th><th>Trạng thái</th><th>Cập nhật</th><th></th></tr></thead><tbody>
+    ${st.bos.map(b => { const n = b.struct.groups.length, k = realIds(b).length; return `<tr><td><b>${b.name}</b>${b.id === st.active ? ' <span class="tag">đang hiển thị</span>' : ""}<div class="sub">${b.desc || ""}</div></td><td>${b.seg || "Nhà ở"}</td><td>${n} nhóm · ${k} chỉ số</td>
+      <td>${b.approved ? '<span class="badge-ok">Đã duyệt</span>' : '<span class="badge-warn">Nháp · chưa duyệt</span>'}</td><td>${b.updated}</td>
+      <td class="r"><button class="btn sm" data-act="edit|${b.id}">Sửa</button> <button class="btn sm" data-act="clone|${b.id}">Nhân bản</button></td></tr>`; }).join("")}</tbody></table>`;
+    return;
+  }
+  const d = w.draft, v = validate(d), dirty = isDirty();
+  const stepOk = [v[0].ok, v[1].ok && v[2].ok, v[3].ok && v[4].ok, v.every(x => x.ok)];
+  el.innerHTML = `<h1>Cấu hình scorecard</h1>
+  <div class="ctx"><button class="btn" data-act="tolist">← Danh sách bộ</button>
+    <span>${w.isNew ? "Tạo mới" : "Đang sửa"}: <b>${d.name || "(chưa đặt tên)"}</b></span>
+    ${w.isNew ? '<span class="badge-warn">Chưa lưu</span>' : (activeOrEdit().approved && !dirty ? '<span class="badge-ok">Đã duyệt</span>' : '<span class="badge-warn">Bản nháp · chưa duyệt</span>')}
+    <button class="btn" style="margin-left:auto" data-act="tosc">Xem Scorecard</button></div>
+  <div class="stepper rel">${note(14)}${STEPS.map((s, i) => `<button data-act="step|${i + 1}" aria-current="${w.step === i + 1}"><em class="${w.step === i + 1 ? "" : stepOk[i] ? "done" : "bad"}">${stepOk[i] ? "✓" : "!"}</em><span><b>${i + 1}. ${s[0]}</b><small>${s[1]}</small></span></button>`).join("")}</div>
+  <div id="wbody"></div><div class="bar-fix rel" id="bar"></div>`;
+  renderStep(); renderBar();
+}
+function renderStep() {
+  const w = st.w, d = w.draft, el = $("#wbody");
+  if (w.step === 1) {
+    el.innerHTML = `<div class="step"><h2><em>1</em>Thông tin scorecard</h2>
+      <div class="row"><label class="fld">Tên scorecard<input type="text" data-f="name" value="${d.name}" style="width:340px" placeholder="vd. Theo dõi BĐS · 02"></label>
+        <div class="fld">Phân khúc<div class="seg"><button aria-pressed="true">Nhà ở</button><button disabled title="Bản mẫu một phân khúc; bản thật thêm được">＋ Thêm phân khúc</button></div></div></div>
+      <label class="fld" style="margin-top:10px">Mô tả<textarea rows="2" data-f="desc" style="width:100%">${d.desc}</textarea></label>
+      <p class="small muted" style="margin-bottom:0">Tỷ trọng mặc định <b>chia đều</b>: các nhóm bằng nhau, các chỉ số trong nhóm bằng nhau. Ghi đè ở bước 2 nếu cần.</p></div>`;
+  } else if (w.step === 2) renderStep2(el);
+  else if (w.step === 3) renderStep3(el);
+  else renderStep4(el);
+}
+function renderStep2(el) {
+  const d = st.w.draft, c = calcBo(d), used = new Set(realIds(d)), free = CAT.filter(x => !used.has(x.id));
+  const parts = c.pil.map((p, i) => `<i style="width:${p.gw * 100}%;background:var(--${["accent", "g", "o", "y", "sg", "r"][i % 6]});opacity:.75" title="${p.name} ${fmt(p.gw * 100, 1)}%"></i>`).join("");
+  el.innerHTML = `<div class="step rel">${note(15)}<h2><em>2</em>Nhóm, chỉ số và tỷ trọng</h2>
+    <div class="row" style="align-items:center"><span class="small">Tỷ trọng mặc định <b>chia đều</b>. Để ô trống = tự chia phần còn lại; nhập số = giữ nguyên.</span>
+      <button class="btn sm" data-act="eqall" style="margin-left:auto">Chia đều lại tất cả</button></div>
+    <div class="small" style="margin-top:8px">Tỷ trọng các nhóm ${c.gd.ok ? `<span class="ok">✓ đủ 100%</span>` : `<span class="badv">! ${c.gd.msg}</span>`}</div><div class="meter">${parts}</div></div>
+    ${d.struct.groups.map((g, gi) => { const p = c.pil[gi], real = g.rows.filter(r => !C[r.id].info);
+      return `<div class="gcard"><div class="gh"><input type="text" data-chg="gname|${gi}" value="${g.name}" aria-label="Tên nhóm">
+        <label class="small">Tỷ trọng nhóm <input class="w" type="number" min="0" max="100" step="0.1" data-chg="gw|${gi}" value="${g.w ?? ""}" placeholder="${fmt(p.gw * 100, 1)}" aria-label="Tỷ trọng nhóm %"> %</label>
+        <span class="tag ${g.w != null ? "set" : ""}">${g.w != null ? "đã đặt" : "tự chia đều"}</span>
+        <span class="small ${p.rd.ok ? "muted" : "badv"}">${p.rd.ok ? `${g.rows.length} chỉ số · trong nhóm đủ 100%` : "! " + p.rd.msg}</span>
+        <span style="margin-left:auto" class="row"><button class="btn sm" data-act="eqrows|${gi}">Chia đều trong nhóm</button><button class="btn sm danger" data-act="delg|${gi}" aria-label="Xóa nhóm">✕ Xóa nhóm</button></span></div>
+        ${g.rows.map((r, j) => { const c0 = C[r.id], k = real.indexOf(r), eff = c0.info ? null : p.gw * p.rd.fr[k];
+          return `<div class="gr"><div><b>${c0.name}</b><div class="small muted">Cập nhật ${c0.upd}${c0.info ? " · chỉ tham khảo, không vào điểm" : ""}</div></div>
+          <div>${c0.info ? '<span class="chip lv-n">Tham khảo</span>' : `<input class="w" type="number" min="0" max="100" step="0.1" data-chg="rw|${gi}|${j}" value="${r.w ?? ""}" placeholder="${fmt(p.rd.fr[k] * 100, 1)}" aria-label="Tỷ trọng trong nhóm %"> % <span class="tag ${r.w != null ? "set" : ""}">${r.w != null ? "đã đặt" : "tự chia"}</span>`}</div>
+          <div class="small muted" style="text-align:right">${eff == null ? "" : `trong bộ ${fmt(eff * 100, 1)}%`}</div>
+          <button class="btn sm" data-act="delrow|${gi}|${j}" aria-label="Bỏ chỉ số">✕</button></div>`; }).join("")}
+        <div class="ga"><select id="add-${gi}" aria-label="Chọn chỉ số"><option value="">＋ Chọn chỉ số để thêm…</option>${free.map(x => `<option value="${x.id}">${x.name}</option>`).join("")}</select>
+          <button class="btn sm" data-act="addrow|${gi}">Thêm vào nhóm</button></div></div>`; }).join("")}
+    <div class="step" style="border-style:dashed"><div class="row" style="align-items:center"><input type="text" id="newg" placeholder="Tên nhóm mới, vd. Sản xuất và thương mại" style="width:320px"><button class="btn" data-act="addg">＋ Thêm nhóm</button></div></div>`;
+}
+function renderStep3(el) {
+  const w = st.w, d = w.draft, c = calcBo(d), ids = realIds(d);
+  if (!ids.includes(w.sel)) w.sel = ids.find(i => !C[i].info) || ids[0] || null;
+  if (!w.sel) { el.innerHTML = `<div class="step">Chưa có chỉ số. <button class="link" data-act="step|2">Quay lại bước 2</button> để thêm nhóm và chỉ số.</div>`; return; }
+  const r = c.rows.find(x => x.id === w.sel), cf = d.cfg[r.id];
+  const editable = !r.info && !r.two, err = editable ? cutsErr(cf.cuts) : "";
+  const stat = x => x.info ? '<span class="chip lv-n">Tham khảo</span>' : x.two || d.conf[x.id] ? `<span class="chip lv-g">✓ Đã cấu hình</span>` : '<span class="chip warn">Chưa xác nhận</span>';
+  const items = c.pil.map(p => `<div class="ph"><b>${p.name}</b><span>${fmt(p.gw * 100, 0)}%</span></div>` + p.rows.map(x => `<div class="item" data-act="sel|${x.id}" aria-current="${x.id === w.sel}" role="button" tabindex="0">
+    <div class="n">${x.name}</div><div>${stat(x)}</div><div class="s">${x.unit === "tỷ đồng" ? x.val.toLocaleString("vi-VN") : fmt(x.val)} ${x.unit}</div><div class="s">${x.info ? "" : fmt(x.w * 100, 1) + "% trong bộ"}</div></div>`).join("")).join("");
+  const lvOrder = cf.dir === "bad" ? LV : [...LV].reverse();
+  const cutsHtml = editable ? `<div class="cuts">${lvOrder.map((l, i) => `<div class="lvl">${chip(l.s)}<small>điểm ${sg(l.s, 0)}</small></div>` + (i < 4 ? `<input type="number" step="0.01" data-cut="${i}" value="${cf.cuts[i]}" aria-label="Mốc ${i + 1}" class="${err ? "bad" : ""}">` : "")).join("")}</div>
+    <div class="small muted" style="margin-top:8px">Đơn vị mốc: ${r.unit} · cách đo: ${r.how}. <button class="link" data-act="sug">Gợi ý mốc (phân vị 10/30/70/90 của 10 năm)</button> · <button class="link" data-act="rst">Về mốc ban đầu</button></div>${err ? `<div class="errmsg" role="alert">${err}</div>` : ""}`
+    : `<div class="small muted">${r.info ? "Chỉ số tham khảo: không vào điểm nên không có mốc." : "Ngưỡng hai phía: chỉnh ở bản thật (giữ nguyên trong bản mẫu)."}</div>`;
+  const strip = editable && !err ? `<div class="strip">${lvOrder.map((l, i) => { const lo = i === 0 ? null : cf.cuts[i - 1], hi = i === 4 ? null : cf.cuts[i];
+    const rg = lo == null ? `dưới ${fmt(hi)}` : hi == null ? `từ ${fmt(lo)}` : `${fmt(lo)} – ${fmt(hi)}`;
+    return `<div class="lv-${l.c} ${l.s === r.score ? "cur" : ""}"><b>${l.n}</b>${rg}${l.s === r.score ? `<br><small>▲ hiện tại ${fmt(r.val)}</small>` : ""}</div>`; }).join("")}</div>` : "";
+  const s = series(r), cnt = {}; if (editable && !err) s.forEach(v => { const k = levelScore(v, cf.cuts, cf.dir); cnt[k] = (cnt[k] || 0) + 1; });
+  const dist2 = editable && !err ? LV.map(l => `${l.n} ${fmt((cnt[l.s] || 0) / s.length * 100, 0)}%`).join(" · ") : "";
+  const groupSel = `<select data-chg="mvg">${d.struct.groups.map((g, i) => `<option value="${i}" ${i === r.g ? "selected" : ""}>${g.name}</option>`).join("")}</select>`;
+  el.innerHTML = `<div class="cfg"><aside class="outline rel">${note(16)}${items}</aside><section>
+    <div style="margin-bottom:10px"><h2 style="font-size:20px">${r.name}</h2><div class="small muted">Cập nhật ${r.upd}</div></div>
+    ${!d.conf[r.id] && editable ? `<div class="alert" style="margin:0 0 10px">Chỉ số mới thêm hoặc mốc vừa gợi ý: kiểm tra mốc dưới đây rồi bấm “Xác nhận mốc” (hoặc sửa mốc).</div>` : ""}
+    <div class="step"><h2><em>a</em>Chỉ số và cách đo</h2><div class="row"><label class="fld">Nhóm${groupSel}</label><label class="fld">Đo gì<input type="text" value="${r.how}" disabled style="width:230px"></label>
+      <label class="fld">Chiều<select data-chg="dir" ${editable ? "" : "disabled"}><option value="bad" ${cf.dir === "bad" ? "selected" : ""}>Tăng là xấu</option><option value="good" ${cf.dir === "good" ? "selected" : ""}>Tăng là tốt</option>${r.two ? "<option selected>Hai phía</option>" : ""}</select></label></div>
+      <label class="fld" style="margin-top:10px">Căn cứ / mô tả<textarea rows="2">${r.desc || ""}</textarea></label></div>
+    <div class="step rel">${note(17)}<h2><em>b</em>Mốc và điểm từng mức</h2>${cutsHtml}${editable ? `<div style="margin-top:10px"><button class="btn primary sm" data-act="conf" ${err || d.conf[r.id] ? "disabled" : ""}>${d.conf[r.id] ? "✓ Đã xác nhận" : "Xác nhận mốc"}</button></div>` : ""}</div>
+    <div class="step rel">${note(18)}<h2><em>c</em>Xem trước</h2>${strip}${dist2 ? `<div class="small muted">10 năm qua (mẫu minh họa): ${dist2}</div>` : ""}<div id="cfgchart" style="margin-top:8px"></div></div>
+    <div class="step rel" style="border-color:var(--r)">${note(21)}<h2 style="color:var(--r)">Vùng nguy hiểm</h2><div class="row" style="align-items:center"><button class="btn danger" data-act="delsel">Bỏ chỉ số khỏi scorecard</button><span class="small muted">Chỉ tác động bản nháp. “Bỏ thay đổi” để hoàn tác.</span></div></div></section></div>`;
+  if (editable && !err) { const W = 560, H = 150, mn = Math.min(...s, ...cf.cuts) - .1, mx = Math.max(...s, ...cf.cuts) + .1, y = v => 6 + (mx - v) / (mx - mn) * (H - 22), x = i => 36 + i / (s.length - 1) * (W - 44);
+    const edges = [mx, ...[...cf.cuts].reverse(), mn], cols = cf.dir === "bad" ? ["r", "o", "y", "g", "sg"] : ["sg", "g", "y", "o", "r"]; let b = "";
+    for (let i = 0; i < 5; i++) b += `<rect x="36" y="${y(edges[i])}" width="${W - 44}" height="${Math.max(0, y(edges[i + 1]) - y(edges[i]))}" fill="var(--band-${cols[i]})"/>`;
+    [mn + .1, (mn + mx) / 2, mx - .1].forEach(v => b += `<text x="30" y="${y(v) + 4}" font-size="10.5" text-anchor="end" fill="var(--mut)">${fmt(v, 1)}</text>`);
+    $("#cfgchart").innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}">${b}<polyline fill="none" stroke="var(--ink)" stroke-width="1.8" points="${s.map((v, i) => `${x(i)},${y(v)}`).join(" ")}"/><circle cx="${x(s.length - 1)}" cy="${y(s[s.length - 1])}" r="5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/></svg>`; }
+}
+function renderStep4(el) {
+  const d = st.w.draft, v = validate(d), c = calcBo(d);
+  el.innerHTML = `<div class="step rel">${note(19)}<h2><em>4</em>Kiểm tra trước khi lưu</h2>${v.map(x => `<div class="chk"><span class="${x.ok ? "ok" : "badv"}" style="font-weight:700">${x.ok ? "✓" : "!"}</span><span>${x.t}</span>${x.ok ? "" : `<button class="link" data-act="step|${x.step}">Sửa ở bước ${x.step}</button>`}</div>`).join("")}</div>
+    <div class="step"><h2>Tóm tắt cấu trúc</h2><table><thead><tr><th>Nhóm</th><th class="r">Tỷ trọng</th><th>Chỉ số</th></tr></thead><tbody>${c.pil.map(p => `<tr><td><b>${p.name}</b></td><td class="r">${fmt(p.gw * 100, 1)}%</td>
+      <td>${p.rows.map(r => `${r.name}${r.info ? " (tham khảo)" : ` · ${fmt(r.w * 100, 1)}%`}`).join("<br>")}</td></tr>`).join("") || '<tr><td colspan="3" class="muted">Chưa có nhóm.</td></tr>'}</tbody></table></div>
+    <div class="card">Điểm xem trước: <b style="font-size:18px">${isFinite(c.total) ? sg(c.total) : "—"}</b> ${rchip(c.total)} <span class="muted small">· độ phủ ${fmt(c.cov * 100, 0)}%</span></div>`;
+}
+function renderBar() {
+  const w = st.w, d = w.draft, bar = $("#bar"); if (!bar) return;
+  const v = validate(d), okAll = v.every(x => x.ok), dirty = isDirty(), cur = calcBo(d);
+  const base = w.isNew ? null : calcBo(baseline()), items = [];
+  if (!w.isNew && dirty) {
+    if (JSON.stringify(baseline().struct) !== JSON.stringify(d.struct)) items.push("Cấu trúc hoặc tỷ trọng đã thay đổi");
+    cur.rows.forEach(r => { const b = base.rows.find(x => x.id === r.id); if (b && r.score != null && b.score != null && b.score !== r.score) items.push(`${r.name}: ${lvOf(b.score).n} → <b>${lvOf(r.score).n}</b>`); });
+  }
+  const t = x => isFinite(x.total) ? sg(x.total) : "—";
+  const sum = w.isNew ? `Điểm xem trước: <b>${t(cur)}</b> ${rchip(cur.total)}` : `Điểm: <b>${t(base)}</b> ${dirty ? `→ <b style="font-size:16px">${t(cur)}</b> ${rchip(cur.total)}` : `${rchip(cur.total)} · không có thay đổi`}`;
+  const lastStep = w.step === 4;
+  bar.innerHTML = `${w.step === 1 ? note(20) : ""}<div class="sum"><div>${sum}</div><div class="chg">${w.isNew ? (okAll ? "Sẵn sàng lưu." : `Còn ${v.filter(x => !x.ok).length} mục chưa đạt (xem bước 4).`) : dirty ? `<b>${items.length || 1} thay đổi chưa lưu</b>${items.length ? "<br>" + items.join("<br>") : ""}` : "Sửa ở các bước để xem tác động lên điểm tổng."}</div></div>
+    <button class="btn" data-act="discard" ${dirty || w.isNew ? "" : "disabled"}>${w.isNew ? "Hủy tạo" : "Bỏ thay đổi"}</button>
+    <button class="btn" data-act="back" ${w.step === 1 ? "disabled" : ""}>← Quay lại</button>
+    ${lastStep ? `<button class="btn primary" data-act="save" ${okAll && (dirty || w.isNew) ? "" : "disabled"}>Lưu scorecard</button><button class="btn" data-act="approve" ${!w.isNew && !dirty && okAll && !activeOrEdit().approved ? "" : "disabled"} title="Chỉ người phụ trách QTRR được duyệt">Duyệt áp dụng…</button>`
+      : `<button class="btn primary" data-act="next">Tiếp →</button>`}`;
+}
+
+/* ============ điều khiển ============ */
+function showTab(t) { st.tab = t; $("#v-sc").hidden = t !== "sc"; $("#v-cfg").hidden = t !== "cfg";
+  $("#t-sc").setAttribute("aria-selected", t === "sc"); $("#t-cfg").setAttribute("aria-selected", t === "cfg"); t === "sc" ? renderSc() : renderCfg(); window.scrollTo(0, 0); }
+function openWiz(boId, step, sel) { const b = st.bos.find(x => x.id === boId), w = st.w;
+  if (!(w.draft && !w.isNew && w.editId === boId)) w.draft = clone({name: b.name, desc: b.desc, struct: b.struct, cfg: b.cfg, conf: b.conf});
+  Object.assign(w, {view: "wiz", isNew: false, editId: boId, step, sel: sel || w.sel}); showTab("cfg"); }
+function mut(fn) { fn(); renderCfg(); }
+const num = v => { const x = parseFloat(String(v).replace(",", ".")); return v === "" || Number.isNaN(x) ? null : Math.max(0, x); };
+$("#t-sc").onclick = () => showTab("sc"); $("#t-cfg").onclick = () => showTab("cfg");
+document.addEventListener("click", e => {
+  if (e.target.id === "tglW") { st.hideW = !st.hideW; return renderSc(); }
+  const cm = e.target.closest("[data-c]"); if (cm) { st.cmp = +cm.dataset.c; return renderSc(); }
+  const lk = e.target.closest("[data-y]"); if (lk) { st.look = +lk.dataset.y; return renderSc(); }
+  const t = e.target.closest("[data-act]");
+  if (!t) { const tr = e.target.closest("tr.pillar"); if (tr) { st.collapsed[tr.dataset.p] = !st.collapsed[tr.dataset.p]; renderSc(); } return; }
+  const [a, x, y] = t.dataset.act.split("|"), w = st.w, d = w.draft;
+  switch (a) {
+    case "gear": return openWiz(st.active, 2);
+    case "editrow": return openWiz(st.active, 3, x);
+    case "resume": return showTab("cfg");
+    case "tosc": return showTab("sc");
+    case "tolist": w.view = "list"; return renderCfg();
+    case "new": Object.assign(w, {view: "wiz", isNew: true, editId: null, step: 1, sel: null, draft: EMPTY()}); return renderCfg();
+    case "edit": return openWiz(x, 1);
+    case "clone": { const b = st.bos.find(z => z.id === x); Object.assign(w, {view: "wiz", isNew: true, editId: null, step: 1, sel: null, draft: clone({name: b.name + " (bản sao)", desc: b.desc, struct: b.struct, cfg: b.cfg, conf: b.conf})}); return renderCfg(); }
+    case "step": w.step = +x; return renderCfg();
+    case "next": w.step = Math.min(4, w.step + 1); return renderCfg();
+    case "back": w.step = Math.max(1, w.step - 1); return renderCfg();
+    case "sel": w.sel = x; return renderCfg();
+    case "eqall": return mut(() => d.struct.groups.forEach(g => { g.w = null; g.rows.forEach(r => r.w = null); }));
+    case "eqrows": return mut(() => d.struct.groups[+x].rows.forEach(r => r.w = null));
+    case "delg": return mut(() => { d.struct.groups.splice(+x, 1); toast("Đã xóa nhóm. Bỏ thay đổi để hoàn tác."); });
+    case "delrow": return mut(() => d.struct.groups[+x].rows.splice(+y, 1));
+    case "addrow": { const id = $(`#add-${x}`).value; if (!id) return toast("Chọn một chỉ số trước"); return mut(() => { d.struct.groups[+x].rows.push({id, w: null}); d.conf[id] = !!(C[id].info || C[id].two); w.sel = id; }); }
+    case "addg": { const nm = ($("#newg").value || "").trim() || "Nhóm mới"; return mut(() => d.struct.groups.push({id: "g" + (++gseq), name: nm, w: null, rows: []})); }
+    case "conf": return mut(() => d.conf[w.sel] = true);
+    case "sug": { const r = C[w.sel], s = [...series(r)].sort((p, q) => p - q), q = p => s[Math.floor(p * (s.length - 1))]; return mut(() => { d.cfg[w.sel].cuts = [.1, .3, .7, .9].map(p => +q(p).toFixed(2)); d.conf[w.sel] = false; }); }
+    case "rst": return mut(() => { d.cfg[w.sel] = {cuts: C[w.sel].cuts ? [...C[w.sel].cuts] : null, dir: C[w.sel].dir}; });
+    case "delsel": return mut(() => { d.struct.groups.forEach(g => g.rows = g.rows.filter(r => r.id !== w.sel)); w.sel = null; });
+    case "discard": if (w.isNew) { w.draft = null; w.view = "list"; } else { w.draft = null; openWiz(w.editId, w.step); return; } return renderCfg();
+    case "save": { const upd = "09/10/2026";
+      if (w.isNew) { const id = "bo" + (st.bos.length + 1); st.bos.push({id, seg: "Nhà ở", approved: false, updated: upd, ...clone(d)}); st.active = id; w.draft = null; w.view = "list"; toast("Đã lưu scorecard mới (nháp). Mở tab Scorecard để xem."); }
+      else { Object.assign(st.bos.find(b => b.id === w.editId), clone(d), {approved: false, updated: upd}); toast("Đã lưu. Chưa duyệt."); }
+      return renderCfg(); }
+    case "approve": activeOrEdit().approved = true; toast("Đã duyệt: ngưỡng áp dụng cho Scorecard."); return renderCfg();
+  }
+});
+document.addEventListener("input", e => {
+  const el = e.target, w = st.w, d = w.draft;
+  if (el.id === "bosel") { st.active = el.value; return renderSc(); }
+  if (!d) return;
+  if (el.dataset.f === "name" || el.dataset.f === "desc") { d[el.dataset.f] = el.value; return renderBar(); }
+  if (el.dataset.cut !== undefined) { const i = +el.dataset.cut, pos = el.selectionStart; d.cfg[w.sel].cuts[i] = num(el.value) ?? NaN; d.conf[w.sel] = true; renderCfg();
+    const nx = $(`[data-cut="${i}"]`); if (nx) { nx.focus(); try { nx.setSelectionRange(pos, pos); } catch (_) {} } return; }
+  if (el.dataset.chg === "dir") { d.cfg[w.sel].dir = el.value; d.conf[w.sel] = true; renderCfg(); }
+  if (el.dataset.chg === "mvg") { const to = +el.value; d.struct.groups.forEach(g => g.rows = g.rows.filter(r => r.id !== w.sel)); d.struct.groups[to].rows.push({id: w.sel, w: null}); renderCfg(); }
+});
+document.addEventListener("change", e => {
+  const el = e.target, d = st.w.draft; if (!d || !el.dataset.chg) return;
+  const [k, i, j] = el.dataset.chg.split("|");
+  if (k === "gw") d.struct.groups[+i].w = num(el.value);
+  else if (k === "rw") d.struct.groups[+i].rows[+j].w = num(el.value);
+  else if (k === "gname") d.struct.groups[+i].name = el.value.trim() || d.struct.groups[+i].name;
+  else return;
+  renderCfg();
+});
+document.addEventListener("keydown", e => { const it = e.target.closest && e.target.closest("[data-act^='sel|']"); if (it && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); st.w.sel = it.dataset.act.split("|")[1]; renderCfg(); } });
+$("#tglNotes").onchange = e => document.body.classList.toggle("nonotes", !e.target.checked);
+$("#theme").onchange = e => { const v = e.target.value; v === "auto" ? document.documentElement.removeAttribute("data-theme") : document.documentElement.setAttribute("data-theme", v); st.tab === "sc" ? renderSc() : renderCfg(); };
+$("#legend").innerHTML = `<details open><summary>Chú thích đề xuất (số trong vòng tròn xanh trên trang)</summary><ol>${NOTES.map((t, i) => `<li><b>${i + 1}</b><span>${t}</span></li>`).join("")}</ol></details>`;
+renderSc();
+window.__proto = {calcBo, st, validate, activeBo};
+</script>
+</body>
+</html>

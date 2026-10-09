@@ -87,3 +87,76 @@ def test_bool_survives_admin_plain():
     from macro_app.admin import _plain
 
     assert _plain({"ytd": True}) == {"ytd": True}
+
+
+def _card():
+    return {
+        "name": "Nhà ở",
+        "rows": [
+            {
+                "code": "cpi_yoy",
+                "pillar": "Giá",
+                "method": "absolute",
+                "cuts": [2.5, 3.5, 4.5, 5.5],
+            },
+            {"code": "pmi_vn", "pillar": "Cầu", "method": "absolute", "cuts": [47, 49, 50, 52]},
+        ],
+    }
+
+
+def test_pillar_edits_keep_order_and_empty_groups():
+    card = pf.add_pillar(_card(), "Hạ tầng")
+    assert [p["name"] for p in pf.clean_pillars(card)] == ["Giá", "Cầu", "Hạ tầng"]
+    card = pf.rename_pillar(card, "Giá", "Giá cả")
+    assert card["rows"][0]["pillar"] == "Giá cả"
+    card = pf.set_pillar_weight(card, "Cầu", 60)
+    card = pf.set_row_weight(card, "cpi_yoy", 100)
+    assert {"name": "Cầu", "weight": 60.0} in pf.clean_pillars(card)
+    assert pf.reset_weights(card)["rows"][0].get("weight") is None
+    assert all("weight" not in p for p in pf.clean_pillars(pf.reset_weights(card)))
+    card = pf.move_row(card, "pmi_vn", "Hạ tầng")
+    assert card["rows"][1]["pillar"] == "Hạ tầng"
+    card = pf.remove_pillar(card, "Hạ tầng")
+    assert [r["code"] for r in card["rows"]] == ["cpi_yoy"]
+    with pytest.raises(ValueError):
+        pf.add_pillar(card, "giá cả")
+
+
+def test_saved_card_keeps_pillars(tmp_path):
+    prof = {"name": "Thử", "segments": {"nha_o": pf.add_pillar(_card(), "Trống")}}
+    pf.write_profile("thu", prof, tmp_path)
+    got = pf.read_profile("thu", tmp_path)["segments"]["nha_o"]
+    assert [p["name"] for p in got["pillars"]] == ["Giá", "Cầu", "Trống"]
+
+
+def test_check_profile_lists_what_blocks_saving():
+    from macro_app.config import load_catalog
+    from macro_app.metrics.scorecard import load_settings
+
+    cat = {i.code: i for i in load_catalog()}
+    settings = load_settings()
+    draft = {"name": "", "segments": {"nha_o": pf.add_pillar(_card(), "Trống")}}
+    res = pf.check_profile(draft, cat, settings, unconfirmed={"nha_o/pmi_vn"}, other_names=["Bộ A"])
+    bad = {r["text"] for r in res if not r["ok"]}
+    assert "Scorecard có tên" in bad
+    assert any("Trống" in t for t in bad)
+    assert any("chưa xác nhận" in t for t in bad)
+    draft = {"name": "bộ a", "segments": {"nha_o": _card()}}
+    res = pf.check_profile(draft, cat, settings, other_names=["Bộ A"])
+    assert [r["text"] for r in res if not r["ok"]] == ["Đã có bộ tên bộ a"]
+    draft["name"] = "Bộ B"
+    assert all(r["ok"] for r in pf.check_profile(draft, cat, settings, other_names=["Bộ A"]))
+
+
+def test_every_bundled_profile_is_valid():
+    """3 bộ có sẵn (BĐS, Tỷ giá và Lãi suất, Giá năng lượng) qua được checklist lưu."""
+    from macro_app.config import load_catalog
+    from macro_app.metrics.scorecard import load_settings
+
+    cat = {i.code: i for i in load_catalog()}
+    profiles = pf.load_profiles()
+    assert set(profiles) == {"theo_doi_bds_01", "theo_doi_ty_gia_lai_suat", "theo_doi_dau_khi"}
+    for slug, prof in profiles.items():
+        others = [p["name"] for s, p in profiles.items() if s != slug]
+        res = pf.check_profile(prof, cat, load_settings(), other_names=others)
+        assert all(r["ok"] for r in res), (slug, [r["text"] for r in res if not r["ok"]])

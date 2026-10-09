@@ -1,0 +1,117 @@
+name: Tỷ giá
+order: 1
+description: 'Áp lực mất giá VND 3–12 tháng tới (điểm thấp = áp lực cao). Khung EMP
+  (Eichengreen–Rose–Wyplosz): biến động tỷ giá + chênh lệch lãi suất; IMF 2024–25:
+  VND mất giá 5% năm 2024 dù thặng dư vãng lai, do chênh lệch lãi với USD. Thiếu dự
+  trữ, tỷ giá NHTM, cán cân thương mại: cần nguồn mới.'
+rows:
+- code: rate_diff_vnd_usd
+  pillar: Chênh lệch lãi suất
+  method: absolute
+  cuts:
+  - -1.29
+  - -0.16
+  - 1.14
+  - 2.38
+  side: below
+  description: 'Lãi qua đêm VND − EFFR, trung bình 20 phiên: âm → giữ USD có lãi hơn
+    → cầu USD tăng (giữa 2023 lãi USD cao hơn VND 3–3,5%, ACBS; IMF Article IV 2024,
+    2025). [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: mean
+    n: 20
+    unit: period
+- code: usd_broad
+  pillar: USD và Fed
+  method: absolute
+  cuts:
+  - -3.28
+  - -1.15
+  - 1.34
+  - 3.83
+  side: above
+  description: '% thay đổi USD (rổ rộng, có CNY) 3 tháng: USD mạnh → vốn rút khỏi
+    thị trường mới nổi. Dùng rổ rộng thay DXY vì VND gần như không nhạy với DXY (MUFG).
+    [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: pct_change
+    n: 91
+    unit: day
+- code: ust_2y
+  pillar: USD và Fed
+  method: absolute
+  cuts:
+  - -0.5
+  - -0.08
+  - 0.29
+  - 0.66
+  side: above
+  description: 'Thay đổi lợi suất Mỹ 2 năm trong 3 tháng: kỳ vọng Fed → chênh lệch
+    lãi sắp xấu đi. [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: change
+    n: 91
+    unit: day
+- code: fx_central
+  pillar: Biến động tỷ giá
+  method: absolute
+  cuts:
+  - -0.24
+  - 0.02
+  - 0.57
+  - 1.12
+  side: above
+  description: '% thay đổi tỷ giá trung tâm 3 tháng: phần tỷ giá của chỉ số EMP. Tỷ
+    giá trung tâm được điều hành nên báo thiếu áp lực (11/2022 chỉ +2,3% so cùng kỳ).
+    [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: pct_change
+    n: 91
+    unit: day
+- code: dxy
+  pillar: USD và Fed
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: VND gần như không nhạy với DXY (beta 0,02,
+    MUFG).'
+- code: cpi_yoy
+  pillar: Biến động tỷ giá
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: ngắn hạn không có ý nghĩa với tỷ giá (VECM
+    2005–2017).'
+- code: export_yoy
+  pillar: Biến động tỷ giá
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: tăng xuất khẩu không phải cung USD ròng
+    (nhập khẩu FDI tăng theo).'
+- code: fdi_registered_ytd
+  pillar: Biến động tỷ giá
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: vốn đăng ký chưa phải tiền vào; cần FDI
+    giải ngân.'
+pillars:
+- name: Chênh lệch lãi suất
+  weight: 40.0
+- name: USD và Fed
+  weight: 30.0
+- name: Biến động tỷ giá
+  weight: 30.0

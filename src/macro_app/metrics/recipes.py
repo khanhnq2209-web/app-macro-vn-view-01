@@ -97,6 +97,18 @@ def _op_diff(ind: Indicator, _ctx: RawContext, done: dict) -> pd.DataFrame:
     return _with_source(values, DERIVED_SOURCE)
 
 
+def _op_product(ind: Indicator, _ctx: RawContext, done: dict) -> pd.DataFrame:
+    """a × b × scale trên ngày chung, vd Brent (USD/thùng) × tỷ giá → VND/thùng."""
+    left_code, right_code = ind.recipe["inputs"]
+    left, right = done.get(left_code), done.get(right_code)
+    if left is None or right is None:
+        return _with_source(pd.Series(dtype=float), DERIVED_SOURCE)
+    a = tf.to_period(left["value"], ind.frequency)
+    b = tf.to_period(right["value"], ind.frequency)
+    values = (a * b * float(ind.recipe.get("scale", 1.0))).dropna()
+    return _with_source(values, DERIVED_SOURCE)
+
+
 def _op_manual(ind: Indicator, ctx: RawContext, _done: dict) -> pd.DataFrame:
     m = ctx.manual
     if m.empty:
@@ -147,6 +159,7 @@ OPS: dict[str, Callable] = {
     "quarter_last": _level_op(lambda s, _ind: tf.quarter_end_values(s)),
     "deposit_avg": _op_deposit,
     "diff": _op_diff,
+    "product": _op_product,
     "manual": _op_manual,
 }
 
@@ -163,9 +176,9 @@ def compute_indicator(ind: Indicator, ctx: RawContext, done: dict) -> pd.DataFra
 
 
 def compute_all(indicators: list[Indicator], ctx: RawContext) -> dict[str, pd.DataFrame]:
-    """Tính chỉ số thường trước, chỉ số dẫn xuất (`diff`) sau."""
+    """Tính chỉ số thường trước, chỉ số dẫn xuất (`diff`, `product`) sau."""
     done: dict[str, pd.DataFrame] = {}
-    ordered = sorted(indicators, key=lambda i: i.recipe.get("op") == "diff")
+    ordered = sorted(indicators, key=lambda i: i.recipe.get("op") in ("diff", "product"))
     for ind in ordered:
         done[ind.code] = compute_indicator(ind, ctx, done)
     return done

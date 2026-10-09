@@ -14,19 +14,8 @@ BASE_CSS = f"""
 h1, h2, h3 {{ color: {t.HEADING}; }}
 h1 {{ font-size: 1.45rem !important; }}
 
-.ms {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 34px; padding: 4px 0 10px 0;
-  border-bottom: 1px solid {RULE}; margin-bottom: 6px; }}
-.ms-item {{ display: flex; align-items: baseline; gap: 8px; }}
-.ms-dot {{ width: 10px; height: 10px; border-radius: 50%; display: inline-block;
-  transform: translateY(-3px); }}
-.ms-num {{ font-family: {t.FONT}; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 1.8rem; color: {t.TEXT}; line-height: 1; }}
-.ms-lbl {{ font-size: .82rem; color: {t.MUTED}; }}
-.ms-note {{ margin-left: auto; font-size: .78rem; color: {t.MUTED}; }}
-
 .ma {{ font-size: .8rem; color: {t.STATUS_COLORS["yellow"][1]}; margin: 2px 0; line-height: 1.45; }}
 .ma span[title] {{ border-bottom: 1px dotted currentColor; cursor: help; }}
-.mr {{ font-size: .8rem; color: {t.MUTED}; margin: 2px 0 10px 0; }}
-.mr b {{ color: {t.TEXT}; font-weight: 600; }}
 
 .mv-title {{ font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 700;
   color: {t.HEADING}; padding: 10px 0 6px 0; border-bottom: 2px solid {t.HEADING}; }}
@@ -39,8 +28,6 @@ table.mv td {{ padding: 7px 6px; border: 0; border-bottom: 1px solid {RULE}; ver
 table.mv tr.mv-group td {{ font-size: .68rem; letter-spacing: .06em; text-transform: uppercase;
   color: {t.MUTED}; font-weight: 600; padding: 12px 6px 4px 6px;
   border-bottom: 1px solid {t.BORDER}; }}
-.mv-dot {{ width: 14px; }}
-.mv-dot span {{ display: inline-block; width: 9px; height: 9px; border-radius: 50%; cursor: help; }}
 .mv-name {{ overflow: hidden; }}
 .mv-name a {{ color: {t.TEXT}; text-decoration: none; font-size: .86rem; font-weight: 500;
   display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
@@ -50,7 +37,7 @@ table.mv tr.mv-group td {{ font-size: .68rem; letter-spacing: .06em; text-transf
 .mv-meta span {{ cursor: help; margin-left: 2px; }}
 .mv-spark img {{ display: block; }}
 .mv-val {{ text-align: right; white-space: nowrap; }}
-.mv-num {{ font-family: {t.FONT}; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 1.02rem; color: {t.HIGHLIGHT}; }}
+.mv-num {{ font-family: {t.FONT}; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 1.02rem; color: {t.TEXT}; }}
 .mv-unit {{ font-family: {t.FONT}; font-size: .7rem; color: {t.MUTED}; margin-left: 3px; }}
 .mv-empty {{ font-size: .75rem; color: {t.MUTED}; }}
 .mv-chg {{ text-align: right; font-size: .78rem; white-space: nowrap; }}
@@ -108,6 +95,79 @@ table.sc-fed {{ max-width: 640px; }}
 }}
 table.mv td.r, table.mv th.r {{ text-align: right; }}
 
+/* Scorecard v3 */
+.sc3-chip {{ display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: .78rem;
+  font-weight: 600; white-space: nowrap; }}
+.sc3-chip.dash {{ background: transparent !important; border: 1px dashed {t.MUTED}; color: {t.MUTED} !important; }}
+.sc3-chip[title] {{ cursor: help; }}
+.sc3-cardhead {{ display: flex; justify-content: space-between; align-items: center; gap: 8px; }}
+.sc3-cardhead b {{ font-size: 1rem; color: {t.HEADING}; }}
+.sc3-badge {{ font-size: .7rem; font-weight: 700; border-radius: 6px; padding: 2px 8px;
+  background: {t.STATUS_COLORS["yellow"][0]}; color: {t.STATUS_COLORS["yellow"][1]}; cursor: help; }}
+.sc3-score {{ text-align: center; margin-top: -6px; }}
+.sc3-num {{ font-family: {t.FONT}; font-variant-numeric: tabular-nums; font-weight: 800; font-size: 2.2rem;
+  color: {t.TEXT}; margin-right: 10px; vertical-align: middle; }}
+.sc3-sub {{ font-size: .78rem; color: {t.MUTED}; text-align: center; margin-top: 4px; }}
+.sc3-title {{ font-size: 1rem; font-weight: 700; color: {t.HEADING}; }}
+.sc3-title + .sc3-sub {{ text-align: left; margin-top: 0; }}
+.sc3-small {{ font-size: .8rem; color: {t.TEXT}; margin-top: 8px; }}
+.sc3-sep {{ border: 0; border-top: 1px solid {t.BORDER}; margin: 10px 0 8px 0; }}
+.sc3-imp {{ position: relative; border-radius: 10px; padding: 14px 16px; margin: 0; min-height: 100%;
+  background: linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(120deg, #6d5dfc, #22b8cf, #6d5dfc) border-box;
+  border: 1.5px solid transparent; background-size: 100% 100%, 300% 300%;
+  animation: sc3-glow 6s ease-in-out infinite; }}
+@keyframes sc3-glow {{ 0%, 100% {{ background-position: 0 0, 0% 50%; }} 50% {{ background-position: 0 0, 100% 50%; }} }}
+.sc3-imp-head {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }}
+.sc3-ai {{ font-size: 1rem; font-weight: 700; background: linear-gradient(90deg, #6d5dfc, #22b8cf);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }}
+.sc3-imp-sub {{ font-size: .78rem; color: {t.MUTED}; }}
+.sc3-imp ul {{ list-style: none; margin: 6px 0 0 0; padding: 0; }}
+.sc3-imp li {{ font-size: .86rem; color: {t.TEXT}; line-height: 1.45; padding: 3px 0;
+  opacity: 0; animation: sc3-in .45s ease-out forwards; }}
+.sc3-imp li:nth-child(2) {{ animation-delay: .08s; }} .sc3-imp li:nth-child(3) {{ animation-delay: .16s; }}
+.sc3-imp li:nth-child(4) {{ animation-delay: .24s; }} .sc3-imp li:nth-child(5) {{ animation-delay: .32s; }}
+.sc3-imp li:nth-child(6) {{ animation-delay: .40s; }}
+@keyframes sc3-in {{ from {{ opacity: 0; transform: translateY(4px); }} to {{ opacity: 1; transform: none; }} }}
+@media (prefers-reduced-motion: reduce) {{ .sc3-imp, .sc3-imp li {{ animation: none; opacity: 1; }} }}
+.sc3-imp-mark {{ display: inline-block; width: 18px; font-size: .8rem; }}
+.sc3-imp-lbl {{ color: {t.MUTED}; font-weight: 400; }}
+.sc-fed-sum {{ font-size: .88rem; color: {t.TEXT}; font-weight: 600; margin: 4px 0 8px 0; }}
+.sc3-drv {{ display: grid; grid-template-columns: minmax(110px, 160px) 1fr 50px; gap: 5px 8px;
+  align-items: center; font-size: .8rem; margin-top: 8px; }}
+.sc3-drv b {{ text-align: right; font-variant-numeric: tabular-nums; }}
+.sc3-track {{ height: 10px; position: relative; }}
+.sc3-track::before {{ content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px;
+  background: {t.BORDER}; }}
+.sc3-track i {{ position: absolute; top: 0; height: 10px; border-radius: 3px; }}
+.sc3-cov {{ height: 8px; border-radius: 4px; background: {t.STATUS_COLORS["none"][0]}; overflow: hidden;
+  margin: 6px 0; }}
+.sc3-cov i {{ display: block; height: 100%; background: {t.HEADING}; }}
+.sc3-chips {{ display: flex; flex-wrap: wrap; gap: 4px; }}
+.sc3-alert {{ border-left: 3px solid {t.STATUS_COLORS["yellow"][1]}; background: {t.STATUS_COLORS["yellow"][0]};
+  border-radius: 6px; padding: 7px 10px; margin-top: 8px; font-size: .78rem; color: {t.TEXT}; }}
+table.sc3 td {{ padding: 6px 6px; }}
+table.sc3 tr.sc3-group td {{ background: #F4F6F8; font-size: .84rem; padding: 8px 6px;
+  border-bottom: 1px solid {t.BORDER}; }}
+table.sc3 tr.sc3-total td {{ border-top: 2px solid {t.HEADING}; border-bottom: 0; font-weight: 700;
+  font-size: .86rem; padding-top: 9px; }}
+table.sc3 tr.sc3-ex td {{ color: {t.MUTED}; }}
+table.sc3 tr.sc3-ex .mv-name a {{ color: {t.MUTED}; }}
+.sc3-gnote {{ margin-left: 8px; font-size: .72rem; font-weight: 400; color: {t.MUTED}; }}
+.sc3-val {{ font-family: {t.FONT}; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1rem;
+  color: {t.TEXT}; }}
+.sc3-cmp {{ font-size: .8rem; white-space: nowrap; cursor: help; }}
+.sc3-kind {{ font-size: .74rem; color: {t.MUTED}; }}
+table.sc3 td[title] {{ cursor: help; }}
+/* Trang cấu hình: thanh lưu dính đáy (Streamlit không có sẵn; Q6 đã duyệt dùng CSS) */
+.st-key-cfg_bar {{ position: sticky; bottom: 0; z-index: 50; background: #FFFFFF;
+  border-top: 1px solid {t.BORDER}; box-shadow: 0 -4px 14px rgba(0,0,0,.08); padding: 8px 4px 6px 4px; }}
+.cfg-sum {{ font-size: .86rem; color: {t.TEXT}; }}
+.cfg-sum .cfg-chg {{ font-size: .78rem; color: {t.MUTED}; }}
+.cfg-step-ok {{ color: {t.STATUS_COLORS["green"][1]}; font-weight: 700; }}
+.cfg-step-bad {{ color: {t.STATUS_COLORS["red"][1]}; font-weight: 700; }}
+.cfg-meter {{ display: flex; gap: 2px; height: 10px; border-radius: 5px; overflow: hidden; margin: 6px 0 2px 0; }}
+.cfg-meter i {{ display: block; height: 100%; }}
 .mc-note {{ font-size: 0.78rem; color: {t.MUTED}; }}
 .mc-footer {{ font-size: 0.72rem; color: {t.MUTED}; border-top: 1px solid {RULE};
   margin-top: 1.5rem; padding-top: .5rem; }}
@@ -122,7 +182,6 @@ header[data-testid="stHeader"], [data-testid="stToolbar"], #MainMenu, footer,
 .block-container { max-width: 1840px !important; padding: 1.4rem 2.4rem !important; }
 .mv-name a { font-size: .95rem; }
 .mv-num { font-size: 1.3rem; }
-.ms-num { font-size: 2.3rem; }
 table.mv td { padding: 5px 6px; }
 table.mv tr.mv-group td { padding-top: 9px; }
 .mv-title { padding-top: 4px; }

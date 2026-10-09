@@ -72,3 +72,11 @@ def period(d, frequency: str) -> str:  # noqa: PLR0911
 
 def prob(p) -> str:
     return MISSING if _is_missing(p) else f"{number(p * 100, 1)}%"
+
+
+MD_SPECIAL = "\\`*_[]()<>#!~|$"  # tạo link, ảnh, định dạng; không thoát - . :
+
+
+def md(text) -> str:
+    """Chữ người dùng nhập đưa vào Markdown của Streamlit: thoát ký tự đặc biệt (link, ảnh...)."""
+    return "".join(f"\\{c}" if c in MD_SPECIAL else c for c in str(text))

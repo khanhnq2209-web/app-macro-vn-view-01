@@ -186,7 +186,7 @@ def scorecard_eval(card_json: str, stamp: float) -> tuple[pd.DataFrame, dict, pd
     return table, total, hist
 
 
-@st.cache_data(show_spinner="Đang chấm điểm…")
+@st.cache_data(show_spinner="Đang chấm điểm…", max_entries=64)  # mỗi lần sửa nháp là 1 khóa
 def _scorecard_eval(
     card_json: str, stamp: float, config_stamp: tuple
 ) -> tuple[pd.DataFrame, dict, pd.DataFrame]:

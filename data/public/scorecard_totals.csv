@@ -1,3 +1,6 @@
 profile,segment,profile_name,name,score,coverage,rating,prev_score,last_score,last_date,last_rating,n_stale,stale_bad
-theo_doi_bds_01,nha_o,Theo dõi BĐS - 01,Nhà ở,0.318182,0.7333333333333334,Trung tính,0.375,0.318182,2026-10-31,Trung tính,3,govbond_10y
-theo_doi_bds_01,kcn,Theo dõi BĐS - 01,KCN,0.6,0.9375,Thuận lợi,0.6,0.6,2026-10-31,Thuận lợi,1,govbond_10y
+theo_doi_bds_01,nha_o,Theo dõi BĐS,Nhà ở,-0.361111,0.9,Rất bất lợi,-0.325,-0.361111,2026-10-31,Rất bất lợi,1,
+theo_doi_bds_01,kcn,Theo dõi BĐS,KCN,1.25,1.0,Rất thuận lợi,1.25,1.25,2026-10-31,Rất thuận lợi,0,
+theo_doi_ty_gia_lai_suat,ty_gia,Tỷ giá và Lãi suất,Tỷ giá,-1.15,1.0,Rất bất lợi,-1.3,-1.15,2026-10-31,Rất bất lợi,0,
+theo_doi_ty_gia_lai_suat,lai_suat,Tỷ giá và Lãi suất,Lãi suất,-0.7,0.9999999999999999,Rất bất lợi,-0.7,-0.7,2026-10-31,Rất bất lợi,0,
+theo_doi_dau_khi,dau_khi,Giá năng lượng,"Dầu, khí đốt",-1.0,1.0,Rất bất lợi,-1.0,-1.0,2026-10-31,Rất bất lợi,0,

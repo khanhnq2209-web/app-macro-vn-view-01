@@ -1,15 +1,13 @@
-"""Chi tiết một chỉ số."""
+"""Chi tiết một chỉ số: biểu đồ, số mới nhất, tải CSV (chỉ xem số liệu)."""
 
 import pandas as pd
 import streamlit as st
 
 from macro_app import fmt
 from macro_app.charts.series import RANGE_YEARS, TRANSFORM_LABEL
-from macro_app.metrics.impact import TAG_LABEL, TREND_LABEL
 from macro_app.metrics.quality import FLAG_LABEL
-from macro_app.metrics.status import STATUS_LABEL
 from macro_app.ui import components as ui
-from macro_app.ui import data, sidebar, threshold_form
+from macro_app.ui import data
 
 catalog = data.catalog_map()
 latest = data.latest().set_index("code")
@@ -48,20 +46,15 @@ c1.metric(
     delta_color="off",
 )
 c2.metric("Kỳ", fmt.period(rec["period"], ind.frequency))
-c3.metric("Trạng thái ngưỡng", STATUS_LABEL.get(rec["status"], rec["status"]))
-c4.metric(
-    "Tác động BĐS",
-    TAG_LABEL.get(rec["favorability"], "—"),
-    TREND_LABEL.get(rec["trend"], ""),
-    delta_color="off",
-)
+c3.metric("So cùng kỳ", fmt.change(rec["yoy_change"], ind.change_unit))
+c4.metric("Từ đầu năm", fmt.change(rec["ytd_change"], ind.change_unit))
 
 o1, o2, o3 = st.columns(3)
 rng = o1.segmented_control("Khoảng", list(RANGE_YEARS), default="5Y", key="detail_range") or "5Y"
 how = (
     o2.segmented_control(
         "Biến đổi",
-        list(TRANSFORM_LABEL),
+        [t for t in TRANSFORM_LABEL if t != "zscore"],
         default="level",
         format_func=TRANSFORM_LABEL.get,
         key="detail_transform",
@@ -86,7 +79,6 @@ ui.chart_from_view(
         "transform": how,
         "kind": kind,
         "show_target": True,
-        "show_bands": True,
         **_forward_line(code),
     },
     key="detail_chart",
@@ -97,11 +89,9 @@ if code in ("fed_upper", "fed_lower"):
 
     st.markdown("#### Kỳ vọng thị trường (FedWatch)")
     st.html(scorecard_view.fed_path_html(data.fed_path(), float(latest.loc["fed_upper", "value"])))
-with st.expander("Ngưỡng của chỉ số này", expanded=False):
-    threshold_form.render(code, key="detail_thr", editable=sidebar.is_admin())
 ui.download_series_button([code], key="detail_dl")
 
-flags = [f for f in str(rec["flags"]).split(";") if f in FLAG_LABEL]
+flags = [f for f in str(rec["flags"]).split(";") if f in FLAG_LABEL and f != "default_threshold"]
 if flags:
     st.markdown("**Lưu ý dữ liệu**")
     for f in flags:

@@ -29,12 +29,12 @@ pages = {
         st.Page("app_pages/detail.py", title="Chi tiết chỉ số", visibility="hidden"),
     ],
 }
+# Chấm điểm chỉ ở Scorecard; các trang Theo dõi khác chỉ xem số liệu.
+# Cấu hình scorecard mở cho mọi người (nhập CONFIG_PASSWORD trong trang).
+# Tùy chỉnh hiển thị chỉ quản trị local.
+pages["Cấu hình"] = [st.Page("app_pages/scorecard_config.py", title="Cấu hình scorecard")]
 if sidebar.is_admin():
-    pages["Cấu hình"] = [
-        st.Page("app_pages/scorecard_config.py", title="Cấu hình scorecard"),
-        st.Page("app_pages/thresholds.py", title="Ngưỡng"),
-        st.Page("app_pages/views_editor.py", title="Tùy chỉnh hiển thị"),
-    ]
+    pages["Cấu hình"].append(st.Page("app_pages/views_editor.py", title="Tùy chỉnh hiển thị"))
 nav = st.navigation(pages, position="hidden" if present else "sidebar")
 if not present:
     sidebar.render()

@@ -1,5 +1,6 @@
 """AppTest: mọi trang chạy không lỗi; Tổng quan khớp latest; chế độ công khai không có nút ghi."""
 
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -16,7 +17,6 @@ PAGES = [
     "scorecard",
     "scorecard_config",
     "forecasts",
-    "thresholds",
     "views_editor",
     "detail",
 ]
@@ -37,11 +37,7 @@ def run_page(page: str, admin: bool = False) -> AppTest:
 
 @pytest.mark.parametrize("page", PAGES)
 def test_page_runs_without_exception(page):
-    admin = page in (
-        "scorecard_config",
-        "thresholds",
-        "views_editor",
-    )  # nhóm Cấu hình: chỉ quản trị
+    admin = page in ("scorecard_config", "views_editor")  # nhóm Cấu hình
     at = run_page(page, admin=admin)
     assert not at.exception, [e.value for e in at.exception]
 
@@ -63,9 +59,14 @@ def test_public_mode_has_no_write_controls():
     assert "Refresh dữ liệu" not in [b.label for b in at.sidebar.button]
 
 
-def test_admin_sees_save():
-    at = run_page("thresholds", admin=True)
-    assert "Về ngưỡng mặc định" in [b.label for b in at.button]
+def test_data_pages_have_no_threshold_status():
+    """Các trang Theo dõi (trừ Scorecard) chỉ xem số: không còn chấm màu/trạng thái ngưỡng."""
+    at = run_page("overview")
+    html = " ".join(h.proto.body for h in at.get("html"))
+    assert "Đổi màu" not in html and "ms-dot" not in html and "mv-dot" not in html
+    detail = run_page("detail")
+    assert "Trạng thái ngưỡng" not in [m.label for m in detail.metric]
+    assert not [e for e in detail.expander if "Ngưỡng" in e.label]
 
 
 @pytest.fixture
@@ -78,9 +79,6 @@ def save_calls(monkeypatch):
     for mod, name in (
         (admin, "save_threshold"),
         (profiles, "write_profile"),
-        (profiles, "create_profile"),
-        (profiles, "delete_profile"),
-        (profiles, "set_default_profile"),
     ):
         monkeypatch.setattr(mod, name, lambda *a, _n=name, **k: calls.append((_n, a[:1])))
     monkeypatch.setattr(build, "rescore", lambda *a, **k: {})
@@ -100,8 +98,8 @@ def _sample_codes() -> list[str]:
     return list(seen.values())
 
 
-def test_opening_threshold_forms_does_not_save(save_calls):
-    """Mở form không được tự lưu (lỗi cũ: N năm gộp từ mặc định làm form lưu lặp vô hạn)."""
+def test_detail_page_does_not_save(save_calls):
+    """Mở trang Chi tiết với mọi kiểu chỉ số: chạy được và không ghi gì."""
     for code in _sample_codes():
         at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=120)
         at.session_state["is_admin"] = True
@@ -115,6 +113,7 @@ def test_opening_threshold_forms_does_not_save(save_calls):
 def _config_app(**state) -> AppTest:
     at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=120)
     at.session_state["is_admin"] = True
+    at.session_state["admin_name"] = "test"
     for k, v in state.items():
         at.session_state[k] = v
     at.run()
@@ -122,53 +121,204 @@ def _config_app(**state) -> AppTest:
     return at
 
 
-def test_opening_scorecard_rows_does_not_save(save_calls):
-    """Mở mọi bộ, mọi phân khúc, mọi dòng ở trang cấu hình: không ghi file, không sinh nháp."""
-    from macro_app.profiles import load_profiles
+def _store_rows() -> list[dict]:
+    from macro_app.ui import profile_store
 
+    return profile_store.store().rows()
+
+
+def _ok(at: AppTest) -> None:
+    assert not at.exception, [e.value for e in at.exception]
+
+
+def test_config_page_needs_password(monkeypatch):
+    """Không phải quản trị: phải nhập CONFIG_PASSWORD; sai 5 lần thì khóa."""
+    from macro_app.ui import sidebar
+
+    monkeypatch.setattr(sidebar, "secret", lambda n: "mk-dung" if n == "CONFIG_PASSWORD" else "")
+    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=120)
+    at.session_state["is_admin"] = False
+    at.run()
+    at.switch_page("app_pages/scorecard_config.py").run()
+    _ok(at)
+    assert not [b for b in at.button if b.key == "cfg_new_btn"]  # chưa mở khóa
+    for _ in range(5):
+        at.text_input(key="gate_name").input("Lan")
+        at.text_input(key="gate_pw").input("sai")
+        next(b for b in at.button if b.label == "Mở khóa").click().run()
+    at.run()  # lần tải sau lần sai thứ 5: bị khóa, không còn form
+    assert any("Thử lại sau" in e.value for e in at.error)
+    assert not [b for b in at.button if b.label == "Mở khóa"]
+    from macro_app.ui import editor_gate
+
+    fresh = AppTest.from_file(str(ROOT / "app.py"), default_timeout=120)  # phiên mới vẫn bị khóa
+    fresh.session_state["is_admin"] = False
+    fresh.run()
+    fresh.switch_page("app_pages/scorecard_config.py").run()
+    assert any("Thử lại sau" in e.value for e in fresh.error)
+    editor_gate.reset_counters()
+    at.run()
+    at.text_input(key="gate_name").input("Lan")
+    at.text_input(key="gate_pw").input("mk-dung")
+    next(b for b in at.button if b.label == "Mở khóa").click().run()
+    _ok(at)
+    assert at.session_state["editor_name"] == "Lan"
+    assert [b for b in at.button if b.key == "cfg_new_btn"]
+
+
+def _open(at: AppTest, profile: str, segment: str, step: int, code: str | None = None) -> AppTest:
+    at.session_state["cfg_target"] = {
+        "profile": profile,
+        "segment": segment,
+        "step": step,
+        "code": code,
+    }
+    at.run()
+    return at
+
+
+def test_opening_every_row_does_not_change_draft_or_save():
+    """Mở mọi bộ, phân khúc, dòng ở bước 3: không lỗi, bản nháp không đổi, không ghi kho."""
+    from macro_app.profiles import is_dirty, load_profiles
+
+    at = _config_app()
     for pslug, prof in load_profiles().items():
         for slug, card in prof["segments"].items():
             for row in card["rows"]:
-                at = _config_app(
-                    cfg_profile=pslug,
-                    **{f"cfg_seg_{pslug}": slug, f"cfg_pick_{pslug}_{slug}": row["code"]},
-                )
-                assert not at.exception, (pslug, slug, row["code"], [e.value for e in at.exception])
-                assert not at.session_state["sc_drafts"], (pslug, slug, row["code"])
+                _open(at, pslug, slug, 3, row["code"])
+                _ok(at)
                 assert not at.error, (row["code"], [e.value for e in at.error])
-    assert save_calls == []
+                assert not is_dirty(at.session_state["cfg_draft"], prof), row["code"]
+    for step in (1, 2, 4):
+        _open(at, "theo_doi_bds_01", "nha_o", step)
+        _ok(at)
+    assert _store_rows() == []
 
 
-def test_add_segment_goes_to_draft_then_save_writes(save_calls):
-    at = _config_app(cfg_profile="theo_doi_bds_01")
-    at.text_input(key="cfg_new_seg_name").input("Văn phòng").run()
-    at.button(key="cfg_new_seg").click().run()
-    assert not at.exception, [e.value for e in at.exception]
-    draft = at.session_state["sc_drafts"]["theo_doi_bds_01"]
-    assert "Văn phòng" in [c["name"] for c in draft["segments"].values()]
-    assert save_calls == []  # chưa bấm Lưu thì chưa ghi
+def _cut_key(at: AppTest, seg: str, code: str, i: int) -> str:
+    v = at.session_state["cfg_ver"]
+    return f"cfg_rule_{seg}_{code}_{v}_cut5_{i}"
+
+
+def test_edit_cut_then_save_writes_one_version():
+    at = _config_app()
+    _open(at, "theo_doi_bds_01", "nha_o", 3, "cpi_yoy")
+    at.number_input(key=_cut_key(at, "nha_o", "cpi_yoy", 2)).set_value(4.7).run()
+    _ok(at)
+    row = next(
+        r
+        for r in at.session_state["cfg_draft"]["segments"]["nha_o"]["rows"]
+        if r["code"] == "cpi_yoy"
+    )
+    assert row["cuts"][2] == 4.7 and row["pillar"] == "Ổn định vĩ mô"
+    assert _store_rows() == []  # chưa bấm Lưu
     at.button(key="cfg_save").click().run()
-    assert save_calls == [("write_profile", ("theo_doi_bds_01",))]
+    _ok(at)
+    rows = _store_rows()
+    assert len(rows) == 1 and rows[0]["bo_id"] == "theo_doi_bds_01"
+    assert rows[0]["saved_by"] == "test" and int(rows[0]["version"]) == 1
+    saved = json.loads(rows[0]["payload"])
+    cpi = next(r for r in saved["segments"]["nha_o"]["rows"] if r["code"] == "cpi_yoy")
+    assert cpi["cuts"][2] == 4.7
 
 
-def test_edit_cuts_updates_draft_only(save_calls):
-    p, s, code = "theo_doi_bds_01", "nha_o", "cpi_yoy"
-    at = _config_app(cfg_profile=p, **{f"cfg_seg_{p}": s, f"cfg_pick_{p}_{s}": code})
-    key = f"cfg_rule_{p}_{s}_{code}_0_cuts"
-    at.text_input(key=key).input("2; 3; 4; 5").run()
-    assert not at.exception, [e.value for e in at.exception]
+def test_cuts_not_increasing_show_error_and_keep_draft():
+    at = _config_app()
+    _open(at, "theo_doi_bds_01", "nha_o", 3, "cpi_yoy")
+    at.number_input(key=_cut_key(at, "nha_o", "cpi_yoy", 2)).set_value(1.0).run()
+    _ok(at)
+    assert any("tăng dần" in e.value for e in at.error)
     row = next(
-        r for r in at.session_state["sc_drafts"][p]["segments"][s]["rows"] if r["code"] == code
+        r
+        for r in at.session_state["cfg_draft"]["segments"]["nha_o"]["rows"]
+        if r["code"] == "cpi_yoy"
     )
-    assert row["cuts"] == [2.0, 3.0, 4.0, 5.0]
-    assert row["pillar"] == "Ổn định vĩ mô"  # giữ trụ cột
-    assert save_calls == []
-    at.text_input(key=key).input("2; 3; x").run()  # nhập sai → báo lỗi, nháp giữ nguyên
-    assert at.error
-    row = next(
-        r for r in at.session_state["sc_drafts"][p]["segments"][s]["rows"] if r["code"] == code
-    )
-    assert row["cuts"] == [2.0, 3.0, 4.0, 5.0]
+    assert row["cuts"] == [2.5, 3.5, 4.5, 5.5]
+
+
+def test_save_conflict_keeps_draft_and_does_not_overwrite():
+    from macro_app import config_store as cs
+    from macro_app.profiles import load_profiles
+    from macro_app.ui import profile_store
+
+    at = _config_app()
+    _open(at, "theo_doi_bds_01", "nha_o", 3, "cpi_yoy")
+    at.number_input(key=_cut_key(at, "nha_o", "cpi_yoy", 2)).set_value(4.6).run()
+    other = load_profiles()["theo_doi_bds_01"]
+    cs.save(profile_store.store(), "theo_doi_bds_01", other, base=0, by="Người khác")
+    at.button(key="cfg_save").click().run()
+    _ok(at)
+    assert "người khác" in at.session_state["cfg_conflict"]
+    assert len(_store_rows()) == 1  # không ghi đè
+
+
+def test_new_scorecard_from_blank():
+    at = _config_app()
+    at.button(key="cfg_new_btn").click().run()
+    v = at.session_state["cfg_ver"]
+    at.text_input(key=f"cfg_name_{v}").input("Theo dõi KCN · 02").run()
+    at.button(key="cfg_step_btn_2").click().run()
+    seg = at.session_state["cfg_seg"]
+    v = at.session_state["cfg_ver"]
+    at.text_input(key=f"cfg_gnew_{seg}_{v}").input("Sản xuất").run()
+    at.button(key=f"cfg_gadd_{seg}_{v}").click().run()
+    v = at.session_state["cfg_ver"]
+    at.selectbox(key=f"cfg_radd_{seg}_0_{v}").set_value("pmi_vn").run()
+    at.button(key=f"cfg_raddbtn_{seg}_0_{v}").click().run()
+    _ok(at)
+    assert at.session_state["cfg_unconf"] == [f"{seg}/pmi_vn"]
+    assert at.button(key="cfg_save").disabled  # chưa xác nhận mốc
+    at.button(key="cfg_step_btn_3").click().run()
+    at.button(key=f"cfg_conf_{seg}_pmi_vn").click().run()
+    _ok(at)
+    assert not at.button(key="cfg_save").disabled
+    at.button(key="cfg_save").click().run()
+    _ok(at)
+    rows = _store_rows()
+    assert [r["bo_id"] for r in rows] == ["theo_doi_kcn_02"]
+    body = json.loads(rows[0]["payload"])
+    assert body["segments"][seg]["pillars"] == [{"name": "Sản xuất"}]
+
+
+def test_add_segment_copied_from_existing():
+    at = _config_app()
+    _open(at, "theo_doi_bds_01", "nha_o", 1)
+    v = at.session_state["cfg_ver"]
+    at.text_input(key=f"cfg_segnew_{v}").input("Văn phòng")
+    at.selectbox(key=f"cfg_segsrc_{v}").set_value("theo_doi_bds_01/nha_o").run()
+    at.button(key=f"cfg_segadd_{v}").click().run()
+    _ok(at)
+    segs = at.session_state["cfg_draft"]["segments"]
+    new = next(c for c in segs.values() if c["name"] == "Văn phòng")
+    assert len(new["rows"]) == len(segs["nha_o"]["rows"])
+    assert _store_rows() == []  # chưa lưu
+
+
+def test_group_weight_override_changes_draft_weights():
+    at = _config_app()
+    _open(at, "theo_doi_bds_01", "nha_o", 2)
+    v = at.session_state["cfg_ver"]
+    at.number_input(key=f"cfg_gw_nha_o_2_{v}").set_value(40.0).run()  # Cầu và thu nhập
+    _ok(at)
+    pillars = at.session_state["cfg_draft"]["segments"]["nha_o"]["pillars"]
+    assert {"name": "Cầu và thu nhập", "weight": 40.0} in pillars
+    assert not at.button(key="cfg_save").disabled  # 40% + 4 nhóm tự chia 15% = 100%
+
+
+def test_scorecard_page_v3_blocks_and_edit_shortcut():
+    at = run_page("scorecard")
+    _ok(at)
+    html = " ".join(h.proto.body for h in at.get("html"))
+    for text in ("Vì sao điểm thế này", "Độ tin cậy", "Tổng đóng góp = điểm tổng", "Thông tin"):
+        assert text in html, text
+    assert "Trọng số thực dùng" not in html  # ẩn mặc định
+    at.toggle(key="sc_show_w").set_value(True).run()
+    html = " ".join(h.proto.body for h in at.get("html"))
+    assert "Trọng số thực dùng" in html
+    at.session_state["is_admin"] = True
+    at.button(key="sc_edit_groups").click().run()
+    _ok(at)
+    assert at.session_state["cfg_step"] == 2 and at.session_state["cfg_view"] == "wiz"
 
 
 def test_public_scorecard_csv_hides_vendor_values():
@@ -216,3 +366,10 @@ def test_vendor_switch(monkeypatch):
         data, "_setting", lambda name: {"APP_MODE": "admin", "SHOW_VENDOR_DATA": ""}[name]
     )
     assert not data.hide_vendor()
+
+
+def test_scorecard_report_buttons():
+    at = run_page("scorecard")
+    at.button(key="sc_make_report").click().run()
+    _ok(at)
+    assert at.session_state["sc_report_for"][2] == 1

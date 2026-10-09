@@ -8,7 +8,7 @@ name: Mặc định
 overview:
   blocks:
     - title: BÊN NGOÀI, VIỆT NAM KHÔNG KIỂM SOÁT
-      codes: [fed_upper, ust_2y, ust_10y, usd_broad, dxy, brent, copper, hy_spread, breakeven_10y, vix, us_mortgage_30y]
+      codes: [fed_upper, ust_2y, ust_10y, usd_broad, dxy, brent, wti, gas_henry_hub, copper, hy_spread, breakeven_10y, vix, gpr, us_mortgage_30y]
     - title: TRONG NƯỚC
       codes: [gdp_yoy_published, pmi_vn, cpi_yoy, cpi_avg_ytd, fx_central_ytd, deposit_12m_big4, interbank_on, govbond_10y, real_rate, credit_ytd, credit_minus_m2, land_use_revenue, public_investment_ytd_yoy, fdi_registered_ytd]
 international:
@@ -18,20 +18,26 @@ international:
     - {group: A1, title: Độ dốc 10Y − 2Y, codes: [ust_10y2y], range: 5Y}
     - {group: A1, title: Chỉ số USD, codes: [usd_broad], range: 5Y}
     - {group: A1, title: DXY, codes: [dxy], range: 5Y}
-    - {group: A2, title: Dầu Brent giao ngay (EIA) và kỳ hạn, codes: [brent, brent_futures], range: 3Y}
+    - {group: A2, title: Dầu Brent và WTI giao ngay (EIA), codes: [brent, wti], range: 5Y}
+    - {group: A2, title: Dầu Brent giao ngay và kỳ hạn, codes: [brent, brent_futures], range: 3Y}
+    - {group: A2, title: "Khí tự nhiên: Mỹ, châu Âu, LNG châu Á", codes: [gas_henry_hub, gas_eu, lng_asia], range: 5Y}
+    - {group: A2, title: Giá xăng bán lẻ Mỹ, codes: [gasoline_us], range: 5Y}
+    - {group: A2, title: Biến động giá dầu (OVX), codes: [oil_vol], range: 5Y}
     - {group: A3, title: Giá đồng LME (USD/tấn), codes: [copper], range: 5Y}
     - {group: A3, title: Tồn kho đồng LME, codes: [copper_lme_stock], range: 5Y}
     - {group: A3, title: "Đồng COMEX (USD/lb, đối chiếu)", codes: [copper_comex], range: 5Y}
     - {group: A3, title: Giá đồng thế giới (IMF), codes: [copper_imf], range: 10Y}
-    - {group: A5, title: Spread trái phiếu HY Mỹ, codes: [hy_spread], range: 5Y, show_bands: true}
+    - {group: A5, title: Rủi ro địa chính trị (GPR), codes: [gpr], range: 10Y}
+    - {group: A5, title: Bất định chính sách kinh tế toàn cầu (GEPU), codes: [policy_uncertainty], range: 10Y}
+    - {group: A5, title: "Tăng trưởng GDP thực Mỹ (quý, năm hóa)", codes: [us_gdp_growth], range: 10Y, kind: bar}
+    - {group: A5, title: Sản xuất công nghiệp Mỹ so cùng kỳ, codes: [us_indpro], range: 10Y, transform: yoy}
+    - {group: A5, title: Spread trái phiếu HY Mỹ, codes: [hy_spread], range: 5Y}
     - {group: A5, title: Lạm phát kỳ vọng 10 năm, codes: [breakeven_10y], range: 5Y}
     - {group: A5, title: VIX, codes: [vix], range: 5Y}
     - {group: A5, title: Lãi vay mua nhà Mỹ 30 năm, codes: [us_mortgage_30y], range: 10Y}
 vietnam:
   charts:
     - {group: B1, title: Tăng trưởng GDP so cùng kỳ (số công bố), codes: [gdp_yoy_published], range: 10Y, kind: bar, show_target: true}
-    - {group: B1, title: Đối chiếu GDP tự tính (có điểm gãy năm gốc), codes: [gdp_yoy_published, gdp_yoy], range: 10Y}
-    - {group: B1, title: GDP ngành BĐS và Xây dựng, codes: [gdp_realestate_yoy, gdp_construction_yoy], range: 10Y}
     - {group: B1, title: PMI sản xuất, codes: [pmi_vn], range: 5Y}
     - {group: B2, title: Lạm phát so cùng kỳ, codes: [cpi_yoy, cpi_housing_yoy], range: 5Y}
     - {group: B2, title: CPI bình quân từ đầu năm so mục tiêu, codes: [cpi_avg_ytd], range: 5Y, show_target: true}
@@ -51,5 +57,4 @@ vietnam:
   derived:
     - {title: Lãi suất thực (huy động 12T Big4 − CPI), codes: [real_rate], range: 10Y}
     - {title: Tín dụng trừ M2 (từ đầu năm), codes: [credit_minus_m2], range: 10Y, kind: bar}
-    - {title: "GDP ngành BĐS, Xây dựng so GDP chung", codes: [gdp_yoy_published, gdp_realestate_yoy, gdp_construction_yoy], range: 10Y}
     - {title: CPI Nhà ở & VLXD so CPI chung, codes: [cpi_yoy, cpi_housing_yoy], range: 10Y}

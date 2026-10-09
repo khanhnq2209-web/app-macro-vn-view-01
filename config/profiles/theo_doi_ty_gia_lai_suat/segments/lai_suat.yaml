@@ -1,0 +1,145 @@
+name: Lãi suất
+order: 2
+description: 'Thuận lợi cho bên đi vay tại VN 6–12 tháng tới. Chia nhóm theo mô hình
+  QPM của IMF cho VN (lãi suất, tín dụng, tỷ giá). Thiếu lãi cho vay bình quân: cần
+  nguồn mới.'
+rows:
+- code: deposit_12m_all
+  pillar: Giá vốn
+  method: absolute
+  cuts:
+  - 5.12
+  - 5.88
+  - 7.05
+  - 7.41
+  side: above
+  description: 'Mức lãi huy động 12T bình quân 20 ngân hàng: giá vốn → lãi cho vay.
+    [giả định] Chờ QTRR duyệt.'
+- code: deposit_12m_big4
+  pillar: Giá vốn
+  method: absolute
+  cuts:
+  - -0.5
+  - -0.15
+  - 0.15
+  - 0.5
+  side: above
+  description: 'Thay đổi lãi huy động Big4 trong 6 tháng: chiều của giá vốn (cho vay
+    điều chỉnh theo sau 3–6 tháng). [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: change
+    n: 182
+    unit: day
+- code: interbank_on
+  pillar: Thanh khoản
+  method: absolute
+  cuts:
+  - 2.0
+  - 3.0
+  - 4.0
+  - 5.0
+  side: above
+  description: 'Lãi qua đêm, trung bình 20 phiên: IMF (QPM) coi là lãi suất chính
+    sách thực tế; 6/2026 lên 11% do tín dụng tăng nhanh hơn huy động. [giả định] Chờ
+    QTRR duyệt.'
+  measure:
+    kind: mean
+    n: 20
+    unit: period
+- code: rate_diff_vnd_usd
+  pillar: Ràng buộc bên ngoài
+  method: absolute
+  cuts:
+  - -1.29
+  - -0.16
+  - 1.14
+  - 2.38
+  side: below
+  description: Chênh lệch lãi VND − USD âm → áp lực tỷ giá → NHNN phải hút thanh khoản,
+    khó hạ lãi (IMF 2025). [giả định] Chờ QTRR duyệt.
+  measure:
+    kind: mean
+    n: 20
+    unit: period
+- code: ust_2y
+  pillar: Ràng buộc bên ngoài
+  method: absolute
+  cuts:
+  - -0.74
+  - -0.25
+  - 0.47
+  - 1.2
+  side: above
+  description: 'Thay đổi lợi suất Mỹ 2 năm trong 6 tháng: Fed thắt chặt → NHNN mất
+    dư địa nới. [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: change
+    n: 182
+    unit: day
+- code: cpi_yoy
+  pillar: Lạm phát
+  method: absolute
+  cuts:
+  - 2.5
+  - 3.5
+  - 4.5
+  - 5.5
+  side: above
+  description: 'Lạm phát so cùng kỳ; mục tiêu 4,5% là trần (IMF 2025): gần trần thì
+    NHNN không nới. [giả định] Chờ QTRR duyệt.'
+- code: fed_upper
+  pillar: Ràng buộc bên ngoài
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: lãi Fed, AI comment lấy kỳ vọng FedWatch.'
+- code: refi_rate
+  pillar: Giá vốn
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: đứng yên 4,5% từ 6/2023 trong khi lãi
+    thị trường biến động.'
+- code: govbond_10y
+  pillar: Giá vốn
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: phản ánh thanh khoản ngân hàng, ít quyết
+    định lãi vay bán lẻ.'
+- code: real_rate
+  pillar: Giá vốn
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: trùng thông tin với lãi huy động và CPI.'
+- code: credit_minus_m2
+  pillar: Thanh khoản
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: chuỗi từ đầu năm, có mùa vụ.'
+pillars:
+- name: Giá vốn
+  weight: 40.0
+- name: Thanh khoản
+  weight: 30.0
+- name: Ràng buộc bên ngoài
+  weight: 20.0
+- name: Lạm phát
+  weight: 10.0

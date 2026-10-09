@@ -24,6 +24,11 @@ def _secret(name: str) -> str:
     return os.getenv(name, "")
 
 
+def secret(name: str) -> str:
+    """Secrets của Streamlit, không có thì biến môi trường."""
+    return _secret(name)
+
+
 def admin_allowed() -> bool:
     """Cần APP_MODE=admin và ADMIN_PASSWORD. Mặc định đóng."""
     return _secret("APP_MODE").lower() == "admin" and bool(_secret("ADMIN_PASSWORD"))

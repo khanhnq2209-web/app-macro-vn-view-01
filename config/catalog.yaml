@@ -139,6 +139,18 @@ indicators:
     representative: true
     decimals: 2
 
+  - code: brent_vnd
+    name: Dầu Brent quy ra VND (Brent × tỷ giá trung tâm)
+    group: A2
+    unit: triệu VND/thùng
+    frequency: D
+    source: Tính toán (FRED/EIA, NHNN)
+    source_url: ""
+    recipe: {op: product, inputs: [brent, fx_central], scale: 0.000001}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
   - code: brent_futures
     name: Dầu Brent kỳ hạn (ICE)
     group: A2
@@ -151,6 +163,137 @@ indicators:
     direction: up_bad
     segment: both
     decimals: 2
+
+  - code: wti
+    name: Dầu WTI giao ngay (EIA)
+    group: A2
+    unit: USD/thùng
+    frequency: D
+    source: FRED (EIA)
+    source_url: https://fred.stlouisfed.org/series/DCOILWTICO
+    recipe: {op: raw, input: fred.DCOILWTICO}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  - code: gas_henry_hub
+    name: Khí tự nhiên Henry Hub (Mỹ)
+    group: A2
+    unit: USD/MMBtu
+    frequency: D
+    source: FRED (EIA)
+    source_url: https://fred.stlouisfed.org/series/DHHNGSP
+    recipe: {op: raw, input: fred.DHHNGSP}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  - code: gas_eu
+    name: Khí tự nhiên châu Âu (TTF, IMF)
+    group: A2
+    unit: USD/MMBtu
+    frequency: M
+    source: FRED (IMF)
+    source_url: https://fred.stlouisfed.org/series/PNGASEUUSDM
+    recipe: {op: raw, input: fred.PNGASEUUSDM}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  - code: lng_asia
+    name: LNG châu Á (giá nhập Nhật, IMF)
+    group: A2
+    unit: USD/MMBtu
+    frequency: M
+    source: FRED (IMF)
+    source_url: https://fred.stlouisfed.org/series/PNGASJPUSDM
+    recipe: {op: raw, input: fred.PNGASJPUSDM}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  # ---------------- Dẫn dắt giá dầu/khí ----------------
+  - code: gpr
+    name: Rủi ro địa chính trị (GPR)
+    group: A5
+    unit: điểm
+    frequency: M
+    source: Caldara & Iacoviello (GPR)
+    source_url: https://www.matteoiacoviello.com/gpr.htm
+    recipe: {op: raw, input: gpr.gpr}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 0
+
+  - code: gasoline_us
+    name: Giá xăng bán lẻ Mỹ
+    group: A2
+    unit: USD/gallon
+    frequency: W
+    source: FRED (EIA)
+    source_url: https://fred.stlouisfed.org/series/GASREGW
+    recipe: {op: raw, input: fred.GASREGW}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  - code: oil_vol
+    name: Biến động giá dầu (OVX)
+    group: A2
+    unit: điểm
+    frequency: D
+    source: FRED (CBOE)
+    source_url: https://fred.stlouisfed.org/series/OVXCLS
+    recipe: {op: raw, input: fred.OVXCLS}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 2
+
+  - code: policy_uncertainty
+    name: Bất định chính sách kinh tế toàn cầu (GEPU)
+    group: A5
+    unit: điểm
+    frequency: M
+    source: FRED (Baker, Bloom, Davis)
+    source_url: https://fred.stlouisfed.org/series/GEPUCURRENT
+    recipe: {op: raw, input: fred.GEPUCURRENT}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 0
+
+  - code: us_gdp_growth
+    name: Tăng trưởng GDP thực Mỹ (quý, năm hóa)
+    group: A5
+    unit: "%"
+    frequency: Q
+    source: FRED (BEA)
+    source_url: https://fred.stlouisfed.org/series/A191RL1Q225SBEA
+    recipe: {op: raw, input: fred.A191RL1Q225SBEA}
+    change_unit: pp
+    direction: up_good
+    segment: both
+    decimals: 1
+
+  - code: us_indpro
+    name: Sản xuất công nghiệp Mỹ
+    group: A5
+    unit: điểm
+    frequency: M
+    source: FRED (Fed)
+    source_url: https://fred.stlouisfed.org/series/INDPRO
+    recipe: {op: raw, input: fred.INDPRO}
+    change_unit: pct
+    direction: up_good
+    segment: both
+    decimals: 1
 
   # ---------------- A3 Kim loại ----------------
   - code: copper
@@ -460,6 +603,18 @@ indicators:
     recipe: {op: raw, input: vn.govbond_10y}
     change_unit: bps
     direction: up_bad
+    segment: both
+    decimals: 2
+  - code: rate_diff_vnd_usd
+    name: Chênh lệch lãi suất VND − USD (liên ngân hàng qua đêm − EFFR)
+    group: B3
+    unit: "điểm %"
+    frequency: D
+    source: Tính toán (NHNN, FRED)
+    source_url: ""
+    recipe: {op: diff, inputs: [interbank_on, effr]}
+    change_unit: bps
+    direction: up_good
     segment: both
     decimals: 2
   - code: real_rate

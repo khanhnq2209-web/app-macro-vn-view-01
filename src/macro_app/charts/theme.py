@@ -25,6 +25,16 @@ STATUS_COLORS = {
     "no_data": ("#ECEEF0", "#5F6B73"),
 }
 
+# Màu dải xếp hạng điểm tổng trên gauge (đậm hơn nền trạng thái; Trung tính sáng hơn để tách
+# khỏi Bất lợi). Thứ tự từ xấu đến tốt.
+RATING_SCALE = {
+    "Rất bất lợi": "#C4382F",
+    "Bất lợi": "#E8833A",
+    "Trung tính": "#F2CD5C",
+    "Thuận lợi": "#7DBB8C",
+    "Rất thuận lợi": "#2E7D32",
+}
+
 # Gán theo thứ tự cố định trong 1 chart; tối đa 3 series để giữ all-pairs CVD pass
 CATEGORICAL = ["#2a78d6", "#eb6834", "#1baf7a", "#4a3aa7", "#e34948"]
 TARGET_LINE = "#1B2A6B"
@@ -44,7 +54,7 @@ def apply_theme(
         title={"text": title, "x": 0, "xanchor": "left", "font": {"size": 15, "color": HEADING}},
         yaxis_title=y_title,
         height=height,
-        legend={"title": None, "orientation": "h", "yanchor": "top", "y": -0.08, "x": 0},
+        legend={"title": None, "orientation": "h", "yanchor": "top", "y": -0.13, "x": 0},
         margin={"t": 44, "l": 8, "r": 8, "b": 8},
         hovermode="x unified",
         font={"family": FONT, "size": 12, "color": TEXT},

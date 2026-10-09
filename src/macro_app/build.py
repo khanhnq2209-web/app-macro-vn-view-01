@@ -39,7 +39,7 @@ def _safe_load(name: str, loader: Callable[[], pd.DataFrame], errors: dict) -> p
 
 
 def load_raw_context(errors: dict) -> RawContext:
-    from macro_app.io import dulieukinhte_api, fred, vbma, vn_raw, westmetall, yahoo
+    from macro_app.io import dulieukinhte_api, fred, gpr, vbma, vn_raw, westmetall, yahoo
 
     parts = [
         _safe_load("vn", lambda: vn_raw.load_vn_series(errors=errors), errors),
@@ -47,6 +47,7 @@ def load_raw_context(errors: dict) -> RawContext:
         _safe_load("yahoo", yahoo.load_yahoo_series, errors),
         _safe_load("vbma", vbma.load_vbma_series, errors),
         _safe_load("lme", westmetall.load_lme_series, errors),
+        _safe_load("gpr", gpr.load_gpr_series, errors),
     ]
     store = pd.concat([p for p in parts if not p.empty], ignore_index=True)
     store["date"] = pd.to_datetime(store["date"]).dt.normalize()
@@ -68,7 +69,7 @@ def cache_times() -> dict[str, str | None]:
     from macro_app.io.excel_cache import cache_fetched_at, read_cache
 
     out = {}
-    for name in ("fred", "yahoo", "vbma", "fedwatch", "lme"):
+    for name in ("fred", "yahoo", "vbma", "fedwatch", "lme", "gpr"):
         _, meta = read_cache(CACHE_DIR / f"{name}.xlsx")
         ts = cache_fetched_at(meta)
         out[name] = ts.isoformat() if ts is not None else None

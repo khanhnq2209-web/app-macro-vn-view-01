@@ -29,3 +29,10 @@ Thumbs.db
 ~$*
 *.tmp
 data/app/_raw_store.parquet
+
+# --- Google service account key (không commit) ---
+*service-account*.json
+*-credentials.json
+client_secret*.json
+*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].json
+config/profile_versions.jsonl

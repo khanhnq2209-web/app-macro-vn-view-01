@@ -20,6 +20,19 @@ UNIT_TEXT = {
 }
 
 
+PCT_KINDS = ("pct_change", "ytd_pct", "sum12_pct", "pct_vs_mean")
+
+
+def measure_unit(spec: dict | None, unit: str) -> str:
+    """Đơn vị sau biến đổi: % thay đổi là %; thay đổi của chỉ số tính bằng % là điểm %."""
+    kind = (spec or {}).get("kind", "level")
+    if kind in PCT_KINDS:
+        return "%"
+    if kind in ("change", "ytd_change"):
+        return "điểm %" if unit in ("%", "điểm %") else unit
+    return unit
+
+
 def measure_text(spec: dict | None, frequency: str) -> str:  # noqa: PLR0911
     """Mô tả ngắn cách đo, vd '% thay đổi so 3 tháng trước'."""
     spec = spec or {}
@@ -32,6 +45,8 @@ def measure_text(spec: dict | None, frequency: str) -> str:  # noqa: PLR0911
         return "% thay đổi từ đầu năm"
     if kind == "sum12_pct":
         return "tổng 12 tháng, % so cùng kỳ"
+    if kind == "pct_vs_mean":
+        return f"% lệch so trung bình {int(spec.get('n', 5))} năm"
     if kind == "mean":
         n, unit = int(spec.get("n", 1)), spec.get("unit", "period")
         word = UNIT_TEXT["period"].get(frequency, "kỳ") if unit == "period" else "ngày"

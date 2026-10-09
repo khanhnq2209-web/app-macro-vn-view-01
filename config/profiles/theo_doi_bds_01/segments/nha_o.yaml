@@ -1,48 +1,29 @@
 name: Nhà ở
 order: 1
-description: Chi phí vốn, tín dụng và thanh khoản, cầu và thu nhập, ổn định vĩ mô,
-  hạ tầng.
+description: 'Điều kiện vĩ mô cho thị trường nhà ở VN 6–12 tháng tới. Cú sốc chính
+  2022–23 là lãi suất và kênh vốn (IMF 2023, 2025). Thiếu tín dụng BĐS, trái phiếu
+  doanh nghiệp BĐS: cần nguồn mới.'
 rows:
 - code: deposit_12m_big4
-  pillar: Chi phí vốn
-  method: absolute
-  cuts:
-  - 4.75
-  - 5.5
-  - 6.25
-  - 7.0
-  side: above
-  description: Lãi huy động 12 tháng Big4, đi trước lãi vay mua nhà 1–2 quý. 10 năm
-    qua P10 ≈ 4,7%, P90 ≈ 6,8%; 11/2022 lên 7,4%.
-- code: govbond_10y
-  pillar: Chi phí vốn
+  pillar: Lãi suất và thanh khoản
+  weight: 50.0
   method: absolute
   cuts:
   - -0.5
-  - 0.0
-  - 0.5
-  - 1.0
+  - -0.15
+  - 0.15
+  - 0.75
   side: above
-  description: Thay đổi lợi suất TPCP 10 năm trong 12 tháng (điểm %), vì mức có xu
-    hướng. 11/2022 tăng 2,9 điểm %.
+  description: 'Thay đổi lãi huy động 12T Big4 trong 12 tháng (điểm %): dẫn lãi vay
+    mua nhà; Q4/2022 LS 12T lên 9,5–11,5% (The Investor). Mốc ±0,15 để tránh mốc đúng
+    bằng 0. [giả định] Chờ QTRR duyệt.'
   measure:
     kind: change
     n: 1
     unit: year
-- code: effr
-  pillar: Chi phí vốn
-  info: true
-  method: absolute
-  cuts:
-  - 1.0
-  - 2.5
-  - 4.0
-  - 5.0
-  side: above
-  description: Tham khảo, không tính điểm. Lãi suất Fed hiệu dụng. Kỳ vọng cuối năm
-    theo FedWatch = biên dưới kỳ vọng + 8 bps.
 - code: interbank_on
-  pillar: Tín dụng và thanh khoản
+  pillar: Lãi suất và thanh khoản
+  weight: 25.0
   method: absolute
   cuts:
   - 2.0
@@ -50,88 +31,128 @@ rows:
   - 4.0
   - 5.0
   side: above
-  description: 'Thanh khoản hệ thống: lãi qua đêm liên ngân hàng, trung bình 20 phiên
-    để bỏ gai mùa vụ (Tết 2026 có phiên 17%). 11/2022 khoảng 5,5%.'
+  description: 'Lãi qua đêm liên ngân hàng, trung bình 20 phiên: thanh khoản hệ thống,
+    dẫn lãi huy động. [giả định] Chờ QTRR duyệt.'
   measure:
     kind: mean
     n: 20
     unit: period
+- code: refi_rate
+  pillar: Lãi suất và thanh khoản
+  weight: 25.0
+  method: absolute
+  cuts:
+  - -1.0
+  - -0.25
+  - 0.25
+  - 1.0
+  side: above
+  description: 'Thay đổi lãi tái cấp vốn 12 tháng: hướng chính sách NHNN (tăng 2×100bp
+    9–10/2022, giảm về 4,5% 6/2023). Đo thay đổi vì mức đứng yên nhiều năm. [giả định]
+    Chờ QTRR duyệt.'
+  measure:
+    kind: change
+    n: 1
+    unit: year
+- code: credit_yoy
+  pillar: Tín dụng
+  method: absolute
+  cuts:
+  - 8.0
+  - 11.0
+  - 16.0
+  - 20.0
+  side: both
+  description: 'Tăng trưởng tín dụng so cùng kỳ, chấm hai chiều: 11–16% là tốt; dưới
+    8% (vốn cạn) hoặc trên 20% (quá nóng, NHNN sắp siết room) là xấu (IMF 2025: tín
+    dụng/GDP 136%). [giả định] Chờ QTRR duyệt.'
 - code: gdp_yoy_published
-  pillar: Cầu và thu nhập
+  pillar: Thu nhập và hạ tầng
+  weight: 50.0
   method: absolute
   cuts:
   - 5.0
   - 6.0
-  - 7.0
-  - 8.0
+  - 6.5
+  - 7.5
   side: below
-  description: Tăng trưởng kéo thu nhập và sức mua nhà. Mục tiêu 2026 là 10% (2025
-    là 8%).
-- code: cpi_yoy
-  pillar: Ổn định vĩ mô
+  description: 'Tăng trưởng GDP so cùng kỳ (số công bố): thu nhập, cầu nhà ở. Mốc
+    tuyệt đối, không so mục tiêu vì mục tiêu đổi theo năm (6% năm 2022, 10% năm 2026).
+    [giả định] Chờ QTRR duyệt.'
+- code: public_investment_ytd_yoy
+  pillar: Thu nhập và hạ tầng
+  weight: 50.0
   method: absolute
   cuts:
-  - 2.5
-  - 3.5
-  - 4.5
-  - 5.5
-  side: above
-  description: Mục tiêu CPI 2026 khoảng 4,5%. Lạm phát cao làm khó hạ lãi suất.
-- code: cpi_housing_yoy
-  pillar: Ổn định vĩ mô
-  method: absolute
-  cuts:
-  - 3.0
-  - 5.0
-  - 7.0
-  - 9.0
-  side: above
-  description: 'CPI nhà ở và vật liệu xây dựng: chi phí xây và chi phí ở. 2023 dao
-    động 5–8%.'
+  - 3.47
+  - 7.07
+  - 19.51
+  - 24.3
+  side: below
+  description: 'Vốn đầu tư công thực hiện lũy kế từ đầu năm so cùng kỳ: hạ tầng kết
+    nối vùng ven. So cùng kỳ để bỏ mùa vụ (giải ngân dồn cuối năm). [giả định] Chờ
+    QTRR duyệt.'
 - code: fx_central
-  pillar: Ổn định vĩ mô
+  pillar: Tỷ giá
   method: absolute
   cuts:
-  - 1.0
-  - 2.0
-  - 3.0
-  - 5.0
+  - -0.24
+  - 0.02
+  - 0.57
+  - 1.12
   side: above
-  description: Tỷ giá trung tâm so cùng kỳ, dương là VND mất giá. Biên độ giao dịch
-    ±5%.
+  description: '% thay đổi tỷ giá trung tâm 3 tháng: VND mất giá nhanh → NHNN hút
+    thanh khoản, lãi tăng (2024: VND −5%, NHNN rút thanh khoản; VnEconomy). [giả định]
+    Chờ QTRR duyệt.'
   measure:
     kind: pct_change
-    n: 1
-    unit: year
-- code: credit_ytd
-  pillar: Tín dụng và thanh khoản
-  method: absolute
-  cuts:
-  - 1.0
-  - 4.0
-  - 10.0
-  - 14.0
-  side: below
-- code: public_investment_plan_pace
-  pillar: Hạ tầng
-  method: absolute
-  cuts:
-  - -15.0
-  - -10.0
-  - -5.0
-  - 0.0
-  side: below
-  description: '% kế hoạch năm đã thực hiện trừ % thời gian đã qua (tháng/12). Vd
-    9 tháng đạt 64% KH: 64 − 75 = −11 điểm %. Từ 0 trở lên là đúng tiến độ. Chỉ tính
-    năm có kế hoạch ở trang Kế hoạch & dự báo.'
-- code: public_investment_ytd
-  pillar: Hạ tầng
+    n: 91
+    unit: day
+- code: effr
+  pillar: Lãi suất và thanh khoản
   info: true
-  show_level: false
   method: absolute
   cuts:
   - 0.0
   - 1.0
-  side: below
-  description: 'Tham khảo, không tính điểm: vốn thực hiện lũy kế từ đầu năm so với
-    kế hoạch năm.'
+  side: above
+  description: 'Tham khảo, không tính điểm: lãi Fed, AI comment lấy kỳ vọng FedWatch.'
+- code: govbond_10y
+  pillar: Lãi suất và thanh khoản
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: trùng nhiều với lãi liên ngân hàng (r
+    = 0,68).'
+- code: cpi_yoy
+  pillar: Thu nhập và hạ tầng
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: tác động qua lãi suất, đã đo ở nhóm lãi
+    suất.'
+- code: cpi_housing_yoy
+  pillar: Thu nhập và hạ tầng
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: chiều mơ hồ (chi phí xây dựng vs sức mua),
+    rổ gồm cả điện nước.'
+pillars:
+- name: Lãi suất và thanh khoản
+  weight: 40.0
+- name: Tín dụng
+  weight: 20.0
+- name: Thu nhập và hạ tầng
+  weight: 25.0
+- name: Tỷ giá
+  weight: 15.0

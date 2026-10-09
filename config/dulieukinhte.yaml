@@ -18,3 +18,12 @@ series:
     note: >-
       Chưa gắn. API chỉ có M2 dạng số tuyệt đối (id 33445 "Tổng phương tiện thanh toán M2"),
       không có % so đầu năm như chuỗi này; file Excel đang lỗi từ 10/2025.
+  vn.govbond_10y:
+    id: 36714
+    note: Lợi suất TPCP kỳ hạn 10 năm (ngày), %. Gắn 09/10/2026 vì file Excel chỉ tới 31/07/2026
+  vn.ib_on:
+    id: 34248
+    note: Lãi suất liên ngân hàng qua đêm (ngày), %. Gắn 09/10/2026
+  vn.fx_central:
+    id: 33444
+    note: Tỷ giá trung tâm USD/VND của NHNN (ngày). Gắn 09/10/2026

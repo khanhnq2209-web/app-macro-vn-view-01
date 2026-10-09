@@ -1,6 +1,6 @@
 # Spec: App theo dõi vĩ mô — yếu tố tác động thị trường BĐS VN
 
-Ngày: 2026-10-06 | Chế độ: FAST | Trạng thái: **đã build đợt 1a, 1b, 2 — chờ UAT** | Yêu cầu gốc: prompt "App theo dõi vĩ mô (Streamlit)" (người dùng dán trong hội thoại 2026-10-06)
+Ngày: 2026-10-06 (cập nhật 2026-10-09) | Chế độ: FAST | Trạng thái: **đợt 5 (Scorecard v3) xong — chờ UAT** | Yêu cầu gốc: prompt "App theo dõi vĩ mô (Streamlit)" (người dùng dán trong hội thoại 2026-10-06)
 
 ## Mục tiêu + Audience
 
@@ -10,7 +10,7 @@ App Streamlit cho team quản trị rủi ro theo dõi yếu tố vĩ mô (VN + 
 
 | # | Quyết định |
 |---|---|
-| D1 | Bản deploy công khai **chỉ đọc** `data/public/` đã commit. Mọi thao tác ghi (ngưỡng, nhập tay, refresh) chạy **local** (`APP_MODE=admin`) hoặc GitHub Actions rồi commit. |
+| D1 | Bản deploy công khai **chỉ đọc** `data/public/` đã commit. Mọi thao tác ghi số liệu (ngưỡng, nhập tay, refresh) chạy **local** (`APP_MODE=admin`) hoặc GitHub Actions rồi commit. **Ngoại lệ D15:** cấu hình scorecard. |
 | D2 | Dữ liệu (raw + public + cache) **commit vào repo**. |
 | D3 | Ngưỡng = **config**: file mặc định `config/thresholds.default.yaml` (zscore vàng >1, đỏ >2, có `min_points`); người dùng ghi đè hoặc thêm file/bảng config riêng (`config/thresholds.d/*.yaml`, nạp sau đè trước). UI ghi rõ "ngưỡng thống kê mặc định" khi chưa ghi đè. |
 | D4 | LS huy động: ffill từng NH × kỳ hạn lên lịch ngày rồi mới bình quân; hiển thị cả **Big4** và **20 NH**. `[giả định: Big4 12T là chỉ số đại diện nhóm B3]` |
@@ -24,6 +24,11 @@ App Streamlit cho team quản trị rủi ro theo dõi yếu tố vĩ mô (VN + 
 | D12 | **Bộ cấu hình scorecard** có tên, chứa nhiều phân khúc (ngưỡng màn Tổng quan giữ riêng ở bộ ngưỡng). Sửa ở trang riêng **Cấu hình scorecard** (chỉ khi quản trị) trên **bản nháp + nút Lưu**; có Lưu thành bộ mới / Tạo bộ trống / Đặt mặc định / Xóa bộ. Bộ hiện có: **Theo dõi BĐS - 01** (toàn ngưỡng cứng, trụ cột chia đều). |
 | D13 | **Dự báo ghép vào scorecard (thô, không vào điểm chính):** lãi Fed ↔ FedWatch (CME, dự phòng tự tính ZQ); CPI/GDP/tín dụng ↔ mục tiêu Chính phủ năm nay. Mỗi dòng ghi mức của dự báo theo ngưỡng của dòng; đầu trang có điểm "nếu theo dự báo/mục tiêu". Danh sách nâng cấp tiếp: `docs/roadmap.md`. |
 | D14 | **Bản đồ kế hoạch / dự báo** `config/forecast_map.yaml`, sửa ở trang **Kế hoạch & dự báo** (quản trị, bấm Lưu). Mỗi dòng: chỉ số thực tế ← nguồn: `target` (mục tiêu CP năm nay), `fedwatch` (upper/lower/effective, kỳ họp cuối năm), `indicator` (chỉ số khác, kỳ mới nhất), `manual` (nhập tay giá trị + kỳ). Chỉ tiêu tín dụng gắn với tín dụng **so với đầu năm**. Hiện ở cột Kế hoạch / Dự báo của scorecard, không vào điểm. Font: toàn app dùng Source Sans (bỏ font có chân cho số). |
+| D15 | **Sửa cấu hình scorecard trên bản online (09/10/2026).** Trang Cấu hình scorecard mở cho mọi người; nhập mật khẩu chung `CONFIG_PASSWORD` + tên là sửa và lưu được (không đăng nhập Google, không danh sách email). Kho dùng chung **Google Sheets** tab `versions`: mỗi lần lưu thêm 1 dòng (bộ, phiên bản, JSON, người lưu, lúc lưu); có lịch sử, hoàn tác, chống ghi đè theo số phiên bản, khóa 5 phút sau 5 lần sai mật khẩu, tối đa 30 lần lưu/giờ/phiên. YAML trong `config/profiles/` là **bản gốc**: bộ chưa sửa trên app thì dùng YAML; kho đọc lỗi thì dùng YAML. `ADMIN_PASSWORD` (số Yahoo/LME, refresh) vẫn chỉ local. Chi tiết: `docs/proposal_scorecard_v3.md` mục 5. |
+| D16 | **Tỷ trọng ghi đè được.** Mặc định chia đều nhóm rồi chia đều trong nhóm; nhập % cho nhóm hoặc chỉ số thì giữ nguyên, ô trống chia đều phần còn lại; mỗi cấp phải đủ 100% mới lưu được. Thay quy tắc cũ "dòng trống nhận trung bình các weight đã ghi". Bộ đang dùng chưa nhập tỷ trọng nào nên điểm không đổi (golden test). |
+| D17 | **Scorecard v3:** gauge, 3 thẻ (điểm · vì sao · độ tin cậy), kỳ so sánh (tháng trước / 3 tháng / cùng kỳ năm ngoái), đóng góp cộng đúng ra điểm tổng, đơn vị theo cách đo, độ nhạy khi số cũ quay lại, trọng số ẩn mặc định. Cấu hình theo flow danh sách bộ → 4 bước. **Bỏ bước Duyệt** (ai có mật khẩu cũng sửa được): thay bằng lịch sử + hoàn tác. Proposal + prototype: `docs/proposal_scorecard_v3.md`, `docs/prototype/scorecard_v3.html`. |
+| D18 | **Chấm điểm chỉ ở Scorecard (09/10/2026).** Tổng quan, Quốc tế, Việt Nam, Chi tiết, Kế hoạch & dự báo chỉ xem số liệu: bỏ dải đếm Đỏ/Cam/Vàng, chấm màu, "Đổi màu 30 ngày", cột Z-score/Trạng thái/Cờ, metric "Trạng thái ngưỡng"/"Tác động BĐS", vùng ngưỡng trên biểu đồ, màu tốt/xấu ở cột Chênh. Trang **Ngưỡng** bỏ khỏi menu (đã xóa `app_pages/thresholds.py`, `ui/threshold_sets.py`); hệ ngưỡng cũ vẫn chạy ngầm trong build, không hiển thị. |
+
 
 ## Nguồn dữ liệu
 
@@ -36,6 +41,7 @@ App Streamlit cho team quản trị rủi ro theo dõi yếu tố vĩ mô (VN + 
 | FRED | Fed, UST, USD broad, Brent, HY spread, breakeven, nhà ở Mỹ | API + `FRED_API_KEY` | public domain phần lớn | nhóm A |
 | Yahoo Finance | DXY, đồng COMEX, Brent mới nhất, giá ZQ từng tháng (`ZQV26.CBT`…) | `yfinance` 1.2.0 (đã cài; gọi chart API thô bị 429) | cấm phân phối lại | nhóm A (D8) |
 | **CME FedWatch (QuikStrike)** | Xác suất FedWatch y hệt site CME, 10 kỳ họp, lịch sử ~250 phiên theo ngày | `cmegroup-tools.quikstrike.net/User/QuikStrikeView.aspx?viewitemid=IntegratedFedWatchTool` → POST tab Downloads → CSV `Export/FedWatch/AllMeetings.aspx`; không cần đăng nhập, 3 request. Dữ liệu cuối ngày | dữ liệu CME, nhiều khả năng cấm cào/phân phối lại `[chưa kiểm ToS]` | D9 nguồn chính |
+| **GPR** (Caldara & Iacoviello) | Chỉ số rủi ro địa chính trị, tháng (GPR, mối đe dọa, hành động) | File `.xls` công khai `matteoiacoviello.com/gpr_files/data_gpr_export.xls` (cache `data/cache/gpr.xlsx`, nguồn `gpr` trong Refresh) | dẫn nguồn + ngày tải | bộ Giá dầu và khí |
 | FedWatch tự tính | Xác suất theo phương pháp FedWatch từ giá ZQ (Yahoo) + lịch FOMC (federalreserve.gov) + DFEDTARU/L, EFFR (FRED) | code | dữ liệu đầu vào công khai | D9 dự phòng, đối chiếu QuikStrike lệch ≤ 2 điểm % |
 | Đối chiếu khác | Atlanta Fed Market Probability Tracker (`mpt_histdata.xlsx`, SOFR options, theo **quý**, 2023→); Kalshi API (`KXFEDDECISION-*`, thị trường dự đoán); CME FedWatch EOD API trả phí (~25 USD/tháng, lịch sử từ 2015) | — | — | tùy chọn |
 
@@ -59,18 +65,18 @@ Lưu ý chung: dulieukinhte sửa lùi số (GDP) và đổi gốc (CPI chỉ s�
 
 Phương pháp: tham chiếu OECD/JRC *Handbook on Constructing Composite Indicators* (quy chuẩn, trọng số đều, cộng tuyến tính) và ECB/ESRB *RRE heatmap* (chấm mức rồi tổng hợp).
 
-**Bộ cấu hình** (D12, 06/10/2026): mỗi bộ có tên, gồm nhiều phân khúc; mỗi phân khúc có chỉ số, trụ cột, trọng số, ngưỡng từng dòng. Lưu ở `config/profiles/<bộ>/` (`profile.yaml` + `segments/*.yaml`), bộ mặc định ở `config/profiles/_default.yaml` (hiện ở Tổng quan). Trang **Cấu hình scorecard** sửa trên bản nháp trong phiên, điểm nháp tính lại ngay; bấm **Lưu** mới ghi file, **Lưu thành bộ mới** để tách phiên bản. Trang Scorecard chỉ xem bản đã lưu. Build chấm mọi bộ, mọi phân khúc.
+**Bộ cấu hình** (D12, 06/10/2026; D15 09/10/2026): mỗi bộ có tên, gồm nhiều phân khúc; mỗi phân khúc có nhóm (kèm tỷ trọng), chỉ số, ngưỡng từng dòng. Bản gốc ở `config/profiles/<bộ>/`, bản sửa trên app ở kho Google Sheets (D15) (`profile.yaml` + `segments/*.yaml`), bộ mặc định ở `config/profiles/_default.yaml` (hiện ở Tổng quan). Trang **Cấu hình scorecard** sửa trên bản nháp trong phiên, điểm nháp tính lại ngay; bấm **Lưu** mới ghi file, **Lưu thành bộ mới** để tách phiên bản. Trang Scorecard chỉ xem bản đã lưu. Build chấm mọi bộ, mọi phân khúc.
 
 | Thành phần | Quy tắc | Nguồn cấu hình | Người xác nhận |
 |---|---|---|---|
 | Mức → điểm | 5 mức +2 · +1 · 0 · −1 · −2 (4 mức +1 · 0 · −1 · −2; 3 mức +1 · 0 · −1), sửa được từng dòng | `config/scorecard.yaml` | |
-| Trọng số | Chia đều theo trụ cột, rồi chia đều trong trụ cột. Ghi `weight` thì dùng, dòng để trống nhận trung bình các `weight` đã ghi; chuẩn hóa về 1 | `config/profiles/*/segments/*.yaml` | |
+| Trọng số | Chia đều theo nhóm, rồi chia đều trong nhóm. Nhóm (`pillars[].weight`) hoặc dòng (`weight`) có % thì giữ, ô trống chia đều phần còn lại; mỗi cấp đủ 100% (D16) | `config/profiles/*/segments/*.yaml` hoặc kho Sheets | |
 | Điểm tổng | Σ điểm × trọng số / Σ trọng số của dòng có số; độ phủ < 60% → không chấm, đầu trang hiện điểm tháng gần nhất đủ dữ liệu | `config/scorecard.yaml` | |
 | Số cũ | Kỳ mới nhất cũ hơn D/W 1, M 3, Q 4, A 13 tháng so với tháng chấm → không tính (áp như nhau cho hiện tại và lịch sử) | `config/scorecard.yaml` | |
 | Xếp hạng | ≥ 0,8 Rất thuận lợi · ≥ 0,45 Thuận lợi · ≥ 0,05 Trung tính · ≥ −0,2 Bất lợi · còn lại Rất bất lợi. Hiệu chỉnh theo P90/P70/P30/P10 điểm tháng 10 năm của bộ Theo dõi BĐS - 01 (trung bình +0,3). Dùng chung mọi bộ | `config/scorecard.yaml` | |
 | Lịch sử | Lưới cuối tháng, 10 năm, tới tháng chấm; mỗi tháng chỉ dùng dữ liệu tới tháng đó | `config/scorecard.yaml` | |
 
-Bộ **Theo dõi BĐS - 01** (mặc định): toàn ngưỡng cứng 5 mức, trụ cột chia đều. Chi tiết từng dòng (cách đo, mốc, căn cứ, nguồn) ở `docs/plan_scorecard_v2.md` mục A và trong mô tả từng dòng của `config/profiles/theo_doi_bds_01/`.
+Bộ **Theo dõi BĐS - 01** (mặc định): toàn ngưỡng cứng 5 mức, trụ cột chia đều. Bộ mẫu thêm 09/10/2026 (mốc chỉ số mới = gợi ý phân vị 10 năm, ghi `[giả định]`, chờ duyệt): **BĐS nhà ở · chi tiết**, **BĐS KCN · chi tiết** (USD broad, đồng IMF thay DXY, đồng LME để bản công khai đủ số), **Lãi suất**, **Tỷ giá**, **Giá dầu và khí** (điểm = áp lực giá năng lượng: giá dầu, khí + yếu tố dẫn dắt GPR, OVX, GDP và sản xuất công nghiệp Mỹ, giá xăng Mỹ; cầu tăng chấm xấu vì đẩy giá lên; GEPU chỉ tham khảo; WTI và khí dùng mốc của Brent vì phân vị 10 năm lệch do cú sốc 2021–2022). GDP ngành BĐS/xây dựng chưa dùng: chuỗi gãy do đổi năm gốc (+72%, +107% so cùng kỳ). Chi tiết từng dòng (cách đo, mốc, căn cứ, nguồn) ở `docs/plan_scorecard_v2.md` mục A và trong mô tả từng dòng của `config/profiles/theo_doi_bds_01/`.
 
 | Phân khúc | Trụ cột → chỉ số | Người xác nhận |
 |---|---|---|
@@ -95,5 +101,9 @@ Giới hạn:
 | 2 | Tùy chỉnh view (YAML), GitHub Actions, Thay đổi gần đây, đồng LME | test view roundtrip + LME parser; review độc lập 12 điểm đã sửa | done — chờ UAT | 2026-10-06 | Nhập tay + AI đã bỏ theo D11; Actions chưa chạy (chưa push) |
 | 3 | Tác động BĐS (mới), bộ ngưỡng đặt tên, form ngưỡng 5 bước tự lưu, scorecard Nhà ở / KCN theo trụ cột | pytest 134 pass; rescore khớp build; test mở form không tự lưu (bắt lỗi lưu lặp ngưỡng Fed); backtest 10 năm | done — chờ duyệt ngưỡng | 2026-10-06 | 07/10: Scorecard thay hẳn trang Tác động BĐS (đã xóa cả 2 bản + code riêng); menu gom 2 nhóm Theo dõi · Cấu hình |
 | 4 | Scorecard v2: logic đo mới (TB trượt, tổng 12 tháng, ngưỡng cứng hai phía), bộ Theo dõi BĐS - 01, trang Cấu hình scorecard, màu ô tác động | pytest 155 pass; backtest 2021, 2022–23; AppTest sửa mốc → nháp, Lưu → ghi | done — chờ UAT | 2026-10-06 | Kế hoạch: docs/plan_scorecard_v2.md |
+| 5 | Scorecard v3: logic (tỷ trọng ghi đè, đóng góp chuẩn hóa, đơn vị, kỳ so sánh, độ nhạy), kho cấu hình Google Sheets + mật khẩu, trang Scorecard + Cấu hình mới, 5 bộ mẫu, dữ liệu dầu/khí + API dulieukinhte cho TPCP/liên NH/tỷ giá | pytest toàn bộ pass; golden điểm BĐS-01 khớp build cũ; AppTest mật khẩu/sửa/lưu/xung đột/tạo mới; ghi thật 1 dòng vào Sheet | done — chờ UAT | 2026-10-09 | Chưa deploy, chưa commit |
+| 5b | UAT phản hồi 09/10/2026: gauge vẽ tay (kim thuôn), 6 bộ mẫu, dữ liệu mới (dầu/khí FRED, GPR, API dulieukinhte TPCP/liên NH/tỷ giá), **tải báo cáo PDF/Word** 1 trang, sửa 15 lỗi review độc lập | pytest 225 pass; kiểm logic độc lập 7 phân khúc khớp 100%; tải PDF/Word thật qua giao diện | done — chờ UAT | 2026-10-09 | WCESTUS1/WCRFPUS2 không có trên FRED (cần API EIA) |
+| F | Các tab khác chỉ xem số (D18); thêm nhóm năng lượng (WTI, khí, xăng, OVX) và toàn cầu (GPR, GEPU, GDP & sản xuất CN Mỹ) vào Quốc tế + Tổng quan; bỏ biểu đồ GDP gãy năm gốc; sửa ô "None"; chú thích biểu đồ không đè nhãn năm; GDP Mỹ đổi đơn vị thay đổi sang điểm % | pytest 225 pass, ruff sạch; ảnh `docs/screenshots/f/` | done — chờ UAT | 2026-10-09 | |
+
 
 **Project status:** in-progress

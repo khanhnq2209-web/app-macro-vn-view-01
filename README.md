@@ -26,7 +26,8 @@ Luồng dữ liệu: `data/raw/` (Excel VN) + `data/cache/*.xlsx` (FRED, Yahoo, 
 
 ## 2. Chế độ truy cập
 
-- **Công khai (mặc định)**: chỉ xem, không có đăng nhập, ẩn số vendor (Yahoo, LME). Bản deploy để trống `APP_MODE`. Mọi thao tác ghi làm ở máy local rồi commit (D1).
+- **Công khai (mặc định)**: chỉ xem, không có đăng nhập, ẩn số vendor (Yahoo, LME). Bản deploy để trống `APP_MODE`. Mọi thao tác ghi số liệu làm ở máy local rồi commit (D1); riêng **cấu hình scorecard** sửa được trên bản online bằng `CONFIG_PASSWORD` (D15).
+- **Deploy Streamlit Community Cloud**: Settings → Secrets điền `CONFIG_PASSWORD` và mục `[gsheets]` (mẫu ở `.streamlit/secrets.toml.example`). **Không** đặt `APP_MODE=admin` và `ADMIN_PASSWORD` trên bản online. Sheet phải có tab `versions` và chia sẻ quyền Editor cho `client_email` của service account.
 - **Quản trị (chạy local)**: đặt `APP_MODE=admin` + `ADMIN_PASSWORD` trong `.env` hoặc `.streamlit/secrets.toml` (mẫu: `secrets.toml.example`). Sidebar → "Đăng nhập quản trị" (tên + mật khẩu). Mở khóa: sửa ngưỡng, nút **Refresh dữ liệu**, gộp inbox, lưu view dùng chung, số FedWatch của CME.
 - **Chế độ trình bày**: toggle ở sidebar (hoặc thêm `?present=1` vào URL) — ẩn khung Streamlit, chữ to, 6 card/hàng; chụp ở 1920×1080 cho slide. Nút "Thoát chế độ trình bày" ở cuối trang.
 
@@ -37,20 +38,21 @@ Luồng dữ liệu: `data/raw/` (Excel VN) + `data/cache/*.xlsx` (FRED, Yahoo, 
 3. Đưa mã vào `config/views.yaml` (card Tổng quan / chart) hoặc thêm qua trang **Tùy chỉnh hiển thị**.
 4. `cli build`. Không cần sửa code giao diện.
 
-## 4. Điền ngưỡng
+## 4. Ngưỡng và chấm điểm
 
-- Mặc định mọi chỉ số dùng **ngưỡng thống kê** (`config/thresholds.default.yaml`: z-score vàng > 1, đỏ > 2, cửa sổ 5 năm). App ghi rõ "ngưỡng thống kê mặc định" cho chỉ số chưa có ngưỡng nghiệp vụ.
-- Ghi đè: trang **Ngưỡng** (quản trị) → sửa bảng → **Lưu** (ghi `config/thresholds.d/90_ui.yaml` + lịch sử `config/thresholds_history.csv`), hoặc tạo file `config/thresholds.d/<tên>.yaml` (xem `10_example.yaml.example`). Ba kiểu: `zscore`, `target_band` (lệch mục tiêu Chính phủ, điểm %), `absolute` (khoảng giá trị).
+- Chấm điểm **chỉ ở trang Scorecard**: mốc từng chỉ số sửa ở **Cấu hình scorecard** (mật khẩu `CONFIG_PASSWORD`). Các trang khác chỉ hiện số liệu.
+- Hệ ngưỡng cũ (`config/thresholds.default.yaml`, `config/thresholds.d/`) vẫn chạy trong build nhưng không hiển thị; không còn trang Ngưỡng.
 - Quy tắc tác động BĐS: `config/impact_rules.yaml` (lấy nguyên từ báo cáo).
 
 ### Scorecard theo phân khúc
 
-- Trang **Scorecard**: chọn bộ cấu hình → phân khúc → xem điểm, từng chỉ số, lịch sử.
-- Trang **Cấu hình scorecard** (chỉ khi chạy local `APP_MODE=admin`):
-  - Bảng chỉ số bên trái, bấm một dòng để sửa ở bên phải. Thứ tự sửa: đo gì → kiểu ngưỡng → chiều → số mức và mốc; mốc nhập kiểu `4,75; 5,5; 6,25; 7`, có nút **Gợi ý mốc**.
-  - Mọi thay đổi vào **bản nháp**, điểm nháp tính lại ngay. Bấm **Lưu** mới ghi file; **Bỏ thay đổi** để quay lại.
-  - Nút **Phân khúc**: thêm (trống hoặc sao chép), đổi tên, xóa. Nút **Quản lý bộ**: đổi tên, đặt mặc định, lưu thành bộ mới, tạo bộ trống, xóa bộ.
-- File: `config/profiles/<bộ>/profile.yaml` + `segments/*.yaml`; bộ mặc định ở `config/profiles/_default.yaml`; thang điểm và dải xếp hạng ở `config/scorecard.yaml`.
+- Trang **Scorecard**: chọn bộ → phân khúc → kỳ so sánh (tháng trước / 3 tháng / cùng kỳ năm ngoái). Gauge + 3 thẻ (điểm, vì sao, độ tin cậy), bảng theo nhóm (nút hiện trọng số và đóng góp), lịch sử điểm. Nút **⚙ Sửa cấu hình**: mở thẳng nhóm và tỷ trọng, hoặc mốc của một chỉ số. Nút **⬇ Tải báo cáo** → Tạo báo cáo → **Tải PDF** / **Tải Word** (1 trang A4 ngang: gauge, điểm, vì sao, độ tin cậy, bảng chỉ số tô màu theo mức).
+- Trang **Cấu hình scorecard** (mọi người thấy; nhập **mật khẩu `CONFIG_PASSWORD`** + tên để sửa; quản trị local vào thẳng):
+  - **Danh sách bộ**: Tạo mới (trống) · Sửa · Nhân bản · Thêm → Đặt làm mặc định, **Lịch sử thay đổi + Khôi phục**, Xóa.
+  - **4 bước**: (1) tên, mô tả, phân khúc (thêm trống hoặc sao chép) · (2) nhóm, chỉ số, tỷ trọng: mặc định chia đều; nhập % thì giữ, ô trống chia đều phần còn lại · (3) mốc từng chỉ số: mỗi mốc một ô, **Gợi ý mốc**, chỉ số mới thêm phải **Xác nhận mốc** · (4) checklist trước khi lưu.
+  - Thanh dưới cùng: điểm trước → sau, dòng đổi mức, Bỏ thay đổi / Quay lại / Tiếp / **Lưu**. Ai đó lưu trước thì báo xung đột, không ghi đè.
+- Nơi lưu: **Google Sheets** dùng chung (tab `versions`, mỗi lần lưu 1 dòng) khi có mục `[gsheets]` trong secrets; không có thì file `config/profile_versions.jsonl` trên máy. Bản gốc YAML: `config/profiles/<bộ>/profile.yaml` + `segments/*.yaml` (bộ chưa sửa trên app thì dùng bản này). Thang điểm và dải xếp hạng ở `config/scorecard.yaml`.
+- Kiểm kết nối Sheet: `python scripts/check_gsheets.py` (chỉ đọc). Ghi thử thật: `pytest -m live tests/test_config_store.py`.
 - Phương pháp và căn cứ từng mốc: `docs/spec.md` mục Scorecard, `docs/plan_scorecard_v2.md`.
 - Dự báo ghép vào scorecard: dòng có dự báo (lãi Fed theo FedWatch) hoặc mục tiêu Chính phủ (GDP, tín dụng) ghi thêm "Kỳ vọng" / "Mục tiêu" và mức tương ứng; đầu trang có điểm "nếu theo dự báo". Chỉ để suy luận thô, không vào điểm chính.
 - Trang **Kế hoạch & dự báo**: xem và sửa bản đồ chỉ số thực tế → kế hoạch / dự báo (mục tiêu CP, FedWatch, chỉ số khác, hoặc nhập tay số mục tiêu). File: `config/forecast_map.yaml`.
@@ -61,7 +63,8 @@ Luồng dữ liệu: `data/raw/` (Excel VN) + `data/cache/*.xlsx` (FRED, Yahoo, 
 | Nguồn | Cách cập nhật |
 |---|---|
 | LS huy động (Simplize, đã có giấy phép) | Tự động: Refresh → "Lãi suất huy động" (nối thêm vào `01_deposit rate.xlsx`, sao lưu trước khi ghi) |
-| dulieukinhte.com (CPI, tỷ giá, TPCP, GDP, FDI, đầu tư công…) | Xuất Excel từ site → bỏ vào `data/inbox/` → `cli merge-inbox` (hoặc nút "Gộp file trong data/inbox"). Kỳ trùng: bản mới thắng (nguồn có sửa số cũ); log ô bị đổi ở `data/raw/_merge_log.csv`. File 04, 05, 06, 11 chỉ có sheet dạng dọc → export phải cùng bộ cột mới khớp |
+| dulieukinhte.com API (tín dụng, đầu tư công, **TPCP 10 năm, liên NH qua đêm, tỷ giá trung tâm** từ 09/10/2026) | Tự động: `cli refresh --sources dulieukinhte` (1 lượt/chuỗi, gói miễn phí 100 lượt/tháng; kéo lại sau 7 ngày). Mã chuỗi ở `config/dulieukinhte.yaml` |
+| dulieukinhte.com (CPI, GDP, FDI… chưa có API) | Xuất Excel từ site → bỏ vào `data/inbox/` → `cli merge-inbox` (hoặc nút "Gộp file trong data/inbox"). Kỳ trùng: bản mới thắng (nguồn có sửa số cũ); log ô bị đổi ở `data/raw/_merge_log.csv`. File 04, 05, 06, 11 chỉ có sheet dạng dọc → export phải cùng bộ cột mới khớp |
 | VBMA (PMI, GDP công bố, thu tiền sử dụng đất) | Tự động: Refresh → VBMA |
 | Đồng LME (giá chính thức cash, 3 tháng, tồn kho — qua Westmetall) | Tự động: Refresh → Đồng LME |
 | Số nhập tay (nếu cần) | App không có form: điền thẳng `data/raw/manual/manual_inputs.csv` + thêm chỉ số `recipe: {op: manual}` vào catalog |

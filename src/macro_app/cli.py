@@ -16,7 +16,7 @@ from macro_app import admin
 from macro_app.build import run_build
 from macro_app.paths import ROOT
 
-ALL_SOURCES = ["fred", "yahoo", "fedwatch", "simplize", "vbma", "lme"]
+ALL_SOURCES = ["fred", "yahoo", "fedwatch", "simplize", "vbma", "lme", "gpr"]
 
 
 def main(argv: list[str] | None = None) -> int:

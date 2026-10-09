@@ -90,7 +90,16 @@ def ytd_to_yoy(ytd_pct: pd.Series) -> pd.Series:
     return ((1 + m) * (1 + prev_dec) / (1 + m.shift(12)) - 1) * 100.0
 
 
-MEASURE_KINDS = ("level", "change", "pct_change", "ytd_change", "ytd_pct", "mean", "sum12_pct")
+MEASURE_KINDS = (
+    "level",
+    "change",
+    "pct_change",
+    "ytd_change",
+    "ytd_pct",
+    "mean",
+    "sum12_pct",
+    "pct_vs_mean",
+)
 LAG_UNITS = ("period", "day", "year")
 
 
@@ -119,6 +128,8 @@ def measure(series: pd.Series, freq: str, spec: dict | None) -> pd.Series:  # no
         return rolling_mean(s, int(spec.get("n", 1)), spec.get("unit", "period"))
     if kind == "sum12_pct":
         return sum12_pct(s, from_ytd=bool(spec.get("ytd")))
+    if kind == "pct_vs_mean":
+        return pct_vs_mean(s, int(spec.get("n", 5)))
     if kind in ("ytd_change", "ytd_pct"):
         year_end = s.groupby(s.index.year).last()
         base = pd.Series(s.index.year - 1, index=s.index).map(year_end)
@@ -127,6 +138,20 @@ def measure(series: pd.Series, freq: str, spec: dict | None) -> pd.Series:  # no
     if kind in ("pct_change", "ytd_pct"):
         return ((s / base - 1.0) * 100.0).dropna()
     return (s - base).dropna()
+
+
+def pct_vs_mean(s: pd.Series, years: int) -> pd.Series:
+    """% lệch của giá trị so với trung bình `years` năm trước đó (tính cả điểm hiện tại).
+
+    Dùng cho giá (dầu, khí): đo mức đắt / rẻ so với nền nhiều năm, không bị hiệu ứng nền
+    như % so cùng kỳ. Chỉ tính khi đã có đủ `years` năm số liệu.
+    """
+    s = clean(s)
+    if s.empty:
+        return s
+    mean = s.rolling(f"{365 * years}D").mean()
+    ready = s.index >= s.index[0] + pd.DateOffset(years=years)
+    return ((s / mean - 1.0) * 100.0)[ready].dropna()
 
 
 def rolling_mean(s: pd.Series, n: int, unit: str) -> pd.Series:

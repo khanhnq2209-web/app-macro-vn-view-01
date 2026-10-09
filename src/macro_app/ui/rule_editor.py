@@ -1,12 +1,14 @@
 """Bộ sửa ngưỡng một chỉ số. Chỉ trả cấu hình mới, nơi gọi tự lưu.
 
 Không tự thay mốc người dùng đã nhập; mốc không còn hợp thì báo lỗi.
-Mốc nhập một ô, dấu phẩy thập phân: "4,75; 5,5; 6,25; 7".
+Mỗi mốc một ô số, kiểm tra tăng dần; "Gợi ý mốc" điền sẵn từ phân vị lịch sử.
 """
 
 from __future__ import annotations
 
+import html
 import math
+from itertools import pairwise
 
 import numpy as np
 import pandas as pd
@@ -25,7 +27,7 @@ from macro_app.metrics.status import (
     labels_of,
     validate_cfg,
 )
-from macro_app.metrics.summary import measure_text
+from macro_app.metrics.summary import measure_text, measure_unit
 from macro_app.metrics.transforms import clean, measure
 from macro_app.ui import data
 
@@ -37,6 +39,7 @@ MEASURE_LABEL = {
     "sum12_pct": "Tổng 12 tháng, % so cùng kỳ",
     "ytd_change": "Thay đổi từ đầu năm",
     "ytd_pct": "% thay đổi từ đầu năm",
+    "pct_vs_mean": "% lệch so trung bình N năm",
 }
 METHOD_LABEL = {
     "absolute": "Ngưỡng cứng",
@@ -61,19 +64,6 @@ UNIT_LABEL = {"period": "kỳ", "day": "ngày", "year": "năm"}
 FREQ_WORD = {"D": "phiên", "W": "tuần", "M": "tháng", "Q": "quý", "A": "năm"}
 LOOKBACK_YEARS = [1, 3, 5, 10]
 ORDER = ("green_strong", "green", "yellow", "orange", "red")
-
-
-def fmt_cuts(cuts: list[float] | None) -> str:
-    return "; ".join(f"{float(c):.6g}".replace(".", ",") for c in cuts or [])
-
-
-def parse_cuts(text: str) -> tuple[list[float] | None, str]:
-    """Đọc '4,75; 5,5; 7'. Trả (None, lỗi) nếu không đọc được."""
-    parts = [p.strip() for p in text.replace("\n", ";").split(";") if p.strip()]
-    try:
-        return [float(p.replace(" ", "").replace(",", ".")) for p in parts], ""
-    except ValueError:
-        return None, "Mốc phải là số, cách nhau bằng dấu chấm phẩy (vd 4,75; 5,5; 6,25; 7)"
 
 
 def _nice(x: float, span: float) -> float:
@@ -130,8 +120,10 @@ def _range_label(lo: float, hi: float, first: bool, last: bool) -> str:
     return f"{f(lo)} – {f(hi)}"
 
 
-def level_strip_html(measured: pd.Series, cfg: dict, target: float, unit: str) -> str:
-    """Thanh các mức theo giá trị tăng dần, đánh dấu mức hiện tại."""
+def level_strip_html(
+    measured: pd.Series, cfg: dict, target: float, unit: str, scores: dict | None = None
+) -> str:
+    """Thanh các mức theo giá trị tăng dần, đánh dấu mức hiện tại; kèm điểm của từng mức."""
     bounds = tp.boundaries(measured, cfg, target)
     if not bounds:
         return ""
@@ -145,9 +137,11 @@ def level_strip_html(measured: pd.Series, cfg: dict, target: float, unit: str) -
         bg, fg = theme.STATUS_COLORS.get(status, theme.STATUS_COLORS["none"])
         here = (i == 0 and now < hi) or (i == len(zones) - 1 and now >= lo) or lo <= now < hi
         mark = f'<div class="re-now">▲ hiện tại {fmt.number(now, 2)}{unit}</div>' if here else ""
+        point = (scores or {}).get(status)
+        point_txt = f" · điểm {fmt.signed(point, 0)}" if point is not None else ""
         cells.append(
             f'<div class="re-zone{" re-here" if here else ""}" style="background:{bg};color:{fg}">'
-            f"<b>{names.get(status, status)}</b>"
+            f"<b>{html.escape(str(names.get(status, status)))}{point_txt}</b>"
             f"<span>{_range_label(lo, hi, i == 0, i == len(zones) - 1)}</span>{mark}</div>"
         )
     return f'<div class="re-strip">{"".join(cells)}</div>'
@@ -232,6 +226,16 @@ def _measure_inputs(key: str, spec: dict, ind: Indicator, disabled: bool) -> dic
             disabled=disabled,
         )
         return {"kind": kind, "n": int(n), "unit": unit}
+    if kind == "pct_vs_mean":
+        n = st.number_input(
+            "Số năm lấy trung bình",
+            1,
+            20,
+            int(spec.get("n") or 5),
+            key=f"{key}_my",
+            disabled=disabled,
+        )
+        return {"kind": kind, "n": int(n)}
     if kind == "sum12_pct":
         ytd = st.checkbox(
             "Số gốc là lũy kế từ đầu năm",
@@ -298,7 +302,9 @@ def _advanced(key: str, cfg_now: dict, n_levels: int, with_scores: bool, disable
             if with_scores:
                 value = col.number_input(
                     "Điểm",
-                    value=float(scores_now[i]),
+                    value=float(min(2.0, max(-2.0, scores_now[i]))),
+                    min_value=-2.0,
+                    max_value=2.0,
                     step=0.5,
                     key=f"{key}_sc{n_levels}_{i}",
                     disabled=disabled,
@@ -322,7 +328,11 @@ def _errors(cfg: dict, cuts, parse_error: str, n_levels: int, ctx: dict) -> list
 
 def _preview(key: str, cfg: dict, ctx: dict) -> None:
     measured, unit, ind, raw = ctx["measured"], ctx["unit"], ctx["ind"], ctx["raw"]
-    st.html(level_strip_html(measured, cfg, ctx["target"], unit if unit == "%" else ""))
+    from macro_app.metrics.scorecard import load_settings, row_scores
+
+    n_lv = len(cfg["cuts"]) + 1
+    points = dict(zip(LEVELS[n_lv], row_scores(cfg, n_lv, load_settings()), strict=True))
+    st.html(level_strip_html(measured, cfg, ctx["target"], unit if unit == "%" else "", points))
     lookback = (
         st.segmented_control(
             "Xem lại",
@@ -353,10 +363,10 @@ def _preview(key: str, cfg: dict, ctx: dict) -> None:
 
 
 def _levels_and_cuts(key: str, cfg_now: dict, ctx: dict, disabled: bool) -> tuple:
-    """Trả (số mức, mốc đã đọc hoặc None, lỗi đọc)."""
+    """Trả (số mức, mốc đã nhập hoặc None, lỗi). Mỗi mốc một ô số."""
     cuts_now = cuts_of(cfg_now) or []
     n_now = len(cuts_now) + 1 if len(cuts_now) + 1 in LEVELS else 5
-    c4, c5, c6 = st.columns([1, 3.2, 1])
+    c4, c6 = st.columns([1, 1.4], vertical_alignment="bottom")
     levels = sorted(LEVELS)
     n_levels = c4.selectbox(
         "Số mức",
@@ -365,13 +375,17 @@ def _levels_and_cuts(key: str, cfg_now: dict, ctx: dict, disabled: bool) -> tupl
         key=f"{key}_l",
         disabled=disabled,
     )
-    cuts_key = f"{key}_cuts"
     method, side, years = ctx["method"], ctx["side"], ctx["years"]
+    keys = [f"{key}_cut{n_levels}_{i}" for i in range(n_levels - 1)]
+    start = cuts_now if len(cuts_now) == n_levels - 1 else None
+    if start is None and not ctx["measured"].empty:
+        start = suggest_cuts(ctx["measured"], method, side, n_levels - 1, years)
 
     def fill_suggestion() -> None:
-        st.session_state[cuts_key] = fmt_cuts(
-            suggest_cuts(ctx["measured"], method, side, n_levels - 1, years)
-        )
+        for k, v in zip(
+            keys, suggest_cuts(ctx["measured"], method, side, n_levels - 1, years), strict=True
+        ):
+            st.session_state[k] = float(v)
 
     c6.button(
         "Gợi ý mốc",
@@ -379,17 +393,26 @@ def _levels_and_cuts(key: str, cfg_now: dict, ctx: dict, disabled: bool) -> tupl
         key=f"{key}_suggest",
         disabled=disabled or ctx["measured"].empty,
         help="Ngưỡng cứng: phân vị 10, 30, 70, 90 của 10 năm gần nhất, làm tròn",
-        width="stretch",
     )
     cut_unit = ctx["unit"] if method == "absolute" else CUT_UNIT[method]
-    cuts_text = c5.text_input(
-        f"Mốc tăng dần ({cut_unit}), cách nhau bằng ;",
-        fmt_cuts(cuts_now),
-        key=cuts_key,
-        disabled=disabled,
-    )
-    cuts, parse_error = parse_cuts(cuts_text)
-    return n_levels, cuts, parse_error
+    st.caption(f"Mốc tăng dần, đơn vị: {cut_unit}")
+    cols = st.columns(len(keys))
+    cuts = []
+    for i, (col, k) in enumerate(zip(cols, keys, strict=True)):
+        value = col.number_input(
+            f"Mốc {i + 1}",
+            value=float(start[i]) if start is not None else None,
+            step=0.05,
+            format="%.4g",
+            key=k,
+            disabled=disabled,
+        )
+        cuts.append(value)
+    if any(c is None for c in cuts):
+        return n_levels, None, "Còn ô mốc trống"
+    if any(b <= a for a, b in pairwise(cuts)):
+        return n_levels, None, "Mốc phải tăng dần (ô sau lớn hơn ô trước)"
+    return n_levels, [float(c) for c in cuts], ""
 
 
 def edit(
@@ -410,7 +433,7 @@ def edit(
     measured = measure(raw, ind.frequency, spec)
     ctx = {
         "measured": measured,
-        "unit": "%" if spec["kind"] in ("pct_change", "ytd_pct", "sum12_pct") else ind.unit,
+        "unit": measure_unit(spec, ind.unit),
         "ind": ind,
         "raw": raw,
         "target": target_value,

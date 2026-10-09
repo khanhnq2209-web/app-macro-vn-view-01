@@ -1,0 +1,95 @@
+# AI comment: hàm ý cho Việt Nam của từng chỉ số, viết RIÊNG CHO TỪNG TAB vì cùng một chỉ số
+# có nghĩa khác nhau ở mỗi bộ (vd chênh lệch lãi suất ở tab Tỷ giá khác tab Lãi suất).
+# bad = hiện khi dòng đang bất lợi (điểm < 0); good = khi thuận lợi (> 0); trung tính không hiện.
+# Dòng chấm hai chiều (side both) dùng bad_low / bad_high cho hai nguyên nhân ngược nhau.
+# Quy tắc câu: MỘT chuỗi nhân quả, kết thúc ở tác động lên VN; khớp cách đo của dòng
+# (đo MỨC nói "cao/thấp", đo THAY ĐỔI nói "tăng/giảm", ghi rõ khoảng thời gian); không gắn
+# cứng mốc số hay độ trễ chưa có căn cứ. Dòng trong bộ ghi đè bằng note_bad / note_good.
+# Lãi Fed: câu tự sinh từ FedWatch (metrics/implications.py), không viết ở đây.
+# Căn cứ từng biến: mô tả dòng trong config/profiles/. [giả định] Chờ QTRR duyệt câu chữ.
+
+nha_o:  # Theo dõi BĐS / Nhà ở: thuận lợi cho thị trường nhà ở VN
+  deposit_12m_big4:  # thay đổi 12 tháng
+    bad: Lãi huy động tăng trong 12 tháng → chi phí vốn ngân hàng tăng → lãi vay mua nhà VN khó giảm.
+    good: Lãi huy động giảm trong 12 tháng → chi phí vốn ngân hàng giảm → lãi vay mua nhà VN có dư địa giảm.
+  interbank_on:  # mức, trung bình 20 phiên
+    bad: Lãi liên ngân hàng cao (thanh khoản căng) → ngân hàng tăng huy động → lãi vay mua nhà VN khó giảm.
+    good: Lãi liên ngân hàng thấp (thanh khoản dồi dào) → bớt áp lực huy động → lãi vay mua nhà VN có dư địa giảm.
+  refi_rate:  # thay đổi 12 tháng
+    bad: NHNN tăng lãi điều hành trong 12 tháng → mặt bằng lãi VN đi lên → lãi vay mua nhà tăng.
+    good: NHNN giảm lãi điều hành trong 12 tháng → mặt bằng lãi VN đi xuống → lãi vay mua nhà giảm.
+  credit_yoy:  # hai chiều
+    bad_low: Tín dụng tăng quá chậm → vốn vay chảy vào nhà ở VN thiếu.
+    bad_high: Tín dụng tăng quá nóng → NHNN dễ siết room tín dụng → vốn vay vào nhà ở VN sắp bị hạn chế.
+    good: Tín dụng tăng ở mức vừa phải → vốn vay vào nhà ở VN đủ mà chưa bị siết.
+  gdp_yoy_published:
+    bad: GDP tăng chậm → thu nhập người VN tăng chậm → cầu mua nhà yếu.
+    good: GDP tăng nhanh → thu nhập người VN tăng → hỗ trợ cầu mua nhà.
+  public_investment_ytd_yoy:  # lũy kế so cùng kỳ
+    bad: Giải ngân đầu tư công thấp hơn cùng kỳ → hạ tầng kết nối VN chậm → kém hỗ trợ nhà ở vùng ven.
+    good: Giải ngân đầu tư công cao hơn cùng kỳ → hạ tầng kết nối VN nhanh → hỗ trợ nhà ở vùng ven.
+  fx_central:  # % thay đổi 3 tháng
+    bad: VND mất giá nhanh trong 3 tháng → NHNN hút thanh khoản giữ tỷ giá → lãi suất VN khó giảm.
+    good: Tỷ giá ổn định trong 3 tháng → NHNN không phải hút thanh khoản → lãi suất VN có dư địa giảm.
+
+kcn:  # Theo dõi BĐS / KCN: thuận lợi cho cầu thuê đất KCN, nhà xưởng VN
+  fdi_registered_ytd:  # tổng 12 tháng so cùng kỳ
+    bad: FDI đăng ký 12 tháng giảm → ít dự án mới vào VN → cầu thuê đất KCN chậm lại về sau.
+    good: FDI đăng ký 12 tháng tăng → nhiều dự án mới vào VN → cầu thuê đất KCN tăng về sau.
+  export_yoy:  # trung bình 3 tháng
+    bad: Xuất khẩu tăng chậm → đơn hàng sản xuất ít → cầu thuê KCN VN giảm.
+    good: Xuất khẩu tăng nhanh → đơn hàng sản xuất nhiều → cầu thuê KCN VN tăng.
+  pmi_vn:  # trung bình 3 tháng
+    bad: PMI thấp (sản xuất thu hẹp) → doanh nghiệp VN hoãn mở rộng → cầu nhà xưởng KCN chững.
+    good: PMI cao (sản xuất mở rộng) → doanh nghiệp VN mở rộng → cầu nhà xưởng KCN tăng.
+  public_investment_ytd_yoy:
+    bad: Giải ngân đầu tư công thấp hơn cùng kỳ → đường, cảng kết nối KCN VN chậm → KCN kém hấp dẫn.
+    good: Giải ngân đầu tư công cao hơn cùng kỳ → đường, cảng kết nối KCN VN nhanh → KCN hấp dẫn hơn.
+  deposit_12m_big4:  # thay đổi 12 tháng
+    bad: Lãi huy động tăng trong 12 tháng → lãi vay VND tăng → chi phí phát triển hạ tầng KCN cao hơn.
+    good: Lãi huy động giảm trong 12 tháng → lãi vay VND giảm → chi phí phát triển hạ tầng KCN thấp hơn.
+
+ty_gia:  # Tỷ giá: điểm thấp = áp lực mất giá VND
+  rate_diff_vnd_usd:  # mức, trung bình 20 phiên
+    bad: Lãi VND thấp hơn lãi USD → giữ USD có lợi hơn → cầu USD tăng, áp lực mất giá VND.
+    good: Lãi VND cao hơn lãi USD → giữ VND có lợi hơn → cầu USD giảm, đỡ cho VND.
+  usd_broad:  # % thay đổi 3 tháng
+    bad: USD mạnh lên trong 3 tháng → vốn rút khỏi thị trường mới nổi → áp lực mất giá VND.
+    good: USD yếu đi trong 3 tháng → vốn quay lại thị trường mới nổi → áp lực mất giá VND giảm.
+  ust_2y:  # thay đổi 3 tháng
+    bad: Lợi suất Mỹ 2 năm tăng trong 3 tháng → lãi USD sắp cao hơn lãi VND thêm → áp lực mất giá VND.
+    good: Lợi suất Mỹ 2 năm giảm trong 3 tháng → lãi USD sắp thấp đi → áp lực mất giá VND giảm.
+  fx_central:  # % thay đổi 3 tháng
+    bad: Tỷ giá trung tâm tăng nhanh trong 3 tháng → kỳ vọng VND mất giá tiếp → cầu giữ USD tăng.
+    good: Tỷ giá trung tâm ổn định trong 3 tháng → kỳ vọng mất giá thấp → cầu giữ USD giảm.
+
+lai_suat:  # Lãi suất: thuận lợi cho bên đi vay tại VN
+  deposit_12m_all:  # mức
+    bad: Lãi huy động ở mức cao → giá vốn ngân hàng cao → lãi cho vay tại VN khó giảm.
+    good: Lãi huy động ở mức thấp → giá vốn ngân hàng thấp → lãi cho vay tại VN có dư địa giảm.
+  deposit_12m_big4:  # thay đổi 6 tháng
+    bad: Lãi huy động Big4 tăng trong 6 tháng → giá vốn đang đi lên → lãi cho vay tại VN tăng theo sau.
+    good: Lãi huy động Big4 giảm trong 6 tháng → giá vốn đang đi xuống → lãi cho vay tại VN giảm theo sau.
+  interbank_on:
+    bad: Lãi liên ngân hàng cao (thanh khoản căng) → ngân hàng tăng huy động → lãi cho vay tại VN khó giảm.
+    good: Lãi liên ngân hàng thấp (thanh khoản dồi dào) → bớt áp lực huy động → lãi cho vay tại VN có dư địa giảm.
+  rate_diff_vnd_usd:
+    bad: Lãi VND thấp hơn lãi USD → áp lực tỷ giá → NHNN phải hút thanh khoản, lãi VN khó giảm.
+    good: Lãi VND cao hơn lãi USD → tỷ giá không bị ép → NHNN có dư địa giữ lãi thấp.
+  ust_2y:  # thay đổi 6 tháng
+    bad: Lợi suất Mỹ 2 năm tăng trong 6 tháng → áp lực tỷ giá → NHNN khó hạ lãi suất VN.
+    good: Lợi suất Mỹ 2 năm giảm trong 6 tháng → bớt áp lực tỷ giá → NHNN có dư địa hạ lãi suất VN.
+  cpi_yoy:
+    bad: Lạm phát VN gần hoặc vượt trần mục tiêu → NHNN không thể nới → lãi cho vay khó giảm.
+    good: Lạm phát VN thấp xa trần mục tiêu → NHNN có dư địa nới → hỗ trợ lãi cho vay giảm.
+
+dau_khi:  # Dầu, khí đốt: điểm thấp = áp lực tăng giá năng lượng VN phải trả
+  brent_vnd:  # % lệch so trung bình 5 năm
+    bad: Giá dầu tính bằng VND cao hơn mức nền 5 năm → giá xăng dầu bán lẻ VN ở mức cao → đẩy CPI giao thông.
+    good: Giá dầu tính bằng VND thấp hơn mức nền 5 năm → giá xăng dầu bán lẻ VN ở mức thấp → kéo CPI giao thông xuống.
+  lng_asia:  # % lệch so trung bình 5 năm
+    bad: Giá LNG châu Á cao hơn mức nền 5 năm → LNG nhập khẩu đắt → chi phí điện từ LNG tại VN cao.
+    good: Giá LNG châu Á thấp hơn mức nền 5 năm → LNG nhập khẩu rẻ → chi phí điện từ LNG tại VN thấp.
+  copper_imf:  # % thay đổi 3 tháng
+    bad: Giá kim loại công nghiệp tăng nhanh trong 3 tháng → cầu toàn cầu đang mạnh lên → giá dầu nhập về VN chịu áp lực tăng.
+    good: Giá kim loại công nghiệp giảm trong 3 tháng → cầu toàn cầu đang yếu đi → giá dầu nhập về VN bớt áp lực.

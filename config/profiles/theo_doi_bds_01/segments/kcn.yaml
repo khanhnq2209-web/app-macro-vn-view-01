@@ -1,7 +1,7 @@
 name: KCN
 order: 2
-description: FDI và cầu thuê, sản xuất và thương mại, chi phí vốn và rủi ro, chi phí
-  đầu vào.
+description: 'Cầu thuê đất KCN, nhà xưởng VN. FDI đăng ký là chỉ báo dẫn dắt chính
+  (KBSV 2026). Thiếu FDI giải ngân, tỷ lệ lấp đầy, giá thuê: cần nguồn mới.'
 rows:
 - code: fdi_registered_ytd
   pillar: FDI và cầu thuê
@@ -12,21 +12,12 @@ rows:
   - 10.0
   - 25.0
   side: below
-  description: FDI đăng ký, tổng 12 tháng so cùng kỳ, dẫn trước cầu thuê đất 6–18
-    tháng. Lịch sử đủ 12 tháng chỉ từ 12/2023 nên mốc rộng.
+  description: 'FDI đăng ký mới, tổng 12 tháng so cùng kỳ: dự án mới → thuê đất KCN
+    sau 2–4 quý (KBSV: FDI chế biến chế tạo Q3/2025 −39% kéo dự báo bàn giao đất −29%).
+    [giả định] Chờ QTRR duyệt.'
   measure:
     kind: sum12_pct
     ytd: 1.0
-- code: pmi_vn
-  pillar: Sản xuất và thương mại
-  method: absolute
-  cuts:
-  - 47.0
-  - 49.0
-  - 50.0
-  - 52.0
-  side: below
-  description: 50 là ranh giới mở rộng. 4/2025 xuống 45,6 khi Mỹ công bố thuế.
 - code: export_yoy
   pillar: Sản xuất và thương mại
   method: absolute
@@ -36,114 +27,60 @@ rows:
   - 10.0
   - 15.0
   side: below
-  description: Xuất khẩu so cùng kỳ, trung bình 3 tháng để bỏ nhiễu Tết.
+  description: 'Xuất khẩu so cùng kỳ, trung bình 3 tháng: đơn hàng → mở rộng sản xuất
+    (hấp thụ KCN yếu Q2–Q3/2025 khi Mỹ áp thuế; Shinhan). [giả định] Chờ QTRR duyệt.'
   measure:
     kind: mean
     n: 3
     unit: period
-- code: gdp_yoy_published
+- code: pmi_vn
   pillar: Sản xuất và thương mại
   method: absolute
   cuts:
-  - 5.0
-  - 6.0
-  - 7.0
-  - 8.0
+  - 47.0
+  - 49.0
+  - 50.0
+  - 52.0
   side: below
-  description: Tăng trưởng chung; mục tiêu 2026 là 10% (năm 2025 là 8%).
-- code: deposit_12m_big4
-  pillar: Chi phí vốn và rủi ro
+  description: 'PMI sản xuất, trung bình 3 tháng: trên 50 là mở rộng. [giả định] Chờ
+    QTRR duyệt.'
+  measure:
+    kind: mean
+    n: 3
+    unit: period
+- code: public_investment_ytd_yoy
+  pillar: Hạ tầng
   method: absolute
   cuts:
-  - 4.75
-  - 5.5
-  - 6.25
-  - 7.0
-  side: above
-  description: Lãi huy động 12 tháng Big4, đi trước lãi vay mua nhà 1–2 quý. 10 năm
-    qua P10 ≈ 4,7%, P90 ≈ 6,8%; 11/2022 lên 7,4%.
-- code: govbond_10y
-  pillar: Chi phí vốn và rủi ro
+  - 3.47
+  - 7.07
+  - 19.51
+  - 24.3
+  side: below
+  description: 'Đầu tư công lũy kế so cùng kỳ: đường, cảng kết nối KCN (giá thuê đất
+    KCN Q3/2025 +4–5% nhờ hạ tầng; KBSV). [giả định] Chờ QTRR duyệt.'
+- code: deposit_12m_big4
+  pillar: Chi phí vốn
   method: absolute
   cuts:
   - -0.5
-  - 0.0
-  - 0.5
-  - 1.0
+  - -0.15
+  - 0.15
+  - 0.75
   side: above
-  description: Thay đổi lợi suất TPCP 10 năm trong 12 tháng (điểm %), vì mức có xu
-    hướng. 11/2022 tăng 2,9 điểm %.
+  description: 'Thay đổi lãi huy động 12 tháng: chi phí vốn của chủ đầu tư KCN (đền
+    bù, hạ tầng). Trọng số thấp vì khách thuê FDI ít vay VND. [giả định] Chờ QTRR
+    duyệt.'
   measure:
     kind: change
     n: 1
     unit: year
-- code: effr
-  pillar: Chi phí vốn và rủi ro
-  info: true
-  method: absolute
-  cuts:
-  - 1.0
-  - 2.5
-  - 4.0
-  - 5.0
-  side: above
-  description: Tham khảo, không tính điểm. Lãi suất Fed hiệu dụng. Kỳ vọng cuối năm
-    theo FedWatch = biên dưới kỳ vọng + 8 bps.
-- code: dxy
-  pillar: Chi phí vốn và rủi ro
-  method: absolute
-  cuts:
-  - -5.0
-  - 0.0
-  - 5.0
-  - 10.0
-  side: above
-  description: DXY so cùng kỳ. USD mạnh hút vốn khỏi thị trường mới nổi, gây áp lực
-    tỷ giá.
-  measure:
-    kind: pct_change
-    n: 1
-    unit: year
-- code: vix
-  pillar: Chi phí vốn và rủi ro
-  method: absolute
-  cuts:
-  - 15.0
-  - 20.0
-  - 25.0
-  - 30.0
-  side: above
-  description: Biến động thị trường Mỹ, trung bình 21 phiên. Trên 30 là căng thẳng.
-  measure:
-    kind: mean
-    n: 21
-    unit: period
-- code: copper
-  pillar: Chi phí đầu vào
-  method: absolute
-  cuts:
-  - -15.0
-  - -5.0
-  - 10.0
-  - 25.0
-  side: above
-  description: Giá đồng LME so cùng kỳ, đại diện chi phí vật liệu xây nhà xưởng.
-  measure:
-    kind: pct_change
-    n: 1
-    unit: year
-- code: brent
-  pillar: Chi phí đầu vào
-  method: absolute
-  cuts:
-  - -20.0
-  - -5.0
-  - 15.0
-  - 40.0
-  side: above
-  description: 'Giá dầu Brent so cùng kỳ: năng lượng và logistics. Dầu biến động mạnh
-    nên mốc rộng.'
-  measure:
-    kind: pct_change
-    n: 1
-    unit: year
+pillars:
+- name: FDI và cầu thuê
+  weight: 35.0
+- name: Sản xuất và thương mại
+  weight: 35.0
+- name: Hạ tầng
+  weight: 15.0
+- name: Chi phí vốn
+  weight: 15.0
