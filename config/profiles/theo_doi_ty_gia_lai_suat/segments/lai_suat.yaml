@@ -5,6 +5,17 @@ description: 'Thuận lợi cho bên đi vay tại VN 6–12 tháng tới. Chia 
   nguồn mới.'
 meaning: Bất lợi = 6–12 tháng tới lãi suất cho vay tại VN có xu hướng TĂNG. Thuận
   lợi = lãi suất cho vay có xu hướng GIẢM.
+rating_bands:
+- min: 1.2
+  label: Rất thuận lợi
+- min: 0.8
+  label: Thuận lợi
+- min: 0.0
+  label: Trung tính
+- min: -0.8
+  label: Bất lợi
+- min: -99
+  label: Rất bất lợi
 rows:
 - code: deposit_12m_all
   pillar: Giá vốn

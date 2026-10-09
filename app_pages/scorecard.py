@@ -8,6 +8,7 @@ import streamlit as st
 from macro_app import fmt
 from macro_app import profiles as pf
 from macro_app.metrics import implications as im
+from macro_app.metrics.scorecard import bands_for as sc_bands_for
 from macro_app.metrics.scorecard import load_settings
 from macro_app.metrics.transforms import measure
 from macro_app.ui import components as ui
@@ -112,7 +113,7 @@ def report_file(kind: str, payload: str, months: int, stamp: float, meta: tuple)
         months=months,
         compare_label=CMP_LABEL[months],
         saved_note=saved_note,
-        bands=settings["rating_bands"],
+        bands=sc_bands_for(json.loads(payload), settings),
         implications=[(x["tone"], x["name"], x["text"]) for x in notes_r],
     )
     return report_export.to_pdf(rep) if kind == "pdf" else report_export.to_docx(rep)
@@ -172,7 +173,7 @@ if table.empty:
     st.stop()
 names = {c: i.name for c, i in catalog.items()}
 cmp = total["compare"][k]
-bands = settings["rating_bands"]
+bands = sc_bands_for(card, settings)
 
 c1, c2, c3 = st.columns([1.2, 1.15, 1.1])
 with c1.container(border=True, height="stretch"):

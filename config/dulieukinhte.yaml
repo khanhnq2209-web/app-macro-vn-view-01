@@ -30,3 +30,6 @@ series:
   vn.fdi_disbursed:
     id: 18833
     note: Vốn thực hiện đầu tư trực tiếp từ nước ngoài (FDI giải ngân), triệu USD, tháng. Gắn 10/10/2026
+  vn.fx_vcb_sell:
+    id: 33417
+    note: Tỷ giá bán USD Vietcombank (ngày). Gắn 10/10/2026, phản ánh giá thị trường sát hơn tỷ giá trung tâm

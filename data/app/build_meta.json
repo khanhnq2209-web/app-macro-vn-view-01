@@ -1,8 +1,8 @@
 {
-  "built_at": "2026-10-10T01:02:45",
+  "built_at": "2026-10-10T01:13:35",
   "today": "2026-10-10",
-  "n_indicators": 61,
-  "n_with_data": 61,
+  "n_indicators": 62,
+  "n_with_data": 62,
   "cache_fetched_at": {
     "fred": "2026-10-09T16:01:59+00:00",
     "yahoo": "2026-10-09T15:26:24+00:00",

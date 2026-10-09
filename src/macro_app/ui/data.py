@@ -215,7 +215,7 @@ def _scorecard_eval(
         ctx={**ctx, "target_series_by_id": targets, "forecast_map": fw.load_forecast_map()},
     )
     total["fwd_score"] = fwd_score
-    total["fwd_rating"] = sc.rating(fwd_score, ctx["settings"]["rating_bands"])
+    total["fwd_rating"] = sc.rating(fwd_score, sc.bands_for(card, ctx["settings"]))
     if not hist.empty:
         hist["date"] = pd.to_datetime(hist["date"])
     return table, total, hist

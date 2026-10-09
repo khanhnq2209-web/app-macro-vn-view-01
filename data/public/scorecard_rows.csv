@@ -6,7 +6,8 @@ fedwatch_12m,A1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,82.49942016601572,bps,,
 credit_yoy,B4,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,17.37630434782613,%,,,Tín dụng,0.2,False,True,0.2,0.0,theo_doi_bds_01,nha_o
 gdp_yoy_published,B1,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,8.39,%,,,Thu nhập và hạ tầng,0.1,False,True,0.1,0.2,theo_doi_bds_01,nha_o
 public_investment_ytd_yoy,D2,green,Tốt,1.0,1.0,-2.0,2.0,False,20.869612284721796,%,,,Thu nhập và hạ tầng,0.1,False,True,0.1,0.1,theo_doi_bds_01,nha_o
-fx_central,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,1.645911001824385,%,% thay đổi so 91 ngày trước,,Tỷ giá,0.15,False,True,0.15,-0.15,theo_doi_bds_01,nha_o
+fx_vcb,B2,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,-1.5111446921042715,%,% thay đổi so 91 ngày trước,,Tỷ giá,0.15,False,True,0.15,0.3,theo_doi_bds_01,nha_o
+fx_central,B2,red,Xấu,-1.0,-1.0,-1.0,1.0,False,25629.0,VND/USD,,,Tỷ giá,0.0,True,True,0.0,,theo_doi_bds_01,nha_o
 cpi_yoy,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,4.89,%,,,Lạm phát,0.1,False,True,0.1,-0.1,theo_doi_bds_01,nha_o
 effr,A1,red,Xấu,-1.0,-1.0,-1.0,1.0,False,3.88,%,,,Lãi suất và thanh khoản,0.0,True,True,0.0,,theo_doi_bds_01,nha_o
 govbond_10y,B3,red,Xấu,-1.0,-1.0,-1.0,1.0,False,4.506492,%,,,Lãi suất và thanh khoản,0.0,True,True,0.0,,theo_doi_bds_01,nha_o
@@ -21,7 +22,8 @@ rate_diff_vnd_usd,B3,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,-0.7709999999999999,�
 usd_broad,A1,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,0.5755231162099195,%,% thay đổi so 91 ngày trước,,USD và Fed,0.15,False,True,0.15,0.0,theo_doi_ty_gia_lai_suat,ty_gia
 fedwatch_12m,A1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,82.49942016601572,bps,,,USD và Fed,0.15,False,True,0.15,-0.3,theo_doi_ty_gia_lai_suat,ty_gia
 ust_2y,A1,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,0.5599999999999996,điểm %,thay đổi so 91 ngày trước,,USD và Fed,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
-fx_central,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,1.645911001824385,%,% thay đổi so 91 ngày trước,,Biến động tỷ giá,0.25,False,True,0.25,-0.25,theo_doi_ty_gia_lai_suat,ty_gia
+fx_vcb,B2,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,-1.5111446921042715,%,% thay đổi so 91 ngày trước,,Biến động tỷ giá,0.25,False,True,0.25,0.5,theo_doi_ty_gia_lai_suat,ty_gia
+fx_central,B2,red,Xấu,-1.0,-1.0,-1.0,1.0,False,25629.0,VND/USD,,,Biến động tỷ giá,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
 dxy,A1,red,Xấu,-1.0,-1.0,-1.0,1.0,False,,điểm,,,USD và Fed,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
 cpi_yoy,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,4.89,%,,,Lạm phát,0.1,False,True,0.1,-0.1,theo_doi_ty_gia_lai_suat,ty_gia
 export_yoy,B1,red,Xấu,-1.0,-1.0,-1.0,1.0,False,25.590081904262973,%,,,Biến động tỷ giá,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia

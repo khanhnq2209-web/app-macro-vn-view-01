@@ -6,6 +6,17 @@ description: 'Áp lực mất giá VND 3–12 tháng tới (điểm thấp = áp
   trữ, tỷ giá NHTM, cán cân thương mại: cần nguồn mới.'
 meaning: Bất lợi = 3–12 tháng tới tỷ giá USD/VND có xu hướng TĂNG (VND mất giá). Thuận
   lợi = tỷ giá ổn định hoặc GIẢM.
+rating_bands:
+- min: 1.0
+  label: Rất thuận lợi
+- min: 0.45
+  label: Thuận lợi
+- min: -0.25
+  label: Trung tính
+- min: -0.7
+  label: Bất lợi
+- min: -99
+  label: Rất bất lợi
 rows:
 - code: rate_diff_vnd_usd
   pillar: Chênh lệch lãi suất
@@ -67,7 +78,7 @@ rows:
     kind: change
     n: 91
     unit: day
-- code: fx_central
+- code: fx_vcb
   pillar: Biến động tỷ giá
   method: absolute
   cuts:
@@ -76,15 +87,24 @@ rows:
   - 1.0
   - 2.0
   side: above
-  description: '% thay đổi tỷ giá trung tâm 3 tháng: phần tỷ giá của chỉ số EMP. Tỷ
-    giá trung tâm được điều hành nên báo thiếu áp lực (11/2022 chỉ +2,3% so cùng kỳ).
-    Mốc theo chuẩn chuyên gia: VND mất giá 2–4%/năm là bình thường (UOB, VnEconomy
-    2026) → 0,25–1%/3 tháng trung tính, 1–2% xấu, trên 2% rất xấu (~8%/năm). [giả
-    định] Chờ QTRR duyệt.'
+  description: '% thay đổi giá bán USD tại Vietcombank 3 tháng: giá thị trường, sát
+    hơn tỷ giá trung tâm (NHNN chủ động dời tâm từ 2025, IMF). Mốc theo chuẩn chuyên
+    gia: VND mất giá 2–4%/năm là bình thường (UOB, VnEconomy 2026) → 0,25–1%/3 tháng
+    trung tính, 1–2% xấu, trên 2% rất xấu. [giả định] Chờ QTRR duyệt.'
   measure:
     kind: pct_change
     n: 91
     unit: day
+- code: fx_central
+  pillar: Biến động tỷ giá
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: above
+  description: 'Tham khảo, không tính điểm: tỷ giá trung tâm do NHNN điều hành, báo
+    chậm và có lúc ngược với giá thị trường.'
 - code: dxy
   pillar: USD và Fed
   info: true

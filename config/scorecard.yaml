@@ -10,6 +10,8 @@ default_scores:            # điểm theo số mức, từ tốt đến xấu
   4: [1, 0, -1, -2]
   5: [2, 1, 0, -1, -2]
 rating_bands:              # xếp hạng điểm tổng, kiểm từ trên xuống
+  # Dải chung, dùng khi phân khúc không có `rating_bands` riêng. Từ 10/10/2026 mỗi phân khúc mẫu
+  # có dải riêng = phân vị 90/70/30/10 điểm tháng 10 năm của chính nó (làm tròn 0,05).
   # Hiệu chỉnh 06/10/2026 theo phân phối toàn bộ điểm tháng (10 năm, gộp Nhà ở + KCN) của bộ
   # "Theo dõi BĐS - 01": P90 0,83 · P70 0,48 · P30 0,11 · P10 −0,17 (trung bình +0,30),
   # làm tròn thành 0,8 / 0,45 / 0,05 / −0,2.

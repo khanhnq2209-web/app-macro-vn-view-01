@@ -38,6 +38,7 @@ cpi_yoy,CPI so cùng kỳ,,B2,%,M,GSO · VBMA,https://vbma.org.vn/vi/market-data
 cpi_avg_ytd,CPI bình quân từ đầu năm (so mục tiêu),,B2,%,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.cpi_mom,
 cpi_housing_yoy,"CPI nhà ở và VLXD, so cùng kỳ",,B2,%,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.cpi_housing_mom,no_repeat_check
 fx_central,Tỷ giá trung tâm USD/VND,,B2,VND/USD,D,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.fx_central,
+fx_vcb,Tỷ giá bán USD Vietcombank,,B2,VND/USD,D,"Vietcombank, dulieukinhte (API)",https://dulieukinhte.com,vn.fx_vcb_sell,
 fx_central_ytd,"Tỷ giá trung tâm, thay đổi từ đầu năm",,B2,%,D,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.fx_central,ytd
 deposit_12m_big4,LS huy động 12 tháng (Big4),,B3,%,D,Simplize,https://simplize.vn/lai-suat-ngan-hang,vn.deposit_panel,
 deposit_12m_all,LS huy động 12 tháng (20 NH),,B3,%,D,Simplize,https://simplize.vn/lai-suat-ngan-hang,vn.deposit_panel,

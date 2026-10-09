@@ -4,6 +4,17 @@ description: 'Cầu thuê đất KCN, nhà xưởng VN. FDI đăng ký là chỉ
   (KBSV 2026). Thiếu FDI giải ngân, tỷ lệ lấp đầy, giá thuê: cần nguồn mới.'
 meaning: Bất lợi = 6–12 tháng tới cầu thuê đất KCN, nhà xưởng có xu hướng GIẢM. Thuận
   lợi = cầu thuê có xu hướng TĂNG.
+rating_bands:
+- min: 1.15
+  label: Rất thuận lợi
+- min: 0.85
+  label: Thuận lợi
+- min: 0.1
+  label: Trung tính
+- min: -0.5
+  label: Bất lợi
+- min: -99
+  label: Rất bất lợi
 rows:
 - code: fdi_registered_ytd
   pillar: FDI và cầu thuê

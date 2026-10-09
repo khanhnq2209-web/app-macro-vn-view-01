@@ -6,6 +6,17 @@ description: 'Áp lực tăng giá năng lượng VN phải trả 3–6 tháng t
   (EIA): cần API EIA.'
 meaning: Bất lợi = 3–6 tháng tới giá xăng dầu, khí VN phải trả có xu hướng TĂNG (đẩy
   CPI). Thuận lợi = có xu hướng GIẢM.
+rating_bands:
+- min: 1.0
+  label: Rất thuận lợi
+- min: 0.5
+  label: Thuận lợi
+- min: -0.25
+  label: Trung tính
+- min: -1.0
+  label: Bất lợi
+- min: -99
+  label: Rất bất lợi
 rows:
 - code: brent_vnd
   pillar: Giá dầu

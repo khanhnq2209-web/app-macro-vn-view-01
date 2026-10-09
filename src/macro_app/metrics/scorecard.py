@@ -175,6 +175,18 @@ def row_scores(row: dict, n_levels: int, settings: dict) -> list[float]:
     return [float(x) for x in settings["default_scores"][n_levels]]
 
 
+def bands_for(card: dict, settings: dict) -> list[dict]:
+    """Dải xếp hạng riêng của phân khúc (theo phân phối điểm của nó); không có thì dùng chung."""
+    return card.get("rating_bands") or settings["rating_bands"]
+
+
+def _card_ctx(card: dict, ctx: dict) -> dict:
+    return {
+        **ctx,
+        "settings": {**ctx["settings"], "rating_bands": bands_for(card, ctx["settings"])},
+    }
+
+
 def rating(score: float, bands: list[dict]) -> str:
     if score is None or np.isnan(score):
         return "Chưa đủ dữ liệu"
@@ -231,6 +243,7 @@ def current(
     card: dict, frames: dict[str, pd.DataFrame], catalog: dict, ctx: dict
 ) -> tuple[pd.DataFrame, dict]:
     """Bảng dòng hiện tại + tổng (điểm, độ phủ, xếp hạng)."""
+    ctx = _card_ctx(card, ctx)
     rows = [r for r in card["rows"] if r["code"] in catalog]
     w = weights(rows, catalog, card.get("pillars"))
     out = []
@@ -368,6 +381,7 @@ def _history_from(table: pd.DataFrame, wser: pd.Series, ctx: dict) -> pd.DataFra
 
 def history(card: dict, frames: dict[str, pd.DataFrame], catalog: dict, ctx: dict) -> pd.DataFrame:
     """Điểm scorecard theo tháng: [date, score, coverage, rating], tới tháng chấm."""
+    ctx = _card_ctx(card, ctx)
     table, wser = row_history(card, frames, catalog, ctx)
     return _history_from(table, wser, ctx)
 
@@ -434,6 +448,7 @@ def evaluate_card(
     card: dict, frames: dict[str, pd.DataFrame], catalog: dict, ctx: dict
 ) -> tuple[pd.DataFrame, dict, pd.DataFrame]:
     """Chấm một phân khúc: bảng dòng, tổng (kèm so sánh kỳ, độ nhạy, nhóm), lịch sử."""
+    ctx = _card_ctx(card, ctx)
     table, total = current(card, frames, catalog, ctx)
     rh, wser = row_history(card, frames, catalog, ctx)
     hist = _history_from(rh, wser, ctx)

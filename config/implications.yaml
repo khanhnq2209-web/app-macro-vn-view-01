@@ -31,9 +31,9 @@ nha_o:  # Theo dõi BĐS / Nhà ở: thuận lợi cho thị trường nhà ở 
   public_investment_ytd_yoy:  # lũy kế so cùng kỳ
     bad: Giải ngân đầu tư công thấp hơn cùng kỳ → hạ tầng kết nối VN chậm → kém hỗ trợ nhà ở vùng ven.
     good: Giải ngân đầu tư công cao hơn cùng kỳ → hạ tầng kết nối VN nhanh → hỗ trợ nhà ở vùng ven.
-  fx_central:  # % thay đổi 3 tháng
-    bad: VND mất giá nhanh trong 3 tháng → NHNN hút thanh khoản giữ tỷ giá → lãi suất VN khó giảm.
-    good: Tỷ giá ổn định trong 3 tháng → NHNN không phải hút thanh khoản → lãi suất VN có dư địa giảm.
+  fx_vcb:  # % thay đổi 3 tháng, giá bán USD Vietcombank
+    bad: Giá USD ở ngân hàng tăng nhanh trong 3 tháng → NHNN hút thanh khoản giữ tỷ giá → lãi suất VN khó giảm.
+    good: Giá USD ở ngân hàng ổn định hoặc giảm trong 3 tháng → NHNN không phải hút thanh khoản → lãi suất VN có dư địa giảm.
 
 kcn:  # Theo dõi BĐS / KCN: thuận lợi cho cầu thuê đất KCN, nhà xưởng VN
   fdi_registered_ytd:  # tổng 12 tháng so cùng kỳ
@@ -68,9 +68,9 @@ ty_gia:  # Tỷ giá: điểm thấp = áp lực mất giá VND
   cpi_yoy:
     bad: Lạm phát VN cao → VND mất sức mua thực → áp lực mất giá VND.
     good: Lạm phát VN thấp → VND giữ sức mua thực → đỡ cho VND.
-  fx_central:  # % thay đổi 3 tháng
-    bad: Tỷ giá trung tâm tăng nhanh trong 3 tháng → kỳ vọng VND mất giá tiếp → cầu giữ USD tăng.
-    good: Tỷ giá trung tâm ổn định trong 3 tháng → kỳ vọng mất giá thấp → cầu giữ USD giảm.
+  fx_vcb:  # % thay đổi 3 tháng, giá bán USD Vietcombank
+    bad: Giá USD ở ngân hàng tăng nhanh trong 3 tháng → kỳ vọng VND mất giá tiếp → cầu giữ USD tăng.
+    good: Giá USD ở ngân hàng ổn định hoặc giảm trong 3 tháng → kỳ vọng mất giá thấp → cầu giữ USD giảm.
 
 lai_suat:  # Lãi suất: thuận lợi cho bên đi vay tại VN
   deposit_12m_all:  # mức

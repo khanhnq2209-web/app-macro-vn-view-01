@@ -541,6 +541,18 @@ indicators:
     direction: up_bad
     segment: both
     decimals: 0
+  - code: fx_vcb
+    name: Tỷ giá bán USD Vietcombank
+    group: B2
+    unit: VND/USD
+    frequency: D
+    source: Vietcombank, dulieukinhte (API)
+    source_url: https://dulieukinhte.com
+    recipe: {op: raw, input: vn.fx_vcb_sell}
+    change_unit: pct
+    direction: up_bad
+    segment: both
+    decimals: 0
   - code: fx_central_ytd
     name: Tỷ giá trung tâm, thay đổi từ đầu năm
     group: B2
