@@ -388,7 +388,7 @@ def table_html(  # noqa: PLR0913
     head = (
         '<colgroup><col><col class="m-hide" style="width:96px"><col style="width:120px">'
         f'<col style="width:150px"><col style="width:120px"><col style="width:190px">{w_cols}</colgroup>'
-        '<tr><th>Chỉ số</th><th class="m-hide">Diễn biến 3 năm</th><th class="r">Giá trị dùng chấm</th>'
+        '<tr><th>Chỉ số</th><th class="m-hide">Trend</th><th class="r">Giá trị dùng chấm</th>'
         f"<th>Mức</th><th>So {E(cmp_label)}</th><th>Thông tin tham khảo</th>{w_head}</tr>"
     )
     body = []
