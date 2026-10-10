@@ -1,48 +1,53 @@
 code,group,status,label,score,last_score,score_min,score_max,stale,measured,measured_unit,measure_text,detail,pillar,weight,info,show_level,weight_used,contribution,profile,segment
-deposit_12m_big4,B3,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,1.2250000000000005,điểm %,thay đổi so cùng kỳ năm trước,,Lãi suất và thanh khoản,0.13999999999999999,False,True,0.13999999999999999,-0.27999999999999997,theo_doi_bds_01,nha_o
-interbank_on,B3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,3.0119999999999996,%,trung bình 20 ngày,,Lãi suất và thanh khoản,0.06999999999999999,False,True,0.06999999999999999,0.0,theo_doi_bds_01,nha_o
-refi_rate,B3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,0.0,điểm %,thay đổi so cùng kỳ năm trước,,Lãi suất và thanh khoản,0.06999999999999999,False,True,0.06999999999999999,0.0,theo_doi_bds_01,nha_o
-fedwatch_12m,A1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,82.49942016601572,bps,,,Lãi suất và thanh khoản,0.06999999999999999,False,True,0.06999999999999999,-0.13999999999999999,theo_doi_bds_01,nha_o
-credit_yoy,B4,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,17.37630434782613,%,,,Tín dụng,0.2,False,True,0.2,0.0,theo_doi_bds_01,nha_o
+deposit_12m_big4,B3,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,1.2250000000000005,điểm %,thay đổi so cùng kỳ năm trước,,Lãi suất và thanh khoản,0.05,False,True,0.05,-0.1,theo_doi_bds_01,nha_o
+interbank_on,B3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,3.0119999999999996,%,trung bình 20 ngày,,Lãi suất và thanh khoản,0.05,False,True,0.05,0.0,theo_doi_bds_01,nha_o
+refi_rate,B3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,0.0,điểm %,thay đổi so cùng kỳ năm trước,,Lãi suất và thanh khoản,0.05,False,True,0.05,0.0,theo_doi_bds_01,nha_o
+fedwatch_12m,A1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,82.49942016601572,bps,,,Lãi suất và thanh khoản,0.05,False,True,0.05,-0.1,theo_doi_bds_01,nha_o
+credit_yoy,B4,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,17.37630434782613,%,,,Tín dụng,0.1,False,True,0.1,0.0,theo_doi_bds_01,nha_o
+credit_to_m2,B4,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,98.6426322723146,%,,,Tín dụng,0.1,False,True,0.1,-0.2,theo_doi_bds_01,nha_o
 gdp_yoy_published,B1,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,8.39,%,,,Thu nhập và hạ tầng,0.1,False,True,0.1,0.2,theo_doi_bds_01,nha_o
 public_investment_ytd_yoy,D2,green,Tốt,1.0,1.0,-2.0,2.0,False,20.869612284721796,%,,,Thu nhập và hạ tầng,0.1,False,True,0.1,0.1,theo_doi_bds_01,nha_o
-fx_vcb,B2,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,-1.5111446921042715,%,% thay đổi so 91 ngày trước,,Tỷ giá,0.15,False,True,0.15,0.3,theo_doi_bds_01,nha_o
+fx_vcb,B2,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,-1.5111446921042715,%,% thay đổi so 91 ngày trước,,Tỷ giá,0.2,False,True,0.2,0.4,theo_doi_bds_01,nha_o
 fx_central,B2,red,Xấu,-1.0,-1.0,-1.0,1.0,False,25629.0,VND/USD,,,Tỷ giá,0.0,True,True,0.0,,theo_doi_bds_01,nha_o
-cpi_yoy,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,4.89,%,,,Lạm phát,0.1,False,True,0.1,-0.1,theo_doi_bds_01,nha_o
+cpi_yoy,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,4.89,%,,,Lạm phát,0.2,False,True,0.2,-0.2,theo_doi_bds_01,nha_o
 effr,A1,red,Xấu,-1.0,-1.0,-1.0,1.0,False,3.88,%,,,Lãi suất và thanh khoản,0.0,True,True,0.0,,theo_doi_bds_01,nha_o
 govbond_10y,B3,red,Xấu,-1.0,-1.0,-1.0,1.0,False,4.506492,%,,,Lãi suất và thanh khoản,0.0,True,True,0.0,,theo_doi_bds_01,nha_o
 cpi_housing_yoy,B2,red,Xấu,-1.0,-1.0,-1.0,1.0,False,6.6,%,,,Thu nhập và hạ tầng,0.0,True,True,0.0,,theo_doi_bds_01,nha_o
-fdi_registered_ytd,E1,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,49.10095487818729,%,"tổng 12 tháng, % so cùng kỳ",,FDI và cầu thuê,0.18,False,True,0.18,0.36,theo_doi_bds_01,kcn
-fdi_disbursed,E1,green,Tốt,1.0,1.0,-2.0,2.0,False,11.454992915206198,%,"tổng 12 tháng, % so cùng kỳ",,FDI và cầu thuê,0.12,False,True,0.12,0.12,theo_doi_bds_01,kcn
-export_yoy,B1,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,24.241028589820814,%,trung bình 3 tháng,,Sản xuất và thương mại,0.15,False,True,0.15,0.3,theo_doi_bds_01,kcn
-pmi_vn,B1,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,52.666666666666664,điểm,trung bình 3 tháng,,Sản xuất và thương mại,0.15,False,True,0.15,0.3,theo_doi_bds_01,kcn
-public_investment_ytd_yoy,D2,green,Tốt,1.0,1.0,-2.0,2.0,False,20.869612284721796,%,,,Hạ tầng,0.15,False,True,0.15,0.15,theo_doi_bds_01,kcn
+fdi_registered_ytd,E1,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,49.10095487818729,%,"tổng 12 tháng, % so cùng kỳ",,FDI và cầu thuê,0.125,False,True,0.125,0.25,theo_doi_bds_01,kcn
+fdi_disbursed,E1,green,Tốt,1.0,1.0,-2.0,2.0,False,11.454992915206198,%,"tổng 12 tháng, % so cùng kỳ",,FDI và cầu thuê,0.125,False,True,0.125,0.125,theo_doi_bds_01,kcn
+export_yoy,B1,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,24.241028589820814,%,trung bình 3 tháng,,Sản xuất và thương mại,0.125,False,True,0.125,0.25,theo_doi_bds_01,kcn
+pmi_vn,B1,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,52.666666666666664,điểm,trung bình 3 tháng,,Sản xuất và thương mại,0.125,False,True,0.125,0.25,theo_doi_bds_01,kcn
+public_investment_ytd_yoy,D2,green,Tốt,1.0,1.0,-2.0,2.0,False,20.869612284721796,%,,,Hạ tầng,0.25,False,True,0.25,0.25,theo_doi_bds_01,kcn
 deposit_12m_big4,B3,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,1.2250000000000005,điểm %,thay đổi so cùng kỳ năm trước,,Chi phí vốn,0.25,False,True,0.25,-0.5,theo_doi_bds_01,kcn
-rate_diff_vnd_usd,B3,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,-0.7709999999999999,điểm %,trung bình 20 ngày,,Chênh lệch lãi suất,0.35,False,True,0.35,-0.35,theo_doi_ty_gia_lai_suat,ty_gia
-usd_broad,A1,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,0.5755231162099195,%,% thay đổi so 91 ngày trước,,USD và Fed,0.15,False,True,0.15,0.0,theo_doi_ty_gia_lai_suat,ty_gia
-fedwatch_12m,A1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,82.49942016601572,bps,,,USD và Fed,0.15,False,True,0.15,-0.3,theo_doi_ty_gia_lai_suat,ty_gia
+rate_diff_vnd_usd,B3,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,-0.7709999999999999,điểm %,trung bình 20 ngày,,Chênh lệch lãi suất,0.2,False,True,0.2,-0.2,theo_doi_ty_gia_lai_suat,ty_gia
+usd_broad,A1,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,0.5755231162099195,%,% thay đổi so 91 ngày trước,,USD và Fed,0.1,False,True,0.1,0.0,theo_doi_ty_gia_lai_suat,ty_gia
+fedwatch_12m,A1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,82.49942016601572,bps,,,USD và Fed,0.1,False,True,0.1,-0.2,theo_doi_ty_gia_lai_suat,ty_gia
 ust_2y,A1,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,0.5599999999999996,điểm %,thay đổi so 91 ngày trước,,USD và Fed,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
-fx_vcb,B2,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,-1.5111446921042715,%,% thay đổi so 91 ngày trước,,Biến động tỷ giá,0.25,False,True,0.25,0.5,theo_doi_ty_gia_lai_suat,ty_gia
+fx_vcb,B2,green_strong,Rất tốt,2.0,2.0,-2.0,2.0,False,-1.5111446921042715,%,% thay đổi so 91 ngày trước,,Biến động tỷ giá,0.2,False,True,0.2,0.4,theo_doi_ty_gia_lai_suat,ty_gia
+trade_balance,B1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,-3814.3557833333325,triệu USD,trung bình 3 tháng,,Dòng ngoại tệ,0.2,False,True,0.2,-0.4,theo_doi_ty_gia_lai_suat,ty_gia
 fx_central,B2,red,Xấu,-1.0,-1.0,-1.0,1.0,False,25629.0,VND/USD,,,Biến động tỷ giá,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
 dxy,A1,red,Xấu,-1.0,-1.0,-1.0,1.0,False,,điểm,,,USD và Fed,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
-cpi_yoy,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,4.89,%,,,Lạm phát,0.1,False,True,0.1,-0.1,theo_doi_ty_gia_lai_suat,ty_gia
+cpi_yoy,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,4.89,%,,,Lạm phát,0.2,False,True,0.2,-0.2,theo_doi_ty_gia_lai_suat,ty_gia
 export_yoy,B1,red,Xấu,-1.0,-1.0,-1.0,1.0,False,25.590081904262973,%,,,Biến động tỷ giá,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
 fdi_registered_ytd,E1,red,Xấu,-1.0,-1.0,-1.0,1.0,False,21045.97153151,triệu USD,,,Biến động tỷ giá,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
-deposit_12m_all,B3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,6.147368421052632,%,,,Giá vốn,0.2,False,True,0.20000000000000004,0.0,theo_doi_ty_gia_lai_suat,lai_suat
-deposit_12m_big4,B3,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,0.625,điểm %,thay đổi so 182 ngày trước,,Giá vốn,0.2,False,True,0.20000000000000004,-0.4000000000000001,theo_doi_ty_gia_lai_suat,lai_suat
-interbank_on,B3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,3.0119999999999996,%,trung bình 20 ngày,,Thanh khoản,0.3,False,True,0.30000000000000004,0.0,theo_doi_ty_gia_lai_suat,lai_suat
-rate_diff_vnd_usd,B3,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,-0.7709999999999999,điểm %,trung bình 20 ngày,,Ràng buộc bên ngoài,0.1,False,True,0.10000000000000002,-0.10000000000000002,theo_doi_ty_gia_lai_suat,lai_suat
-fedwatch_12m,A1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,82.49942016601572,bps,,,Ràng buộc bên ngoài,0.1,False,True,0.10000000000000002,-0.20000000000000004,theo_doi_ty_gia_lai_suat,lai_suat
+policy_gap_vnd_usd,B3,yellow,Trung tính,,0.0,-1.0,1.0,True,0.8700000000000001,điểm %,,,Chênh lệch lãi suất,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,ty_gia
+deposit_12m_all,B3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,6.147368421052632,%,,,Giá vốn,0.125,False,True,0.125,0.0,theo_doi_ty_gia_lai_suat,lai_suat
+deposit_12m_big4,B3,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,0.625,điểm %,thay đổi so 182 ngày trước,,Giá vốn,0.125,False,True,0.125,-0.25,theo_doi_ty_gia_lai_suat,lai_suat
+interbank_on,B3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,3.0119999999999996,%,trung bình 20 ngày,,Thanh khoản,0.25,False,True,0.25,0.0,theo_doi_ty_gia_lai_suat,lai_suat
+rate_diff_vnd_usd,B3,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,-0.7709999999999999,điểm %,trung bình 20 ngày,,Ràng buộc bên ngoài,0.125,False,True,0.125,-0.125,theo_doi_ty_gia_lai_suat,lai_suat
+fedwatch_12m,A1,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,82.49942016601572,bps,,,Ràng buộc bên ngoài,0.125,False,True,0.125,-0.25,theo_doi_ty_gia_lai_suat,lai_suat
 ust_2y,A1,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,0.9799999999999995,điểm %,thay đổi so 182 ngày trước,,Ràng buộc bên ngoài,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,lai_suat
-cpi_yoy,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,4.89,%,,,Lạm phát,0.1,False,True,0.10000000000000002,-0.10000000000000002,theo_doi_ty_gia_lai_suat,lai_suat
+cpi_yoy,B2,orange,Xấu,-1.0,-1.0,-2.0,2.0,False,4.89,%,,,Lạm phát,0.25,False,True,0.25,-0.25,theo_doi_ty_gia_lai_suat,lai_suat
 fed_upper,A1,red,Xấu,-1.0,-1.0,-1.0,1.0,False,4.0,%,,,Ràng buộc bên ngoài,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,lai_suat
 refi_rate,B3,red,Xấu,-1.0,-1.0,-1.0,1.0,False,4.5,%,,,Giá vốn,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,lai_suat
 govbond_10y,B3,red,Xấu,-1.0,-1.0,-1.0,1.0,False,4.506492,%,,,Giá vốn,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,lai_suat
 real_rate,B3,red,Xấu,-1.0,-1.0,-1.0,1.0,False,1.0100000000000007,điểm %,,,Giá vốn,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,lai_suat
 credit_minus_m2,B4,red,Xấu,,-1.0,-1.0,1.0,True,3.2316724276858846,điểm %,,,Thanh khoản,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,lai_suat
-brent_vnd,A2,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,56.54113080124055,%,% lệch so trung bình 5 năm,,Giá dầu,0.5,False,True,0.5,-1.0,theo_doi_dau_khi,dau_khi
-lng_asia,A2,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,6.194300708281153,%,% lệch so trung bình 5 năm,,Khí LNG,0.25,False,True,0.25,0.0,theo_doi_dau_khi,dau_khi
-copper_imf,A3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,5.058947637935374,%,% thay đổi so 3 tháng trước,,Cầu toàn cầu,0.25,False,True,0.25,0.0,theo_doi_dau_khi,dau_khi
+policy_gap_vnd_usd,B3,yellow,Trung tính,,0.0,-1.0,1.0,True,0.8700000000000001,điểm %,,,Ràng buộc bên ngoài,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,lai_suat
+credit_to_m2,B4,red,Xấu,-1.0,-1.0,-1.0,1.0,False,98.6426322723146,%,,,Thanh khoản,0.0,True,True,0.0,,theo_doi_ty_gia_lai_suat,lai_suat
+brent_vnd,A2,red,Rất xấu,-2.0,-2.0,-2.0,2.0,False,56.54113080124055,%,% lệch so trung bình 5 năm,,Giá dầu,0.33333333333333337,False,True,0.33333333333333337,-0.6666666666666667,theo_doi_dau_khi,dau_khi
+lng_asia,A2,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,6.194300708281153,%,% lệch so trung bình 5 năm,,Khí LNG,0.33333333333333337,False,True,0.33333333333333337,0.0,theo_doi_dau_khi,dau_khi
+copper_imf,A3,yellow,Trung tính,0.0,0.0,-2.0,2.0,False,5.058947637935374,%,% thay đổi so 3 tháng trước,,Cầu toàn cầu,0.33333333333333337,False,True,0.33333333333333337,0.0,theo_doi_dau_khi,dau_khi
 gpr,A5,red,Xấu,-1.0,-1.0,-1.0,1.0,False,146.2098999023438,điểm,,,Cầu toàn cầu,0.0,True,True,0.0,,theo_doi_dau_khi,dau_khi
 oil_vol,A2,red,Xấu,-1.0,-1.0,-1.0,1.0,False,48.4,điểm,,,Cầu toàn cầu,0.0,True,True,0.0,,theo_doi_dau_khi,dau_khi
 us_indpro,A5,red,Xấu,-1.0,-1.0,-1.0,1.0,False,103.0682,điểm,,,Cầu toàn cầu,0.0,True,True,0.0,,theo_doi_dau_khi,dau_khi

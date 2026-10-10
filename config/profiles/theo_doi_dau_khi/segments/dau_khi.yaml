@@ -9,9 +9,9 @@ meaning: Bất lợi = 3–6 tháng tới giá xăng dầu, khí VN phải trả
 rating_bands:
 - min: 1.0
   label: Rất thuận lợi
-- min: 0.5
+- min: 0.65
   label: Thuận lợi
-- min: -0.25
+- min: -0.35
   label: Trung tính
 - min: -1.0
   label: Bất lợi
@@ -114,8 +114,5 @@ rows:
   description: 'Tham khảo, không tính điểm: trùng với LNG châu Á (r = 0,89).'
 pillars:
 - name: Giá dầu
-  weight: 50.0
 - name: Khí LNG
-  weight: 25.0
 - name: Cầu toàn cầu
-  weight: 25.0

@@ -475,6 +475,18 @@ indicators:
     flags: [check_rebase]
     decimals: 2
 
+  - code: trade_balance
+    name: Cán cân thương mại hàng hóa (xuất − nhập)
+    group: B1
+    unit: triệu USD
+    frequency: M
+    source: Hải quan · dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw_diff, inputs: [vn.export_total, vn.import_total]}
+    change_unit: pct
+    direction: up_good
+    segment: both
+    decimals: 0
   - code: export_yoy
     name: Xuất khẩu so cùng kỳ
     group: B1
@@ -629,6 +641,18 @@ indicators:
     direction: up_bad
     segment: both
     decimals: 2
+  - code: policy_gap_vnd_usd
+    name: Chênh lãi điều hành VN − Fed (tái cấp vốn − EFFR)
+    group: B3
+    unit: "điểm %"
+    frequency: D
+    source: Tính toán (NHNN, FRED)
+    source_url: ""
+    recipe: {op: diff, inputs: [refi_rate, effr]}
+    change_unit: bps
+    direction: up_good
+    segment: both
+    decimals: 2
   - code: rate_diff_vnd_usd
     name: Chênh lệch lãi suất VND − USD (liên ngân hàng qua đêm − EFFR)
     group: B3
@@ -710,6 +734,42 @@ indicators:
     direction: up_good
     segment: both
     decimals: 2
+  - code: credit_level
+    name: Dư nợ tín dụng toàn nền kinh tế
+    group: B4
+    unit: tỷ đồng
+    frequency: M
+    source: NHNN, dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.credit_level}
+    change_unit: pct
+    direction: up_good
+    segment: both
+    decimals: 0
+  - code: m2_level
+    name: Tổng phương tiện thanh toán M2
+    group: B4
+    unit: tỷ đồng
+    frequency: M
+    source: NHNN, dulieukinhte
+    source_url: https://dulieukinhte.com/
+    recipe: {op: raw, input: vn.m2_level}
+    change_unit: pct
+    direction: up_good
+    segment: both
+    decimals: 0
+  - code: credit_to_m2
+    name: Dư nợ tín dụng / M2 (đại diện LDR)
+    group: B4
+    unit: "%"
+    frequency: M
+    source: Tính toán (NHNN)
+    source_url: ""
+    recipe: {op: raw_ratio, inputs: [vn.credit_level, vn.m2_level]}
+    change_unit: pp
+    direction: up_bad
+    segment: both
+    decimals: 1
   - code: credit_minus_m2
     name: Tín dụng trừ M2 (từ đầu năm)
     group: B4

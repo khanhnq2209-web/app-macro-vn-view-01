@@ -33,6 +33,7 @@ gdp_yoy_published,Tăng trưởng GDP (số công bố),,B1,%,Q,GSO · VBMA,http
 gdp_yoy,Tăng trưởng GDP (tự tính),,B1,%,Q,GSO · dulieukinhte,https://dulieukinhte.com/,vn.gdp_real,check_rebase
 gdp_realestate_yoy,"GDP ngành kinh doanh BĐS, so cùng kỳ",,B1,%,Q,GSO · dulieukinhte,https://dulieukinhte.com/,vn.gdp_real_realestate,check_rebase
 gdp_construction_yoy,"GDP ngành xây dựng, so cùng kỳ",,B1,%,Q,GSO · dulieukinhte,https://dulieukinhte.com/,vn.gdp_real_construction,check_rebase
+trade_balance,Cán cân thương mại hàng hóa (xuất − nhập),,B1,triệu USD,M,Hải quan · dulieukinhte,https://dulieukinhte.com/,"['vn.export_total', 'vn.import_total']",
 export_yoy,Xuất khẩu so cùng kỳ,,B1,%,M,Hải quan · dulieukinhte,https://dulieukinhte.com/,vn.export_total,
 cpi_yoy,CPI so cùng kỳ,,B2,%,M,GSO · VBMA,https://vbma.org.vn/vi/market-data/macro-economic-heatmap,vn.cpi_mom,no_repeat_check
 cpi_avg_ytd,CPI bình quân từ đầu năm (so mục tiêu),,B2,%,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.cpi_mom,
@@ -45,12 +46,16 @@ deposit_12m_all,LS huy động 12 tháng (20 NH),,B3,%,D,Simplize,https://simpli
 interbank_on,LS liên ngân hàng qua đêm,,B3,%,D,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.ib_on,
 refi_rate,Lãi suất tái cấp vốn,,B3,%,D,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.refi,
 govbond_10y,Lợi suất TPCP 10 năm,,B3,%,D,HNX · dulieukinhte,https://dulieukinhte.com/,vn.govbond_10y,
+policy_gap_vnd_usd,Chênh lãi điều hành VN − Fed (tái cấp vốn − EFFR),,B3,điểm %,D,"Tính toán (NHNN, FRED)",,"['refi_rate', 'effr']",
 rate_diff_vnd_usd,Chênh lệch lãi suất VND − USD (liên ngân hàng qua đêm − EFFR),,B3,điểm %,D,"Tính toán (NHNN, FRED)",,"['interbank_on', 'effr']",
 real_rate,Lãi suất thực (huy động 12T Big4 − CPI),,B3,điểm %,M,"Tính toán (Simplize, GSO)",,"['deposit_12m_big4', 'cpi_yoy']",
 credit_ytd,Tăng trưởng tín dụng từ đầu năm,,B4,%,M,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.credit_ytd,ytd
 credit_yoy,Tăng trưởng tín dụng so cùng kỳ,,B4,%,M,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.credit_ytd,
 credit_construction_ytd,"Tín dụng ngành xây dựng, từ đầu năm",,B4,%,M,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.credit_construction_ytd,ytd
 m2_ytd,Tăng trưởng M2 từ đầu năm,,B4,%,M,NHNN · dulieukinhte,https://dulieukinhte.com/,vn.m2_ytd,ytd
+credit_level,Dư nợ tín dụng toàn nền kinh tế,,B4,tỷ đồng,M,"NHNN, dulieukinhte",https://dulieukinhte.com/,vn.credit_level,
+m2_level,Tổng phương tiện thanh toán M2,,B4,tỷ đồng,M,"NHNN, dulieukinhte",https://dulieukinhte.com/,vn.m2_level,
+credit_to_m2,Dư nợ tín dụng / M2 (đại diện LDR),,B4,%,M,Tính toán (NHNN),,"['vn.credit_level', 'vn.m2_level']",
 credit_minus_m2,Tín dụng trừ M2 (từ đầu năm),,B4,điểm %,M,Tính toán (NHNN),,"['credit_ytd', 'm2_ytd']",ytd
 land_use_revenue,Thu tiền sử dụng đất (NSNN),,C1,tỷ đồng,A,Bộ Tài chính · VBMA,https://vbma.org.vn/vi/market-data/macro-economic-heatmap,vbma.land_use_revenue,
 public_investment,Vốn đầu tư NSNN thực hiện (tháng),,D2,tỷ đồng,M,GSO · dulieukinhte,https://dulieukinhte.com/,vn.public_investment,

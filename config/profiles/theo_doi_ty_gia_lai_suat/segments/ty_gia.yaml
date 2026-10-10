@@ -7,13 +7,13 @@ description: 'Áp lực mất giá VND 3–12 tháng tới (điểm thấp = áp
 meaning: Bất lợi = 3–12 tháng tới tỷ giá USD/VND có xu hướng TĂNG (VND mất giá). Thuận
   lợi = tỷ giá ổn định hoặc GIẢM.
 rating_bands:
-- min: 1.0
+- min: 1.1
   label: Rất thuận lợi
-- min: 0.45
+- min: 0.65
   label: Thuận lợi
-- min: -0.25
+- min: 0.0
   label: Trung tính
-- min: -0.7
+- min: -0.5
   label: Bất lợi
 - min: -99
   label: Rất bất lợi
@@ -95,6 +95,22 @@ rows:
     kind: pct_change
     n: 91
     unit: day
+- code: trade_balance
+  pillar: Dòng ngoại tệ
+  method: absolute
+  cuts:
+  - -2000.0
+  - -500.0
+  - 500.0
+  - 2000.0
+  side: below
+  description: 'Cán cân thương mại hàng hóa, trung bình 3 tháng (triệu USD/tháng):
+    thâm hụt → thiếu cung USD → áp lực tỷ giá (Workshop BĐS 10/2026; khung EMP). Thâm
+    hụt trên 2 tỷ USD/tháng là rất xấu. [giả định] Chờ QTRR duyệt.'
+  measure:
+    kind: mean
+    n: 3
+    unit: period
 - code: fx_central
   pillar: Biến động tỷ giá
   info: true
@@ -147,12 +163,21 @@ rows:
   side: above
   description: 'Tham khảo, không tính điểm: vốn đăng ký chưa phải tiền vào; cần FDI
     giải ngân.'
+- code: policy_gap_vnd_usd
+  pillar: Chênh lệch lãi suất
+  info: true
+  method: absolute
+  cuts:
+  - 0.0
+  - 1.0
+  side: below
+  description: 'Tham khảo, không tính điểm: chênh lãi điều hành (tái cấp vốn − EFFR)
+    như Workshop BĐS 10/2026 dùng (≈ +0,6–0,9 điểm %, ''mỏng''). Điểm chấm theo chênh
+    lãi thị trường (liên ngân hàng − EFFR) vì đó là lãi thực sự quyết định giữ VND
+    hay USD.'
 pillars:
 - name: Chênh lệch lãi suất
-  weight: 35.0
 - name: USD và Fed
-  weight: 30.0
 - name: Biến động tỷ giá
-  weight: 25.0
+- name: Dòng ngoại tệ
 - name: Lạm phát
-  weight: 10.0

@@ -22,6 +22,9 @@ nha_o:  # Theo dõi BĐS / Nhà ở: thuận lợi cho thị trường nhà ở 
     bad_low: Tín dụng tăng quá chậm → vốn vay chảy vào nhà ở VN thiếu.
     bad_high: Tín dụng tăng quá nóng → NHNN dễ siết room tín dụng → vốn vay vào nhà ở VN sắp bị hạn chế.
     good: Tín dụng tăng ở mức vừa phải → vốn vay vào nhà ở VN đủ mà chưa bị siết.
+  credit_to_m2:
+    bad: Tín dụng / M2 cao (cho vay vượt nguồn huy động) → ngân hàng thiếu thanh khoản → lãi vay mua nhà VN khó giảm.
+    good: Tín dụng / M2 thấp (nguồn huy động dư) → thanh khoản ngân hàng thoải mái → lãi vay mua nhà VN có dư địa giảm.
   gdp_yoy_published:
     bad: GDP tăng chậm → thu nhập người VN tăng chậm → cầu mua nhà yếu.
     good: GDP tăng nhanh → thu nhập người VN tăng → hỗ trợ cầu mua nhà.
@@ -65,6 +68,9 @@ ty_gia:  # Tỷ giá: điểm thấp = áp lực mất giá VND
   ust_2y:  # thay đổi 3 tháng
     bad: Lợi suất Mỹ 2 năm tăng trong 3 tháng → lãi USD sắp cao hơn lãi VND thêm → áp lực mất giá VND.
     good: Lợi suất Mỹ 2 năm giảm trong 3 tháng → lãi USD sắp thấp đi → áp lực mất giá VND giảm.
+  trade_balance:  # trung bình 3 tháng
+    bad: Thâm hụt thương mại → cầu USD để nhập khẩu lớn hơn nguồn thu → áp lực mất giá VND.
+    good: Thặng dư thương mại → nguồn thu USD lớn hơn nhu cầu nhập khẩu → đỡ cho VND.
   cpi_yoy:
     bad: Lạm phát VN cao → VND mất sức mua thực → áp lực mất giá VND.
     good: Lạm phát VN thấp → VND giữ sức mua thực → đỡ cho VND.

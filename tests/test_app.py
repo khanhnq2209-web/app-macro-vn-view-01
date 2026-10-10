@@ -296,18 +296,15 @@ def test_add_segment_copied_from_existing():
 
 
 def test_group_weight_override_changes_draft_weights():
+    """Tỷ trọng mặc định chia đều; nhập % cho 1 nhóm thì nhóm trống tự chia phần còn lại."""
     at = _config_app()
     _open(at, "theo_doi_bds_01", "nha_o", 2)
     v = at.session_state["cfg_ver"]
-    at.number_input(key=f"cfg_gw_nha_o_2_{v}").set_value(40.0).run()  # Thu nhập và hạ tầng 20 → 40
+    at.number_input(key=f"cfg_gw_nha_o_2_{v}").set_value(40.0).run()  # Thu nhập và hạ tầng
     _ok(at)
     pillars = at.session_state["cfg_draft"]["segments"]["nha_o"]["pillars"]
     assert {"name": "Thu nhập và hạ tầng", "weight": 40.0} in pillars
-    assert at.button(key="cfg_save").disabled  # 35 + 20 + 40 + 15 + 10 = 120% ≠ 100%
-    v = at.session_state["cfg_ver"]
-    at.number_input(key=f"cfg_gw_nha_o_0_{v}").set_value(15.0).run()  # Lãi suất 35 → 15
-    _ok(at)
-    assert not at.button(key="cfg_save").disabled  # 15 + 20 + 40 + 15 + 10 = 100%
+    assert not at.button(key="cfg_save").disabled  # 40% + 4 nhóm tự chia 15% = 100%
 
 
 def test_scorecard_page_v3_blocks_and_edit_shortcut():

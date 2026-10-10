@@ -97,6 +97,24 @@ def _op_diff(ind: Indicator, _ctx: RawContext, done: dict) -> pd.DataFrame:
     return _with_source(values, DERIVED_SOURCE)
 
 
+def _op_raw_diff(ind: Indicator, ctx: RawContext, _done: dict) -> pd.DataFrame:
+    """Hiệu hai chuỗi gốc cùng kỳ, vd xuất khẩu − nhập khẩu = cán cân thương mại."""
+    left, right = (raw_frame(ctx.store, sid)["value"] for sid in ind.recipe["inputs"])
+    return _with_source(
+        tf.align_diff(left, right, ind.frequency),
+        _main_source(raw_frame(ctx.store, ind.recipe["inputs"][0])),
+    )
+
+
+def _op_raw_ratio(ind: Indicator, ctx: RawContext, _done: dict) -> pd.DataFrame:
+    """Tỷ lệ % hai chuỗi gốc cùng kỳ, vd dư nợ tín dụng / M2 (đại diện LDR)."""
+    a, b = (
+        tf.to_period(raw_frame(ctx.store, sid)["value"], ind.frequency)
+        for sid in ind.recipe["inputs"]
+    )
+    return _with_source((a / b * 100).dropna(), DERIVED_SOURCE)
+
+
 def _op_product(ind: Indicator, _ctx: RawContext, done: dict) -> pd.DataFrame:
     """a × b × scale trên ngày chung, vd Brent (USD/thùng) × tỷ giá → VND/thùng."""
     left_code, right_code = ind.recipe["inputs"]
@@ -169,6 +187,8 @@ OPS: dict[str, Callable] = {
     "deposit_avg": _op_deposit,
     "diff": _op_diff,
     "product": _op_product,
+    "raw_diff": _op_raw_diff,
+    "raw_ratio": _op_raw_ratio,
     "manual": _op_manual,
     "raw_manual": _op_raw_manual,
 }

@@ -5,20 +5,19 @@ description: 'Cầu thuê đất KCN, nhà xưởng VN. FDI đăng ký là chỉ
 meaning: Bất lợi = 6–12 tháng tới cầu thuê đất KCN, nhà xưởng có xu hướng GIẢM. Thuận
   lợi = cầu thuê có xu hướng TĂNG.
 rating_bands:
-- min: 1.15
+- min: 1.0
   label: Rất thuận lợi
-- min: 0.85
+- min: 0.65
   label: Thuận lợi
-- min: 0.1
+- min: 0.0
   label: Trung tính
-- min: -0.5
+- min: -0.65
   label: Bất lợi
 - min: -99
   label: Rất bất lợi
 rows:
 - code: fdi_registered_ytd
   pillar: FDI và cầu thuê
-  weight: 60.0
   method: absolute
   cuts:
   - -25.0
@@ -34,7 +33,6 @@ rows:
     ytd: 1.0
 - code: fdi_disbursed
   pillar: FDI và cầu thuê
-  weight: 40.0
   method: absolute
   cuts:
   - -10.0
@@ -107,10 +105,6 @@ rows:
     unit: year
 pillars:
 - name: FDI và cầu thuê
-  weight: 30.0
 - name: Sản xuất và thương mại
-  weight: 30.0
 - name: Hạ tầng
-  weight: 15.0
 - name: Chi phí vốn
-  weight: 25.0

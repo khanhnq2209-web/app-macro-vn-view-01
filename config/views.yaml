@@ -47,6 +47,9 @@ vietnam:
     - {group: B3, title: Lợi suất TPCP 10 năm, codes: [govbond_10y], range: 5Y}
     - {group: B4, title: Tín dụng và M2 từ đầu năm, codes: [credit_ytd, m2_ytd], range: 5Y}
     - {group: B4, title: Tín dụng ngành Xây dựng từ đầu năm, codes: [credit_construction_ytd], range: 5Y}
+    - {group: B4, title: Tăng trưởng tín dụng và M2 so cùng kỳ, codes: [credit_level, m2_level], range: 10Y, transform: yoy}
+    - {group: B4, title: Dư nợ tín dụng / M2 (đại diện LDR), codes: [credit_to_m2], range: 10Y}
+    - {group: B4, title: Cán cân thương mại hàng hóa (triệu USD/tháng), codes: [trade_balance], range: 5Y, kind: bar}
     - {group: C1, title: Thu tiền sử dụng đất, codes: [land_use_revenue], range: ALL, kind: bar}
     - {group: D2, title: Giải ngân đầu tư công theo tháng, codes: [public_investment], range: 5Y, kind: bar}
     - {group: D2, title: Đầu tư công lũy kế so cùng kỳ, codes: [public_investment_ytd_yoy], range: 5Y}

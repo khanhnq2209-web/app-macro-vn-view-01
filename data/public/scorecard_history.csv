@@ -1,606 +1,606 @@
 date,score,coverage,rating,profile,segment
-2016-10-31,,0.47,Chưa đủ dữ liệu,theo_doi_bds_01,nha_o
-2016-11-30,,0.47,Chưa đủ dữ liệu,theo_doi_bds_01,nha_o
-2016-12-31,,0.47,Chưa đủ dữ liệu,theo_doi_bds_01,nha_o
-2017-01-31,-0.75,0.6799999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
-2017-02-28,-0.352941,0.6799999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
-2017-03-31,-0.653846,0.7799999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
-2017-04-30,-1.038462,0.7799999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
-2017-05-31,-0.307692,0.7799999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
-2017-06-30,0.038462,0.7799999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2017-07-31,0.217949,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2017-08-31,0.269231,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2017-09-30,0.217949,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2017-10-31,0.525641,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2017-11-30,0.525641,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2017-12-31,1.166667,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2018-01-31,0.987179,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2018-02-28,1.076923,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2018-03-31,1.166667,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2018-04-30,1.166667,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2018-05-31,1.038462,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2018-06-30,0.782051,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2018-07-31,0.730769,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2018-08-31,0.551282,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2018-09-30,0.641026,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2018-10-31,0.641026,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2018-11-30,0.679487,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2018-12-31,0.5,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-01-31,0.371795,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-02-28,0.371795,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-03-31,0.461538,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-04-30,0.461538,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-05-31,0.512821,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-06-30,0.641026,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-07-31,0.551282,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-08-31,0.461538,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2019-09-30,1.076923,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2019-10-31,0.987179,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2019-11-30,0.948718,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2019-12-31,0.564103,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2020-01-31,0.653846,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2020-02-29,0.692308,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2020-03-31,0.397436,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2020-04-30,0.141026,0.7799999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2020-05-31,0.538462,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2020-06-30,0.538462,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2020-07-31,0.846154,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2020-08-31,0.846154,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2020-09-30,0.846154,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2020-10-31,0.974359,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2020-11-30,0.974359,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2020-12-31,1.487179,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2021-01-31,1.358974,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2021-02-28,1.230769,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2021-03-31,1.230769,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2021-04-30,1.102564,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2021-05-31,1.012821,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2021-06-30,1.525641,0.7799999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2021-07-31,1.089744,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2021-08-31,0.961538,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2021-09-30,0.884615,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2021-10-31,0.615385,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2021-11-30,0.615385,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2021-12-31,0.74359,0.7799999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2022-01-31,0.849462,0.9299999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2022-02-28,0.774194,0.9299999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2022-03-31,0.397436,0.7799999999999999,Trung tính,theo_doi_bds_01,nha_o
-2022-04-30,0.139785,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2022-05-31,-0.172043,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2022-06-30,0.150538,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2022-07-31,0.311828,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2022-08-31,0.16129,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2022-09-30,-0.150538,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2022-10-31,-0.602151,0.9299999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
-2022-11-30,-0.172043,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2022-12-31,0.11828,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2023-01-31,-0.172043,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2023-02-28,0.150538,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2023-03-31,-0.129032,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2023-04-30,-0.365591,0.9299999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
-2023-05-31,-0.021505,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2023-06-30,0.032258,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2023-07-31,0.032258,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2023-08-31,-0.397849,0.9299999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
-2023-09-30,-0.096774,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2023-10-31,0.27957,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2023-11-30,1.139785,0.9299999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2023-12-31,1.408602,0.9299999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2024-01-31,1.677419,0.9299999999999999,Rất thuận lợi,theo_doi_bds_01,nha_o
-2024-02-29,0.978495,0.9299999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2024-03-31,0.602151,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2024-04-30,0.451613,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2024-05-31,0.193548,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2024-06-30,0.408602,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2024-07-31,0.817204,0.9299999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2024-08-31,0.978495,0.9299999999999999,Thuận lợi,theo_doi_bds_01,nha_o
-2024-09-30,0.623656,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2024-10-31,0.569892,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2024-11-30,0.172043,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2024-12-31,0.473118,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2025-01-31,0.505376,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2025-02-28,0.193548,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2025-03-31,0.139785,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2025-04-30,-0.107527,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2025-05-31,0.053763,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2025-06-30,0.0,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2025-07-31,0.354839,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2025-08-31,0.301075,0.9299999999999999,Trung tính,theo_doi_bds_01,nha_o
-2025-09-30,0.032258,0.9299999999999999,Bất lợi,theo_doi_bds_01,nha_o
-2025-10-31,0.25,1.0,Trung tính,theo_doi_bds_01,nha_o
-2025-11-30,0.3,1.0,Trung tính,theo_doi_bds_01,nha_o
-2025-12-31,0.66,1.0,Trung tính,theo_doi_bds_01,nha_o
-2026-01-31,0.73,1.0,Thuận lợi,theo_doi_bds_01,nha_o
-2026-02-28,0.46,1.0,Trung tính,theo_doi_bds_01,nha_o
-2026-03-31,-0.03,1.0,Bất lợi,theo_doi_bds_01,nha_o
-2026-04-30,-0.18,1.0,Bất lợi,theo_doi_bds_01,nha_o
-2026-05-31,-0.49,1.0,Rất bất lợi,theo_doi_bds_01,nha_o
-2026-06-30,-0.39,1.0,Rất bất lợi,theo_doi_bds_01,nha_o
-2026-07-31,-0.22,1.0,Bất lợi,theo_doi_bds_01,nha_o
-2026-08-31,-0.09,1.0,Bất lợi,theo_doi_bds_01,nha_o
-2026-09-30,0.08,1.0,Bất lợi,theo_doi_bds_01,nha_o
-2026-10-31,0.08,1.0,Bất lợi,theo_doi_bds_01,nha_o
-2016-10-31,,0.44999999999999996,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
-2016-11-30,,0.44999999999999996,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
-2016-12-31,,0.44999999999999996,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
-2017-01-31,-0.142857,0.7,Bất lợi,theo_doi_bds_01,kcn
-2017-02-28,0.5,0.7,Trung tính,theo_doi_bds_01,kcn
-2017-03-31,0.285714,0.7,Trung tính,theo_doi_bds_01,kcn
-2017-04-30,0.285714,0.7,Trung tính,theo_doi_bds_01,kcn
-2017-05-31,0.285714,0.7,Trung tính,theo_doi_bds_01,kcn
-2017-06-30,0.285714,0.7,Trung tính,theo_doi_bds_01,kcn
-2017-07-31,0.071429,0.7,Bất lợi,theo_doi_bds_01,kcn
-2017-08-31,0.642857,0.7,Trung tính,theo_doi_bds_01,kcn
-2017-09-30,0.285714,0.7,Trung tính,theo_doi_bds_01,kcn
-2017-10-31,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2017-11-30,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2017-12-31,0.642857,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-01-31,0.5,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-02-28,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2018-03-31,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2018-04-30,0.642857,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-05-31,0.642857,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-06-30,0.428571,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-07-31,0.642857,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-08-31,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2018-09-30,0.642857,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-10-31,0.642857,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-11-30,0.428571,0.7,Trung tính,theo_doi_bds_01,kcn
-2018-12-31,0.071429,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-01-31,-0.142857,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-02-28,-0.357143,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-03-31,-0.571429,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2019-04-30,-0.571429,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2019-05-31,0.0,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-06-30,0.0,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-07-31,-0.357143,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-08-31,-0.357143,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-09-30,0.214286,0.7,Trung tính,theo_doi_bds_01,kcn
-2019-10-31,-0.357143,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-11-30,0.0,0.7,Bất lợi,theo_doi_bds_01,kcn
-2019-12-31,0.0,0.7,Bất lợi,theo_doi_bds_01,kcn
-2020-01-31,0.0,0.7,Bất lợi,theo_doi_bds_01,kcn
-2020-02-29,0.642857,0.7,Trung tính,theo_doi_bds_01,kcn
-2020-03-31,0.0,0.7,Bất lợi,theo_doi_bds_01,kcn
-2020-04-30,-0.214286,0.7,Bất lợi,theo_doi_bds_01,kcn
-2020-05-31,-0.5,0.7,Bất lợi,theo_doi_bds_01,kcn
-2020-06-30,-0.285714,0.7,Bất lợi,theo_doi_bds_01,kcn
-2020-07-31,0.714286,0.7,Trung tính,theo_doi_bds_01,kcn
-2020-08-31,0.928571,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2020-09-30,1.142857,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2020-10-31,1.357143,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2020-11-30,1.571429,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2020-12-31,1.785714,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2021-01-31,1.571429,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2021-02-28,1.357143,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2021-03-31,1.571429,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2021-04-30,1.571429,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2021-05-31,1.571429,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2021-06-30,1.357143,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2021-07-31,0.357143,0.7,Trung tính,theo_doi_bds_01,kcn
-2021-08-31,-0.285714,0.7,Bất lợi,theo_doi_bds_01,kcn
-2021-09-30,-0.357143,0.7,Bất lợi,theo_doi_bds_01,kcn
-2021-10-31,-0.714286,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2021-11-30,-0.071429,0.7,Bất lợi,theo_doi_bds_01,kcn
-2021-12-31,0.785714,0.7,Trung tính,theo_doi_bds_01,kcn
-2022-01-31,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2022-02-28,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2022-03-31,1.0,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2022-04-30,1.214286,0.7,Rất thuận lợi,theo_doi_bds_01,kcn
-2022-05-31,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2022-06-30,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2022-07-31,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2022-08-31,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2022-09-30,0.857143,0.7,Thuận lợi,theo_doi_bds_01,kcn
-2022-10-31,-0.071429,0.7,Bất lợi,theo_doi_bds_01,kcn
-2022-11-30,-0.5,0.7,Bất lợi,theo_doi_bds_01,kcn
-2022-12-31,-1.142857,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-01-31,-1.571429,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-02-28,-0.928571,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-03-31,-0.928571,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-04-30,-1.142857,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-05-31,-1.357143,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-06-30,-1.0,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-07-31,-1.0,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-08-31,-0.785714,0.7,Rất bất lợi,theo_doi_bds_01,kcn
-2023-09-30,-0.214286,0.7,Bất lợi,theo_doi_bds_01,kcn
-2023-10-31,0.426829,0.8200000000000001,Trung tính,theo_doi_bds_01,kcn
-2023-11-30,0.426829,0.8200000000000001,Trung tính,theo_doi_bds_01,kcn
-2023-12-31,0.71,1.0,Trung tính,theo_doi_bds_01,kcn
-2024-01-31,0.86,1.0,Thuận lợi,theo_doi_bds_01,kcn
-2024-02-29,0.71,1.0,Trung tính,theo_doi_bds_01,kcn
-2024-03-31,0.86,1.0,Thuận lợi,theo_doi_bds_01,kcn
-2024-04-30,1.01,1.0,Thuận lợi,theo_doi_bds_01,kcn
-2024-05-31,1.16,1.0,Rất thuận lợi,theo_doi_bds_01,kcn
-2024-06-30,1.01,1.0,Thuận lợi,theo_doi_bds_01,kcn
-2024-07-31,1.31,1.0,Rất thuận lợi,theo_doi_bds_01,kcn
-2024-08-31,1.16,1.0,Rất thuận lợi,theo_doi_bds_01,kcn
-2024-09-30,1.01,1.0,Thuận lợi,theo_doi_bds_01,kcn
-2024-10-31,0.98,1.0,Thuận lợi,theo_doi_bds_01,kcn
-2024-11-30,0.68,1.0,Trung tính,theo_doi_bds_01,kcn
-2024-12-31,0.52,1.0,Trung tính,theo_doi_bds_01,kcn
-2025-01-31,0.22,1.0,Trung tính,theo_doi_bds_01,kcn
-2025-02-28,0.24,1.0,Trung tính,theo_doi_bds_01,kcn
-2025-03-31,0.09,1.0,Bất lợi,theo_doi_bds_01,kcn
-2025-04-30,0.09,1.0,Bất lợi,theo_doi_bds_01,kcn
-2025-05-31,0.09,1.0,Bất lợi,theo_doi_bds_01,kcn
-2025-06-30,0.24,1.0,Trung tính,theo_doi_bds_01,kcn
-2025-07-31,0.54,1.0,Trung tính,theo_doi_bds_01,kcn
-2025-08-31,0.69,1.0,Trung tính,theo_doi_bds_01,kcn
-2025-09-30,0.69,1.0,Trung tính,theo_doi_bds_01,kcn
-2025-10-31,0.87,1.0,Thuận lợi,theo_doi_bds_01,kcn
-2025-11-30,0.84,1.0,Trung tính,theo_doi_bds_01,kcn
-2025-12-31,0.59,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-01-31,0.77,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-02-28,0.47,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-03-31,0.65,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-04-30,0.83,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-05-31,0.43,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-06-30,0.43,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-07-31,0.58,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-08-31,0.58,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-09-30,0.73,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-10-31,0.73,1.0,Trung tính,theo_doi_bds_01,kcn
-2016-10-31,-0.25,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2016-11-30,-0.666667,0.6,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2016-12-31,0.5,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2017-01-31,0.75,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-02-28,1.25,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-03-31,1.25,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-04-30,1.416667,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-05-31,1.583333,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-06-30,0.583333,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-07-31,0.833333,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-08-31,0.083333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2017-09-30,-0.166667,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-10-31,-0.666667,0.6,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-11-30,-0.416667,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2017-12-31,-0.416667,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-01-31,0.666667,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-02-28,0.416667,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2018-03-31,-0.166667,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-04-30,-0.666667,0.6,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-05-31,-0.833333,0.6,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-06-30,-1.25,0.6,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-07-31,-0.25,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-08-31,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2018-09-30,0.583333,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-10-31,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2018-11-30,1.083333,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2018-12-31,1.083333,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2019-01-31,1.0,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2019-02-28,1.0,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2019-03-31,0.75,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2019-04-30,0.75,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2019-05-31,-0.083333,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2019-06-30,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2019-07-31,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2019-08-31,0.916667,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2019-09-30,0.083333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2019-10-31,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2019-11-30,0.166667,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2019-12-31,0.666667,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2020-01-31,-0.333333,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2020-02-29,-0.166667,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2020-03-31,-0.083333,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2020-04-30,0.25,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2020-05-31,0.083333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2020-06-30,0.416667,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2020-07-31,0.666667,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2020-08-31,0.666667,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2020-09-30,0.416667,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2020-10-31,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2020-11-30,0.583333,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2020-12-31,0.833333,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2021-01-31,0.833333,0.6,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2021-02-28,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2021-03-31,0.083333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2021-04-30,0.166667,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2021-05-31,1.0,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2021-06-30,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2021-07-31,0.166667,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2021-08-31,-0.083333,0.6,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2021-09-30,0.083333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2021-10-31,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2021-11-30,0.083333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2021-12-31,0.333333,0.6,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2022-01-31,0.941176,0.85,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-02-28,1.529412,0.85,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-03-31,0.916667,0.6,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-04-30,0.058824,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2022-05-31,-0.647059,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-06-30,-1.235294,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-07-31,-0.352941,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-08-31,-0.529412,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-09-30,-0.529412,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-10-31,-0.117647,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-11-30,-0.176471,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2022-12-31,0.823529,0.85,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-01-31,0.823529,0.85,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-02-28,0.764706,0.85,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-03-31,0.470588,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2023-04-30,0.0,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2023-05-31,0.411765,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2023-06-30,-0.588235,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-07-31,-0.411765,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-08-31,-1.294118,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-09-30,-1.588235,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-10-31,-1.764706,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-11-30,-0.705882,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2023-12-31,-0.352941,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-01-31,0.058824,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2024-02-29,-1.117647,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-03-31,-1.588235,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-04-30,-1.588235,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-05-31,-1.0,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-06-30,-1.588235,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-07-31,-0.117647,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-08-31,0.294118,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2024-09-30,0.470588,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2024-10-31,-0.411765,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-11-30,-0.352941,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2024-12-31,-1.235294,0.85,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2025-01-31,0.0,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2025-02-28,-0.352941,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2025-03-31,0.294118,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2025-04-30,-0.529412,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2025-05-31,-0.235294,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2025-06-30,-0.647059,0.85,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2025-07-31,0.294118,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2025-08-31,0.0,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2025-09-30,0.117647,0.85,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2025-10-31,0.65,1.0,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2025-11-30,1.15,1.0,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2025-12-31,1.25,1.0,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2026-01-31,1.05,1.0,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2026-02-28,1.75,1.0,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2026-03-31,0.5,1.0,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2026-04-30,0.25,1.0,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2026-05-31,0.35,1.0,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2026-06-30,0.1,1.0,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2026-07-31,-0.3,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2026-08-31,0.1,1.0,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
-2026-09-30,-0.25,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2026-10-31,-0.25,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
-2016-10-31,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2016-11-30,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2016-12-31,-0.111111,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2017-01-31,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2017-02-28,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2017-03-31,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2017-04-30,-0.111111,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2017-05-31,0.333333,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2017-06-30,0.555556,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2017-07-31,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2017-08-31,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2017-09-30,0.444444,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2017-10-31,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2017-11-30,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2017-12-31,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2018-01-31,0.777778,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2018-02-28,0.444444,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2018-03-31,0.888889,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2018-04-30,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2018-05-31,0.333333,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2018-06-30,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2018-07-31,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2018-08-31,-0.444444,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2018-09-30,-0.111111,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2018-10-31,-0.111111,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2018-11-30,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2018-12-31,-0.444444,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2019-01-31,-0.555556,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2019-02-28,-0.555556,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2019-03-31,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2019-04-30,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2019-05-31,-0.111111,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2019-06-30,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2019-07-31,0.333333,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2019-08-31,-0.111111,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2019-09-30,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2019-10-31,0.444444,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2019-11-30,-0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2019-12-31,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2020-01-31,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2020-02-29,-0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2020-03-31,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2020-04-30,0.555556,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2020-05-31,0.888889,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2020-06-30,0.777778,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2020-07-31,1.222222,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2020-08-31,1.222222,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2020-09-30,1.222222,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2020-10-31,1.333333,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2020-11-30,1.333333,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2020-12-31,1.333333,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-01-31,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-02-28,1.333333,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-03-31,1.555556,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-04-30,1.0,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-05-31,1.333333,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-06-30,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-07-31,0.777778,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2021-08-31,0.777778,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2021-09-30,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-10-31,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-11-30,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2021-12-31,0.888889,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2022-01-31,1.0,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2022-02-28,0.777778,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2022-03-31,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2022-04-30,0.888889,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2022-05-31,0.777778,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2022-06-30,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2022-07-31,0.777778,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2022-08-31,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2022-09-30,-0.444444,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2022-10-31,-1.333333,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2022-11-30,-1.444444,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2022-12-31,-1.333333,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-01-31,-1.666667,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-02-28,-1.555556,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-03-31,-0.888889,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-04-30,-1.222222,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-05-31,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-06-30,0.888889,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-07-31,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-08-31,1.0,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-09-30,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-10-31,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-11-30,1.222222,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2023-12-31,1.111111,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2024-01-31,1.444444,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2024-02-29,1.333333,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2024-03-31,1.333333,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2024-04-30,0.666667,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2024-05-31,0.444444,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2024-06-30,0.444444,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2024-07-31,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2024-08-31,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2024-09-30,0.444444,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2024-10-31,0.333333,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2024-11-30,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2024-12-31,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-01-31,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2025-02-28,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-03-31,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-04-30,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-05-31,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-06-30,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-07-31,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-08-31,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-09-30,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2025-10-31,-0.1,0.9999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2025-11-30,-0.1,0.9999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2025-12-31,-0.2,0.9999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-01-31,0.0,0.9999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
-2026-02-28,-0.1,0.9999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-03-31,-1.0,0.9999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-04-30,-0.8,0.9999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-05-31,-1.1,0.9999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-06-30,-1.1,0.9999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-07-31,-0.6,0.9999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-08-31,-1.0,0.9999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-09-30,-0.8,0.9999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-10-31,-0.8,0.9999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2016-10-31,1.75,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2016-11-30,1.25,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2016-12-31,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2017-01-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2017-02-28,1.25,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2017-03-31,1.5,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2017-04-30,1.5,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2017-05-31,1.75,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2017-06-30,1.75,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2016-10-31,,0.55,Chưa đủ dữ liệu,theo_doi_bds_01,nha_o
+2016-11-30,,0.55,Chưa đủ dữ liệu,theo_doi_bds_01,nha_o
+2016-12-31,,0.55,Chưa đủ dữ liệu,theo_doi_bds_01,nha_o
+2017-01-31,-0.615385,0.6499999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
+2017-02-28,-0.230769,0.6499999999999999,Rất bất lợi,theo_doi_bds_01,nha_o
+2017-03-31,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,nha_o
+2017-04-30,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,nha_o
+2017-05-31,-0.066667,0.75,Bất lợi,theo_doi_bds_01,nha_o
+2017-06-30,0.4,0.75,Trung tính,theo_doi_bds_01,nha_o
+2017-07-31,0.533333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2017-08-31,0.333333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2017-09-30,0.4,0.75,Trung tính,theo_doi_bds_01,nha_o
+2017-10-31,0.6,0.75,Trung tính,theo_doi_bds_01,nha_o
+2017-11-30,0.6,0.75,Trung tính,theo_doi_bds_01,nha_o
+2017-12-31,1.133333,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2018-01-31,1.066667,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2018-02-28,1.2,0.75,Rất thuận lợi,theo_doi_bds_01,nha_o
+2018-03-31,1.133333,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2018-04-30,1.133333,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2018-05-31,0.866667,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2018-06-30,0.466667,0.75,Trung tính,theo_doi_bds_01,nha_o
+2018-07-31,0.6,0.75,Trung tính,theo_doi_bds_01,nha_o
+2018-08-31,0.333333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2018-09-30,0.4,0.75,Trung tính,theo_doi_bds_01,nha_o
+2018-10-31,0.4,0.75,Trung tính,theo_doi_bds_01,nha_o
+2018-11-30,0.6,0.75,Trung tính,theo_doi_bds_01,nha_o
+2018-12-31,0.533333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-01-31,0.4,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-02-28,0.4,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-03-31,0.466667,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-04-30,0.466667,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-05-31,0.4,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-06-30,0.666667,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-07-31,0.666667,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-08-31,0.6,0.75,Trung tính,theo_doi_bds_01,nha_o
+2019-09-30,1.066667,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2019-10-31,1.066667,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2019-11-30,0.8,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2019-12-31,0.133333,0.75,Bất lợi,theo_doi_bds_01,nha_o
+2020-01-31,0.333333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2020-02-29,0.4,0.75,Trung tính,theo_doi_bds_01,nha_o
+2020-03-31,0.066667,0.75,Bất lợi,theo_doi_bds_01,nha_o
+2020-04-30,0.333333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2020-05-31,0.733333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2020-06-30,0.6,0.75,Trung tính,theo_doi_bds_01,nha_o
+2020-07-31,0.933333,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2020-08-31,0.933333,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2020-09-30,0.933333,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2020-10-31,1.2,0.75,Rất thuận lợi,theo_doi_bds_01,nha_o
+2020-11-30,1.2,0.75,Rất thuận lợi,theo_doi_bds_01,nha_o
+2020-12-31,1.466667,0.75,Rất thuận lợi,theo_doi_bds_01,nha_o
+2021-01-31,1.333333,0.75,Rất thuận lợi,theo_doi_bds_01,nha_o
+2021-02-28,1.2,0.75,Rất thuận lợi,theo_doi_bds_01,nha_o
+2021-03-31,1.066667,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2021-04-30,0.8,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2021-05-31,0.733333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2021-06-30,1.4,0.75,Rất thuận lợi,theo_doi_bds_01,nha_o
+2021-07-31,0.8,0.75,Thuận lợi,theo_doi_bds_01,nha_o
+2021-08-31,0.666667,0.75,Trung tính,theo_doi_bds_01,nha_o
+2021-09-30,0.733333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2021-10-31,0.466667,0.75,Trung tính,theo_doi_bds_01,nha_o
+2021-11-30,0.466667,0.75,Trung tính,theo_doi_bds_01,nha_o
+2021-12-31,0.6,0.75,Trung tính,theo_doi_bds_01,nha_o
+2022-01-31,0.842105,0.95,Thuận lợi,theo_doi_bds_01,nha_o
+2022-02-28,0.789474,0.95,Thuận lợi,theo_doi_bds_01,nha_o
+2022-03-31,0.533333,0.75,Trung tính,theo_doi_bds_01,nha_o
+2022-04-30,0.052632,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2022-05-31,-0.210526,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2022-06-30,0.105263,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2022-07-31,0.315789,0.95,Trung tính,theo_doi_bds_01,nha_o
+2022-08-31,0.210526,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2022-09-30,-0.210526,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2022-10-31,-0.421053,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2022-11-30,-0.210526,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2022-12-31,0.157895,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2023-01-31,-0.105263,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2023-02-28,0.315789,0.95,Trung tính,theo_doi_bds_01,nha_o
+2023-03-31,0.210526,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2023-04-30,-0.052632,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2023-05-31,0.421053,0.95,Trung tính,theo_doi_bds_01,nha_o
+2023-06-30,0.315789,0.95,Trung tính,theo_doi_bds_01,nha_o
+2023-07-31,0.210526,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2023-08-31,-0.421053,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2023-09-30,-0.368421,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2023-10-31,-0.210526,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2023-11-30,0.631579,0.95,Trung tính,theo_doi_bds_01,nha_o
+2023-12-31,0.842105,0.95,Thuận lợi,theo_doi_bds_01,nha_o
+2024-01-31,1.368421,0.95,Rất thuận lợi,theo_doi_bds_01,nha_o
+2024-02-29,0.421053,0.95,Trung tính,theo_doi_bds_01,nha_o
+2024-03-31,-0.105263,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2024-04-30,-0.210526,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2024-05-31,-0.421053,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2024-06-30,-0.210526,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2024-07-31,0.368421,0.95,Trung tính,theo_doi_bds_01,nha_o
+2024-08-31,0.684211,0.95,Trung tính,theo_doi_bds_01,nha_o
+2024-09-30,0.526316,0.95,Trung tính,theo_doi_bds_01,nha_o
+2024-10-31,0.421053,0.95,Trung tính,theo_doi_bds_01,nha_o
+2024-11-30,-0.052632,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2024-12-31,0.052632,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2025-01-31,0.421053,0.95,Trung tính,theo_doi_bds_01,nha_o
+2025-02-28,0.157895,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2025-03-31,0.052632,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2025-04-30,-0.210526,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2025-05-31,0.0,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2025-06-30,-0.210526,0.95,Rất bất lợi,theo_doi_bds_01,nha_o
+2025-07-31,0.263158,0.95,Trung tính,theo_doi_bds_01,nha_o
+2025-08-31,0.157895,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2025-09-30,0.157895,0.95,Bất lợi,theo_doi_bds_01,nha_o
+2025-10-31,0.4,1.0,Trung tính,theo_doi_bds_01,nha_o
+2025-11-30,0.4,1.0,Trung tính,theo_doi_bds_01,nha_o
+2025-12-31,0.75,1.0,Thuận lợi,theo_doi_bds_01,nha_o
+2026-01-31,0.8,1.0,Thuận lợi,theo_doi_bds_01,nha_o
+2026-02-28,0.55,1.0,Trung tính,theo_doi_bds_01,nha_o
+2026-03-31,-0.15,1.0,Rất bất lợi,theo_doi_bds_01,nha_o
+2026-04-30,-0.35,1.0,Rất bất lợi,theo_doi_bds_01,nha_o
+2026-05-31,-0.65,1.0,Rất bất lợi,theo_doi_bds_01,nha_o
+2026-06-30,-0.45,1.0,Rất bất lợi,theo_doi_bds_01,nha_o
+2026-07-31,-0.2,1.0,Rất bất lợi,theo_doi_bds_01,nha_o
+2026-08-31,-0.05,1.0,Bất lợi,theo_doi_bds_01,nha_o
+2026-09-30,0.1,1.0,Bất lợi,theo_doi_bds_01,nha_o
+2026-10-31,0.1,1.0,Bất lợi,theo_doi_bds_01,nha_o
+2016-10-31,,0.5,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
+2016-11-30,,0.5,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
+2016-12-31,,0.5,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
+2017-01-31,-0.5,0.75,Bất lợi,theo_doi_bds_01,kcn
+2017-02-28,0.333333,0.75,Trung tính,theo_doi_bds_01,kcn
+2017-03-31,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2017-04-30,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2017-05-31,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2017-06-30,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2017-07-31,-0.166667,0.75,Bất lợi,theo_doi_bds_01,kcn
+2017-08-31,0.333333,0.75,Trung tính,theo_doi_bds_01,kcn
+2017-09-30,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2017-10-31,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2017-11-30,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2017-12-31,0.5,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-01-31,0.333333,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-02-28,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2018-03-31,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2018-04-30,0.5,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-05-31,0.5,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-06-30,0.333333,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-07-31,0.5,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-08-31,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2018-09-30,0.5,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-10-31,0.5,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-11-30,0.333333,0.75,Trung tính,theo_doi_bds_01,kcn
+2018-12-31,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2019-01-31,-0.333333,0.75,Bất lợi,theo_doi_bds_01,kcn
+2019-02-28,-0.5,0.75,Bất lợi,theo_doi_bds_01,kcn
+2019-03-31,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2019-04-30,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2019-05-31,-0.333333,0.75,Bất lợi,theo_doi_bds_01,kcn
+2019-06-30,-0.333333,0.75,Bất lợi,theo_doi_bds_01,kcn
+2019-07-31,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2019-08-31,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2019-09-30,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2019-10-31,-0.5,0.75,Bất lợi,theo_doi_bds_01,kcn
+2019-11-30,-0.166667,0.75,Bất lợi,theo_doi_bds_01,kcn
+2019-12-31,-0.166667,0.75,Bất lợi,theo_doi_bds_01,kcn
+2020-01-31,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2020-02-29,0.5,0.75,Trung tính,theo_doi_bds_01,kcn
+2020-03-31,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2020-04-30,-0.166667,0.75,Bất lợi,theo_doi_bds_01,kcn
+2020-05-31,-0.333333,0.75,Bất lợi,theo_doi_bds_01,kcn
+2020-06-30,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2020-07-31,1.0,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2020-08-31,1.166667,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2020-09-30,1.333333,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2020-10-31,1.5,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2020-11-30,1.666667,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2020-12-31,1.833333,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2021-01-31,1.5,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2021-02-28,1.166667,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2021-03-31,1.333333,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2021-04-30,1.333333,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2021-05-31,1.333333,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2021-06-30,1.166667,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2021-07-31,0.166667,0.75,Trung tính,theo_doi_bds_01,kcn
+2021-08-31,-0.5,0.75,Bất lợi,theo_doi_bds_01,kcn
+2021-09-30,-0.5,0.75,Bất lợi,theo_doi_bds_01,kcn
+2021-10-31,-0.833333,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2021-11-30,-0.333333,0.75,Bất lợi,theo_doi_bds_01,kcn
+2021-12-31,0.333333,0.75,Trung tính,theo_doi_bds_01,kcn
+2022-01-31,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2022-02-28,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2022-03-31,0.833333,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2022-04-30,1.0,0.75,Rất thuận lợi,theo_doi_bds_01,kcn
+2022-05-31,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2022-06-30,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2022-07-31,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2022-08-31,0.666667,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2022-09-30,0.833333,0.75,Thuận lợi,theo_doi_bds_01,kcn
+2022-10-31,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2022-11-30,-0.333333,0.75,Bất lợi,theo_doi_bds_01,kcn
+2022-12-31,-0.833333,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2023-01-31,-1.5,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2023-02-28,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2023-03-31,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2023-04-30,-0.833333,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2023-05-31,-1.0,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2023-06-30,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2023-07-31,-0.666667,0.75,Rất bất lợi,theo_doi_bds_01,kcn
+2023-08-31,-0.5,0.75,Bất lợi,theo_doi_bds_01,kcn
+2023-09-30,0.0,0.75,Trung tính,theo_doi_bds_01,kcn
+2023-10-31,0.571429,0.875,Trung tính,theo_doi_bds_01,kcn
+2023-11-30,0.571429,0.875,Trung tính,theo_doi_bds_01,kcn
+2023-12-31,0.75,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2024-01-31,0.875,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2024-02-29,0.625,1.0,Trung tính,theo_doi_bds_01,kcn
+2024-03-31,0.75,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2024-04-30,0.875,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2024-05-31,0.875,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2024-06-30,0.75,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2024-07-31,1.0,1.0,Rất thuận lợi,theo_doi_bds_01,kcn
+2024-08-31,0.75,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2024-09-30,0.625,1.0,Trung tính,theo_doi_bds_01,kcn
+2024-10-31,0.75,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2024-11-30,0.5,1.0,Trung tính,theo_doi_bds_01,kcn
+2024-12-31,0.375,1.0,Trung tính,theo_doi_bds_01,kcn
+2025-01-31,0.125,1.0,Trung tính,theo_doi_bds_01,kcn
+2025-02-28,0.375,1.0,Trung tính,theo_doi_bds_01,kcn
+2025-03-31,0.125,1.0,Trung tính,theo_doi_bds_01,kcn
+2025-04-30,0.125,1.0,Trung tính,theo_doi_bds_01,kcn
+2025-05-31,0.125,1.0,Trung tính,theo_doi_bds_01,kcn
+2025-06-30,0.375,1.0,Trung tính,theo_doi_bds_01,kcn
+2025-07-31,0.625,1.0,Trung tính,theo_doi_bds_01,kcn
+2025-08-31,0.875,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2025-09-30,0.875,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2025-10-31,1.0,1.0,Rất thuận lợi,theo_doi_bds_01,kcn
+2025-11-30,1.0,1.0,Rất thuận lợi,theo_doi_bds_01,kcn
+2025-12-31,0.75,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2026-01-31,0.875,1.0,Thuận lợi,theo_doi_bds_01,kcn
+2026-02-28,0.375,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-03-31,0.5,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-04-30,0.625,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-05-31,0.25,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-06-30,0.25,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-07-31,0.375,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-08-31,0.375,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-09-30,0.625,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-10-31,0.625,1.0,Trung tính,theo_doi_bds_01,kcn
+2016-10-31,-0.142857,0.7,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2016-11-30,-0.571429,0.7,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2016-12-31,0.0,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-01-31,0.142857,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-02-28,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-03-31,0.142857,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-04-30,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-05-31,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2017-06-30,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2017-07-31,0.857143,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2017-08-31,0.285714,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-09-30,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-10-31,0.142857,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-11-30,0.285714,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2017-12-31,0.285714,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2018-01-31,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2018-02-28,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2018-03-31,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2018-04-30,0.142857,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2018-05-31,-0.142857,0.7,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2018-06-30,-0.857143,0.7,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2018-07-31,-0.142857,0.7,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2018-08-31,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2018-09-30,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2018-10-31,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2018-11-30,1.0,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2018-12-31,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2019-01-31,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2019-02-28,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2019-03-31,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2019-04-30,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2019-05-31,0.142857,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2019-06-30,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2019-07-31,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2019-08-31,1.142857,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2019-09-30,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2019-10-31,1.142857,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2019-11-30,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2019-12-31,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2020-01-31,-0.571429,0.7,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2020-02-29,0.0,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2020-03-31,0.0,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2020-04-30,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2020-05-31,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2020-06-30,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2020-07-31,1.142857,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2020-08-31,1.142857,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2020-09-30,1.0,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2020-10-31,1.142857,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2020-11-30,1.285714,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2020-12-31,1.142857,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2021-01-31,1.142857,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2021-02-28,0.571429,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2021-03-31,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2021-04-30,0.285714,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2021-05-31,0.428571,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2021-06-30,0.285714,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2021-07-31,0.0,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2021-08-31,-0.142857,0.7,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2021-09-30,0.142857,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2021-10-31,0.857143,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2021-11-30,0.714286,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2021-12-31,1.142857,0.7,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2022-01-31,1.111111,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2022-02-28,1.444444,0.8999999999999999,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2022-03-31,0.857143,0.7,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2022-04-30,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2022-05-31,-0.333333,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2022-06-30,-0.666667,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2022-07-31,-0.111111,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2022-08-31,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2022-09-30,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2022-10-31,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2022-11-30,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2022-12-31,0.666667,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2023-01-31,0.666667,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2023-02-28,0.777778,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2023-03-31,0.777778,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2023-04-30,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2023-05-31,0.666667,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2023-06-30,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2023-07-31,0.555556,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2023-08-31,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2023-09-30,-0.555556,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2023-10-31,-0.666667,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2023-11-30,0.0,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2023-12-31,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2024-01-31,0.777778,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2024-02-29,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2024-03-31,-0.555556,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2024-04-30,-0.777778,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2024-05-31,-0.444444,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2024-06-30,-0.777778,0.8999999999999999,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2024-07-31,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2024-08-31,0.888889,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2024-09-30,1.0,0.8999999999999999,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2024-10-31,0.444444,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2024-11-30,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2024-12-31,-0.444444,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2025-01-31,0.333333,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2025-02-28,0.111111,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2025-03-31,0.555556,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2025-04-30,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2025-05-31,0.222222,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2025-06-30,-0.222222,0.8999999999999999,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2025-07-31,0.555556,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2025-08-31,0.555556,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2025-09-30,0.444444,0.8999999999999999,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2025-10-31,1.0,1.0,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2025-11-30,1.0,1.0,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2025-12-31,1.2,1.0,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-01-31,0.9,1.0,Thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-02-28,1.1,1.0,Rất thuận lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-03-31,0.0,1.0,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
+2026-04-30,-0.2,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-05-31,-0.5,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-06-30,-0.5,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-07-31,-0.6,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-08-31,-0.4,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-09-30,-0.6,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2026-10-31,-0.6,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
+2016-10-31,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2016-11-30,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2016-12-31,-0.142857,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2017-01-31,-0.285714,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2017-02-28,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2017-03-31,-0.285714,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2017-04-30,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2017-05-31,0.571429,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2017-06-30,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2017-07-31,1.0,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2017-08-31,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2017-09-30,0.571429,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2017-10-31,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2017-11-30,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2017-12-31,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-01-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2018-02-28,0.571429,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-03-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2018-04-30,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-05-31,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-06-30,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-07-31,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-08-31,-0.285714,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2018-09-30,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-10-31,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-11-30,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2018-12-31,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-01-31,-0.142857,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2019-02-28,-0.142857,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2019-03-31,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-04-30,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-05-31,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-06-30,0.428571,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-07-31,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-08-31,0.428571,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-09-30,0.571429,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-10-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2019-11-30,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2019-12-31,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2020-01-31,-0.142857,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-02-29,-0.142857,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-03-31,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2020-04-30,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2020-05-31,1.142857,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-06-30,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-07-31,1.142857,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-08-31,1.142857,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-09-30,1.142857,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-10-31,1.428571,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-11-30,1.428571,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2020-12-31,1.428571,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-01-31,1.285714,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-02-28,1.428571,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-03-31,1.571429,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-04-30,1.0,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-05-31,1.285714,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-06-30,1.285714,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-07-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-08-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-09-30,1.285714,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-10-31,1.285714,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-11-30,1.285714,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2021-12-31,1.142857,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-01-31,1.285714,0.875,Rất thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-02-28,1.142857,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-03-31,1.0,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-04-30,1.0,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-05-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-06-30,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2022-07-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-08-31,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2022-09-30,-0.285714,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-10-31,-0.857143,0.875,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-11-30,-1.0,0.875,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2022-12-31,-1.142857,0.875,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-01-31,-1.428571,0.875,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-02-28,-1.142857,0.875,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-03-31,-0.428571,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-04-30,-0.714286,0.875,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-05-31,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2023-06-30,1.0,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-07-31,1.142857,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-08-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-09-30,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2023-10-31,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2023-11-30,1.0,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2023-12-31,0.714286,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-01-31,1.142857,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2024-02-29,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2024-03-31,0.857143,0.875,Thuận lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2024-04-30,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-05-31,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-06-30,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-07-31,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-08-31,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-09-30,0.428571,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-10-31,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-11-30,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2024-12-31,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-01-31,-0.285714,0.875,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2025-02-28,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-03-31,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-04-30,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-05-31,0.285714,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-06-30,0.0,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-07-31,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-08-31,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-09-30,0.142857,0.875,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-10-31,0.125,1.0,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-11-30,0.0,1.0,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2025-12-31,0.125,1.0,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2026-01-31,0.25,1.0,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2026-02-28,0.25,1.0,Trung tính,theo_doi_ty_gia_lai_suat,lai_suat
+2026-03-31,-0.875,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-04-30,-0.75,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-05-31,-1.125,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-06-30,-1.0,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-07-31,-0.5,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-08-31,-1.0,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-09-30,-0.875,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-10-31,-0.875,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2016-10-31,1.666667,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2016-11-30,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2016-12-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2017-01-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2017-02-28,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2017-03-31,1.333333,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2017-04-30,1.333333,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2017-05-31,1.666667,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2017-06-30,1.666667,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
 2017-07-31,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2017-08-31,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2017-09-30,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2017-10-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2017-11-30,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2017-12-31,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2017-08-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2017-09-30,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2017-10-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2017-11-30,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2017-12-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
 2018-01-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2018-02-28,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2018-03-31,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2018-04-30,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2018-05-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2018-06-30,-0.5,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2018-07-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2018-08-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2018-09-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2018-10-31,-0.5,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2018-02-28,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2018-03-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2018-04-30,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2018-05-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2018-06-30,-0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2018-07-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2018-08-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2018-09-30,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2018-10-31,-0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
 2018-11-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2018-12-31,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-01-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-02-28,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-03-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-04-30,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2019-05-31,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2019-06-30,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-07-31,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-08-31,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-09-30,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-10-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2019-11-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2019-12-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2020-01-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2020-02-29,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2018-12-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2019-01-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2019-02-28,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2019-03-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2019-04-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2019-05-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2019-06-30,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2019-07-31,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2019-08-31,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2019-09-30,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2019-10-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2019-11-30,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2019-12-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2020-01-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2020-02-29,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
 2020-03-31,2.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
 2020-04-30,2.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
 2020-05-31,2.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2020-06-30,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2020-07-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2020-08-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2020-09-30,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2020-10-31,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2020-11-30,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2020-12-31,-0.75,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2021-01-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2020-06-30,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2020-07-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2020-08-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2020-09-30,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2020-10-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2020-11-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2020-12-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2021-01-31,-1.333333,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
 2021-02-28,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2021-03-31,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2021-04-30,-0.75,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2021-05-31,-1.5,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2021-06-30,-1.25,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2021-03-31,-0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2021-04-30,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2021-05-31,-1.666667,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2021-06-30,-1.333333,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
 2021-07-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2021-08-31,-0.75,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2021-09-30,-0.75,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2021-10-31,-1.5,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2021-08-31,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2021-09-30,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2021-10-31,-1.333333,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
 2021-11-30,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
 2021-12-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2022-01-31,-1.5,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2022-02-28,-1.5,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2022-03-31,-1.75,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2022-04-30,-1.5,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2022-05-31,-1.25,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2022-06-30,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2022-07-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2022-08-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2022-09-30,-0.5,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2022-01-31,-1.333333,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2022-02-28,-1.333333,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2022-03-31,-1.666667,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2022-04-30,-1.333333,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2022-05-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2022-06-30,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2022-07-31,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2022-08-31,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2022-09-30,-0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
 2022-10-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
 2022-11-30,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2022-12-31,-1.25,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2023-01-31,-1.5,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2023-02-28,-0.75,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2022-12-31,-1.333333,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2023-01-31,-1.666667,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2023-02-28,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
 2023-03-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2023-04-30,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2023-05-31,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2023-06-30,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2023-07-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2023-08-31,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2023-09-30,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2023-10-31,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2023-11-30,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2023-12-31,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-01-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-02-29,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-03-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-04-30,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-05-31,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-06-30,-0.5,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2024-07-31,-0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-08-31,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2024-09-30,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2024-10-31,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-11-30,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2024-12-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2025-01-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2025-02-28,,0.5,Chưa đủ dữ liệu,theo_doi_dau_khi,dau_khi
-2025-03-31,,0.5,Chưa đủ dữ liệu,theo_doi_dau_khi,dau_khi
-2025-04-30,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2023-04-30,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2023-05-31,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2023-06-30,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2023-07-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2023-08-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2023-09-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2023-10-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2023-11-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2023-12-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-01-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-02-29,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-03-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-04-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-05-31,-0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-06-30,-0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-07-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-08-31,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
+2024-09-30,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2024-10-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-11-30,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2024-12-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2025-01-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2025-02-28,0.5,0.6666666666666667,Trung tính,theo_doi_dau_khi,dau_khi
+2025-03-31,0.0,0.6666666666666667,Trung tính,theo_doi_dau_khi,dau_khi
+2025-04-30,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
 2025-05-31,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
-2025-06-30,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2025-06-30,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
 2025-07-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2025-08-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2025-09-30,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2025-10-31,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2025-11-30,0.75,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
-2025-12-31,0.5,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2025-08-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2025-09-30,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2025-10-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2025-11-30,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
+2025-12-31,0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
 2026-01-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
 2026-02-28,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2026-03-31,-1.5,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
-2026-04-30,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2026-05-31,-0.5,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2026-06-30,0.25,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2026-07-31,-0.5,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2026-03-31,-1.333333,1.0,Rất bất lợi,theo_doi_dau_khi,dau_khi
+2026-04-30,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2026-05-31,-0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2026-06-30,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
+2026-07-31,-0.333333,1.0,Trung tính,theo_doi_dau_khi,dau_khi
 2026-08-31,0.0,1.0,Trung tính,theo_doi_dau_khi,dau_khi
-2026-09-30,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
-2026-10-31,-1.0,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2026-09-30,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi
+2026-10-31,-0.666667,1.0,Bất lợi,theo_doi_dau_khi,dau_khi

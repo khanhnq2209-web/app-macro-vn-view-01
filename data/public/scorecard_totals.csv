@@ -1,6 +1,6 @@
 profile,segment,profile_name,name,score,coverage,rating,prev_score,last_score,last_date,last_rating,n_stale,stale_bad
-theo_doi_bds_01,nha_o,Theo dõi BĐS,Nhà ở,0.08,1.0,Bất lợi,0.08,0.08,2026-10-31,Bất lợi,0,
-theo_doi_bds_01,kcn,Theo dõi BĐS,KCN,0.73,1.0,Trung tính,0.73,0.73,2026-10-31,Trung tính,0,
-theo_doi_ty_gia_lai_suat,ty_gia,Tỷ giá và Lãi suất,Tỷ giá,-0.25,1.0,Bất lợi,-0.25,-0.25,2026-10-31,Bất lợi,0,
-theo_doi_ty_gia_lai_suat,lai_suat,Tỷ giá và Lãi suất,Lãi suất,-0.8,0.9999999999999999,Bất lợi,-0.8,-0.8,2026-10-31,Bất lợi,0,
-theo_doi_dau_khi,dau_khi,Giá năng lượng,"Dầu, khí đốt",-1.0,1.0,Bất lợi,-1.0,-1.0,2026-10-31,Bất lợi,0,
+theo_doi_bds_01,nha_o,Theo dõi BĐS,Nhà ở,0.1,1.0,Bất lợi,0.1,0.1,2026-10-31,Bất lợi,0,
+theo_doi_bds_01,kcn,Theo dõi BĐS,KCN,0.625,1.0,Trung tính,0.625,0.625,2026-10-31,Trung tính,0,
+theo_doi_ty_gia_lai_suat,ty_gia,Tỷ giá và Lãi suất,Tỷ giá,-0.6,1.0,Rất bất lợi,-0.6,-0.6,2026-10-31,Rất bất lợi,0,
+theo_doi_ty_gia_lai_suat,lai_suat,Tỷ giá và Lãi suất,Lãi suất,-0.875,1.0,Rất bất lợi,-0.875,-0.875,2026-10-31,Rất bất lợi,0,
+theo_doi_dau_khi,dau_khi,Giá năng lượng,"Dầu, khí đốt",-0.666667,1.0,Bất lợi,-0.666667,-0.666667,2026-10-31,Bất lợi,0,

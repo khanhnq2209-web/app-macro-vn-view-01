@@ -6,20 +6,19 @@ description: 'Điều kiện vĩ mô cho thị trường nhà ở VN 6–12 thá
 meaning: Bất lợi = 6–12 tháng tới lãi vay mua nhà có xu hướng TĂNG, giao dịch nhà
   ở có xu hướng GIẢM. Thuận lợi = ngược lại.
 rating_bands:
-- min: 1.1
+- min: 1.05
   label: Rất thuận lợi
-- min: 0.75
+- min: 0.6
   label: Thuận lợi
 - min: 0.15
   label: Trung tính
-- min: -0.15
+- min: -0.2
   label: Bất lợi
 - min: -99
   label: Rất bất lợi
 rows:
 - code: deposit_12m_big4
   pillar: Lãi suất và thanh khoản
-  weight: 40.0
   method: absolute
   cuts:
   - -0.5
@@ -36,7 +35,6 @@ rows:
     unit: year
 - code: interbank_on
   pillar: Lãi suất và thanh khoản
-  weight: 20.0
   method: absolute
   cuts:
   - 2.0
@@ -52,7 +50,6 @@ rows:
     unit: period
 - code: refi_rate
   pillar: Lãi suất và thanh khoản
-  weight: 20.0
   method: absolute
   cuts:
   - -1.0
@@ -69,7 +66,6 @@ rows:
     unit: year
 - code: fedwatch_12m
   pillar: Lãi suất và thanh khoản
-  weight: 20.0
   method: absolute
   cuts:
   - -50.0
@@ -93,9 +89,20 @@ rows:
   description: 'Tăng trưởng tín dụng so cùng kỳ, chấm hai chiều: 11–16% là tốt; dưới
     8% (vốn cạn) hoặc trên 20% (quá nóng, NHNN sắp siết room) là xấu (IMF 2025: tín
     dụng/GDP 136%). [giả định] Chờ QTRR duyệt.'
+- code: credit_to_m2
+  pillar: Tín dụng
+  method: absolute
+  cuts:
+  - 76.4
+  - 77.4
+  - 84.7
+  - 87.9
+  side: above
+  description: 'Dư nợ tín dụng / M2, đại diện LDR: cao → ngân hàng cho vay vượt nguồn
+    huy động → thiếu thanh khoản, lãi suất khó giảm (Workshop BĐS 10/2026, trang 10–11).
+    Mốc = phân vị 10/30/70/90 của 10 năm. [giả định] Chờ QTRR duyệt.'
 - code: gdp_yoy_published
   pillar: Thu nhập và hạ tầng
-  weight: 50.0
   method: absolute
   cuts:
   - 5.0
@@ -108,7 +115,6 @@ rows:
     [giả định] Chờ QTRR duyệt.'
 - code: public_investment_ytd_yoy
   pillar: Thu nhập và hạ tầng
-  weight: 50.0
   method: absolute
   cuts:
   - 3.47
@@ -188,12 +194,7 @@ rows:
     rổ gồm cả điện nước.'
 pillars:
 - name: Lãi suất và thanh khoản
-  weight: 35.0
 - name: Tín dụng
-  weight: 20.0
 - name: Thu nhập và hạ tầng
-  weight: 20.0
 - name: Tỷ giá
-  weight: 15.0
 - name: Lạm phát
-  weight: 10.0
