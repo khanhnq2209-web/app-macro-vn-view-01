@@ -96,6 +96,6 @@ def render_fedwatch() -> None:
             st.plotly_chart(
                 _history_chart(summ, pd.Timestamp(meeting)),
                 width="stretch",
-                config={"displayModeBar": False},
+                config=theme.download_config("fedwatch_lich_su"),
                 key="fw_hist",
             )

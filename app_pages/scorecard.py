@@ -7,6 +7,7 @@ import streamlit as st
 
 from macro_app import fmt
 from macro_app import profiles as pf
+from macro_app.charts import theme
 from macro_app.metrics import implications as im
 from macro_app.metrics.scorecard import bands_for as sc_bands_for
 from macro_app.metrics.scorecard import load_settings
@@ -237,7 +238,7 @@ if not hist.dropna(subset=["score"]).empty:
     st.plotly_chart(
         scorecard_view.history_chart(shown, bands),
         width="stretch",
-        config={"displayModeBar": False},
+        config=theme.download_config(f"diem_{profile}_{segment}"),
         key="sc_hist",
     )
 st.html(

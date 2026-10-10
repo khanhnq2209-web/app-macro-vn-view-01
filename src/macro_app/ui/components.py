@@ -6,6 +6,7 @@ import pandas as pd
 import streamlit as st
 
 from macro_app import fmt
+from macro_app.charts import theme
 from macro_app.charts.series import ChartSpec, SeriesSpec, build_chart
 from macro_app.ui import data
 
@@ -81,7 +82,9 @@ def chart_from_view(chart: dict, *, key: str, overrides: dict | None = None) -> 
         _add_forward(
             fig, data.series(codes[0]).dropna(), forward, cfg.get("forward_name", "Kỳ vọng")
         )
-    st.plotly_chart(fig, width="stretch", key=key, config={"displayModeBar": False})
+    st.plotly_chart(
+        fig, width="stretch", key=key, config=theme.download_config(cfg.get("title") or key)
+    )
     if cfg.get("note"):
         st.caption(cfg["note"])
 

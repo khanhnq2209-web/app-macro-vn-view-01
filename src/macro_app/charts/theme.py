@@ -65,3 +65,17 @@ def apply_theme(
     fig.update_xaxes(showgrid=False, linecolor=AXIS, title=None)
     fig.update_yaxes(showgrid=True, gridcolor=GRID, zeroline=True, zerolinecolor=AXIS)
     return fig
+
+
+def download_config(name: str) -> dict:
+    """Cấu hình Plotly: chỉ hiện nút tải ảnh PNG (góc phải trên biểu đồ), tên file theo biểu đồ."""
+    import re
+    import unicodedata
+
+    text = unicodedata.normalize("NFKD", name.replace("đ", "d").replace("Đ", "D"))
+    slug = re.sub(r"[^0-9A-Za-z]+", "_", text.encode("ascii", "ignore").decode()).strip("_").lower()
+    return {
+        "displaylogo": False,
+        "modeBarButtons": [["toImage"]],
+        "toImageButtonOptions": {"format": "png", "scale": 2, "filename": slug[:60] or "bieu_do"},
+    }
