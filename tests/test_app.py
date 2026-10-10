@@ -17,6 +17,7 @@ PAGES = [
     "scorecard",
     "scorecard_config",
     "forecasts",
+    "digest_guide",
     "views_editor",
     "detail",
 ]

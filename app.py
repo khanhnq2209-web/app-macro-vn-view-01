@@ -26,6 +26,7 @@ pages = {
         st.Page("app_pages/forecasts.py", title="Kế hoạch & dự báo"),
         st.Page("app_pages/international.py", title="Quốc tế"),
         st.Page("app_pages/vietnam.py", title="Việt Nam"),
+        st.Page("app_pages/digest_guide.py", title="Bản tin hằng ngày (ChatGPT)"),
         st.Page("app_pages/detail.py", title="Chi tiết chỉ số", visibility="hidden"),
     ],
 }
