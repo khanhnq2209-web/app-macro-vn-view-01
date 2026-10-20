@@ -482,7 +482,7 @@ date,score,coverage,rating,profile,segment
 2026-07-31,-0.5,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
 2026-08-31,-1.0,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
 2026-09-30,-0.875,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-10-31,-0.875,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-10-31,-0.75,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
 2016-10-31,1.666667,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
 2016-11-30,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
 2016-12-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
