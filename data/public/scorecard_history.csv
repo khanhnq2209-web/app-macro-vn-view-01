@@ -119,7 +119,7 @@ date,score,coverage,rating,profile,segment
 2026-07-31,-0.2,1.0,Bất lợi,theo_doi_bds_01,nha_o
 2026-08-31,-0.05,1.0,Bất lợi,theo_doi_bds_01,nha_o
 2026-09-30,0.1,1.0,Bất lợi,theo_doi_bds_01,nha_o
-2026-10-31,0.1,1.0,Bất lợi,theo_doi_bds_01,nha_o
+2026-10-31,0.15,1.0,Trung tính,theo_doi_bds_01,nha_o
 2016-10-31,,0.5,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
 2016-11-30,,0.5,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
 2016-12-31,,0.5,Chưa đủ dữ liệu,theo_doi_bds_01,kcn
@@ -240,7 +240,7 @@ date,score,coverage,rating,profile,segment
 2026-07-31,0.375,1.0,Trung tính,theo_doi_bds_01,kcn
 2026-08-31,0.375,1.0,Trung tính,theo_doi_bds_01,kcn
 2026-09-30,0.625,1.0,Trung tính,theo_doi_bds_01,kcn
-2026-10-31,0.625,1.0,Trung tính,theo_doi_bds_01,kcn
+2026-10-31,0.875,1.0,Thuận lợi,theo_doi_bds_01,kcn
 2016-10-31,-0.142857,0.7,Bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
 2016-11-30,-0.571429,0.7,Rất bất lợi,theo_doi_ty_gia_lai_suat,ty_gia
 2016-12-31,0.0,0.7,Trung tính,theo_doi_ty_gia_lai_suat,ty_gia
@@ -482,7 +482,7 @@ date,score,coverage,rating,profile,segment
 2026-07-31,-0.5,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
 2026-08-31,-1.0,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
 2026-09-30,-0.875,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
-2026-10-31,-0.75,1.0,Rất bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
+2026-10-31,-0.5,1.0,Bất lợi,theo_doi_ty_gia_lai_suat,lai_suat
 2016-10-31,1.666667,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
 2016-11-30,1.0,1.0,Rất thuận lợi,theo_doi_dau_khi,dau_khi
 2016-12-31,0.666667,1.0,Thuận lợi,theo_doi_dau_khi,dau_khi
